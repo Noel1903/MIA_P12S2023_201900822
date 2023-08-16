@@ -175,8 +175,12 @@ def p_error(t):
 import ply.yacc as yacc
 parser = yacc.yacc()
 input_text = '''mkdisk -size = 10 -unit=K -path=/home/usuario/Disco2.dsk
-              mkdisk -size = 25 -unit=M -path="/home/usuario 1/Disco1.dsk"
+              mkdisk -size = 25 -unit=k -path="/home/usuario 1/Disco1.dsk"
               rmdisk -path=/home/usuario/Disco2.dsk
-              fdisk -size = 2 -unit = k -path = "/home/usuario 1/Disco1.dsk" -type = p -name = Partition1'''
+              fdisk -size = 10 -unit = k -path = "/home/usuario 1/Disco1.dsk" -type = p -name = Partition1
+              fdisk -size = 8 -unit = k -path = "/home/usuario 1/Disco1.dsk" -type = p -name = Partition2
+              fdisk -size = 10 -unit = k -path = "/home/usuario 1/Disco1.dsk" -type = p -name = Partition3
+              fdisk -size = 5 -unit = k -path = "/home/usuario 1/Disco1.dsk" -type = p -name = Partition4
+              '''
 commands = parser.parse(input_text)
 

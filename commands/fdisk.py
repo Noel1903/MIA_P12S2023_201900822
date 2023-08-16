@@ -1,4 +1,4 @@
-from structs.struct import MBR
+from structs.struct import MBR,EBR
 import struct
 class fdisk:
     def __init__(self, params):
@@ -12,6 +12,22 @@ class fdisk:
         self.delete = ""
         self.add = ""
         self.execute()
+
+    def isLong(self,sizeP,start,end):
+        if sizeP > (end-start):
+            return True
+        else:
+            return False
+
+    def nameExist(self,name,partition1,partition2,partition3,partition4):
+        name_partition1 = partition1.decode('utf-8').replace(" ","").strip("\x00")
+        name_partition2 = partition2.decode('utf-8').replace(" ","").strip("\x00")
+        name_partition3 = partition3.decode('utf-8').replace(" ","").strip("\x00")
+        name_partition4 = partition4.decode('utf-8').replace(" ","").strip("\x00")
+        if (name_partition1 != name) and (name_partition2 != name) and (name_partition3 != name) and (name_partition4 != name):
+            return False
+        else:
+            return True
 
     def createPartition(self):
         if self.unit == "b":
@@ -34,9 +50,9 @@ class fdisk:
         else:
             if self.type == "p":
                 self.createPartitionP()
-            '''elif self.type == "e":
+            elif self.type == "e":
                 self.createPartitionE()
-            elif self.type == "l":
+            '''elif self.type == "l":
                 self.createPartitionL()'''
         
     
@@ -79,16 +95,27 @@ class fdisk:
             partition4 = mbr_unpack[22:28]
             type_p = type_p.replace(" ",r"")
             if type_p == 'f':
+                if self.nameExist(self.name,partition1[5],partition2[5],partition3[5],partition4[5]):
+                    print("Ya existe una particion con ese nombre")
+                    return
                 self.setFirstFit(partition1,partition2,partition3,partition4,mbr_unpack)
             
             f.close()
 
     def setFirstFit(self,partition1,partition2,partition3,partition4,mbr_unpack):
+        format_mbr = "I Q I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
         name_partition = partition1[5].decode('utf-8').replace(" ","")
         if name_partition == "FREE":
             if self.size > mbr_unpack[0]:
                 print("El tamaño de la particion es mayor al tamaño del disco")
                 return
+            if (struct.calcsize(format_mbr)+self.size) > mbr_unpack[0]:
+                print("La particion es muy grande")
+                return
+            if partition2[3]>0:
+                if self.isLong(self.size,struct.calcsize(format_mbr),partition2[3]):
+                    print("La particion es muy grande")
+                    return
             format_mbr = "I Q I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
             fit_disk = mbr_unpack[3].decode('utf-8')
             mbr_bytes = struct.pack(format_mbr,mbr_unpack[0],mbr_unpack[1],mbr_unpack[2],fit_disk[0].encode('utf-8'),
@@ -101,12 +128,20 @@ class fdisk:
                 f.write(mbr_bytes)
                 f.close()
                 print("Particion creada exitosamente")
+                return
         else:
             name_partition = partition2[5].decode('utf-8').replace(" ","")
         if name_partition == "FREE":
             if self.size > mbr_unpack[0]:
                 print("El tamaño de la particion es mayor al tamaño del disco")
                 return
+            if (struct.calcsize(format_mbr)+self.size+partition1[4]) > mbr_unpack[0]:
+                print("La particion es muy grande")
+                return
+            if partition3[3]>0:
+                if self.isLong(self.size,struct.calcsize(format_mbr)+partition1[4],partition3[3]):
+                    print("La particion es muy grande")
+                    return
             format_mbr = "I Q I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
             fit_disk = mbr_unpack[3].decode('utf-8')
             mbr_bytes = struct.pack(format_mbr,mbr_unpack[0],mbr_unpack[1],mbr_unpack[2],fit_disk[0].encode('utf-8'),
@@ -119,12 +154,20 @@ class fdisk:
                 f.write(mbr_bytes)
                 f.close()
                 print("Particion creada exitosamente")
+                return
         else:
             name_partition = partition3[5].decode('utf-8').replace(" ","")
         if name_partition == "FREE":
             if self.size > mbr_unpack[0]:
                 print("El tamaño de la particion es mayor al tamaño del disco")
                 return
+            if (struct.calcsize(format_mbr)+self.size+partition1[4]+partition2[4]) > mbr_unpack[0]:
+                print("La particion es muy grande")
+                return
+            if partition4[3]>0:
+                if self.isLong(self.size,struct.calcsize(format_mbr)+partition1[4]+partition2[4],partition4[3]):
+                    print("La particion es muy grande")
+                    return
             format_mbr = "I Q I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
             fit_disk = mbr_unpack[3].decode('utf-8')
             mbr_bytes = struct.pack(format_mbr,mbr_unpack[0],mbr_unpack[1],mbr_unpack[2],fit_disk[0].encode('utf-8'),
@@ -137,24 +180,158 @@ class fdisk:
                 f.write(mbr_bytes)
                 f.close()
                 print("Particion creada exitosamente")
+                return
         else:
             name_partition = partition4[5].decode('utf-8').replace(" ","")
         if name_partition == "FREE":
             if self.size > mbr_unpack[0]:
                 print("El tamaño de la particion es mayor al tamaño del disco")
                 return
+            if self.isLong(self.size,struct.calcsize(format_mbr)+partition1[4]+partition2[4]+partition3[4],mbr_unpack[0]):
+                    print("La particion es muy grande")
+                    return
             format_mbr = "I Q I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
             fit_disk = mbr_unpack[3].decode('utf-8')
             mbr_bytes = struct.pack(format_mbr,mbr_unpack[0],mbr_unpack[1],mbr_unpack[2],fit_disk[0].encode('utf-8'),
                 partition1[0],partition1[1],partition1[2],partition1[3],partition1[4],partition1[5],
                 partition2[0],partition2[1],partition2[2],partition2[3],partition2[4],partition2[5],
                 partition3[0],partition3[1],partition3[2],partition3[3],partition3[4],partition3[5],
-                '1'.encode('utf-8'),self.type[0].encode('utf-8'),self.fit[0].encode('utf-8'),struct.calcsize(format_mbr)+partition1[4]+partition2[4],self.size,self.name.encode('utf-8')[0:16])
+                '1'.encode('utf-8'),self.type[0].encode('utf-8'),self.fit[0].encode('utf-8'),struct.calcsize(format_mbr)+partition1[4]+partition2[4]+partition3[4],self.size,self.name.encode('utf-8')[0:16])
             with open(self.path.replace(" ",r"\ "),"rb+") as f:
                 f.seek(0)
                 f.write(mbr_bytes)
                 f.close()
                 print("Particion creada exitosamente")
+                return
         else:
             print("No hay espacio para crear la particion")
             return
+
+    def createPartitionE(self):
+        print("Creando particion extendida . . . ")
+        route_path = self.path.replace(" ",r"\ ")
+        with open(route_path,"rb+") as f:
+            f.seek(0)
+            format_mbr = "I Q I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
+            data_bytes = f.read(struct.calcsize(format_mbr))
+            mbr_unpack = struct.unpack(format_mbr,data_bytes)
+            type_p = mbr_unpack[3].decode('utf-8').rstrip("\x00")
+            
+            partition1 = mbr_unpack[4:10]
+            partition2 = mbr_unpack[10:16]
+            partition3 = mbr_unpack[16:22]
+            partition4 = mbr_unpack[22:28]
+            type_p = type_p.replace(" ",r"")
+            if type_p == 'f':
+                if self.nameExist(self.name,partition1[5],partition2[5],partition3[5],partition4[5]):
+                    print("Ya existe una particion con ese nombre")
+                    return
+                self.setFirstFitExtend(partition1,partition2,partition3,partition4,mbr_unpack)
+            
+            f.close()
+
+    def setFirstFitExtend(self,partition1,partition2,partition3,partition4,mbr_unpack):
+        format_mbr = "I Q I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
+        name_partition = partition1[5].decode('utf-8').replace(" ","")
+        if name_partition == "FREE":
+            if self.size > mbr_unpack[0]:
+                print("El tamaño de la particion es mayor al tamaño del disco")
+                return
+            if (struct.calcsize(format_mbr)+self.size) > mbr_unpack[0]:
+                print("La particion es muy grande")
+                return
+            if partition2[3]>0:
+                if self.isLong(self.size,struct.calcsize(format_mbr),partition2[3]):
+                    print("La particion es muy grande")
+                    return
+            format_mbr = "I Q I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
+            fit_disk = mbr_unpack[3].decode('utf-8')
+            mbr_bytes = struct.pack(format_mbr,mbr_unpack[0],mbr_unpack[1],mbr_unpack[2],fit_disk[0].encode('utf-8'),
+                '1'.encode('utf-8'),self.type[0].encode('utf-8'),self.fit[0].encode('utf-8'),struct.calcsize(format_mbr),self.size,self.name.encode('utf-8')[0:16],
+                partition2[0],partition2[1],partition2[2],partition2[3],partition2[4],partition2[5],
+                partition3[0],partition3[1],partition3[2],partition3[3],partition3[4],partition3[5],
+                partition4[0],partition4[1],partition4[2],partition4[3],partition4[4],partition4[5])
+            with open(self.path.replace(" ",r"\ "),"rb+") as f:
+                f.seek(0)
+                f.write(mbr_bytes)
+                f.close()
+                print("Particion creada exitosamente")
+                return
+        else:
+            name_partition = partition2[5].decode('utf-8').replace(" ","")
+        if name_partition == "FREE":
+            if self.size > mbr_unpack[0]:
+                print("El tamaño de la particion es mayor al tamaño del disco")
+                return
+            if (struct.calcsize(format_mbr)+self.size+partition1[4]) > mbr_unpack[0]:
+                print("La particion es muy grande")
+                return
+            if partition3[3]>0:
+                if self.isLong(self.size,struct.calcsize(format_mbr)+partition1[4],partition3[3]):
+                    print("La particion es muy grande")
+                    return
+            format_mbr = "I Q I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
+            fit_disk = mbr_unpack[3].decode('utf-8')
+            mbr_bytes = struct.pack(format_mbr,mbr_unpack[0],mbr_unpack[1],mbr_unpack[2],fit_disk[0].encode('utf-8'),
+                partition1[0],partition1[1],partition1[2],partition1[3],partition1[4],partition1[5],
+                '1'.encode('utf-8'),self.type[0].encode('utf-8'),self.fit[0].encode('utf-8'),struct.calcsize(format_mbr)+partition1[4],self.size,self.name.encode('utf-8')[0:16],
+                partition3[0],partition3[1],partition3[2],partition3[3],partition3[4],partition3[5],
+                partition4[0],partition4[1],partition4[2],partition4[3],partition4[4],partition4[5])
+            with open(self.path.replace(" ",r"\ "),"rb+") as f:
+                f.seek(0)
+                f.write(mbr_bytes)
+                f.close()
+                print("Particion creada exitosamente")
+                return
+        else:
+            name_partition = partition3[5].decode('utf-8').replace(" ","")
+        if name_partition == "FREE":
+            if self.size > mbr_unpack[0]:
+                print("El tamaño de la particion es mayor al tamaño del disco")
+                return
+            if (struct.calcsize(format_mbr)+self.size+partition1[4]+partition2[4]) > mbr_unpack[0]:
+                print("La particion es muy grande")
+                return
+            if partition4[3]>0:
+                if self.isLong(self.size,struct.calcsize(format_mbr)+partition1[4]+partition2[4],partition4[3]):
+                    print("La particion es muy grande")
+                    return
+            format_mbr = "I Q I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
+            fit_disk = mbr_unpack[3].decode('utf-8')
+            mbr_bytes = struct.pack(format_mbr,mbr_unpack[0],mbr_unpack[1],mbr_unpack[2],fit_disk[0].encode('utf-8'),
+                partition1[0],partition1[1],partition1[2],partition1[3],partition1[4],partition1[5],
+                partition2[0],partition2[1],partition2[2],partition2[3],partition2[4],partition2[5],
+                '1'.encode('utf-8'),self.type[0].encode('utf-8'),self.fit[0].encode('utf-8'),struct.calcsize(format_mbr)+partition1[4]+partition2[4],self.size,self.name.encode('utf-8')[0:16],
+                partition4[0],partition4[1],partition4[2],partition4[3],partition4[4],partition4[5])
+            with open(self.path.replace(" ",r"\ "),"rb+") as f:
+                f.seek(0)
+                f.write(mbr_bytes)
+                f.close()
+                print("Particion creada exitosamente")
+                return
+        else:
+            name_partition = partition4[5].decode('utf-8').replace(" ","")
+        if name_partition == "FREE":
+            if self.size > mbr_unpack[0]:
+                print("El tamaño de la particion es mayor al tamaño del disco")
+                return
+            if self.isLong(self.size,struct.calcsize(format_mbr)+partition1[4]+partition2[4]+partition3[4],mbr_unpack[0]):
+                    print("La particion es muy grande")
+                    return
+            format_mbr = "I Q I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
+            fit_disk = mbr_unpack[3].decode('utf-8')
+            mbr_bytes = struct.pack(format_mbr,mbr_unpack[0],mbr_unpack[1],mbr_unpack[2],fit_disk[0].encode('utf-8'),
+                partition1[0],partition1[1],partition1[2],partition1[3],partition1[4],partition1[5],
+                partition2[0],partition2[1],partition2[2],partition2[3],partition2[4],partition2[5],
+                partition3[0],partition3[1],partition3[2],partition3[3],partition3[4],partition3[5],
+                '1'.encode('utf-8'),self.type[0].encode('utf-8'),self.fit[0].encode('utf-8'),struct.calcsize(format_mbr)+partition1[4]+partition2[4]+partition3[4],self.size,self.name.encode('utf-8')[0:16])
+            with open(self.path.replace(" ",r"\ "),"rb+") as f:
+                f.seek(0)
+                f.write(mbr_bytes)
+                f.close()
+                print("Particion creada exitosamente")
+                return
+        else:
+            print("No hay espacio para crear la particion")
+            return
+    

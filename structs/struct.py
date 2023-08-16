@@ -1,8 +1,4 @@
 
-#import datetime,struct
-
-
-
 class Partition:
     def __init__(self,part_status,part_type,part_fit,part_start,part_s,part_name):
         self.part_status = part_status
@@ -22,6 +18,23 @@ class MBR:
         self.mbr_partition_2 = mbr_partition_2
         self.mbr_partition_3 = mbr_partition_3
         self.mbr_partition_4 = mbr_partition_4
+
+class EBR:
+    def __init__(self,part_status,part_fit,part_start,part_s,part_name,part_next):
+        self.part_status = part_status
+        self.part_fit = part_fit
+        self.part_start = part_start
+        self.part_s = part_s
+        self.part_name = part_name
+        self.part_next = part_next
+
+
+
+
+
+
+
+
 
 
 
