@@ -35,7 +35,6 @@ class mkdisk:
 
     def createDiskFF(self):
         if self.unit == "k":
-            print("si")
             self.size = self.size * 1024
         elif self.unit == "m":
             self.size = self.size * 1024 * 1024
