@@ -55,7 +55,7 @@ class mkdisk:
         mbr_date = datetime.datetime.now()
         mbr_disk_signature = random.randint(1, 1000000000)
         partition = Partition('0', 'P', 'f', 0,0, "FREE            ")
-        format_mbr = "I Q I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
+        format_mbr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
         mbr = MBR(self.size, mbr_date, mbr_disk_signature, self.fit[0].encode('utf-8'), partition, partition, partition, partition)
         mbr_bytes = struct.pack(format_mbr,self.size,int(mbr_date.timestamp()),mbr_disk_signature,self.fit[0].encode('utf-8'),
                     mbr.mbr_partition_1.part_status.encode('utf-8'),mbr.mbr_partition_1.part_type.encode('utf-8'),mbr.mbr_partition_1.part_fit.encode('utf-8'),mbr.mbr_partition_1.part_start,mbr.mbr_partition_1.part_s,mbr.mbr_partition_1.part_name.encode('utf-8'),

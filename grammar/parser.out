@@ -31,24 +31,26 @@ Rule 25    fdisk_param -> SEPARATOR UNIT ASSIGN ID
 Rule 26    fdisk_param -> SEPARATOR TYPE ASSIGN ID
 Rule 27    fdisk_param -> SEPARATOR FIT ASSIGN ID
 Rule 28    fdisk_param -> SEPARATOR DELETE ASSIGN ID
-Rule 29    fdisk_param -> SEPARATOR ADD ASSIGN ID
+Rule 29    fdisk_param -> SEPARATOR ADD ASSIGN NUMBER
+Rule 30    fdisk_param -> SEPARATOR ADD ASSIGN NEGATIVE
 
 Terminals, with rules where they appear
 
-ADD                  : 29
-ASSIGN               : 8 9 12 13 14 15 16 20 21 22 23 24 25 26 27 28 29
+ADD                  : 29 30
+ASSIGN               : 8 9 12 13 14 15 16 20 21 22 23 24 25 26 27 28 29 30
 DELETE               : 28
 FDISK                : 17
 FIT                  : 16 27
-ID                   : 15 16 23 25 26 27 28 29
+ID                   : 15 16 23 25 26 27 28
 MKDISK               : 7
 NAME                 : 23 24
-NUMBER               : 12 20
+NEGATIVE             : 30
+NUMBER               : 12 20 29
 PATH                 : 8 9 13 14 21 22
 PATHWITHOUTQUOTES    : 9 14 22 24
 PATHWITHQUOTES       : 8 13 21
 RMDISK               : 8 9
-SEPARATOR            : 8 9 12 13 14 15 16 20 21 22 23 24 25 26 27 28 29
+SEPARATOR            : 8 9 12 13 14 15 16 20 21 22 23 24 25 26 27 28 29 30
 SIZE                 : 12 20
 TYPE                 : 26
 UNIT                 : 15 25
@@ -200,7 +202,8 @@ state 9
     (26) fdisk_param -> . SEPARATOR TYPE ASSIGN ID
     (27) fdisk_param -> . SEPARATOR FIT ASSIGN ID
     (28) fdisk_param -> . SEPARATOR DELETE ASSIGN ID
-    (29) fdisk_param -> . SEPARATOR ADD ASSIGN ID
+    (29) fdisk_param -> . SEPARATOR ADD ASSIGN NUMBER
+    (30) fdisk_param -> . SEPARATOR ADD ASSIGN NEGATIVE
 
     SEPARATOR       shift and go to state 17
 
@@ -281,7 +284,8 @@ state 15
     (26) fdisk_param -> . SEPARATOR TYPE ASSIGN ID
     (27) fdisk_param -> . SEPARATOR FIT ASSIGN ID
     (28) fdisk_param -> . SEPARATOR DELETE ASSIGN ID
-    (29) fdisk_param -> . SEPARATOR ADD ASSIGN ID
+    (29) fdisk_param -> . SEPARATOR ADD ASSIGN NUMBER
+    (30) fdisk_param -> . SEPARATOR ADD ASSIGN NEGATIVE
 
     MKDISK          reduce using rule 17 (fdisk_block -> FDISK fdisk_params .)
     RMDISK          reduce using rule 17 (fdisk_block -> FDISK fdisk_params .)
@@ -313,7 +317,8 @@ state 17
     (26) fdisk_param -> SEPARATOR . TYPE ASSIGN ID
     (27) fdisk_param -> SEPARATOR . FIT ASSIGN ID
     (28) fdisk_param -> SEPARATOR . DELETE ASSIGN ID
-    (29) fdisk_param -> SEPARATOR . ADD ASSIGN ID
+    (29) fdisk_param -> SEPARATOR . ADD ASSIGN NUMBER
+    (30) fdisk_param -> SEPARATOR . ADD ASSIGN NEGATIVE
 
     SIZE            shift and go to state 25
     PATH            shift and go to state 26
@@ -437,7 +442,8 @@ state 31
 
 state 32
 
-    (29) fdisk_param -> SEPARATOR ADD . ASSIGN ID
+    (29) fdisk_param -> SEPARATOR ADD . ASSIGN NUMBER
+    (30) fdisk_param -> SEPARATOR ADD . ASSIGN NEGATIVE
 
     ASSIGN          shift and go to state 45
 
@@ -536,9 +542,11 @@ state 44
 
 state 45
 
-    (29) fdisk_param -> SEPARATOR ADD ASSIGN . ID
+    (29) fdisk_param -> SEPARATOR ADD ASSIGN . NUMBER
+    (30) fdisk_param -> SEPARATOR ADD ASSIGN . NEGATIVE
 
-    ID              shift and go to state 62
+    NUMBER          shift and go to state 62
+    NEGATIVE        shift and go to state 63
 
 
 state 46
@@ -717,11 +725,22 @@ state 61
 
 state 62
 
-    (29) fdisk_param -> SEPARATOR ADD ASSIGN ID .
+    (29) fdisk_param -> SEPARATOR ADD ASSIGN NUMBER .
 
-    SEPARATOR       reduce using rule 29 (fdisk_param -> SEPARATOR ADD ASSIGN ID .)
-    MKDISK          reduce using rule 29 (fdisk_param -> SEPARATOR ADD ASSIGN ID .)
-    RMDISK          reduce using rule 29 (fdisk_param -> SEPARATOR ADD ASSIGN ID .)
-    FDISK           reduce using rule 29 (fdisk_param -> SEPARATOR ADD ASSIGN ID .)
-    $end            reduce using rule 29 (fdisk_param -> SEPARATOR ADD ASSIGN ID .)
+    SEPARATOR       reduce using rule 29 (fdisk_param -> SEPARATOR ADD ASSIGN NUMBER .)
+    MKDISK          reduce using rule 29 (fdisk_param -> SEPARATOR ADD ASSIGN NUMBER .)
+    RMDISK          reduce using rule 29 (fdisk_param -> SEPARATOR ADD ASSIGN NUMBER .)
+    FDISK           reduce using rule 29 (fdisk_param -> SEPARATOR ADD ASSIGN NUMBER .)
+    $end            reduce using rule 29 (fdisk_param -> SEPARATOR ADD ASSIGN NUMBER .)
+
+
+state 63
+
+    (30) fdisk_param -> SEPARATOR ADD ASSIGN NEGATIVE .
+
+    SEPARATOR       reduce using rule 30 (fdisk_param -> SEPARATOR ADD ASSIGN NEGATIVE .)
+    MKDISK          reduce using rule 30 (fdisk_param -> SEPARATOR ADD ASSIGN NEGATIVE .)
+    RMDISK          reduce using rule 30 (fdisk_param -> SEPARATOR ADD ASSIGN NEGATIVE .)
+    FDISK           reduce using rule 30 (fdisk_param -> SEPARATOR ADD ASSIGN NEGATIVE .)
+    $end            reduce using rule 30 (fdisk_param -> SEPARATOR ADD ASSIGN NEGATIVE .)
 

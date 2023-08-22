@@ -32,6 +32,7 @@ tokens = [
     'PATHWITHQUOTES',
     'PATHWITHOUTQUOTES',
     'NUMBER',
+    'NEGATIVE',
     'ID',
 ] + list(reserved.values())
 t_SEPARATOR = r'-'
@@ -50,7 +51,12 @@ def t_PATHWITHOUTQUOTES(t):
 def t_NUMBER(t):
     r'[0-9]+'
     t.value = int(t.value)
-    return t    
+    return t   
+
+def t_NEGATIVE(t):
+    r'-[0-9]+'
+    t.value = int(t.value)
+    return t 
 
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
@@ -151,7 +157,8 @@ def p_fdisk_param(t):
                    | SEPARATOR TYPE ASSIGN ID
                    | SEPARATOR FIT ASSIGN ID
                    | SEPARATOR DELETE ASSIGN ID
-                   | SEPARATOR ADD ASSIGN ID'''
+                   | SEPARATOR ADD ASSIGN NUMBER
+                   | SEPARATOR ADD ASSIGN NEGATIVE'''
     if t[2] == "path":
         t[0] = ["path", t[4]]
     elif t[2] == "size":
@@ -178,13 +185,16 @@ parser = yacc.yacc()
 input_text = '''mkdisk -size = 10 -unit=K -path=/home/usuario/Disco2.dsk
               mkdisk -size = 25 -unit=k -path="/home/usuario 1/Disco1.dsk"
               rmdisk -path=/home/usuario/Disco2.dsk
-              fdisk -size = 10 -unit = k -path = "/home/usuario 1/Disco1.dsk" -type = e -name = Partition1
-              fdisk -size = 100 -unit = b -path = "/home/usuario 1/Disco1.dsk" -type = l -name = PartitionL
-              fdisk -size = 100 -unit = b -path = "/home/usuario 1/Disco1.dsk" -type = l -name = PartitionL1
-              fdisk -size = 100 -unit = b -path = "/home/usuario 1/Disco1.dsk" -type = l -name = PartitionL2
-              fdisk -size = 8 -unit = k -path = "/home/usuario 1/Disco1.dsk" -type = e -name = Partition2
-              fdisk -size = 10 -unit = k -path = "/home/usuario 1/Disco1.dsk" -type = p -name = Partition3
-              fdisk -size = 3 -unit = k -path = "/home/usuario 1/Disco1.dsk" -type = p -name = Partition4'''
+              fdisk -size = 5 -unit = k -path = "/home/usuario 1/Disco1.dsk" -type = p -name = Partition1
+              fdisk -size = 10 -unit = k -path = "/home/usuario 1/Disco1.dsk" -type = p -name = Partition2
+              fdisk -size = 5 -unit = k -path = "/home/usuario 1/Disco1.dsk" -type = p -name = Partition3
+              fdisk -size = 4 -unit = k -path = "/home/usuario 1/Disco1.dsk" -type = e -name = Partition4
+              fdisk -size = 2000 -unit = b -path = "/home/usuario 1/Disco1.dsk" -type = l -name = PartitionL
+              fdisk -size = 1900 -unit = b -path = "/home/usuario 1/Disco1.dsk" -type = l -name = PartitionL1
+              fdisk -size = 50 -unit = b -path = "/home/usuario 1/Disco1.dsk" -type = l -name = PartitionL2
+              fdisk -path= "/home/usuario 1/Disco1.dsk" -delete = full -name = PartitionL1
+              fdisk -size = 1500 -unit = b -path = "/home/usuario 1/Disco1.dsk" -type = l -name = PartitionL1
+              fdisk -add = -300 -unit = b -path = "/home/usuario 1/Disco1.dsk" -name = PartitionL1'''
               
 commands = parser.parse(input_text)
 #fdisk -size = 10 -unit = b -path = "/home/usuario 1/Disco1.dsk" -type = l -name = PartitionL1
