@@ -10,11 +10,15 @@ sys.path.append(dir_padre)
 from commands.mkdisk import mkdisk
 from commands.rmdisk import rmdisk
 from commands.fdisk import fdisk
+from commands.mount import mount
+from commands.unmount import unmount
 #reserved words
 reserved = {
     'mkdisk' : 'MKDISK',
     'rmdisk' : 'RMDISK',
     'fdisk' : 'FDISK',
+    'mount' : 'MOUNT',
+    'unmount' : 'UNMOUNT',
     'size' : 'SIZE',
     'path' : 'PATH',
     'unit' : 'UNIT',
@@ -23,6 +27,7 @@ reserved = {
     'type' : 'TYPE',
     'delete' : 'DELETE',
     'add' : 'ADD',
+    'id': 'ID_PARAM',
 }
 
 #Tokens
@@ -31,9 +36,11 @@ tokens = [
     'ASSIGN',
     'PATHWITHQUOTES',
     'PATHWITHOUTQUOTES',
+    'MOUNTNAME',
     'NUMBER',
     'NEGATIVE',
     'ID',
+    'STRING'
 ] + list(reserved.values())
 t_SEPARATOR = r'-'
 t_ASSIGN = r'='
@@ -46,6 +53,12 @@ def t_PATHWITHQUOTES(t):
 
 def t_PATHWITHOUTQUOTES(t):
     r'(\/[^ "/\n]+(\.[a-zA-Z0-9]+)?)+'
+    return t
+
+
+def t_MOUNTNAME(t):
+    r'[0-9]+([a-zA-Z_][a-zA-Z_0-9]*)'
+    t.type = reserved.get(t.value,'MOUNTNAME')
     return t
 
 def t_NUMBER(t):
@@ -62,6 +75,12 @@ def t_ID(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
     t.type = reserved.get(t.value.lower(),'ID')
     return t
+
+def t_STRING(t):
+    r'\".*\"'
+    t.value = t.value[1:-1]
+    return t
+
 
 #Ignore
 t_ignore = ' \t'
@@ -94,7 +113,9 @@ def p_commands(t):
 def p_command(t):
     '''command : mkdisk_block
                | rmdisk_block
-               | fdisk_block'''
+               | fdisk_block
+               | mount_block
+               | unmount_block'''
     t[0] = t[1]
 
 def p_mkdisk_block(t):
@@ -176,6 +197,46 @@ def p_fdisk_param(t):
     elif t[2] == "add":
         t[0] = ["add", t[4]]  
 
+def p_mount_block(t):
+    'mount_block : MOUNT mount_params'
+    t[0] = mount(t[2])
+
+def p_mount_params(t):
+    '''mount_params : mount_params mount_param
+                    | mount_param'''
+    if len(t) == 3:
+        t[1].append(t[2])
+        t[0] = t[1]
+    else:
+        t[0] = [t[1]]
+
+def p_mount_param(t):
+    '''mount_param : SEPARATOR PATH ASSIGN PATHWITHQUOTES
+                   | SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES
+                   | SEPARATOR NAME ASSIGN ID'''
+    if t[2] == "path":
+        t[0] = ["path", t[4]]
+    elif t[2] == "name":
+        t[0] = ["name", t[4]]
+
+def p_unmount_block(t):
+    'unmount_block : UNMOUNT unmount_params'
+    t[0] = unmount(t[2])
+
+def p_unmount_params(t):
+    '''unmount_params : unmount_params unmount_param
+                      | unmount_param'''
+    if len(t) == 3:
+        t[1].append(t[2])
+        t[0] = t[1]
+    else:
+        t[0] = [t[1]]
+
+def p_unmount_param(t):
+    '''unmount_param : SEPARATOR ID_PARAM ASSIGN MOUNTNAME'''
+    if t[2] == "id":
+        t[0] = ["id", t[4]]
+
 def p_error(t):
     print("Syntax error at '%s'" % t.value)
 
@@ -194,7 +255,11 @@ input_text = '''mkdisk -size = 10 -unit=K -path=/home/usuario/Disco2.dsk
               fdisk -size = 50 -unit = b -path = "/home/usuario 1/Disco1.dsk" -type = l -name = PartitionL2
               fdisk -path= "/home/usuario 1/Disco1.dsk" -delete = full -name = PartitionL1
               fdisk -size = 1500 -unit = b -path = "/home/usuario 1/Disco1.dsk" -type = l -name = PartitionL1
-              fdisk -add = -300 -unit = b -path = "/home/usuario 1/Disco1.dsk" -name = PartitionL1'''
+              fdisk -add = -300 -unit = b -path = "/home/usuario 1/Disco1.dsk" -name = PartitionL1
+              mount -path = "/home/usuario 1/Disco1.dsk" -name = Partition1
+              mount -path = "/home/usuario 1/Disco1.dsk" -name = Partition2
+              unmount -id = 221Disco1
+              unmount -id = 221Disco2'''
               
 commands = parser.parse(input_text)
 #fdisk -size = 10 -unit = b -path = "/home/usuario 1/Disco1.dsk" -type = l -name = PartitionL1

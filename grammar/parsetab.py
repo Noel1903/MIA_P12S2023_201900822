@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'ADD ASSIGN DELETE FDISK FIT ID MKDISK NAME NEGATIVE NUMBER PATH PATHWITHOUTQUOTES PATHWITHQUOTES RMDISK SEPARATOR SIZE TYPE UNITinit : commandsIcommandsI : commandsI command\n                | commandcommand : mkdisk_block\n               | rmdisk_block\n               | fdisk_blockmkdisk_block : MKDISK mkdisk_paramsrmdisk_block : RMDISK SEPARATOR PATH ASSIGN PATHWITHQUOTES\n                    | RMDISK SEPARATOR PATH ASSIGN PATHWITHOUTQUOTESmkdisk_params : mkdisk_params mkdisk_param\n                     | mkdisk_parammkdisk_param : SEPARATOR SIZE ASSIGN NUMBER\n                    | SEPARATOR PATH ASSIGN PATHWITHQUOTES\n                    | SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES\n                    | SEPARATOR UNIT ASSIGN ID\n                    | SEPARATOR FIT ASSIGN IDfdisk_block : FDISK fdisk_paramsfdisk_params : fdisk_params fdisk_param\n                    | fdisk_paramfdisk_param : SEPARATOR SIZE ASSIGN NUMBER\n                   | SEPARATOR PATH ASSIGN PATHWITHQUOTES\n                   | SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES\n                   | SEPARATOR NAME ASSIGN ID\n                   | SEPARATOR NAME ASSIGN PATHWITHOUTQUOTES\n                   | SEPARATOR UNIT ASSIGN ID\n                   | SEPARATOR TYPE ASSIGN ID\n                   | SEPARATOR FIT ASSIGN ID\n                   | SEPARATOR DELETE ASSIGN ID\n                   | SEPARATOR ADD ASSIGN NUMBER\n                   | SEPARATOR ADD ASSIGN NEGATIVE'
+_lr_signature = 'ADD ASSIGN DELETE FDISK FIT ID ID_PARAM MKDISK MOUNT MOUNTNAME NAME NEGATIVE NUMBER PATH PATHWITHOUTQUOTES PATHWITHQUOTES RMDISK SEPARATOR SIZE STRING TYPE UNIT UNMOUNTinit : commandsIcommandsI : commandsI command\n                | commandcommand : mkdisk_block\n               | rmdisk_block\n               | fdisk_block\n               | mount_block\n               | unmount_blockmkdisk_block : MKDISK mkdisk_paramsrmdisk_block : RMDISK SEPARATOR PATH ASSIGN PATHWITHQUOTES\n                    | RMDISK SEPARATOR PATH ASSIGN PATHWITHOUTQUOTESmkdisk_params : mkdisk_params mkdisk_param\n                     | mkdisk_parammkdisk_param : SEPARATOR SIZE ASSIGN NUMBER\n                    | SEPARATOR PATH ASSIGN PATHWITHQUOTES\n                    | SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES\n                    | SEPARATOR UNIT ASSIGN ID\n                    | SEPARATOR FIT ASSIGN IDfdisk_block : FDISK fdisk_paramsfdisk_params : fdisk_params fdisk_param\n                    | fdisk_paramfdisk_param : SEPARATOR SIZE ASSIGN NUMBER\n                   | SEPARATOR PATH ASSIGN PATHWITHQUOTES\n                   | SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES\n                   | SEPARATOR NAME ASSIGN ID\n                   | SEPARATOR NAME ASSIGN PATHWITHOUTQUOTES\n                   | SEPARATOR UNIT ASSIGN ID\n                   | SEPARATOR TYPE ASSIGN ID\n                   | SEPARATOR FIT ASSIGN ID\n                   | SEPARATOR DELETE ASSIGN ID\n                   | SEPARATOR ADD ASSIGN NUMBER\n                   | SEPARATOR ADD ASSIGN NEGATIVEmount_block : MOUNT mount_paramsmount_params : mount_params mount_param\n                    | mount_parammount_param : SEPARATOR PATH ASSIGN PATHWITHQUOTES\n                   | SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES\n                   | SEPARATOR NAME ASSIGN IDunmount_block : UNMOUNT unmount_paramsunmount_params : unmount_params unmount_param\n                      | unmount_paramunmount_param : SEPARATOR ID_PARAM ASSIGN MOUNTNAME'
     
-_lr_action_items = {'MKDISK':([0,2,3,4,5,6,10,11,12,15,16,18,24,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,],[7,7,-3,-4,-5,-6,-2,-7,-11,-17,-19,-10,-18,-12,-13,-14,-15,-16,-8,-9,-20,-21,-22,-23,-24,-25,-26,-27,-28,-29,-30,]),'RMDISK':([0,2,3,4,5,6,10,11,12,15,16,18,24,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,],[8,8,-3,-4,-5,-6,-2,-7,-11,-17,-19,-10,-18,-12,-13,-14,-15,-16,-8,-9,-20,-21,-22,-23,-24,-25,-26,-27,-28,-29,-30,]),'FDISK':([0,2,3,4,5,6,10,11,12,15,16,18,24,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,],[9,9,-3,-4,-5,-6,-2,-7,-11,-17,-19,-10,-18,-12,-13,-14,-15,-16,-8,-9,-20,-21,-22,-23,-24,-25,-26,-27,-28,-29,-30,]),'$end':([1,2,3,4,5,6,10,11,12,15,16,18,24,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,],[0,-1,-3,-4,-5,-6,-2,-7,-11,-17,-19,-10,-18,-12,-13,-14,-15,-16,-8,-9,-20,-21,-22,-23,-24,-25,-26,-27,-28,-29,-30,]),'SEPARATOR':([7,8,9,11,12,15,16,18,24,46,47,48,49,50,53,54,55,56,57,58,59,60,61,62,63,],[13,14,17,13,-11,17,-19,-10,-18,-12,-13,-14,-15,-16,-20,-21,-22,-23,-24,-25,-26,-27,-28,-29,-30,]),'SIZE':([13,17,],[19,25,]),'PATH':([13,14,17,],[20,23,26,]),'UNIT':([13,17,],[21,28,]),'FIT':([13,17,],[22,30,]),'NAME':([17,],[27,]),'TYPE':([17,],[29,]),'DELETE':([17,],[31,]),'ADD':([17,],[32,]),'ASSIGN':([19,20,21,22,23,25,26,27,28,29,30,31,32,],[33,34,35,36,37,38,39,40,41,42,43,44,45,]),'NUMBER':([33,38,45,],[46,53,62,]),'PATHWITHQUOTES':([34,37,39,],[47,51,54,]),'PATHWITHOUTQUOTES':([34,37,39,40,],[48,52,55,57,]),'ID':([35,36,40,41,42,43,44,],[49,50,56,58,59,60,61,]),'NEGATIVE':([45,],[63,]),}
+_lr_action_items = {'MKDISK':([0,2,3,4,5,6,7,8,14,15,16,19,20,22,23,25,26,28,34,43,46,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,],[9,9,-3,-4,-5,-6,-7,-8,-2,-9,-13,-19,-21,-33,-35,-39,-41,-12,-20,-34,-40,-14,-15,-16,-17,-18,-10,-11,-22,-23,-24,-25,-26,-27,-28,-29,-30,-31,-32,-36,-37,-38,-42,]),'RMDISK':([0,2,3,4,5,6,7,8,14,15,16,19,20,22,23,25,26,28,34,43,46,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,],[10,10,-3,-4,-5,-6,-7,-8,-2,-9,-13,-19,-21,-33,-35,-39,-41,-12,-20,-34,-40,-14,-15,-16,-17,-18,-10,-11,-22,-23,-24,-25,-26,-27,-28,-29,-30,-31,-32,-36,-37,-38,-42,]),'FDISK':([0,2,3,4,5,6,7,8,14,15,16,19,20,22,23,25,26,28,34,43,46,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,],[11,11,-3,-4,-5,-6,-7,-8,-2,-9,-13,-19,-21,-33,-35,-39,-41,-12,-20,-34,-40,-14,-15,-16,-17,-18,-10,-11,-22,-23,-24,-25,-26,-27,-28,-29,-30,-31,-32,-36,-37,-38,-42,]),'MOUNT':([0,2,3,4,5,6,7,8,14,15,16,19,20,22,23,25,26,28,34,43,46,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,],[12,12,-3,-4,-5,-6,-7,-8,-2,-9,-13,-19,-21,-33,-35,-39,-41,-12,-20,-34,-40,-14,-15,-16,-17,-18,-10,-11,-22,-23,-24,-25,-26,-27,-28,-29,-30,-31,-32,-36,-37,-38,-42,]),'UNMOUNT':([0,2,3,4,5,6,7,8,14,15,16,19,20,22,23,25,26,28,34,43,46,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,],[13,13,-3,-4,-5,-6,-7,-8,-2,-9,-13,-19,-21,-33,-35,-39,-41,-12,-20,-34,-40,-14,-15,-16,-17,-18,-10,-11,-22,-23,-24,-25,-26,-27,-28,-29,-30,-31,-32,-36,-37,-38,-42,]),'$end':([1,2,3,4,5,6,7,8,14,15,16,19,20,22,23,25,26,28,34,43,46,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,],[0,-1,-3,-4,-5,-6,-7,-8,-2,-9,-13,-19,-21,-33,-35,-39,-41,-12,-20,-34,-40,-14,-15,-16,-17,-18,-10,-11,-22,-23,-24,-25,-26,-27,-28,-29,-30,-31,-32,-36,-37,-38,-42,]),'SEPARATOR':([9,10,11,12,13,15,16,19,20,22,23,25,26,28,34,43,46,64,65,66,67,68,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,],[17,18,21,24,27,17,-13,21,-21,24,-35,27,-41,-12,-20,-34,-40,-14,-15,-16,-17,-18,-22,-23,-24,-25,-26,-27,-28,-29,-30,-31,-32,-36,-37,-38,-42,]),'SIZE':([17,21,],[29,35,]),'PATH':([17,18,21,24,],[30,33,36,44,]),'UNIT':([17,21,],[31,38,]),'FIT':([17,21,],[32,40,]),'NAME':([21,24,],[37,45,]),'TYPE':([21,],[39,]),'DELETE':([21,],[41,]),'ADD':([21,],[42,]),'ID_PARAM':([27,],[47,]),'ASSIGN':([29,30,31,32,33,35,36,37,38,39,40,41,42,44,45,47,],[48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,]),'NUMBER':([48,53,60,],[64,71,80,]),'PATHWITHQUOTES':([49,52,54,61,],[65,69,72,82,]),'PATHWITHOUTQUOTES':([49,52,54,55,61,],[66,70,73,75,83,]),'ID':([50,51,55,56,57,58,59,62,],[67,68,74,76,77,78,79,84,]),'NEGATIVE':([60,],[81,]),'MOUNTNAME':([63,],[85,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'init':([0,],[1,]),'commandsI':([0,],[2,]),'command':([0,2,],[3,10,]),'mkdisk_block':([0,2,],[4,4,]),'rmdisk_block':([0,2,],[5,5,]),'fdisk_block':([0,2,],[6,6,]),'mkdisk_params':([7,],[11,]),'mkdisk_param':([7,11,],[12,18,]),'fdisk_params':([9,],[15,]),'fdisk_param':([9,15,],[16,24,]),}
+_lr_goto_items = {'init':([0,],[1,]),'commandsI':([0,],[2,]),'command':([0,2,],[3,14,]),'mkdisk_block':([0,2,],[4,4,]),'rmdisk_block':([0,2,],[5,5,]),'fdisk_block':([0,2,],[6,6,]),'mount_block':([0,2,],[7,7,]),'unmount_block':([0,2,],[8,8,]),'mkdisk_params':([9,],[15,]),'mkdisk_param':([9,15,],[16,28,]),'fdisk_params':([11,],[19,]),'fdisk_param':([11,19,],[20,34,]),'mount_params':([12,],[22,]),'mount_param':([12,22,],[23,43,]),'unmount_params':([13,],[25,]),'unmount_param':([13,25,],[26,46,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,34 +27,46 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> init","S'",1,None,None,None),
-  ('init -> commandsI','init',1,'p_init','grammar.py',82),
-  ('commandsI -> commandsI command','commandsI',2,'p_commands','grammar.py',86),
-  ('commandsI -> command','commandsI',1,'p_commands','grammar.py',87),
-  ('command -> mkdisk_block','command',1,'p_command','grammar.py',95),
-  ('command -> rmdisk_block','command',1,'p_command','grammar.py',96),
-  ('command -> fdisk_block','command',1,'p_command','grammar.py',97),
-  ('mkdisk_block -> MKDISK mkdisk_params','mkdisk_block',2,'p_mkdisk_block','grammar.py',101),
-  ('rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHQUOTES','rmdisk_block',5,'p_rmdisk_block','grammar.py',106),
-  ('rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES','rmdisk_block',5,'p_rmdisk_block','grammar.py',107),
-  ('mkdisk_params -> mkdisk_params mkdisk_param','mkdisk_params',2,'p_mkdisk_params','grammar.py',111),
-  ('mkdisk_params -> mkdisk_param','mkdisk_params',1,'p_mkdisk_params','grammar.py',112),
-  ('mkdisk_param -> SEPARATOR SIZE ASSIGN NUMBER','mkdisk_param',4,'p_mkdisk_param','grammar.py',120),
-  ('mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES','mkdisk_param',4,'p_mkdisk_param','grammar.py',121),
-  ('mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES','mkdisk_param',4,'p_mkdisk_param','grammar.py',122),
-  ('mkdisk_param -> SEPARATOR UNIT ASSIGN ID','mkdisk_param',4,'p_mkdisk_param','grammar.py',123),
-  ('mkdisk_param -> SEPARATOR FIT ASSIGN ID','mkdisk_param',4,'p_mkdisk_param','grammar.py',124),
-  ('fdisk_block -> FDISK fdisk_params','fdisk_block',2,'p_fdisk_block','grammar.py',138),
-  ('fdisk_params -> fdisk_params fdisk_param','fdisk_params',2,'p_fdisk_params','grammar.py',142),
-  ('fdisk_params -> fdisk_param','fdisk_params',1,'p_fdisk_params','grammar.py',143),
-  ('fdisk_param -> SEPARATOR SIZE ASSIGN NUMBER','fdisk_param',4,'p_fdisk_param','grammar.py',151),
-  ('fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES','fdisk_param',4,'p_fdisk_param','grammar.py',152),
-  ('fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES','fdisk_param',4,'p_fdisk_param','grammar.py',153),
-  ('fdisk_param -> SEPARATOR NAME ASSIGN ID','fdisk_param',4,'p_fdisk_param','grammar.py',154),
-  ('fdisk_param -> SEPARATOR NAME ASSIGN PATHWITHOUTQUOTES','fdisk_param',4,'p_fdisk_param','grammar.py',155),
-  ('fdisk_param -> SEPARATOR UNIT ASSIGN ID','fdisk_param',4,'p_fdisk_param','grammar.py',156),
-  ('fdisk_param -> SEPARATOR TYPE ASSIGN ID','fdisk_param',4,'p_fdisk_param','grammar.py',157),
-  ('fdisk_param -> SEPARATOR FIT ASSIGN ID','fdisk_param',4,'p_fdisk_param','grammar.py',158),
-  ('fdisk_param -> SEPARATOR DELETE ASSIGN ID','fdisk_param',4,'p_fdisk_param','grammar.py',159),
-  ('fdisk_param -> SEPARATOR ADD ASSIGN NUMBER','fdisk_param',4,'p_fdisk_param','grammar.py',160),
-  ('fdisk_param -> SEPARATOR ADD ASSIGN NEGATIVE','fdisk_param',4,'p_fdisk_param','grammar.py',161),
+  ('init -> commandsI','init',1,'p_init','grammar.py',99),
+  ('commandsI -> commandsI command','commandsI',2,'p_commands','grammar.py',103),
+  ('commandsI -> command','commandsI',1,'p_commands','grammar.py',104),
+  ('command -> mkdisk_block','command',1,'p_command','grammar.py',112),
+  ('command -> rmdisk_block','command',1,'p_command','grammar.py',113),
+  ('command -> fdisk_block','command',1,'p_command','grammar.py',114),
+  ('command -> mount_block','command',1,'p_command','grammar.py',115),
+  ('command -> unmount_block','command',1,'p_command','grammar.py',116),
+  ('mkdisk_block -> MKDISK mkdisk_params','mkdisk_block',2,'p_mkdisk_block','grammar.py',120),
+  ('rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHQUOTES','rmdisk_block',5,'p_rmdisk_block','grammar.py',125),
+  ('rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES','rmdisk_block',5,'p_rmdisk_block','grammar.py',126),
+  ('mkdisk_params -> mkdisk_params mkdisk_param','mkdisk_params',2,'p_mkdisk_params','grammar.py',130),
+  ('mkdisk_params -> mkdisk_param','mkdisk_params',1,'p_mkdisk_params','grammar.py',131),
+  ('mkdisk_param -> SEPARATOR SIZE ASSIGN NUMBER','mkdisk_param',4,'p_mkdisk_param','grammar.py',139),
+  ('mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES','mkdisk_param',4,'p_mkdisk_param','grammar.py',140),
+  ('mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES','mkdisk_param',4,'p_mkdisk_param','grammar.py',141),
+  ('mkdisk_param -> SEPARATOR UNIT ASSIGN ID','mkdisk_param',4,'p_mkdisk_param','grammar.py',142),
+  ('mkdisk_param -> SEPARATOR FIT ASSIGN ID','mkdisk_param',4,'p_mkdisk_param','grammar.py',143),
+  ('fdisk_block -> FDISK fdisk_params','fdisk_block',2,'p_fdisk_block','grammar.py',157),
+  ('fdisk_params -> fdisk_params fdisk_param','fdisk_params',2,'p_fdisk_params','grammar.py',161),
+  ('fdisk_params -> fdisk_param','fdisk_params',1,'p_fdisk_params','grammar.py',162),
+  ('fdisk_param -> SEPARATOR SIZE ASSIGN NUMBER','fdisk_param',4,'p_fdisk_param','grammar.py',170),
+  ('fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES','fdisk_param',4,'p_fdisk_param','grammar.py',171),
+  ('fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES','fdisk_param',4,'p_fdisk_param','grammar.py',172),
+  ('fdisk_param -> SEPARATOR NAME ASSIGN ID','fdisk_param',4,'p_fdisk_param','grammar.py',173),
+  ('fdisk_param -> SEPARATOR NAME ASSIGN PATHWITHOUTQUOTES','fdisk_param',4,'p_fdisk_param','grammar.py',174),
+  ('fdisk_param -> SEPARATOR UNIT ASSIGN ID','fdisk_param',4,'p_fdisk_param','grammar.py',175),
+  ('fdisk_param -> SEPARATOR TYPE ASSIGN ID','fdisk_param',4,'p_fdisk_param','grammar.py',176),
+  ('fdisk_param -> SEPARATOR FIT ASSIGN ID','fdisk_param',4,'p_fdisk_param','grammar.py',177),
+  ('fdisk_param -> SEPARATOR DELETE ASSIGN ID','fdisk_param',4,'p_fdisk_param','grammar.py',178),
+  ('fdisk_param -> SEPARATOR ADD ASSIGN NUMBER','fdisk_param',4,'p_fdisk_param','grammar.py',179),
+  ('fdisk_param -> SEPARATOR ADD ASSIGN NEGATIVE','fdisk_param',4,'p_fdisk_param','grammar.py',180),
+  ('mount_block -> MOUNT mount_params','mount_block',2,'p_mount_block','grammar.py',199),
+  ('mount_params -> mount_params mount_param','mount_params',2,'p_mount_params','grammar.py',203),
+  ('mount_params -> mount_param','mount_params',1,'p_mount_params','grammar.py',204),
+  ('mount_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES','mount_param',4,'p_mount_param','grammar.py',212),
+  ('mount_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES','mount_param',4,'p_mount_param','grammar.py',213),
+  ('mount_param -> SEPARATOR NAME ASSIGN ID','mount_param',4,'p_mount_param','grammar.py',214),
+  ('unmount_block -> UNMOUNT unmount_params','unmount_block',2,'p_unmount_block','grammar.py',221),
+  ('unmount_params -> unmount_params unmount_param','unmount_params',2,'p_unmount_params','grammar.py',225),
+  ('unmount_params -> unmount_param','unmount_params',1,'p_unmount_params','grammar.py',226),
+  ('unmount_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME','unmount_param',4,'p_unmount_param','grammar.py',234),
 ]

@@ -28,6 +28,12 @@ class EBR:
         self.part_next = part_next
         self.part_name = part_name
 
+class Mount:
+    def __init__(self,nameDisk,part_id,count):
+        self.nameDisk = nameDisk
+        self.part_id = part_id
+        self.count = count
+
 
 
 
