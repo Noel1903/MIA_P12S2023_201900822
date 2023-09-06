@@ -415,9 +415,10 @@ input_text = '''mkdisk -size = 10 -unit=K -path=/home/usuario/Disco2.dsk
               mkgrp -name = usuarios
               mkgrp -name = usuarios2
               mkusr -user = usuario1 -pass = 123 -grp = usuarios
-              mkdir -path = /home/user1
-              mkdir -path = /home/tmp
-              mkdir -path = /home/user1/example
+              mkdir -path = /home
+              mkdir -path = /tmp
+              mkdir -path = /home/usuario
+              mkdir -path = /home/usuario/Documentos
               login -user=root -pass = 123 -id = 221Disco1
               mkgrp -name = usuariosejemplo'''
               

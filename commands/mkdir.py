@@ -87,8 +87,8 @@ class mkdir:
         format_b_folder = "12s i 12s i 12s i 12s i"
         with open(self.path_mount,"rb+") as f:
             if index != 0:
-                index = index - 1
-            f.seek(start_inodes+(struct.calcsize(format_i)*(index-1)))
+                index = index-1
+            f.seek(start_inodes+(struct.calcsize(format_i)*(index)))
             inode_unpack = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
             #inode_unpack = list(inode_unpack)
             i_block = inode_unpack[6:21]
