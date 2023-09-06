@@ -319,6 +319,9 @@ class fdisk:
                 return
             print("No existe una particion con ese nombre")
             return
+        else:
+            print("No existe una particion extendida")
+            return
 
 
     def deletePartition(self):

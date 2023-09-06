@@ -1,9 +1,5 @@
 Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
-Unused terminals:
-
-    STRING
-
 Grammar
 
 Rule 0     S' -> init
@@ -15,66 +11,120 @@ Rule 5     command -> rmdisk_block
 Rule 6     command -> fdisk_block
 Rule 7     command -> mount_block
 Rule 8     command -> unmount_block
-Rule 9     mkdisk_block -> MKDISK mkdisk_params
-Rule 10    rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHQUOTES
-Rule 11    rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES
-Rule 12    mkdisk_params -> mkdisk_params mkdisk_param
-Rule 13    mkdisk_params -> mkdisk_param
-Rule 14    mkdisk_param -> SEPARATOR SIZE ASSIGN NUMBER
-Rule 15    mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES
-Rule 16    mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES
-Rule 17    mkdisk_param -> SEPARATOR UNIT ASSIGN ID
-Rule 18    mkdisk_param -> SEPARATOR FIT ASSIGN ID
-Rule 19    fdisk_block -> FDISK fdisk_params
-Rule 20    fdisk_params -> fdisk_params fdisk_param
-Rule 21    fdisk_params -> fdisk_param
-Rule 22    fdisk_param -> SEPARATOR SIZE ASSIGN NUMBER
-Rule 23    fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES
-Rule 24    fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES
-Rule 25    fdisk_param -> SEPARATOR NAME ASSIGN ID
-Rule 26    fdisk_param -> SEPARATOR NAME ASSIGN PATHWITHOUTQUOTES
-Rule 27    fdisk_param -> SEPARATOR UNIT ASSIGN ID
-Rule 28    fdisk_param -> SEPARATOR TYPE ASSIGN ID
-Rule 29    fdisk_param -> SEPARATOR FIT ASSIGN ID
-Rule 30    fdisk_param -> SEPARATOR DELETE ASSIGN ID
-Rule 31    fdisk_param -> SEPARATOR ADD ASSIGN NUMBER
-Rule 32    fdisk_param -> SEPARATOR ADD ASSIGN NEGATIVE
-Rule 33    mount_block -> MOUNT mount_params
-Rule 34    mount_params -> mount_params mount_param
-Rule 35    mount_params -> mount_param
-Rule 36    mount_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES
-Rule 37    mount_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES
-Rule 38    mount_param -> SEPARATOR NAME ASSIGN ID
-Rule 39    unmount_block -> UNMOUNT unmount_params
-Rule 40    unmount_params -> unmount_params unmount_param
-Rule 41    unmount_params -> unmount_param
-Rule 42    unmount_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME
+Rule 9     command -> mkfs_block
+Rule 10    command -> login_block
+Rule 11    command -> logout_block
+Rule 12    command -> mkgrp_block
+Rule 13    command -> usr_block
+Rule 14    command -> mkdir_block
+Rule 15    mkdisk_block -> MKDISK mkdisk_params
+Rule 16    rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHQUOTES
+Rule 17    rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES
+Rule 18    mkdisk_params -> mkdisk_params mkdisk_param
+Rule 19    mkdisk_params -> mkdisk_param
+Rule 20    mkdisk_param -> SEPARATOR SIZE ASSIGN NUMBER
+Rule 21    mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES
+Rule 22    mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES
+Rule 23    mkdisk_param -> SEPARATOR UNIT ASSIGN ID
+Rule 24    mkdisk_param -> SEPARATOR FIT ASSIGN ID
+Rule 25    fdisk_block -> FDISK fdisk_params
+Rule 26    fdisk_params -> fdisk_params fdisk_param
+Rule 27    fdisk_params -> fdisk_param
+Rule 28    fdisk_param -> SEPARATOR SIZE ASSIGN NUMBER
+Rule 29    fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES
+Rule 30    fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES
+Rule 31    fdisk_param -> SEPARATOR NAME ASSIGN ID
+Rule 32    fdisk_param -> SEPARATOR NAME ASSIGN PATHWITHOUTQUOTES
+Rule 33    fdisk_param -> SEPARATOR UNIT ASSIGN ID
+Rule 34    fdisk_param -> SEPARATOR TYPE ASSIGN ID
+Rule 35    fdisk_param -> SEPARATOR FIT ASSIGN ID
+Rule 36    fdisk_param -> SEPARATOR DELETE ASSIGN ID
+Rule 37    fdisk_param -> SEPARATOR ADD ASSIGN NUMBER
+Rule 38    fdisk_param -> SEPARATOR ADD ASSIGN NEGATIVE
+Rule 39    mount_block -> MOUNT mount_params
+Rule 40    mount_params -> mount_params mount_param
+Rule 41    mount_params -> mount_param
+Rule 42    mount_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES
+Rule 43    mount_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES
+Rule 44    mount_param -> SEPARATOR NAME ASSIGN ID
+Rule 45    unmount_block -> UNMOUNT unmount_params
+Rule 46    unmount_params -> unmount_params unmount_param
+Rule 47    unmount_params -> unmount_param
+Rule 48    unmount_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME
+Rule 49    mkfs_block -> MKFS mkfs_params
+Rule 50    mkfs_params -> mkfs_params mkfs_param
+Rule 51    mkfs_params -> mkfs_param
+Rule 52    mkfs_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME
+Rule 53    mkfs_param -> SEPARATOR TYPE ASSIGN ID
+Rule 54    mkfs_param -> SEPARATOR FS ASSIGN MOUNTNAME
+Rule 55    login_block -> LOGIN login_params
+Rule 56    login_params -> login_params login_param
+Rule 57    login_params -> login_param
+Rule 58    login_param -> SEPARATOR USER ASSIGN STRING
+Rule 59    login_param -> SEPARATOR PASS ASSIGN STRING
+Rule 60    login_param -> SEPARATOR PASS ASSIGN ID
+Rule 61    login_param -> SEPARATOR PASS ASSIGN NUMBER
+Rule 62    login_param -> SEPARATOR USER ASSIGN ID
+Rule 63    login_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME
+Rule 64    logout_block -> LOGOUT
+Rule 65    mkgrp_block -> MKGRP mkgrp_params
+Rule 66    mkgrp_params -> mkgrp_params mkgrp_param
+Rule 67    mkgrp_params -> mkgrp_param
+Rule 68    mkgrp_param -> SEPARATOR NAME ASSIGN ID
+Rule 69    mkgrp_param -> SEPARATOR NAME ASSIGN STRING
+Rule 70    usr_block -> MKUSR usr_params
+Rule 71    usr_params -> usr_params usr_param
+Rule 72    usr_params -> usr_param
+Rule 73    usr_param -> SEPARATOR USER ASSIGN ID
+Rule 74    usr_param -> SEPARATOR USER ASSIGN STRING
+Rule 75    usr_param -> SEPARATOR PASS ASSIGN ID
+Rule 76    usr_param -> SEPARATOR PASS ASSIGN STRING
+Rule 77    usr_param -> SEPARATOR PASS ASSIGN NUMBER
+Rule 78    usr_param -> SEPARATOR GRP ASSIGN ID
+Rule 79    usr_param -> SEPARATOR GRP ASSIGN STRING
+Rule 80    mkdir_block -> MKDIR mkdir_params
+Rule 81    mkdir_params -> mkdir_params mkdir_param
+Rule 82    mkdir_params -> mkdir_param
+Rule 83    mkdir_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES
+Rule 84    mkdir_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES
+Rule 85    mkdir_param -> SEPARATOR R
 
 Terminals, with rules where they appear
 
-ADD                  : 31 32
-ASSIGN               : 10 11 14 15 16 17 18 22 23 24 25 26 27 28 29 30 31 32 36 37 38 42
-DELETE               : 30
-FDISK                : 19
-FIT                  : 18 29
-ID                   : 17 18 25 27 28 29 30 38
-ID_PARAM             : 42
-MKDISK               : 9
-MOUNT                : 33
-MOUNTNAME            : 42
-NAME                 : 25 26 38
-NEGATIVE             : 32
-NUMBER               : 14 22 31
-PATH                 : 10 11 15 16 23 24 36 37
-PATHWITHOUTQUOTES    : 11 16 24 26 37
-PATHWITHQUOTES       : 10 15 23 36
-RMDISK               : 10 11
-SEPARATOR            : 10 11 14 15 16 17 18 22 23 24 25 26 27 28 29 30 31 32 36 37 38 42
-SIZE                 : 14 22
-STRING               : 
-TYPE                 : 28
-UNIT                 : 17 27
-UNMOUNT              : 39
+ADD                  : 37 38
+ASSIGN               : 16 17 20 21 22 23 24 28 29 30 31 32 33 34 35 36 37 38 42 43 44 48 52 53 54 58 59 60 61 62 63 68 69 73 74 75 76 77 78 79 83 84
+DELETE               : 36
+FDISK                : 25
+FIT                  : 24 35
+FS                   : 54
+GRP                  : 78 79
+ID                   : 23 24 31 33 34 35 36 44 53 60 62 68 73 75 78
+ID_PARAM             : 48 52 63
+LOGIN                : 55
+LOGOUT               : 64
+MKDIR                : 80
+MKDISK               : 15
+MKFS                 : 49
+MKGRP                : 65
+MKUSR                : 70
+MOUNT                : 39
+MOUNTNAME            : 48 52 54 63
+NAME                 : 31 32 44 68 69
+NEGATIVE             : 38
+NUMBER               : 20 28 37 61 77
+PASS                 : 59 60 61 75 76 77
+PATH                 : 16 17 21 22 29 30 42 43 83 84
+PATHWITHOUTQUOTES    : 17 22 30 32 43 84
+PATHWITHQUOTES       : 16 21 29 42 83
+R                    : 85
+RMDISK               : 16 17
+SEPARATOR            : 16 17 20 21 22 23 24 28 29 30 31 32 33 34 35 36 37 38 42 43 44 48 52 53 54 58 59 60 61 62 63 68 69 73 74 75 76 77 78 79 83 84 85
+SIZE                 : 20 28
+STRING               : 58 59 69 74 76 79
+TYPE                 : 34 53
+UNIT                 : 23 33
+UNMOUNT              : 45
+USER                 : 58 62 73 74
 error                : 
 
 Nonterminals, with rules where they appear
@@ -82,19 +132,35 @@ Nonterminals, with rules where they appear
 command              : 2 3
 commandsI            : 1 2
 fdisk_block          : 6
-fdisk_param          : 20 21
-fdisk_params         : 19 20
+fdisk_param          : 26 27
+fdisk_params         : 25 26
 init                 : 0
+login_block          : 10
+login_param          : 56 57
+login_params         : 55 56
+logout_block         : 11
+mkdir_block          : 14
+mkdir_param          : 81 82
+mkdir_params         : 80 81
 mkdisk_block         : 4
-mkdisk_param         : 12 13
-mkdisk_params        : 9 12
+mkdisk_param         : 18 19
+mkdisk_params        : 15 18
+mkfs_block           : 9
+mkfs_param           : 50 51
+mkfs_params          : 49 50
+mkgrp_block          : 12
+mkgrp_param          : 66 67
+mkgrp_params         : 65 66
 mount_block          : 7
-mount_param          : 34 35
-mount_params         : 33 34
+mount_param          : 40 41
+mount_params         : 39 40
 rmdisk_block         : 5
 unmount_block        : 8
-unmount_param        : 40 41
-unmount_params       : 39 40
+unmount_param        : 46 47
+unmount_params       : 45 46
+usr_block            : 13
+usr_param            : 71 72
+usr_params           : 70 71
 
 Parsing method: LALR
 
@@ -109,18 +175,36 @@ state 0
     (6) command -> . fdisk_block
     (7) command -> . mount_block
     (8) command -> . unmount_block
-    (9) mkdisk_block -> . MKDISK mkdisk_params
-    (10) rmdisk_block -> . RMDISK SEPARATOR PATH ASSIGN PATHWITHQUOTES
-    (11) rmdisk_block -> . RMDISK SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES
-    (19) fdisk_block -> . FDISK fdisk_params
-    (33) mount_block -> . MOUNT mount_params
-    (39) unmount_block -> . UNMOUNT unmount_params
+    (9) command -> . mkfs_block
+    (10) command -> . login_block
+    (11) command -> . logout_block
+    (12) command -> . mkgrp_block
+    (13) command -> . usr_block
+    (14) command -> . mkdir_block
+    (15) mkdisk_block -> . MKDISK mkdisk_params
+    (16) rmdisk_block -> . RMDISK SEPARATOR PATH ASSIGN PATHWITHQUOTES
+    (17) rmdisk_block -> . RMDISK SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES
+    (25) fdisk_block -> . FDISK fdisk_params
+    (39) mount_block -> . MOUNT mount_params
+    (45) unmount_block -> . UNMOUNT unmount_params
+    (49) mkfs_block -> . MKFS mkfs_params
+    (55) login_block -> . LOGIN login_params
+    (64) logout_block -> . LOGOUT
+    (65) mkgrp_block -> . MKGRP mkgrp_params
+    (70) usr_block -> . MKUSR usr_params
+    (80) mkdir_block -> . MKDIR mkdir_params
 
-    MKDISK          shift and go to state 9
-    RMDISK          shift and go to state 10
-    FDISK           shift and go to state 11
-    MOUNT           shift and go to state 12
-    UNMOUNT         shift and go to state 13
+    MKDISK          shift and go to state 15
+    RMDISK          shift and go to state 16
+    FDISK           shift and go to state 17
+    MOUNT           shift and go to state 18
+    UNMOUNT         shift and go to state 19
+    MKFS            shift and go to state 20
+    LOGIN           shift and go to state 21
+    LOGOUT          shift and go to state 22
+    MKGRP           shift and go to state 23
+    MKUSR           shift and go to state 24
+    MKDIR           shift and go to state 25
 
     init                           shift and go to state 1
     commandsI                      shift and go to state 2
@@ -130,6 +214,12 @@ state 0
     fdisk_block                    shift and go to state 6
     mount_block                    shift and go to state 7
     unmount_block                  shift and go to state 8
+    mkfs_block                     shift and go to state 9
+    login_block                    shift and go to state 10
+    logout_block                   shift and go to state 11
+    mkgrp_block                    shift and go to state 12
+    usr_block                      shift and go to state 13
+    mkdir_block                    shift and go to state 14
 
 state 1
 
@@ -146,26 +236,50 @@ state 2
     (6) command -> . fdisk_block
     (7) command -> . mount_block
     (8) command -> . unmount_block
-    (9) mkdisk_block -> . MKDISK mkdisk_params
-    (10) rmdisk_block -> . RMDISK SEPARATOR PATH ASSIGN PATHWITHQUOTES
-    (11) rmdisk_block -> . RMDISK SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES
-    (19) fdisk_block -> . FDISK fdisk_params
-    (33) mount_block -> . MOUNT mount_params
-    (39) unmount_block -> . UNMOUNT unmount_params
+    (9) command -> . mkfs_block
+    (10) command -> . login_block
+    (11) command -> . logout_block
+    (12) command -> . mkgrp_block
+    (13) command -> . usr_block
+    (14) command -> . mkdir_block
+    (15) mkdisk_block -> . MKDISK mkdisk_params
+    (16) rmdisk_block -> . RMDISK SEPARATOR PATH ASSIGN PATHWITHQUOTES
+    (17) rmdisk_block -> . RMDISK SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES
+    (25) fdisk_block -> . FDISK fdisk_params
+    (39) mount_block -> . MOUNT mount_params
+    (45) unmount_block -> . UNMOUNT unmount_params
+    (49) mkfs_block -> . MKFS mkfs_params
+    (55) login_block -> . LOGIN login_params
+    (64) logout_block -> . LOGOUT
+    (65) mkgrp_block -> . MKGRP mkgrp_params
+    (70) usr_block -> . MKUSR usr_params
+    (80) mkdir_block -> . MKDIR mkdir_params
 
     $end            reduce using rule 1 (init -> commandsI .)
-    MKDISK          shift and go to state 9
-    RMDISK          shift and go to state 10
-    FDISK           shift and go to state 11
-    MOUNT           shift and go to state 12
-    UNMOUNT         shift and go to state 13
+    MKDISK          shift and go to state 15
+    RMDISK          shift and go to state 16
+    FDISK           shift and go to state 17
+    MOUNT           shift and go to state 18
+    UNMOUNT         shift and go to state 19
+    MKFS            shift and go to state 20
+    LOGIN           shift and go to state 21
+    LOGOUT          shift and go to state 22
+    MKGRP           shift and go to state 23
+    MKUSR           shift and go to state 24
+    MKDIR           shift and go to state 25
 
-    command                        shift and go to state 14
+    command                        shift and go to state 26
     mkdisk_block                   shift and go to state 4
     rmdisk_block                   shift and go to state 5
     fdisk_block                    shift and go to state 6
     mount_block                    shift and go to state 7
     unmount_block                  shift and go to state 8
+    mkfs_block                     shift and go to state 9
+    login_block                    shift and go to state 10
+    logout_block                   shift and go to state 11
+    mkgrp_block                    shift and go to state 12
+    usr_block                      shift and go to state 13
+    mkdir_block                    shift and go to state 14
 
 state 3
 
@@ -176,6 +290,12 @@ state 3
     FDISK           reduce using rule 3 (commandsI -> command .)
     MOUNT           reduce using rule 3 (commandsI -> command .)
     UNMOUNT         reduce using rule 3 (commandsI -> command .)
+    MKFS            reduce using rule 3 (commandsI -> command .)
+    LOGIN           reduce using rule 3 (commandsI -> command .)
+    LOGOUT          reduce using rule 3 (commandsI -> command .)
+    MKGRP           reduce using rule 3 (commandsI -> command .)
+    MKUSR           reduce using rule 3 (commandsI -> command .)
+    MKDIR           reduce using rule 3 (commandsI -> command .)
     $end            reduce using rule 3 (commandsI -> command .)
 
 
@@ -188,6 +308,12 @@ state 4
     FDISK           reduce using rule 4 (command -> mkdisk_block .)
     MOUNT           reduce using rule 4 (command -> mkdisk_block .)
     UNMOUNT         reduce using rule 4 (command -> mkdisk_block .)
+    MKFS            reduce using rule 4 (command -> mkdisk_block .)
+    LOGIN           reduce using rule 4 (command -> mkdisk_block .)
+    LOGOUT          reduce using rule 4 (command -> mkdisk_block .)
+    MKGRP           reduce using rule 4 (command -> mkdisk_block .)
+    MKUSR           reduce using rule 4 (command -> mkdisk_block .)
+    MKDIR           reduce using rule 4 (command -> mkdisk_block .)
     $end            reduce using rule 4 (command -> mkdisk_block .)
 
 
@@ -200,6 +326,12 @@ state 5
     FDISK           reduce using rule 5 (command -> rmdisk_block .)
     MOUNT           reduce using rule 5 (command -> rmdisk_block .)
     UNMOUNT         reduce using rule 5 (command -> rmdisk_block .)
+    MKFS            reduce using rule 5 (command -> rmdisk_block .)
+    LOGIN           reduce using rule 5 (command -> rmdisk_block .)
+    LOGOUT          reduce using rule 5 (command -> rmdisk_block .)
+    MKGRP           reduce using rule 5 (command -> rmdisk_block .)
+    MKUSR           reduce using rule 5 (command -> rmdisk_block .)
+    MKDIR           reduce using rule 5 (command -> rmdisk_block .)
     $end            reduce using rule 5 (command -> rmdisk_block .)
 
 
@@ -212,6 +344,12 @@ state 6
     FDISK           reduce using rule 6 (command -> fdisk_block .)
     MOUNT           reduce using rule 6 (command -> fdisk_block .)
     UNMOUNT         reduce using rule 6 (command -> fdisk_block .)
+    MKFS            reduce using rule 6 (command -> fdisk_block .)
+    LOGIN           reduce using rule 6 (command -> fdisk_block .)
+    LOGOUT          reduce using rule 6 (command -> fdisk_block .)
+    MKGRP           reduce using rule 6 (command -> fdisk_block .)
+    MKUSR           reduce using rule 6 (command -> fdisk_block .)
+    MKDIR           reduce using rule 6 (command -> fdisk_block .)
     $end            reduce using rule 6 (command -> fdisk_block .)
 
 
@@ -224,6 +362,12 @@ state 7
     FDISK           reduce using rule 7 (command -> mount_block .)
     MOUNT           reduce using rule 7 (command -> mount_block .)
     UNMOUNT         reduce using rule 7 (command -> mount_block .)
+    MKFS            reduce using rule 7 (command -> mount_block .)
+    LOGIN           reduce using rule 7 (command -> mount_block .)
+    LOGOUT          reduce using rule 7 (command -> mount_block .)
+    MKGRP           reduce using rule 7 (command -> mount_block .)
+    MKUSR           reduce using rule 7 (command -> mount_block .)
+    MKDIR           reduce using rule 7 (command -> mount_block .)
     $end            reduce using rule 7 (command -> mount_block .)
 
 
@@ -236,82 +380,290 @@ state 8
     FDISK           reduce using rule 8 (command -> unmount_block .)
     MOUNT           reduce using rule 8 (command -> unmount_block .)
     UNMOUNT         reduce using rule 8 (command -> unmount_block .)
+    MKFS            reduce using rule 8 (command -> unmount_block .)
+    LOGIN           reduce using rule 8 (command -> unmount_block .)
+    LOGOUT          reduce using rule 8 (command -> unmount_block .)
+    MKGRP           reduce using rule 8 (command -> unmount_block .)
+    MKUSR           reduce using rule 8 (command -> unmount_block .)
+    MKDIR           reduce using rule 8 (command -> unmount_block .)
     $end            reduce using rule 8 (command -> unmount_block .)
 
 
 state 9
 
-    (9) mkdisk_block -> MKDISK . mkdisk_params
-    (12) mkdisk_params -> . mkdisk_params mkdisk_param
-    (13) mkdisk_params -> . mkdisk_param
-    (14) mkdisk_param -> . SEPARATOR SIZE ASSIGN NUMBER
-    (15) mkdisk_param -> . SEPARATOR PATH ASSIGN PATHWITHQUOTES
-    (16) mkdisk_param -> . SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES
-    (17) mkdisk_param -> . SEPARATOR UNIT ASSIGN ID
-    (18) mkdisk_param -> . SEPARATOR FIT ASSIGN ID
+    (9) command -> mkfs_block .
 
-    SEPARATOR       shift and go to state 17
+    MKDISK          reduce using rule 9 (command -> mkfs_block .)
+    RMDISK          reduce using rule 9 (command -> mkfs_block .)
+    FDISK           reduce using rule 9 (command -> mkfs_block .)
+    MOUNT           reduce using rule 9 (command -> mkfs_block .)
+    UNMOUNT         reduce using rule 9 (command -> mkfs_block .)
+    MKFS            reduce using rule 9 (command -> mkfs_block .)
+    LOGIN           reduce using rule 9 (command -> mkfs_block .)
+    LOGOUT          reduce using rule 9 (command -> mkfs_block .)
+    MKGRP           reduce using rule 9 (command -> mkfs_block .)
+    MKUSR           reduce using rule 9 (command -> mkfs_block .)
+    MKDIR           reduce using rule 9 (command -> mkfs_block .)
+    $end            reduce using rule 9 (command -> mkfs_block .)
 
-    mkdisk_params                  shift and go to state 15
-    mkdisk_param                   shift and go to state 16
 
 state 10
 
-    (10) rmdisk_block -> RMDISK . SEPARATOR PATH ASSIGN PATHWITHQUOTES
-    (11) rmdisk_block -> RMDISK . SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES
+    (10) command -> login_block .
 
-    SEPARATOR       shift and go to state 18
+    MKDISK          reduce using rule 10 (command -> login_block .)
+    RMDISK          reduce using rule 10 (command -> login_block .)
+    FDISK           reduce using rule 10 (command -> login_block .)
+    MOUNT           reduce using rule 10 (command -> login_block .)
+    UNMOUNT         reduce using rule 10 (command -> login_block .)
+    MKFS            reduce using rule 10 (command -> login_block .)
+    LOGIN           reduce using rule 10 (command -> login_block .)
+    LOGOUT          reduce using rule 10 (command -> login_block .)
+    MKGRP           reduce using rule 10 (command -> login_block .)
+    MKUSR           reduce using rule 10 (command -> login_block .)
+    MKDIR           reduce using rule 10 (command -> login_block .)
+    $end            reduce using rule 10 (command -> login_block .)
 
 
 state 11
 
-    (19) fdisk_block -> FDISK . fdisk_params
-    (20) fdisk_params -> . fdisk_params fdisk_param
-    (21) fdisk_params -> . fdisk_param
-    (22) fdisk_param -> . SEPARATOR SIZE ASSIGN NUMBER
-    (23) fdisk_param -> . SEPARATOR PATH ASSIGN PATHWITHQUOTES
-    (24) fdisk_param -> . SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES
-    (25) fdisk_param -> . SEPARATOR NAME ASSIGN ID
-    (26) fdisk_param -> . SEPARATOR NAME ASSIGN PATHWITHOUTQUOTES
-    (27) fdisk_param -> . SEPARATOR UNIT ASSIGN ID
-    (28) fdisk_param -> . SEPARATOR TYPE ASSIGN ID
-    (29) fdisk_param -> . SEPARATOR FIT ASSIGN ID
-    (30) fdisk_param -> . SEPARATOR DELETE ASSIGN ID
-    (31) fdisk_param -> . SEPARATOR ADD ASSIGN NUMBER
-    (32) fdisk_param -> . SEPARATOR ADD ASSIGN NEGATIVE
+    (11) command -> logout_block .
 
-    SEPARATOR       shift and go to state 21
+    MKDISK          reduce using rule 11 (command -> logout_block .)
+    RMDISK          reduce using rule 11 (command -> logout_block .)
+    FDISK           reduce using rule 11 (command -> logout_block .)
+    MOUNT           reduce using rule 11 (command -> logout_block .)
+    UNMOUNT         reduce using rule 11 (command -> logout_block .)
+    MKFS            reduce using rule 11 (command -> logout_block .)
+    LOGIN           reduce using rule 11 (command -> logout_block .)
+    LOGOUT          reduce using rule 11 (command -> logout_block .)
+    MKGRP           reduce using rule 11 (command -> logout_block .)
+    MKUSR           reduce using rule 11 (command -> logout_block .)
+    MKDIR           reduce using rule 11 (command -> logout_block .)
+    $end            reduce using rule 11 (command -> logout_block .)
 
-    fdisk_params                   shift and go to state 19
-    fdisk_param                    shift and go to state 20
 
 state 12
 
-    (33) mount_block -> MOUNT . mount_params
-    (34) mount_params -> . mount_params mount_param
-    (35) mount_params -> . mount_param
-    (36) mount_param -> . SEPARATOR PATH ASSIGN PATHWITHQUOTES
-    (37) mount_param -> . SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES
-    (38) mount_param -> . SEPARATOR NAME ASSIGN ID
+    (12) command -> mkgrp_block .
 
-    SEPARATOR       shift and go to state 24
+    MKDISK          reduce using rule 12 (command -> mkgrp_block .)
+    RMDISK          reduce using rule 12 (command -> mkgrp_block .)
+    FDISK           reduce using rule 12 (command -> mkgrp_block .)
+    MOUNT           reduce using rule 12 (command -> mkgrp_block .)
+    UNMOUNT         reduce using rule 12 (command -> mkgrp_block .)
+    MKFS            reduce using rule 12 (command -> mkgrp_block .)
+    LOGIN           reduce using rule 12 (command -> mkgrp_block .)
+    LOGOUT          reduce using rule 12 (command -> mkgrp_block .)
+    MKGRP           reduce using rule 12 (command -> mkgrp_block .)
+    MKUSR           reduce using rule 12 (command -> mkgrp_block .)
+    MKDIR           reduce using rule 12 (command -> mkgrp_block .)
+    $end            reduce using rule 12 (command -> mkgrp_block .)
 
-    mount_params                   shift and go to state 22
-    mount_param                    shift and go to state 23
 
 state 13
 
-    (39) unmount_block -> UNMOUNT . unmount_params
-    (40) unmount_params -> . unmount_params unmount_param
-    (41) unmount_params -> . unmount_param
-    (42) unmount_param -> . SEPARATOR ID_PARAM ASSIGN MOUNTNAME
+    (13) command -> usr_block .
 
-    SEPARATOR       shift and go to state 27
+    MKDISK          reduce using rule 13 (command -> usr_block .)
+    RMDISK          reduce using rule 13 (command -> usr_block .)
+    FDISK           reduce using rule 13 (command -> usr_block .)
+    MOUNT           reduce using rule 13 (command -> usr_block .)
+    UNMOUNT         reduce using rule 13 (command -> usr_block .)
+    MKFS            reduce using rule 13 (command -> usr_block .)
+    LOGIN           reduce using rule 13 (command -> usr_block .)
+    LOGOUT          reduce using rule 13 (command -> usr_block .)
+    MKGRP           reduce using rule 13 (command -> usr_block .)
+    MKUSR           reduce using rule 13 (command -> usr_block .)
+    MKDIR           reduce using rule 13 (command -> usr_block .)
+    $end            reduce using rule 13 (command -> usr_block .)
 
-    unmount_params                 shift and go to state 25
-    unmount_param                  shift and go to state 26
 
 state 14
+
+    (14) command -> mkdir_block .
+
+    MKDISK          reduce using rule 14 (command -> mkdir_block .)
+    RMDISK          reduce using rule 14 (command -> mkdir_block .)
+    FDISK           reduce using rule 14 (command -> mkdir_block .)
+    MOUNT           reduce using rule 14 (command -> mkdir_block .)
+    UNMOUNT         reduce using rule 14 (command -> mkdir_block .)
+    MKFS            reduce using rule 14 (command -> mkdir_block .)
+    LOGIN           reduce using rule 14 (command -> mkdir_block .)
+    LOGOUT          reduce using rule 14 (command -> mkdir_block .)
+    MKGRP           reduce using rule 14 (command -> mkdir_block .)
+    MKUSR           reduce using rule 14 (command -> mkdir_block .)
+    MKDIR           reduce using rule 14 (command -> mkdir_block .)
+    $end            reduce using rule 14 (command -> mkdir_block .)
+
+
+state 15
+
+    (15) mkdisk_block -> MKDISK . mkdisk_params
+    (18) mkdisk_params -> . mkdisk_params mkdisk_param
+    (19) mkdisk_params -> . mkdisk_param
+    (20) mkdisk_param -> . SEPARATOR SIZE ASSIGN NUMBER
+    (21) mkdisk_param -> . SEPARATOR PATH ASSIGN PATHWITHQUOTES
+    (22) mkdisk_param -> . SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES
+    (23) mkdisk_param -> . SEPARATOR UNIT ASSIGN ID
+    (24) mkdisk_param -> . SEPARATOR FIT ASSIGN ID
+
+    SEPARATOR       shift and go to state 29
+
+    mkdisk_params                  shift and go to state 27
+    mkdisk_param                   shift and go to state 28
+
+state 16
+
+    (16) rmdisk_block -> RMDISK . SEPARATOR PATH ASSIGN PATHWITHQUOTES
+    (17) rmdisk_block -> RMDISK . SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES
+
+    SEPARATOR       shift and go to state 30
+
+
+state 17
+
+    (25) fdisk_block -> FDISK . fdisk_params
+    (26) fdisk_params -> . fdisk_params fdisk_param
+    (27) fdisk_params -> . fdisk_param
+    (28) fdisk_param -> . SEPARATOR SIZE ASSIGN NUMBER
+    (29) fdisk_param -> . SEPARATOR PATH ASSIGN PATHWITHQUOTES
+    (30) fdisk_param -> . SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES
+    (31) fdisk_param -> . SEPARATOR NAME ASSIGN ID
+    (32) fdisk_param -> . SEPARATOR NAME ASSIGN PATHWITHOUTQUOTES
+    (33) fdisk_param -> . SEPARATOR UNIT ASSIGN ID
+    (34) fdisk_param -> . SEPARATOR TYPE ASSIGN ID
+    (35) fdisk_param -> . SEPARATOR FIT ASSIGN ID
+    (36) fdisk_param -> . SEPARATOR DELETE ASSIGN ID
+    (37) fdisk_param -> . SEPARATOR ADD ASSIGN NUMBER
+    (38) fdisk_param -> . SEPARATOR ADD ASSIGN NEGATIVE
+
+    SEPARATOR       shift and go to state 33
+
+    fdisk_params                   shift and go to state 31
+    fdisk_param                    shift and go to state 32
+
+state 18
+
+    (39) mount_block -> MOUNT . mount_params
+    (40) mount_params -> . mount_params mount_param
+    (41) mount_params -> . mount_param
+    (42) mount_param -> . SEPARATOR PATH ASSIGN PATHWITHQUOTES
+    (43) mount_param -> . SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES
+    (44) mount_param -> . SEPARATOR NAME ASSIGN ID
+
+    SEPARATOR       shift and go to state 36
+
+    mount_params                   shift and go to state 34
+    mount_param                    shift and go to state 35
+
+state 19
+
+    (45) unmount_block -> UNMOUNT . unmount_params
+    (46) unmount_params -> . unmount_params unmount_param
+    (47) unmount_params -> . unmount_param
+    (48) unmount_param -> . SEPARATOR ID_PARAM ASSIGN MOUNTNAME
+
+    SEPARATOR       shift and go to state 39
+
+    unmount_params                 shift and go to state 37
+    unmount_param                  shift and go to state 38
+
+state 20
+
+    (49) mkfs_block -> MKFS . mkfs_params
+    (50) mkfs_params -> . mkfs_params mkfs_param
+    (51) mkfs_params -> . mkfs_param
+    (52) mkfs_param -> . SEPARATOR ID_PARAM ASSIGN MOUNTNAME
+    (53) mkfs_param -> . SEPARATOR TYPE ASSIGN ID
+    (54) mkfs_param -> . SEPARATOR FS ASSIGN MOUNTNAME
+
+    SEPARATOR       shift and go to state 42
+
+    mkfs_params                    shift and go to state 40
+    mkfs_param                     shift and go to state 41
+
+state 21
+
+    (55) login_block -> LOGIN . login_params
+    (56) login_params -> . login_params login_param
+    (57) login_params -> . login_param
+    (58) login_param -> . SEPARATOR USER ASSIGN STRING
+    (59) login_param -> . SEPARATOR PASS ASSIGN STRING
+    (60) login_param -> . SEPARATOR PASS ASSIGN ID
+    (61) login_param -> . SEPARATOR PASS ASSIGN NUMBER
+    (62) login_param -> . SEPARATOR USER ASSIGN ID
+    (63) login_param -> . SEPARATOR ID_PARAM ASSIGN MOUNTNAME
+
+    SEPARATOR       shift and go to state 45
+
+    login_params                   shift and go to state 43
+    login_param                    shift and go to state 44
+
+state 22
+
+    (64) logout_block -> LOGOUT .
+
+    MKDISK          reduce using rule 64 (logout_block -> LOGOUT .)
+    RMDISK          reduce using rule 64 (logout_block -> LOGOUT .)
+    FDISK           reduce using rule 64 (logout_block -> LOGOUT .)
+    MOUNT           reduce using rule 64 (logout_block -> LOGOUT .)
+    UNMOUNT         reduce using rule 64 (logout_block -> LOGOUT .)
+    MKFS            reduce using rule 64 (logout_block -> LOGOUT .)
+    LOGIN           reduce using rule 64 (logout_block -> LOGOUT .)
+    LOGOUT          reduce using rule 64 (logout_block -> LOGOUT .)
+    MKGRP           reduce using rule 64 (logout_block -> LOGOUT .)
+    MKUSR           reduce using rule 64 (logout_block -> LOGOUT .)
+    MKDIR           reduce using rule 64 (logout_block -> LOGOUT .)
+    $end            reduce using rule 64 (logout_block -> LOGOUT .)
+
+
+state 23
+
+    (65) mkgrp_block -> MKGRP . mkgrp_params
+    (66) mkgrp_params -> . mkgrp_params mkgrp_param
+    (67) mkgrp_params -> . mkgrp_param
+    (68) mkgrp_param -> . SEPARATOR NAME ASSIGN ID
+    (69) mkgrp_param -> . SEPARATOR NAME ASSIGN STRING
+
+    SEPARATOR       shift and go to state 48
+
+    mkgrp_params                   shift and go to state 46
+    mkgrp_param                    shift and go to state 47
+
+state 24
+
+    (70) usr_block -> MKUSR . usr_params
+    (71) usr_params -> . usr_params usr_param
+    (72) usr_params -> . usr_param
+    (73) usr_param -> . SEPARATOR USER ASSIGN ID
+    (74) usr_param -> . SEPARATOR USER ASSIGN STRING
+    (75) usr_param -> . SEPARATOR PASS ASSIGN ID
+    (76) usr_param -> . SEPARATOR PASS ASSIGN STRING
+    (77) usr_param -> . SEPARATOR PASS ASSIGN NUMBER
+    (78) usr_param -> . SEPARATOR GRP ASSIGN ID
+    (79) usr_param -> . SEPARATOR GRP ASSIGN STRING
+
+    SEPARATOR       shift and go to state 51
+
+    usr_params                     shift and go to state 49
+    usr_param                      shift and go to state 50
+
+state 25
+
+    (80) mkdir_block -> MKDIR . mkdir_params
+    (81) mkdir_params -> . mkdir_params mkdir_param
+    (82) mkdir_params -> . mkdir_param
+    (83) mkdir_param -> . SEPARATOR PATH ASSIGN PATHWITHQUOTES
+    (84) mkdir_param -> . SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES
+    (85) mkdir_param -> . SEPARATOR R
+
+    SEPARATOR       shift and go to state 54
+
+    mkdir_params                   shift and go to state 52
+    mkdir_param                    shift and go to state 53
+
+state 26
 
     (2) commandsI -> commandsI command .
 
@@ -320,778 +672,1942 @@ state 14
     FDISK           reduce using rule 2 (commandsI -> commandsI command .)
     MOUNT           reduce using rule 2 (commandsI -> commandsI command .)
     UNMOUNT         reduce using rule 2 (commandsI -> commandsI command .)
+    MKFS            reduce using rule 2 (commandsI -> commandsI command .)
+    LOGIN           reduce using rule 2 (commandsI -> commandsI command .)
+    LOGOUT          reduce using rule 2 (commandsI -> commandsI command .)
+    MKGRP           reduce using rule 2 (commandsI -> commandsI command .)
+    MKUSR           reduce using rule 2 (commandsI -> commandsI command .)
+    MKDIR           reduce using rule 2 (commandsI -> commandsI command .)
     $end            reduce using rule 2 (commandsI -> commandsI command .)
-
-
-state 15
-
-    (9) mkdisk_block -> MKDISK mkdisk_params .
-    (12) mkdisk_params -> mkdisk_params . mkdisk_param
-    (14) mkdisk_param -> . SEPARATOR SIZE ASSIGN NUMBER
-    (15) mkdisk_param -> . SEPARATOR PATH ASSIGN PATHWITHQUOTES
-    (16) mkdisk_param -> . SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES
-    (17) mkdisk_param -> . SEPARATOR UNIT ASSIGN ID
-    (18) mkdisk_param -> . SEPARATOR FIT ASSIGN ID
-
-    MKDISK          reduce using rule 9 (mkdisk_block -> MKDISK mkdisk_params .)
-    RMDISK          reduce using rule 9 (mkdisk_block -> MKDISK mkdisk_params .)
-    FDISK           reduce using rule 9 (mkdisk_block -> MKDISK mkdisk_params .)
-    MOUNT           reduce using rule 9 (mkdisk_block -> MKDISK mkdisk_params .)
-    UNMOUNT         reduce using rule 9 (mkdisk_block -> MKDISK mkdisk_params .)
-    $end            reduce using rule 9 (mkdisk_block -> MKDISK mkdisk_params .)
-    SEPARATOR       shift and go to state 17
-
-    mkdisk_param                   shift and go to state 28
-
-state 16
-
-    (13) mkdisk_params -> mkdisk_param .
-
-    SEPARATOR       reduce using rule 13 (mkdisk_params -> mkdisk_param .)
-    MKDISK          reduce using rule 13 (mkdisk_params -> mkdisk_param .)
-    RMDISK          reduce using rule 13 (mkdisk_params -> mkdisk_param .)
-    FDISK           reduce using rule 13 (mkdisk_params -> mkdisk_param .)
-    MOUNT           reduce using rule 13 (mkdisk_params -> mkdisk_param .)
-    UNMOUNT         reduce using rule 13 (mkdisk_params -> mkdisk_param .)
-    $end            reduce using rule 13 (mkdisk_params -> mkdisk_param .)
-
-
-state 17
-
-    (14) mkdisk_param -> SEPARATOR . SIZE ASSIGN NUMBER
-    (15) mkdisk_param -> SEPARATOR . PATH ASSIGN PATHWITHQUOTES
-    (16) mkdisk_param -> SEPARATOR . PATH ASSIGN PATHWITHOUTQUOTES
-    (17) mkdisk_param -> SEPARATOR . UNIT ASSIGN ID
-    (18) mkdisk_param -> SEPARATOR . FIT ASSIGN ID
-
-    SIZE            shift and go to state 29
-    PATH            shift and go to state 30
-    UNIT            shift and go to state 31
-    FIT             shift and go to state 32
-
-
-state 18
-
-    (10) rmdisk_block -> RMDISK SEPARATOR . PATH ASSIGN PATHWITHQUOTES
-    (11) rmdisk_block -> RMDISK SEPARATOR . PATH ASSIGN PATHWITHOUTQUOTES
-
-    PATH            shift and go to state 33
-
-
-state 19
-
-    (19) fdisk_block -> FDISK fdisk_params .
-    (20) fdisk_params -> fdisk_params . fdisk_param
-    (22) fdisk_param -> . SEPARATOR SIZE ASSIGN NUMBER
-    (23) fdisk_param -> . SEPARATOR PATH ASSIGN PATHWITHQUOTES
-    (24) fdisk_param -> . SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES
-    (25) fdisk_param -> . SEPARATOR NAME ASSIGN ID
-    (26) fdisk_param -> . SEPARATOR NAME ASSIGN PATHWITHOUTQUOTES
-    (27) fdisk_param -> . SEPARATOR UNIT ASSIGN ID
-    (28) fdisk_param -> . SEPARATOR TYPE ASSIGN ID
-    (29) fdisk_param -> . SEPARATOR FIT ASSIGN ID
-    (30) fdisk_param -> . SEPARATOR DELETE ASSIGN ID
-    (31) fdisk_param -> . SEPARATOR ADD ASSIGN NUMBER
-    (32) fdisk_param -> . SEPARATOR ADD ASSIGN NEGATIVE
-
-    MKDISK          reduce using rule 19 (fdisk_block -> FDISK fdisk_params .)
-    RMDISK          reduce using rule 19 (fdisk_block -> FDISK fdisk_params .)
-    FDISK           reduce using rule 19 (fdisk_block -> FDISK fdisk_params .)
-    MOUNT           reduce using rule 19 (fdisk_block -> FDISK fdisk_params .)
-    UNMOUNT         reduce using rule 19 (fdisk_block -> FDISK fdisk_params .)
-    $end            reduce using rule 19 (fdisk_block -> FDISK fdisk_params .)
-    SEPARATOR       shift and go to state 21
-
-    fdisk_param                    shift and go to state 34
-
-state 20
-
-    (21) fdisk_params -> fdisk_param .
-
-    SEPARATOR       reduce using rule 21 (fdisk_params -> fdisk_param .)
-    MKDISK          reduce using rule 21 (fdisk_params -> fdisk_param .)
-    RMDISK          reduce using rule 21 (fdisk_params -> fdisk_param .)
-    FDISK           reduce using rule 21 (fdisk_params -> fdisk_param .)
-    MOUNT           reduce using rule 21 (fdisk_params -> fdisk_param .)
-    UNMOUNT         reduce using rule 21 (fdisk_params -> fdisk_param .)
-    $end            reduce using rule 21 (fdisk_params -> fdisk_param .)
-
-
-state 21
-
-    (22) fdisk_param -> SEPARATOR . SIZE ASSIGN NUMBER
-    (23) fdisk_param -> SEPARATOR . PATH ASSIGN PATHWITHQUOTES
-    (24) fdisk_param -> SEPARATOR . PATH ASSIGN PATHWITHOUTQUOTES
-    (25) fdisk_param -> SEPARATOR . NAME ASSIGN ID
-    (26) fdisk_param -> SEPARATOR . NAME ASSIGN PATHWITHOUTQUOTES
-    (27) fdisk_param -> SEPARATOR . UNIT ASSIGN ID
-    (28) fdisk_param -> SEPARATOR . TYPE ASSIGN ID
-    (29) fdisk_param -> SEPARATOR . FIT ASSIGN ID
-    (30) fdisk_param -> SEPARATOR . DELETE ASSIGN ID
-    (31) fdisk_param -> SEPARATOR . ADD ASSIGN NUMBER
-    (32) fdisk_param -> SEPARATOR . ADD ASSIGN NEGATIVE
-
-    SIZE            shift and go to state 35
-    PATH            shift and go to state 36
-    NAME            shift and go to state 37
-    UNIT            shift and go to state 38
-    TYPE            shift and go to state 39
-    FIT             shift and go to state 40
-    DELETE          shift and go to state 41
-    ADD             shift and go to state 42
-
-
-state 22
-
-    (33) mount_block -> MOUNT mount_params .
-    (34) mount_params -> mount_params . mount_param
-    (36) mount_param -> . SEPARATOR PATH ASSIGN PATHWITHQUOTES
-    (37) mount_param -> . SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES
-    (38) mount_param -> . SEPARATOR NAME ASSIGN ID
-
-    MKDISK          reduce using rule 33 (mount_block -> MOUNT mount_params .)
-    RMDISK          reduce using rule 33 (mount_block -> MOUNT mount_params .)
-    FDISK           reduce using rule 33 (mount_block -> MOUNT mount_params .)
-    MOUNT           reduce using rule 33 (mount_block -> MOUNT mount_params .)
-    UNMOUNT         reduce using rule 33 (mount_block -> MOUNT mount_params .)
-    $end            reduce using rule 33 (mount_block -> MOUNT mount_params .)
-    SEPARATOR       shift and go to state 24
-
-    mount_param                    shift and go to state 43
-
-state 23
-
-    (35) mount_params -> mount_param .
-
-    SEPARATOR       reduce using rule 35 (mount_params -> mount_param .)
-    MKDISK          reduce using rule 35 (mount_params -> mount_param .)
-    RMDISK          reduce using rule 35 (mount_params -> mount_param .)
-    FDISK           reduce using rule 35 (mount_params -> mount_param .)
-    MOUNT           reduce using rule 35 (mount_params -> mount_param .)
-    UNMOUNT         reduce using rule 35 (mount_params -> mount_param .)
-    $end            reduce using rule 35 (mount_params -> mount_param .)
-
-
-state 24
-
-    (36) mount_param -> SEPARATOR . PATH ASSIGN PATHWITHQUOTES
-    (37) mount_param -> SEPARATOR . PATH ASSIGN PATHWITHOUTQUOTES
-    (38) mount_param -> SEPARATOR . NAME ASSIGN ID
-
-    PATH            shift and go to state 44
-    NAME            shift and go to state 45
-
-
-state 25
-
-    (39) unmount_block -> UNMOUNT unmount_params .
-    (40) unmount_params -> unmount_params . unmount_param
-    (42) unmount_param -> . SEPARATOR ID_PARAM ASSIGN MOUNTNAME
-
-    MKDISK          reduce using rule 39 (unmount_block -> UNMOUNT unmount_params .)
-    RMDISK          reduce using rule 39 (unmount_block -> UNMOUNT unmount_params .)
-    FDISK           reduce using rule 39 (unmount_block -> UNMOUNT unmount_params .)
-    MOUNT           reduce using rule 39 (unmount_block -> UNMOUNT unmount_params .)
-    UNMOUNT         reduce using rule 39 (unmount_block -> UNMOUNT unmount_params .)
-    $end            reduce using rule 39 (unmount_block -> UNMOUNT unmount_params .)
-    SEPARATOR       shift and go to state 27
-
-    unmount_param                  shift and go to state 46
-
-state 26
-
-    (41) unmount_params -> unmount_param .
-
-    SEPARATOR       reduce using rule 41 (unmount_params -> unmount_param .)
-    MKDISK          reduce using rule 41 (unmount_params -> unmount_param .)
-    RMDISK          reduce using rule 41 (unmount_params -> unmount_param .)
-    FDISK           reduce using rule 41 (unmount_params -> unmount_param .)
-    MOUNT           reduce using rule 41 (unmount_params -> unmount_param .)
-    UNMOUNT         reduce using rule 41 (unmount_params -> unmount_param .)
-    $end            reduce using rule 41 (unmount_params -> unmount_param .)
 
 
 state 27
 
-    (42) unmount_param -> SEPARATOR . ID_PARAM ASSIGN MOUNTNAME
+    (15) mkdisk_block -> MKDISK mkdisk_params .
+    (18) mkdisk_params -> mkdisk_params . mkdisk_param
+    (20) mkdisk_param -> . SEPARATOR SIZE ASSIGN NUMBER
+    (21) mkdisk_param -> . SEPARATOR PATH ASSIGN PATHWITHQUOTES
+    (22) mkdisk_param -> . SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES
+    (23) mkdisk_param -> . SEPARATOR UNIT ASSIGN ID
+    (24) mkdisk_param -> . SEPARATOR FIT ASSIGN ID
 
-    ID_PARAM        shift and go to state 47
+    MKDISK          reduce using rule 15 (mkdisk_block -> MKDISK mkdisk_params .)
+    RMDISK          reduce using rule 15 (mkdisk_block -> MKDISK mkdisk_params .)
+    FDISK           reduce using rule 15 (mkdisk_block -> MKDISK mkdisk_params .)
+    MOUNT           reduce using rule 15 (mkdisk_block -> MKDISK mkdisk_params .)
+    UNMOUNT         reduce using rule 15 (mkdisk_block -> MKDISK mkdisk_params .)
+    MKFS            reduce using rule 15 (mkdisk_block -> MKDISK mkdisk_params .)
+    LOGIN           reduce using rule 15 (mkdisk_block -> MKDISK mkdisk_params .)
+    LOGOUT          reduce using rule 15 (mkdisk_block -> MKDISK mkdisk_params .)
+    MKGRP           reduce using rule 15 (mkdisk_block -> MKDISK mkdisk_params .)
+    MKUSR           reduce using rule 15 (mkdisk_block -> MKDISK mkdisk_params .)
+    MKDIR           reduce using rule 15 (mkdisk_block -> MKDISK mkdisk_params .)
+    $end            reduce using rule 15 (mkdisk_block -> MKDISK mkdisk_params .)
+    SEPARATOR       shift and go to state 29
 
+    mkdisk_param                   shift and go to state 55
 
 state 28
 
-    (12) mkdisk_params -> mkdisk_params mkdisk_param .
+    (19) mkdisk_params -> mkdisk_param .
 
-    SEPARATOR       reduce using rule 12 (mkdisk_params -> mkdisk_params mkdisk_param .)
-    MKDISK          reduce using rule 12 (mkdisk_params -> mkdisk_params mkdisk_param .)
-    RMDISK          reduce using rule 12 (mkdisk_params -> mkdisk_params mkdisk_param .)
-    FDISK           reduce using rule 12 (mkdisk_params -> mkdisk_params mkdisk_param .)
-    MOUNT           reduce using rule 12 (mkdisk_params -> mkdisk_params mkdisk_param .)
-    UNMOUNT         reduce using rule 12 (mkdisk_params -> mkdisk_params mkdisk_param .)
-    $end            reduce using rule 12 (mkdisk_params -> mkdisk_params mkdisk_param .)
+    SEPARATOR       reduce using rule 19 (mkdisk_params -> mkdisk_param .)
+    MKDISK          reduce using rule 19 (mkdisk_params -> mkdisk_param .)
+    RMDISK          reduce using rule 19 (mkdisk_params -> mkdisk_param .)
+    FDISK           reduce using rule 19 (mkdisk_params -> mkdisk_param .)
+    MOUNT           reduce using rule 19 (mkdisk_params -> mkdisk_param .)
+    UNMOUNT         reduce using rule 19 (mkdisk_params -> mkdisk_param .)
+    MKFS            reduce using rule 19 (mkdisk_params -> mkdisk_param .)
+    LOGIN           reduce using rule 19 (mkdisk_params -> mkdisk_param .)
+    LOGOUT          reduce using rule 19 (mkdisk_params -> mkdisk_param .)
+    MKGRP           reduce using rule 19 (mkdisk_params -> mkdisk_param .)
+    MKUSR           reduce using rule 19 (mkdisk_params -> mkdisk_param .)
+    MKDIR           reduce using rule 19 (mkdisk_params -> mkdisk_param .)
+    $end            reduce using rule 19 (mkdisk_params -> mkdisk_param .)
 
 
 state 29
 
-    (14) mkdisk_param -> SEPARATOR SIZE . ASSIGN NUMBER
+    (20) mkdisk_param -> SEPARATOR . SIZE ASSIGN NUMBER
+    (21) mkdisk_param -> SEPARATOR . PATH ASSIGN PATHWITHQUOTES
+    (22) mkdisk_param -> SEPARATOR . PATH ASSIGN PATHWITHOUTQUOTES
+    (23) mkdisk_param -> SEPARATOR . UNIT ASSIGN ID
+    (24) mkdisk_param -> SEPARATOR . FIT ASSIGN ID
 
-    ASSIGN          shift and go to state 48
+    SIZE            shift and go to state 56
+    PATH            shift and go to state 57
+    UNIT            shift and go to state 58
+    FIT             shift and go to state 59
 
 
 state 30
 
-    (15) mkdisk_param -> SEPARATOR PATH . ASSIGN PATHWITHQUOTES
-    (16) mkdisk_param -> SEPARATOR PATH . ASSIGN PATHWITHOUTQUOTES
+    (16) rmdisk_block -> RMDISK SEPARATOR . PATH ASSIGN PATHWITHQUOTES
+    (17) rmdisk_block -> RMDISK SEPARATOR . PATH ASSIGN PATHWITHOUTQUOTES
 
-    ASSIGN          shift and go to state 49
+    PATH            shift and go to state 60
 
 
 state 31
 
-    (17) mkdisk_param -> SEPARATOR UNIT . ASSIGN ID
+    (25) fdisk_block -> FDISK fdisk_params .
+    (26) fdisk_params -> fdisk_params . fdisk_param
+    (28) fdisk_param -> . SEPARATOR SIZE ASSIGN NUMBER
+    (29) fdisk_param -> . SEPARATOR PATH ASSIGN PATHWITHQUOTES
+    (30) fdisk_param -> . SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES
+    (31) fdisk_param -> . SEPARATOR NAME ASSIGN ID
+    (32) fdisk_param -> . SEPARATOR NAME ASSIGN PATHWITHOUTQUOTES
+    (33) fdisk_param -> . SEPARATOR UNIT ASSIGN ID
+    (34) fdisk_param -> . SEPARATOR TYPE ASSIGN ID
+    (35) fdisk_param -> . SEPARATOR FIT ASSIGN ID
+    (36) fdisk_param -> . SEPARATOR DELETE ASSIGN ID
+    (37) fdisk_param -> . SEPARATOR ADD ASSIGN NUMBER
+    (38) fdisk_param -> . SEPARATOR ADD ASSIGN NEGATIVE
 
-    ASSIGN          shift and go to state 50
+    MKDISK          reduce using rule 25 (fdisk_block -> FDISK fdisk_params .)
+    RMDISK          reduce using rule 25 (fdisk_block -> FDISK fdisk_params .)
+    FDISK           reduce using rule 25 (fdisk_block -> FDISK fdisk_params .)
+    MOUNT           reduce using rule 25 (fdisk_block -> FDISK fdisk_params .)
+    UNMOUNT         reduce using rule 25 (fdisk_block -> FDISK fdisk_params .)
+    MKFS            reduce using rule 25 (fdisk_block -> FDISK fdisk_params .)
+    LOGIN           reduce using rule 25 (fdisk_block -> FDISK fdisk_params .)
+    LOGOUT          reduce using rule 25 (fdisk_block -> FDISK fdisk_params .)
+    MKGRP           reduce using rule 25 (fdisk_block -> FDISK fdisk_params .)
+    MKUSR           reduce using rule 25 (fdisk_block -> FDISK fdisk_params .)
+    MKDIR           reduce using rule 25 (fdisk_block -> FDISK fdisk_params .)
+    $end            reduce using rule 25 (fdisk_block -> FDISK fdisk_params .)
+    SEPARATOR       shift and go to state 33
 
+    fdisk_param                    shift and go to state 61
 
 state 32
 
-    (18) mkdisk_param -> SEPARATOR FIT . ASSIGN ID
+    (27) fdisk_params -> fdisk_param .
 
-    ASSIGN          shift and go to state 51
+    SEPARATOR       reduce using rule 27 (fdisk_params -> fdisk_param .)
+    MKDISK          reduce using rule 27 (fdisk_params -> fdisk_param .)
+    RMDISK          reduce using rule 27 (fdisk_params -> fdisk_param .)
+    FDISK           reduce using rule 27 (fdisk_params -> fdisk_param .)
+    MOUNT           reduce using rule 27 (fdisk_params -> fdisk_param .)
+    UNMOUNT         reduce using rule 27 (fdisk_params -> fdisk_param .)
+    MKFS            reduce using rule 27 (fdisk_params -> fdisk_param .)
+    LOGIN           reduce using rule 27 (fdisk_params -> fdisk_param .)
+    LOGOUT          reduce using rule 27 (fdisk_params -> fdisk_param .)
+    MKGRP           reduce using rule 27 (fdisk_params -> fdisk_param .)
+    MKUSR           reduce using rule 27 (fdisk_params -> fdisk_param .)
+    MKDIR           reduce using rule 27 (fdisk_params -> fdisk_param .)
+    $end            reduce using rule 27 (fdisk_params -> fdisk_param .)
 
 
 state 33
 
-    (10) rmdisk_block -> RMDISK SEPARATOR PATH . ASSIGN PATHWITHQUOTES
-    (11) rmdisk_block -> RMDISK SEPARATOR PATH . ASSIGN PATHWITHOUTQUOTES
+    (28) fdisk_param -> SEPARATOR . SIZE ASSIGN NUMBER
+    (29) fdisk_param -> SEPARATOR . PATH ASSIGN PATHWITHQUOTES
+    (30) fdisk_param -> SEPARATOR . PATH ASSIGN PATHWITHOUTQUOTES
+    (31) fdisk_param -> SEPARATOR . NAME ASSIGN ID
+    (32) fdisk_param -> SEPARATOR . NAME ASSIGN PATHWITHOUTQUOTES
+    (33) fdisk_param -> SEPARATOR . UNIT ASSIGN ID
+    (34) fdisk_param -> SEPARATOR . TYPE ASSIGN ID
+    (35) fdisk_param -> SEPARATOR . FIT ASSIGN ID
+    (36) fdisk_param -> SEPARATOR . DELETE ASSIGN ID
+    (37) fdisk_param -> SEPARATOR . ADD ASSIGN NUMBER
+    (38) fdisk_param -> SEPARATOR . ADD ASSIGN NEGATIVE
 
-    ASSIGN          shift and go to state 52
+    SIZE            shift and go to state 62
+    PATH            shift and go to state 63
+    NAME            shift and go to state 64
+    UNIT            shift and go to state 65
+    TYPE            shift and go to state 66
+    FIT             shift and go to state 67
+    DELETE          shift and go to state 68
+    ADD             shift and go to state 69
 
 
 state 34
 
-    (20) fdisk_params -> fdisk_params fdisk_param .
+    (39) mount_block -> MOUNT mount_params .
+    (40) mount_params -> mount_params . mount_param
+    (42) mount_param -> . SEPARATOR PATH ASSIGN PATHWITHQUOTES
+    (43) mount_param -> . SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES
+    (44) mount_param -> . SEPARATOR NAME ASSIGN ID
 
-    SEPARATOR       reduce using rule 20 (fdisk_params -> fdisk_params fdisk_param .)
-    MKDISK          reduce using rule 20 (fdisk_params -> fdisk_params fdisk_param .)
-    RMDISK          reduce using rule 20 (fdisk_params -> fdisk_params fdisk_param .)
-    FDISK           reduce using rule 20 (fdisk_params -> fdisk_params fdisk_param .)
-    MOUNT           reduce using rule 20 (fdisk_params -> fdisk_params fdisk_param .)
-    UNMOUNT         reduce using rule 20 (fdisk_params -> fdisk_params fdisk_param .)
-    $end            reduce using rule 20 (fdisk_params -> fdisk_params fdisk_param .)
+    MKDISK          reduce using rule 39 (mount_block -> MOUNT mount_params .)
+    RMDISK          reduce using rule 39 (mount_block -> MOUNT mount_params .)
+    FDISK           reduce using rule 39 (mount_block -> MOUNT mount_params .)
+    MOUNT           reduce using rule 39 (mount_block -> MOUNT mount_params .)
+    UNMOUNT         reduce using rule 39 (mount_block -> MOUNT mount_params .)
+    MKFS            reduce using rule 39 (mount_block -> MOUNT mount_params .)
+    LOGIN           reduce using rule 39 (mount_block -> MOUNT mount_params .)
+    LOGOUT          reduce using rule 39 (mount_block -> MOUNT mount_params .)
+    MKGRP           reduce using rule 39 (mount_block -> MOUNT mount_params .)
+    MKUSR           reduce using rule 39 (mount_block -> MOUNT mount_params .)
+    MKDIR           reduce using rule 39 (mount_block -> MOUNT mount_params .)
+    $end            reduce using rule 39 (mount_block -> MOUNT mount_params .)
+    SEPARATOR       shift and go to state 36
 
+    mount_param                    shift and go to state 70
 
 state 35
 
-    (22) fdisk_param -> SEPARATOR SIZE . ASSIGN NUMBER
+    (41) mount_params -> mount_param .
 
-    ASSIGN          shift and go to state 53
+    SEPARATOR       reduce using rule 41 (mount_params -> mount_param .)
+    MKDISK          reduce using rule 41 (mount_params -> mount_param .)
+    RMDISK          reduce using rule 41 (mount_params -> mount_param .)
+    FDISK           reduce using rule 41 (mount_params -> mount_param .)
+    MOUNT           reduce using rule 41 (mount_params -> mount_param .)
+    UNMOUNT         reduce using rule 41 (mount_params -> mount_param .)
+    MKFS            reduce using rule 41 (mount_params -> mount_param .)
+    LOGIN           reduce using rule 41 (mount_params -> mount_param .)
+    LOGOUT          reduce using rule 41 (mount_params -> mount_param .)
+    MKGRP           reduce using rule 41 (mount_params -> mount_param .)
+    MKUSR           reduce using rule 41 (mount_params -> mount_param .)
+    MKDIR           reduce using rule 41 (mount_params -> mount_param .)
+    $end            reduce using rule 41 (mount_params -> mount_param .)
 
 
 state 36
 
-    (23) fdisk_param -> SEPARATOR PATH . ASSIGN PATHWITHQUOTES
-    (24) fdisk_param -> SEPARATOR PATH . ASSIGN PATHWITHOUTQUOTES
+    (42) mount_param -> SEPARATOR . PATH ASSIGN PATHWITHQUOTES
+    (43) mount_param -> SEPARATOR . PATH ASSIGN PATHWITHOUTQUOTES
+    (44) mount_param -> SEPARATOR . NAME ASSIGN ID
 
-    ASSIGN          shift and go to state 54
+    PATH            shift and go to state 71
+    NAME            shift and go to state 72
 
 
 state 37
 
-    (25) fdisk_param -> SEPARATOR NAME . ASSIGN ID
-    (26) fdisk_param -> SEPARATOR NAME . ASSIGN PATHWITHOUTQUOTES
+    (45) unmount_block -> UNMOUNT unmount_params .
+    (46) unmount_params -> unmount_params . unmount_param
+    (48) unmount_param -> . SEPARATOR ID_PARAM ASSIGN MOUNTNAME
 
-    ASSIGN          shift and go to state 55
+    MKDISK          reduce using rule 45 (unmount_block -> UNMOUNT unmount_params .)
+    RMDISK          reduce using rule 45 (unmount_block -> UNMOUNT unmount_params .)
+    FDISK           reduce using rule 45 (unmount_block -> UNMOUNT unmount_params .)
+    MOUNT           reduce using rule 45 (unmount_block -> UNMOUNT unmount_params .)
+    UNMOUNT         reduce using rule 45 (unmount_block -> UNMOUNT unmount_params .)
+    MKFS            reduce using rule 45 (unmount_block -> UNMOUNT unmount_params .)
+    LOGIN           reduce using rule 45 (unmount_block -> UNMOUNT unmount_params .)
+    LOGOUT          reduce using rule 45 (unmount_block -> UNMOUNT unmount_params .)
+    MKGRP           reduce using rule 45 (unmount_block -> UNMOUNT unmount_params .)
+    MKUSR           reduce using rule 45 (unmount_block -> UNMOUNT unmount_params .)
+    MKDIR           reduce using rule 45 (unmount_block -> UNMOUNT unmount_params .)
+    $end            reduce using rule 45 (unmount_block -> UNMOUNT unmount_params .)
+    SEPARATOR       shift and go to state 39
 
+    unmount_param                  shift and go to state 73
 
 state 38
 
-    (27) fdisk_param -> SEPARATOR UNIT . ASSIGN ID
+    (47) unmount_params -> unmount_param .
 
-    ASSIGN          shift and go to state 56
+    SEPARATOR       reduce using rule 47 (unmount_params -> unmount_param .)
+    MKDISK          reduce using rule 47 (unmount_params -> unmount_param .)
+    RMDISK          reduce using rule 47 (unmount_params -> unmount_param .)
+    FDISK           reduce using rule 47 (unmount_params -> unmount_param .)
+    MOUNT           reduce using rule 47 (unmount_params -> unmount_param .)
+    UNMOUNT         reduce using rule 47 (unmount_params -> unmount_param .)
+    MKFS            reduce using rule 47 (unmount_params -> unmount_param .)
+    LOGIN           reduce using rule 47 (unmount_params -> unmount_param .)
+    LOGOUT          reduce using rule 47 (unmount_params -> unmount_param .)
+    MKGRP           reduce using rule 47 (unmount_params -> unmount_param .)
+    MKUSR           reduce using rule 47 (unmount_params -> unmount_param .)
+    MKDIR           reduce using rule 47 (unmount_params -> unmount_param .)
+    $end            reduce using rule 47 (unmount_params -> unmount_param .)
 
 
 state 39
 
-    (28) fdisk_param -> SEPARATOR TYPE . ASSIGN ID
+    (48) unmount_param -> SEPARATOR . ID_PARAM ASSIGN MOUNTNAME
 
-    ASSIGN          shift and go to state 57
+    ID_PARAM        shift and go to state 74
 
 
 state 40
 
-    (29) fdisk_param -> SEPARATOR FIT . ASSIGN ID
+    (49) mkfs_block -> MKFS mkfs_params .
+    (50) mkfs_params -> mkfs_params . mkfs_param
+    (52) mkfs_param -> . SEPARATOR ID_PARAM ASSIGN MOUNTNAME
+    (53) mkfs_param -> . SEPARATOR TYPE ASSIGN ID
+    (54) mkfs_param -> . SEPARATOR FS ASSIGN MOUNTNAME
 
-    ASSIGN          shift and go to state 58
+    MKDISK          reduce using rule 49 (mkfs_block -> MKFS mkfs_params .)
+    RMDISK          reduce using rule 49 (mkfs_block -> MKFS mkfs_params .)
+    FDISK           reduce using rule 49 (mkfs_block -> MKFS mkfs_params .)
+    MOUNT           reduce using rule 49 (mkfs_block -> MKFS mkfs_params .)
+    UNMOUNT         reduce using rule 49 (mkfs_block -> MKFS mkfs_params .)
+    MKFS            reduce using rule 49 (mkfs_block -> MKFS mkfs_params .)
+    LOGIN           reduce using rule 49 (mkfs_block -> MKFS mkfs_params .)
+    LOGOUT          reduce using rule 49 (mkfs_block -> MKFS mkfs_params .)
+    MKGRP           reduce using rule 49 (mkfs_block -> MKFS mkfs_params .)
+    MKUSR           reduce using rule 49 (mkfs_block -> MKFS mkfs_params .)
+    MKDIR           reduce using rule 49 (mkfs_block -> MKFS mkfs_params .)
+    $end            reduce using rule 49 (mkfs_block -> MKFS mkfs_params .)
+    SEPARATOR       shift and go to state 42
 
+    mkfs_param                     shift and go to state 75
 
 state 41
 
-    (30) fdisk_param -> SEPARATOR DELETE . ASSIGN ID
+    (51) mkfs_params -> mkfs_param .
 
-    ASSIGN          shift and go to state 59
+    SEPARATOR       reduce using rule 51 (mkfs_params -> mkfs_param .)
+    MKDISK          reduce using rule 51 (mkfs_params -> mkfs_param .)
+    RMDISK          reduce using rule 51 (mkfs_params -> mkfs_param .)
+    FDISK           reduce using rule 51 (mkfs_params -> mkfs_param .)
+    MOUNT           reduce using rule 51 (mkfs_params -> mkfs_param .)
+    UNMOUNT         reduce using rule 51 (mkfs_params -> mkfs_param .)
+    MKFS            reduce using rule 51 (mkfs_params -> mkfs_param .)
+    LOGIN           reduce using rule 51 (mkfs_params -> mkfs_param .)
+    LOGOUT          reduce using rule 51 (mkfs_params -> mkfs_param .)
+    MKGRP           reduce using rule 51 (mkfs_params -> mkfs_param .)
+    MKUSR           reduce using rule 51 (mkfs_params -> mkfs_param .)
+    MKDIR           reduce using rule 51 (mkfs_params -> mkfs_param .)
+    $end            reduce using rule 51 (mkfs_params -> mkfs_param .)
 
 
 state 42
 
-    (31) fdisk_param -> SEPARATOR ADD . ASSIGN NUMBER
-    (32) fdisk_param -> SEPARATOR ADD . ASSIGN NEGATIVE
+    (52) mkfs_param -> SEPARATOR . ID_PARAM ASSIGN MOUNTNAME
+    (53) mkfs_param -> SEPARATOR . TYPE ASSIGN ID
+    (54) mkfs_param -> SEPARATOR . FS ASSIGN MOUNTNAME
 
-    ASSIGN          shift and go to state 60
+    ID_PARAM        shift and go to state 76
+    TYPE            shift and go to state 77
+    FS              shift and go to state 78
 
 
 state 43
 
-    (34) mount_params -> mount_params mount_param .
+    (55) login_block -> LOGIN login_params .
+    (56) login_params -> login_params . login_param
+    (58) login_param -> . SEPARATOR USER ASSIGN STRING
+    (59) login_param -> . SEPARATOR PASS ASSIGN STRING
+    (60) login_param -> . SEPARATOR PASS ASSIGN ID
+    (61) login_param -> . SEPARATOR PASS ASSIGN NUMBER
+    (62) login_param -> . SEPARATOR USER ASSIGN ID
+    (63) login_param -> . SEPARATOR ID_PARAM ASSIGN MOUNTNAME
 
-    SEPARATOR       reduce using rule 34 (mount_params -> mount_params mount_param .)
-    MKDISK          reduce using rule 34 (mount_params -> mount_params mount_param .)
-    RMDISK          reduce using rule 34 (mount_params -> mount_params mount_param .)
-    FDISK           reduce using rule 34 (mount_params -> mount_params mount_param .)
-    MOUNT           reduce using rule 34 (mount_params -> mount_params mount_param .)
-    UNMOUNT         reduce using rule 34 (mount_params -> mount_params mount_param .)
-    $end            reduce using rule 34 (mount_params -> mount_params mount_param .)
+    MKDISK          reduce using rule 55 (login_block -> LOGIN login_params .)
+    RMDISK          reduce using rule 55 (login_block -> LOGIN login_params .)
+    FDISK           reduce using rule 55 (login_block -> LOGIN login_params .)
+    MOUNT           reduce using rule 55 (login_block -> LOGIN login_params .)
+    UNMOUNT         reduce using rule 55 (login_block -> LOGIN login_params .)
+    MKFS            reduce using rule 55 (login_block -> LOGIN login_params .)
+    LOGIN           reduce using rule 55 (login_block -> LOGIN login_params .)
+    LOGOUT          reduce using rule 55 (login_block -> LOGIN login_params .)
+    MKGRP           reduce using rule 55 (login_block -> LOGIN login_params .)
+    MKUSR           reduce using rule 55 (login_block -> LOGIN login_params .)
+    MKDIR           reduce using rule 55 (login_block -> LOGIN login_params .)
+    $end            reduce using rule 55 (login_block -> LOGIN login_params .)
+    SEPARATOR       shift and go to state 45
 
+    login_param                    shift and go to state 79
 
 state 44
 
-    (36) mount_param -> SEPARATOR PATH . ASSIGN PATHWITHQUOTES
-    (37) mount_param -> SEPARATOR PATH . ASSIGN PATHWITHOUTQUOTES
+    (57) login_params -> login_param .
 
-    ASSIGN          shift and go to state 61
+    SEPARATOR       reduce using rule 57 (login_params -> login_param .)
+    MKDISK          reduce using rule 57 (login_params -> login_param .)
+    RMDISK          reduce using rule 57 (login_params -> login_param .)
+    FDISK           reduce using rule 57 (login_params -> login_param .)
+    MOUNT           reduce using rule 57 (login_params -> login_param .)
+    UNMOUNT         reduce using rule 57 (login_params -> login_param .)
+    MKFS            reduce using rule 57 (login_params -> login_param .)
+    LOGIN           reduce using rule 57 (login_params -> login_param .)
+    LOGOUT          reduce using rule 57 (login_params -> login_param .)
+    MKGRP           reduce using rule 57 (login_params -> login_param .)
+    MKUSR           reduce using rule 57 (login_params -> login_param .)
+    MKDIR           reduce using rule 57 (login_params -> login_param .)
+    $end            reduce using rule 57 (login_params -> login_param .)
 
 
 state 45
 
-    (38) mount_param -> SEPARATOR NAME . ASSIGN ID
+    (58) login_param -> SEPARATOR . USER ASSIGN STRING
+    (59) login_param -> SEPARATOR . PASS ASSIGN STRING
+    (60) login_param -> SEPARATOR . PASS ASSIGN ID
+    (61) login_param -> SEPARATOR . PASS ASSIGN NUMBER
+    (62) login_param -> SEPARATOR . USER ASSIGN ID
+    (63) login_param -> SEPARATOR . ID_PARAM ASSIGN MOUNTNAME
 
-    ASSIGN          shift and go to state 62
+    USER            shift and go to state 80
+    PASS            shift and go to state 81
+    ID_PARAM        shift and go to state 82
 
 
 state 46
 
-    (40) unmount_params -> unmount_params unmount_param .
+    (65) mkgrp_block -> MKGRP mkgrp_params .
+    (66) mkgrp_params -> mkgrp_params . mkgrp_param
+    (68) mkgrp_param -> . SEPARATOR NAME ASSIGN ID
+    (69) mkgrp_param -> . SEPARATOR NAME ASSIGN STRING
 
-    SEPARATOR       reduce using rule 40 (unmount_params -> unmount_params unmount_param .)
-    MKDISK          reduce using rule 40 (unmount_params -> unmount_params unmount_param .)
-    RMDISK          reduce using rule 40 (unmount_params -> unmount_params unmount_param .)
-    FDISK           reduce using rule 40 (unmount_params -> unmount_params unmount_param .)
-    MOUNT           reduce using rule 40 (unmount_params -> unmount_params unmount_param .)
-    UNMOUNT         reduce using rule 40 (unmount_params -> unmount_params unmount_param .)
-    $end            reduce using rule 40 (unmount_params -> unmount_params unmount_param .)
+    MKDISK          reduce using rule 65 (mkgrp_block -> MKGRP mkgrp_params .)
+    RMDISK          reduce using rule 65 (mkgrp_block -> MKGRP mkgrp_params .)
+    FDISK           reduce using rule 65 (mkgrp_block -> MKGRP mkgrp_params .)
+    MOUNT           reduce using rule 65 (mkgrp_block -> MKGRP mkgrp_params .)
+    UNMOUNT         reduce using rule 65 (mkgrp_block -> MKGRP mkgrp_params .)
+    MKFS            reduce using rule 65 (mkgrp_block -> MKGRP mkgrp_params .)
+    LOGIN           reduce using rule 65 (mkgrp_block -> MKGRP mkgrp_params .)
+    LOGOUT          reduce using rule 65 (mkgrp_block -> MKGRP mkgrp_params .)
+    MKGRP           reduce using rule 65 (mkgrp_block -> MKGRP mkgrp_params .)
+    MKUSR           reduce using rule 65 (mkgrp_block -> MKGRP mkgrp_params .)
+    MKDIR           reduce using rule 65 (mkgrp_block -> MKGRP mkgrp_params .)
+    $end            reduce using rule 65 (mkgrp_block -> MKGRP mkgrp_params .)
+    SEPARATOR       shift and go to state 48
 
+    mkgrp_param                    shift and go to state 83
 
 state 47
 
-    (42) unmount_param -> SEPARATOR ID_PARAM . ASSIGN MOUNTNAME
+    (67) mkgrp_params -> mkgrp_param .
 
-    ASSIGN          shift and go to state 63
+    SEPARATOR       reduce using rule 67 (mkgrp_params -> mkgrp_param .)
+    MKDISK          reduce using rule 67 (mkgrp_params -> mkgrp_param .)
+    RMDISK          reduce using rule 67 (mkgrp_params -> mkgrp_param .)
+    FDISK           reduce using rule 67 (mkgrp_params -> mkgrp_param .)
+    MOUNT           reduce using rule 67 (mkgrp_params -> mkgrp_param .)
+    UNMOUNT         reduce using rule 67 (mkgrp_params -> mkgrp_param .)
+    MKFS            reduce using rule 67 (mkgrp_params -> mkgrp_param .)
+    LOGIN           reduce using rule 67 (mkgrp_params -> mkgrp_param .)
+    LOGOUT          reduce using rule 67 (mkgrp_params -> mkgrp_param .)
+    MKGRP           reduce using rule 67 (mkgrp_params -> mkgrp_param .)
+    MKUSR           reduce using rule 67 (mkgrp_params -> mkgrp_param .)
+    MKDIR           reduce using rule 67 (mkgrp_params -> mkgrp_param .)
+    $end            reduce using rule 67 (mkgrp_params -> mkgrp_param .)
 
 
 state 48
 
-    (14) mkdisk_param -> SEPARATOR SIZE ASSIGN . NUMBER
+    (68) mkgrp_param -> SEPARATOR . NAME ASSIGN ID
+    (69) mkgrp_param -> SEPARATOR . NAME ASSIGN STRING
 
-    NUMBER          shift and go to state 64
+    NAME            shift and go to state 84
 
 
 state 49
 
-    (15) mkdisk_param -> SEPARATOR PATH ASSIGN . PATHWITHQUOTES
-    (16) mkdisk_param -> SEPARATOR PATH ASSIGN . PATHWITHOUTQUOTES
+    (70) usr_block -> MKUSR usr_params .
+    (71) usr_params -> usr_params . usr_param
+    (73) usr_param -> . SEPARATOR USER ASSIGN ID
+    (74) usr_param -> . SEPARATOR USER ASSIGN STRING
+    (75) usr_param -> . SEPARATOR PASS ASSIGN ID
+    (76) usr_param -> . SEPARATOR PASS ASSIGN STRING
+    (77) usr_param -> . SEPARATOR PASS ASSIGN NUMBER
+    (78) usr_param -> . SEPARATOR GRP ASSIGN ID
+    (79) usr_param -> . SEPARATOR GRP ASSIGN STRING
 
-    PATHWITHQUOTES  shift and go to state 65
-    PATHWITHOUTQUOTES shift and go to state 66
+    MKDISK          reduce using rule 70 (usr_block -> MKUSR usr_params .)
+    RMDISK          reduce using rule 70 (usr_block -> MKUSR usr_params .)
+    FDISK           reduce using rule 70 (usr_block -> MKUSR usr_params .)
+    MOUNT           reduce using rule 70 (usr_block -> MKUSR usr_params .)
+    UNMOUNT         reduce using rule 70 (usr_block -> MKUSR usr_params .)
+    MKFS            reduce using rule 70 (usr_block -> MKUSR usr_params .)
+    LOGIN           reduce using rule 70 (usr_block -> MKUSR usr_params .)
+    LOGOUT          reduce using rule 70 (usr_block -> MKUSR usr_params .)
+    MKGRP           reduce using rule 70 (usr_block -> MKUSR usr_params .)
+    MKUSR           reduce using rule 70 (usr_block -> MKUSR usr_params .)
+    MKDIR           reduce using rule 70 (usr_block -> MKUSR usr_params .)
+    $end            reduce using rule 70 (usr_block -> MKUSR usr_params .)
+    SEPARATOR       shift and go to state 51
 
+    usr_param                      shift and go to state 85
 
 state 50
 
-    (17) mkdisk_param -> SEPARATOR UNIT ASSIGN . ID
+    (72) usr_params -> usr_param .
 
-    ID              shift and go to state 67
+    SEPARATOR       reduce using rule 72 (usr_params -> usr_param .)
+    MKDISK          reduce using rule 72 (usr_params -> usr_param .)
+    RMDISK          reduce using rule 72 (usr_params -> usr_param .)
+    FDISK           reduce using rule 72 (usr_params -> usr_param .)
+    MOUNT           reduce using rule 72 (usr_params -> usr_param .)
+    UNMOUNT         reduce using rule 72 (usr_params -> usr_param .)
+    MKFS            reduce using rule 72 (usr_params -> usr_param .)
+    LOGIN           reduce using rule 72 (usr_params -> usr_param .)
+    LOGOUT          reduce using rule 72 (usr_params -> usr_param .)
+    MKGRP           reduce using rule 72 (usr_params -> usr_param .)
+    MKUSR           reduce using rule 72 (usr_params -> usr_param .)
+    MKDIR           reduce using rule 72 (usr_params -> usr_param .)
+    $end            reduce using rule 72 (usr_params -> usr_param .)
 
 
 state 51
 
-    (18) mkdisk_param -> SEPARATOR FIT ASSIGN . ID
+    (73) usr_param -> SEPARATOR . USER ASSIGN ID
+    (74) usr_param -> SEPARATOR . USER ASSIGN STRING
+    (75) usr_param -> SEPARATOR . PASS ASSIGN ID
+    (76) usr_param -> SEPARATOR . PASS ASSIGN STRING
+    (77) usr_param -> SEPARATOR . PASS ASSIGN NUMBER
+    (78) usr_param -> SEPARATOR . GRP ASSIGN ID
+    (79) usr_param -> SEPARATOR . GRP ASSIGN STRING
 
-    ID              shift and go to state 68
+    USER            shift and go to state 86
+    PASS            shift and go to state 87
+    GRP             shift and go to state 88
 
 
 state 52
 
-    (10) rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN . PATHWITHQUOTES
-    (11) rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN . PATHWITHOUTQUOTES
+    (80) mkdir_block -> MKDIR mkdir_params .
+    (81) mkdir_params -> mkdir_params . mkdir_param
+    (83) mkdir_param -> . SEPARATOR PATH ASSIGN PATHWITHQUOTES
+    (84) mkdir_param -> . SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES
+    (85) mkdir_param -> . SEPARATOR R
 
-    PATHWITHQUOTES  shift and go to state 69
-    PATHWITHOUTQUOTES shift and go to state 70
+    MKDISK          reduce using rule 80 (mkdir_block -> MKDIR mkdir_params .)
+    RMDISK          reduce using rule 80 (mkdir_block -> MKDIR mkdir_params .)
+    FDISK           reduce using rule 80 (mkdir_block -> MKDIR mkdir_params .)
+    MOUNT           reduce using rule 80 (mkdir_block -> MKDIR mkdir_params .)
+    UNMOUNT         reduce using rule 80 (mkdir_block -> MKDIR mkdir_params .)
+    MKFS            reduce using rule 80 (mkdir_block -> MKDIR mkdir_params .)
+    LOGIN           reduce using rule 80 (mkdir_block -> MKDIR mkdir_params .)
+    LOGOUT          reduce using rule 80 (mkdir_block -> MKDIR mkdir_params .)
+    MKGRP           reduce using rule 80 (mkdir_block -> MKDIR mkdir_params .)
+    MKUSR           reduce using rule 80 (mkdir_block -> MKDIR mkdir_params .)
+    MKDIR           reduce using rule 80 (mkdir_block -> MKDIR mkdir_params .)
+    $end            reduce using rule 80 (mkdir_block -> MKDIR mkdir_params .)
+    SEPARATOR       shift and go to state 54
 
+    mkdir_param                    shift and go to state 89
 
 state 53
 
-    (22) fdisk_param -> SEPARATOR SIZE ASSIGN . NUMBER
+    (82) mkdir_params -> mkdir_param .
 
-    NUMBER          shift and go to state 71
+    SEPARATOR       reduce using rule 82 (mkdir_params -> mkdir_param .)
+    MKDISK          reduce using rule 82 (mkdir_params -> mkdir_param .)
+    RMDISK          reduce using rule 82 (mkdir_params -> mkdir_param .)
+    FDISK           reduce using rule 82 (mkdir_params -> mkdir_param .)
+    MOUNT           reduce using rule 82 (mkdir_params -> mkdir_param .)
+    UNMOUNT         reduce using rule 82 (mkdir_params -> mkdir_param .)
+    MKFS            reduce using rule 82 (mkdir_params -> mkdir_param .)
+    LOGIN           reduce using rule 82 (mkdir_params -> mkdir_param .)
+    LOGOUT          reduce using rule 82 (mkdir_params -> mkdir_param .)
+    MKGRP           reduce using rule 82 (mkdir_params -> mkdir_param .)
+    MKUSR           reduce using rule 82 (mkdir_params -> mkdir_param .)
+    MKDIR           reduce using rule 82 (mkdir_params -> mkdir_param .)
+    $end            reduce using rule 82 (mkdir_params -> mkdir_param .)
 
 
 state 54
 
-    (23) fdisk_param -> SEPARATOR PATH ASSIGN . PATHWITHQUOTES
-    (24) fdisk_param -> SEPARATOR PATH ASSIGN . PATHWITHOUTQUOTES
+    (83) mkdir_param -> SEPARATOR . PATH ASSIGN PATHWITHQUOTES
+    (84) mkdir_param -> SEPARATOR . PATH ASSIGN PATHWITHOUTQUOTES
+    (85) mkdir_param -> SEPARATOR . R
 
-    PATHWITHQUOTES  shift and go to state 72
-    PATHWITHOUTQUOTES shift and go to state 73
+    PATH            shift and go to state 90
+    R               shift and go to state 91
 
 
 state 55
 
-    (25) fdisk_param -> SEPARATOR NAME ASSIGN . ID
-    (26) fdisk_param -> SEPARATOR NAME ASSIGN . PATHWITHOUTQUOTES
+    (18) mkdisk_params -> mkdisk_params mkdisk_param .
 
-    ID              shift and go to state 74
-    PATHWITHOUTQUOTES shift and go to state 75
+    SEPARATOR       reduce using rule 18 (mkdisk_params -> mkdisk_params mkdisk_param .)
+    MKDISK          reduce using rule 18 (mkdisk_params -> mkdisk_params mkdisk_param .)
+    RMDISK          reduce using rule 18 (mkdisk_params -> mkdisk_params mkdisk_param .)
+    FDISK           reduce using rule 18 (mkdisk_params -> mkdisk_params mkdisk_param .)
+    MOUNT           reduce using rule 18 (mkdisk_params -> mkdisk_params mkdisk_param .)
+    UNMOUNT         reduce using rule 18 (mkdisk_params -> mkdisk_params mkdisk_param .)
+    MKFS            reduce using rule 18 (mkdisk_params -> mkdisk_params mkdisk_param .)
+    LOGIN           reduce using rule 18 (mkdisk_params -> mkdisk_params mkdisk_param .)
+    LOGOUT          reduce using rule 18 (mkdisk_params -> mkdisk_params mkdisk_param .)
+    MKGRP           reduce using rule 18 (mkdisk_params -> mkdisk_params mkdisk_param .)
+    MKUSR           reduce using rule 18 (mkdisk_params -> mkdisk_params mkdisk_param .)
+    MKDIR           reduce using rule 18 (mkdisk_params -> mkdisk_params mkdisk_param .)
+    $end            reduce using rule 18 (mkdisk_params -> mkdisk_params mkdisk_param .)
 
 
 state 56
 
-    (27) fdisk_param -> SEPARATOR UNIT ASSIGN . ID
+    (20) mkdisk_param -> SEPARATOR SIZE . ASSIGN NUMBER
 
-    ID              shift and go to state 76
+    ASSIGN          shift and go to state 92
 
 
 state 57
 
-    (28) fdisk_param -> SEPARATOR TYPE ASSIGN . ID
+    (21) mkdisk_param -> SEPARATOR PATH . ASSIGN PATHWITHQUOTES
+    (22) mkdisk_param -> SEPARATOR PATH . ASSIGN PATHWITHOUTQUOTES
 
-    ID              shift and go to state 77
+    ASSIGN          shift and go to state 93
 
 
 state 58
 
-    (29) fdisk_param -> SEPARATOR FIT ASSIGN . ID
+    (23) mkdisk_param -> SEPARATOR UNIT . ASSIGN ID
 
-    ID              shift and go to state 78
+    ASSIGN          shift and go to state 94
 
 
 state 59
 
-    (30) fdisk_param -> SEPARATOR DELETE ASSIGN . ID
+    (24) mkdisk_param -> SEPARATOR FIT . ASSIGN ID
 
-    ID              shift and go to state 79
+    ASSIGN          shift and go to state 95
 
 
 state 60
 
-    (31) fdisk_param -> SEPARATOR ADD ASSIGN . NUMBER
-    (32) fdisk_param -> SEPARATOR ADD ASSIGN . NEGATIVE
+    (16) rmdisk_block -> RMDISK SEPARATOR PATH . ASSIGN PATHWITHQUOTES
+    (17) rmdisk_block -> RMDISK SEPARATOR PATH . ASSIGN PATHWITHOUTQUOTES
 
-    NUMBER          shift and go to state 80
-    NEGATIVE        shift and go to state 81
+    ASSIGN          shift and go to state 96
 
 
 state 61
 
-    (36) mount_param -> SEPARATOR PATH ASSIGN . PATHWITHQUOTES
-    (37) mount_param -> SEPARATOR PATH ASSIGN . PATHWITHOUTQUOTES
+    (26) fdisk_params -> fdisk_params fdisk_param .
 
-    PATHWITHQUOTES  shift and go to state 82
-    PATHWITHOUTQUOTES shift and go to state 83
+    SEPARATOR       reduce using rule 26 (fdisk_params -> fdisk_params fdisk_param .)
+    MKDISK          reduce using rule 26 (fdisk_params -> fdisk_params fdisk_param .)
+    RMDISK          reduce using rule 26 (fdisk_params -> fdisk_params fdisk_param .)
+    FDISK           reduce using rule 26 (fdisk_params -> fdisk_params fdisk_param .)
+    MOUNT           reduce using rule 26 (fdisk_params -> fdisk_params fdisk_param .)
+    UNMOUNT         reduce using rule 26 (fdisk_params -> fdisk_params fdisk_param .)
+    MKFS            reduce using rule 26 (fdisk_params -> fdisk_params fdisk_param .)
+    LOGIN           reduce using rule 26 (fdisk_params -> fdisk_params fdisk_param .)
+    LOGOUT          reduce using rule 26 (fdisk_params -> fdisk_params fdisk_param .)
+    MKGRP           reduce using rule 26 (fdisk_params -> fdisk_params fdisk_param .)
+    MKUSR           reduce using rule 26 (fdisk_params -> fdisk_params fdisk_param .)
+    MKDIR           reduce using rule 26 (fdisk_params -> fdisk_params fdisk_param .)
+    $end            reduce using rule 26 (fdisk_params -> fdisk_params fdisk_param .)
 
 
 state 62
 
-    (38) mount_param -> SEPARATOR NAME ASSIGN . ID
+    (28) fdisk_param -> SEPARATOR SIZE . ASSIGN NUMBER
 
-    ID              shift and go to state 84
+    ASSIGN          shift and go to state 97
 
 
 state 63
 
-    (42) unmount_param -> SEPARATOR ID_PARAM ASSIGN . MOUNTNAME
+    (29) fdisk_param -> SEPARATOR PATH . ASSIGN PATHWITHQUOTES
+    (30) fdisk_param -> SEPARATOR PATH . ASSIGN PATHWITHOUTQUOTES
 
-    MOUNTNAME       shift and go to state 85
+    ASSIGN          shift and go to state 98
 
 
 state 64
 
-    (14) mkdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .
+    (31) fdisk_param -> SEPARATOR NAME . ASSIGN ID
+    (32) fdisk_param -> SEPARATOR NAME . ASSIGN PATHWITHOUTQUOTES
 
-    SEPARATOR       reduce using rule 14 (mkdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
-    MKDISK          reduce using rule 14 (mkdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
-    RMDISK          reduce using rule 14 (mkdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
-    FDISK           reduce using rule 14 (mkdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
-    MOUNT           reduce using rule 14 (mkdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
-    UNMOUNT         reduce using rule 14 (mkdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
-    $end            reduce using rule 14 (mkdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
+    ASSIGN          shift and go to state 99
 
 
 state 65
 
-    (15) mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .
+    (33) fdisk_param -> SEPARATOR UNIT . ASSIGN ID
 
-    SEPARATOR       reduce using rule 15 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
-    MKDISK          reduce using rule 15 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
-    RMDISK          reduce using rule 15 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
-    FDISK           reduce using rule 15 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
-    MOUNT           reduce using rule 15 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
-    UNMOUNT         reduce using rule 15 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
-    $end            reduce using rule 15 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    ASSIGN          shift and go to state 100
 
 
 state 66
 
-    (16) mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .
+    (34) fdisk_param -> SEPARATOR TYPE . ASSIGN ID
 
-    SEPARATOR       reduce using rule 16 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
-    MKDISK          reduce using rule 16 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
-    RMDISK          reduce using rule 16 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
-    FDISK           reduce using rule 16 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
-    MOUNT           reduce using rule 16 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
-    UNMOUNT         reduce using rule 16 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
-    $end            reduce using rule 16 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    ASSIGN          shift and go to state 101
 
 
 state 67
 
-    (17) mkdisk_param -> SEPARATOR UNIT ASSIGN ID .
+    (35) fdisk_param -> SEPARATOR FIT . ASSIGN ID
 
-    SEPARATOR       reduce using rule 17 (mkdisk_param -> SEPARATOR UNIT ASSIGN ID .)
-    MKDISK          reduce using rule 17 (mkdisk_param -> SEPARATOR UNIT ASSIGN ID .)
-    RMDISK          reduce using rule 17 (mkdisk_param -> SEPARATOR UNIT ASSIGN ID .)
-    FDISK           reduce using rule 17 (mkdisk_param -> SEPARATOR UNIT ASSIGN ID .)
-    MOUNT           reduce using rule 17 (mkdisk_param -> SEPARATOR UNIT ASSIGN ID .)
-    UNMOUNT         reduce using rule 17 (mkdisk_param -> SEPARATOR UNIT ASSIGN ID .)
-    $end            reduce using rule 17 (mkdisk_param -> SEPARATOR UNIT ASSIGN ID .)
+    ASSIGN          shift and go to state 102
 
 
 state 68
 
-    (18) mkdisk_param -> SEPARATOR FIT ASSIGN ID .
+    (36) fdisk_param -> SEPARATOR DELETE . ASSIGN ID
 
-    SEPARATOR       reduce using rule 18 (mkdisk_param -> SEPARATOR FIT ASSIGN ID .)
-    MKDISK          reduce using rule 18 (mkdisk_param -> SEPARATOR FIT ASSIGN ID .)
-    RMDISK          reduce using rule 18 (mkdisk_param -> SEPARATOR FIT ASSIGN ID .)
-    FDISK           reduce using rule 18 (mkdisk_param -> SEPARATOR FIT ASSIGN ID .)
-    MOUNT           reduce using rule 18 (mkdisk_param -> SEPARATOR FIT ASSIGN ID .)
-    UNMOUNT         reduce using rule 18 (mkdisk_param -> SEPARATOR FIT ASSIGN ID .)
-    $end            reduce using rule 18 (mkdisk_param -> SEPARATOR FIT ASSIGN ID .)
+    ASSIGN          shift and go to state 103
 
 
 state 69
 
-    (10) rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHQUOTES .
+    (37) fdisk_param -> SEPARATOR ADD . ASSIGN NUMBER
+    (38) fdisk_param -> SEPARATOR ADD . ASSIGN NEGATIVE
 
-    MKDISK          reduce using rule 10 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
-    RMDISK          reduce using rule 10 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
-    FDISK           reduce using rule 10 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
-    MOUNT           reduce using rule 10 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
-    UNMOUNT         reduce using rule 10 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
-    $end            reduce using rule 10 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    ASSIGN          shift and go to state 104
 
 
 state 70
 
-    (11) rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .
+    (40) mount_params -> mount_params mount_param .
 
-    MKDISK          reduce using rule 11 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
-    RMDISK          reduce using rule 11 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
-    FDISK           reduce using rule 11 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
-    MOUNT           reduce using rule 11 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
-    UNMOUNT         reduce using rule 11 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
-    $end            reduce using rule 11 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    SEPARATOR       reduce using rule 40 (mount_params -> mount_params mount_param .)
+    MKDISK          reduce using rule 40 (mount_params -> mount_params mount_param .)
+    RMDISK          reduce using rule 40 (mount_params -> mount_params mount_param .)
+    FDISK           reduce using rule 40 (mount_params -> mount_params mount_param .)
+    MOUNT           reduce using rule 40 (mount_params -> mount_params mount_param .)
+    UNMOUNT         reduce using rule 40 (mount_params -> mount_params mount_param .)
+    MKFS            reduce using rule 40 (mount_params -> mount_params mount_param .)
+    LOGIN           reduce using rule 40 (mount_params -> mount_params mount_param .)
+    LOGOUT          reduce using rule 40 (mount_params -> mount_params mount_param .)
+    MKGRP           reduce using rule 40 (mount_params -> mount_params mount_param .)
+    MKUSR           reduce using rule 40 (mount_params -> mount_params mount_param .)
+    MKDIR           reduce using rule 40 (mount_params -> mount_params mount_param .)
+    $end            reduce using rule 40 (mount_params -> mount_params mount_param .)
 
 
 state 71
 
-    (22) fdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .
+    (42) mount_param -> SEPARATOR PATH . ASSIGN PATHWITHQUOTES
+    (43) mount_param -> SEPARATOR PATH . ASSIGN PATHWITHOUTQUOTES
 
-    SEPARATOR       reduce using rule 22 (fdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
-    MKDISK          reduce using rule 22 (fdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
-    RMDISK          reduce using rule 22 (fdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
-    FDISK           reduce using rule 22 (fdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
-    MOUNT           reduce using rule 22 (fdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
-    UNMOUNT         reduce using rule 22 (fdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
-    $end            reduce using rule 22 (fdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
+    ASSIGN          shift and go to state 105
 
 
 state 72
 
-    (23) fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .
+    (44) mount_param -> SEPARATOR NAME . ASSIGN ID
 
-    SEPARATOR       reduce using rule 23 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
-    MKDISK          reduce using rule 23 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
-    RMDISK          reduce using rule 23 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
-    FDISK           reduce using rule 23 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
-    MOUNT           reduce using rule 23 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
-    UNMOUNT         reduce using rule 23 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
-    $end            reduce using rule 23 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    ASSIGN          shift and go to state 106
 
 
 state 73
 
-    (24) fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .
+    (46) unmount_params -> unmount_params unmount_param .
 
-    SEPARATOR       reduce using rule 24 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
-    MKDISK          reduce using rule 24 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
-    RMDISK          reduce using rule 24 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
-    FDISK           reduce using rule 24 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
-    MOUNT           reduce using rule 24 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
-    UNMOUNT         reduce using rule 24 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
-    $end            reduce using rule 24 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    SEPARATOR       reduce using rule 46 (unmount_params -> unmount_params unmount_param .)
+    MKDISK          reduce using rule 46 (unmount_params -> unmount_params unmount_param .)
+    RMDISK          reduce using rule 46 (unmount_params -> unmount_params unmount_param .)
+    FDISK           reduce using rule 46 (unmount_params -> unmount_params unmount_param .)
+    MOUNT           reduce using rule 46 (unmount_params -> unmount_params unmount_param .)
+    UNMOUNT         reduce using rule 46 (unmount_params -> unmount_params unmount_param .)
+    MKFS            reduce using rule 46 (unmount_params -> unmount_params unmount_param .)
+    LOGIN           reduce using rule 46 (unmount_params -> unmount_params unmount_param .)
+    LOGOUT          reduce using rule 46 (unmount_params -> unmount_params unmount_param .)
+    MKGRP           reduce using rule 46 (unmount_params -> unmount_params unmount_param .)
+    MKUSR           reduce using rule 46 (unmount_params -> unmount_params unmount_param .)
+    MKDIR           reduce using rule 46 (unmount_params -> unmount_params unmount_param .)
+    $end            reduce using rule 46 (unmount_params -> unmount_params unmount_param .)
 
 
 state 74
 
-    (25) fdisk_param -> SEPARATOR NAME ASSIGN ID .
+    (48) unmount_param -> SEPARATOR ID_PARAM . ASSIGN MOUNTNAME
 
-    SEPARATOR       reduce using rule 25 (fdisk_param -> SEPARATOR NAME ASSIGN ID .)
-    MKDISK          reduce using rule 25 (fdisk_param -> SEPARATOR NAME ASSIGN ID .)
-    RMDISK          reduce using rule 25 (fdisk_param -> SEPARATOR NAME ASSIGN ID .)
-    FDISK           reduce using rule 25 (fdisk_param -> SEPARATOR NAME ASSIGN ID .)
-    MOUNT           reduce using rule 25 (fdisk_param -> SEPARATOR NAME ASSIGN ID .)
-    UNMOUNT         reduce using rule 25 (fdisk_param -> SEPARATOR NAME ASSIGN ID .)
-    $end            reduce using rule 25 (fdisk_param -> SEPARATOR NAME ASSIGN ID .)
+    ASSIGN          shift and go to state 107
 
 
 state 75
 
-    (26) fdisk_param -> SEPARATOR NAME ASSIGN PATHWITHOUTQUOTES .
+    (50) mkfs_params -> mkfs_params mkfs_param .
 
-    SEPARATOR       reduce using rule 26 (fdisk_param -> SEPARATOR NAME ASSIGN PATHWITHOUTQUOTES .)
-    MKDISK          reduce using rule 26 (fdisk_param -> SEPARATOR NAME ASSIGN PATHWITHOUTQUOTES .)
-    RMDISK          reduce using rule 26 (fdisk_param -> SEPARATOR NAME ASSIGN PATHWITHOUTQUOTES .)
-    FDISK           reduce using rule 26 (fdisk_param -> SEPARATOR NAME ASSIGN PATHWITHOUTQUOTES .)
-    MOUNT           reduce using rule 26 (fdisk_param -> SEPARATOR NAME ASSIGN PATHWITHOUTQUOTES .)
-    UNMOUNT         reduce using rule 26 (fdisk_param -> SEPARATOR NAME ASSIGN PATHWITHOUTQUOTES .)
-    $end            reduce using rule 26 (fdisk_param -> SEPARATOR NAME ASSIGN PATHWITHOUTQUOTES .)
+    SEPARATOR       reduce using rule 50 (mkfs_params -> mkfs_params mkfs_param .)
+    MKDISK          reduce using rule 50 (mkfs_params -> mkfs_params mkfs_param .)
+    RMDISK          reduce using rule 50 (mkfs_params -> mkfs_params mkfs_param .)
+    FDISK           reduce using rule 50 (mkfs_params -> mkfs_params mkfs_param .)
+    MOUNT           reduce using rule 50 (mkfs_params -> mkfs_params mkfs_param .)
+    UNMOUNT         reduce using rule 50 (mkfs_params -> mkfs_params mkfs_param .)
+    MKFS            reduce using rule 50 (mkfs_params -> mkfs_params mkfs_param .)
+    LOGIN           reduce using rule 50 (mkfs_params -> mkfs_params mkfs_param .)
+    LOGOUT          reduce using rule 50 (mkfs_params -> mkfs_params mkfs_param .)
+    MKGRP           reduce using rule 50 (mkfs_params -> mkfs_params mkfs_param .)
+    MKUSR           reduce using rule 50 (mkfs_params -> mkfs_params mkfs_param .)
+    MKDIR           reduce using rule 50 (mkfs_params -> mkfs_params mkfs_param .)
+    $end            reduce using rule 50 (mkfs_params -> mkfs_params mkfs_param .)
 
 
 state 76
 
-    (27) fdisk_param -> SEPARATOR UNIT ASSIGN ID .
+    (52) mkfs_param -> SEPARATOR ID_PARAM . ASSIGN MOUNTNAME
 
-    SEPARATOR       reduce using rule 27 (fdisk_param -> SEPARATOR UNIT ASSIGN ID .)
-    MKDISK          reduce using rule 27 (fdisk_param -> SEPARATOR UNIT ASSIGN ID .)
-    RMDISK          reduce using rule 27 (fdisk_param -> SEPARATOR UNIT ASSIGN ID .)
-    FDISK           reduce using rule 27 (fdisk_param -> SEPARATOR UNIT ASSIGN ID .)
-    MOUNT           reduce using rule 27 (fdisk_param -> SEPARATOR UNIT ASSIGN ID .)
-    UNMOUNT         reduce using rule 27 (fdisk_param -> SEPARATOR UNIT ASSIGN ID .)
-    $end            reduce using rule 27 (fdisk_param -> SEPARATOR UNIT ASSIGN ID .)
+    ASSIGN          shift and go to state 108
 
 
 state 77
 
-    (28) fdisk_param -> SEPARATOR TYPE ASSIGN ID .
+    (53) mkfs_param -> SEPARATOR TYPE . ASSIGN ID
 
-    SEPARATOR       reduce using rule 28 (fdisk_param -> SEPARATOR TYPE ASSIGN ID .)
-    MKDISK          reduce using rule 28 (fdisk_param -> SEPARATOR TYPE ASSIGN ID .)
-    RMDISK          reduce using rule 28 (fdisk_param -> SEPARATOR TYPE ASSIGN ID .)
-    FDISK           reduce using rule 28 (fdisk_param -> SEPARATOR TYPE ASSIGN ID .)
-    MOUNT           reduce using rule 28 (fdisk_param -> SEPARATOR TYPE ASSIGN ID .)
-    UNMOUNT         reduce using rule 28 (fdisk_param -> SEPARATOR TYPE ASSIGN ID .)
-    $end            reduce using rule 28 (fdisk_param -> SEPARATOR TYPE ASSIGN ID .)
+    ASSIGN          shift and go to state 109
 
 
 state 78
 
-    (29) fdisk_param -> SEPARATOR FIT ASSIGN ID .
+    (54) mkfs_param -> SEPARATOR FS . ASSIGN MOUNTNAME
 
-    SEPARATOR       reduce using rule 29 (fdisk_param -> SEPARATOR FIT ASSIGN ID .)
-    MKDISK          reduce using rule 29 (fdisk_param -> SEPARATOR FIT ASSIGN ID .)
-    RMDISK          reduce using rule 29 (fdisk_param -> SEPARATOR FIT ASSIGN ID .)
-    FDISK           reduce using rule 29 (fdisk_param -> SEPARATOR FIT ASSIGN ID .)
-    MOUNT           reduce using rule 29 (fdisk_param -> SEPARATOR FIT ASSIGN ID .)
-    UNMOUNT         reduce using rule 29 (fdisk_param -> SEPARATOR FIT ASSIGN ID .)
-    $end            reduce using rule 29 (fdisk_param -> SEPARATOR FIT ASSIGN ID .)
+    ASSIGN          shift and go to state 110
 
 
 state 79
 
-    (30) fdisk_param -> SEPARATOR DELETE ASSIGN ID .
+    (56) login_params -> login_params login_param .
 
-    SEPARATOR       reduce using rule 30 (fdisk_param -> SEPARATOR DELETE ASSIGN ID .)
-    MKDISK          reduce using rule 30 (fdisk_param -> SEPARATOR DELETE ASSIGN ID .)
-    RMDISK          reduce using rule 30 (fdisk_param -> SEPARATOR DELETE ASSIGN ID .)
-    FDISK           reduce using rule 30 (fdisk_param -> SEPARATOR DELETE ASSIGN ID .)
-    MOUNT           reduce using rule 30 (fdisk_param -> SEPARATOR DELETE ASSIGN ID .)
-    UNMOUNT         reduce using rule 30 (fdisk_param -> SEPARATOR DELETE ASSIGN ID .)
-    $end            reduce using rule 30 (fdisk_param -> SEPARATOR DELETE ASSIGN ID .)
+    SEPARATOR       reduce using rule 56 (login_params -> login_params login_param .)
+    MKDISK          reduce using rule 56 (login_params -> login_params login_param .)
+    RMDISK          reduce using rule 56 (login_params -> login_params login_param .)
+    FDISK           reduce using rule 56 (login_params -> login_params login_param .)
+    MOUNT           reduce using rule 56 (login_params -> login_params login_param .)
+    UNMOUNT         reduce using rule 56 (login_params -> login_params login_param .)
+    MKFS            reduce using rule 56 (login_params -> login_params login_param .)
+    LOGIN           reduce using rule 56 (login_params -> login_params login_param .)
+    LOGOUT          reduce using rule 56 (login_params -> login_params login_param .)
+    MKGRP           reduce using rule 56 (login_params -> login_params login_param .)
+    MKUSR           reduce using rule 56 (login_params -> login_params login_param .)
+    MKDIR           reduce using rule 56 (login_params -> login_params login_param .)
+    $end            reduce using rule 56 (login_params -> login_params login_param .)
 
 
 state 80
 
-    (31) fdisk_param -> SEPARATOR ADD ASSIGN NUMBER .
+    (58) login_param -> SEPARATOR USER . ASSIGN STRING
+    (62) login_param -> SEPARATOR USER . ASSIGN ID
 
-    SEPARATOR       reduce using rule 31 (fdisk_param -> SEPARATOR ADD ASSIGN NUMBER .)
-    MKDISK          reduce using rule 31 (fdisk_param -> SEPARATOR ADD ASSIGN NUMBER .)
-    RMDISK          reduce using rule 31 (fdisk_param -> SEPARATOR ADD ASSIGN NUMBER .)
-    FDISK           reduce using rule 31 (fdisk_param -> SEPARATOR ADD ASSIGN NUMBER .)
-    MOUNT           reduce using rule 31 (fdisk_param -> SEPARATOR ADD ASSIGN NUMBER .)
-    UNMOUNT         reduce using rule 31 (fdisk_param -> SEPARATOR ADD ASSIGN NUMBER .)
-    $end            reduce using rule 31 (fdisk_param -> SEPARATOR ADD ASSIGN NUMBER .)
+    ASSIGN          shift and go to state 111
 
 
 state 81
 
-    (32) fdisk_param -> SEPARATOR ADD ASSIGN NEGATIVE .
+    (59) login_param -> SEPARATOR PASS . ASSIGN STRING
+    (60) login_param -> SEPARATOR PASS . ASSIGN ID
+    (61) login_param -> SEPARATOR PASS . ASSIGN NUMBER
 
-    SEPARATOR       reduce using rule 32 (fdisk_param -> SEPARATOR ADD ASSIGN NEGATIVE .)
-    MKDISK          reduce using rule 32 (fdisk_param -> SEPARATOR ADD ASSIGN NEGATIVE .)
-    RMDISK          reduce using rule 32 (fdisk_param -> SEPARATOR ADD ASSIGN NEGATIVE .)
-    FDISK           reduce using rule 32 (fdisk_param -> SEPARATOR ADD ASSIGN NEGATIVE .)
-    MOUNT           reduce using rule 32 (fdisk_param -> SEPARATOR ADD ASSIGN NEGATIVE .)
-    UNMOUNT         reduce using rule 32 (fdisk_param -> SEPARATOR ADD ASSIGN NEGATIVE .)
-    $end            reduce using rule 32 (fdisk_param -> SEPARATOR ADD ASSIGN NEGATIVE .)
+    ASSIGN          shift and go to state 112
 
 
 state 82
 
-    (36) mount_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .
+    (63) login_param -> SEPARATOR ID_PARAM . ASSIGN MOUNTNAME
 
-    SEPARATOR       reduce using rule 36 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
-    MKDISK          reduce using rule 36 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
-    RMDISK          reduce using rule 36 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
-    FDISK           reduce using rule 36 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
-    MOUNT           reduce using rule 36 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
-    UNMOUNT         reduce using rule 36 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
-    $end            reduce using rule 36 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    ASSIGN          shift and go to state 113
 
 
 state 83
 
-    (37) mount_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .
+    (66) mkgrp_params -> mkgrp_params mkgrp_param .
 
-    SEPARATOR       reduce using rule 37 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
-    MKDISK          reduce using rule 37 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
-    RMDISK          reduce using rule 37 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
-    FDISK           reduce using rule 37 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
-    MOUNT           reduce using rule 37 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
-    UNMOUNT         reduce using rule 37 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
-    $end            reduce using rule 37 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    SEPARATOR       reduce using rule 66 (mkgrp_params -> mkgrp_params mkgrp_param .)
+    MKDISK          reduce using rule 66 (mkgrp_params -> mkgrp_params mkgrp_param .)
+    RMDISK          reduce using rule 66 (mkgrp_params -> mkgrp_params mkgrp_param .)
+    FDISK           reduce using rule 66 (mkgrp_params -> mkgrp_params mkgrp_param .)
+    MOUNT           reduce using rule 66 (mkgrp_params -> mkgrp_params mkgrp_param .)
+    UNMOUNT         reduce using rule 66 (mkgrp_params -> mkgrp_params mkgrp_param .)
+    MKFS            reduce using rule 66 (mkgrp_params -> mkgrp_params mkgrp_param .)
+    LOGIN           reduce using rule 66 (mkgrp_params -> mkgrp_params mkgrp_param .)
+    LOGOUT          reduce using rule 66 (mkgrp_params -> mkgrp_params mkgrp_param .)
+    MKGRP           reduce using rule 66 (mkgrp_params -> mkgrp_params mkgrp_param .)
+    MKUSR           reduce using rule 66 (mkgrp_params -> mkgrp_params mkgrp_param .)
+    MKDIR           reduce using rule 66 (mkgrp_params -> mkgrp_params mkgrp_param .)
+    $end            reduce using rule 66 (mkgrp_params -> mkgrp_params mkgrp_param .)
 
 
 state 84
 
-    (38) mount_param -> SEPARATOR NAME ASSIGN ID .
+    (68) mkgrp_param -> SEPARATOR NAME . ASSIGN ID
+    (69) mkgrp_param -> SEPARATOR NAME . ASSIGN STRING
 
-    SEPARATOR       reduce using rule 38 (mount_param -> SEPARATOR NAME ASSIGN ID .)
-    MKDISK          reduce using rule 38 (mount_param -> SEPARATOR NAME ASSIGN ID .)
-    RMDISK          reduce using rule 38 (mount_param -> SEPARATOR NAME ASSIGN ID .)
-    FDISK           reduce using rule 38 (mount_param -> SEPARATOR NAME ASSIGN ID .)
-    MOUNT           reduce using rule 38 (mount_param -> SEPARATOR NAME ASSIGN ID .)
-    UNMOUNT         reduce using rule 38 (mount_param -> SEPARATOR NAME ASSIGN ID .)
-    $end            reduce using rule 38 (mount_param -> SEPARATOR NAME ASSIGN ID .)
+    ASSIGN          shift and go to state 114
 
 
 state 85
 
-    (42) unmount_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .
+    (71) usr_params -> usr_params usr_param .
 
-    SEPARATOR       reduce using rule 42 (unmount_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
-    MKDISK          reduce using rule 42 (unmount_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
-    RMDISK          reduce using rule 42 (unmount_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
-    FDISK           reduce using rule 42 (unmount_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
-    MOUNT           reduce using rule 42 (unmount_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
-    UNMOUNT         reduce using rule 42 (unmount_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
-    $end            reduce using rule 42 (unmount_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    SEPARATOR       reduce using rule 71 (usr_params -> usr_params usr_param .)
+    MKDISK          reduce using rule 71 (usr_params -> usr_params usr_param .)
+    RMDISK          reduce using rule 71 (usr_params -> usr_params usr_param .)
+    FDISK           reduce using rule 71 (usr_params -> usr_params usr_param .)
+    MOUNT           reduce using rule 71 (usr_params -> usr_params usr_param .)
+    UNMOUNT         reduce using rule 71 (usr_params -> usr_params usr_param .)
+    MKFS            reduce using rule 71 (usr_params -> usr_params usr_param .)
+    LOGIN           reduce using rule 71 (usr_params -> usr_params usr_param .)
+    LOGOUT          reduce using rule 71 (usr_params -> usr_params usr_param .)
+    MKGRP           reduce using rule 71 (usr_params -> usr_params usr_param .)
+    MKUSR           reduce using rule 71 (usr_params -> usr_params usr_param .)
+    MKDIR           reduce using rule 71 (usr_params -> usr_params usr_param .)
+    $end            reduce using rule 71 (usr_params -> usr_params usr_param .)
+
+
+state 86
+
+    (73) usr_param -> SEPARATOR USER . ASSIGN ID
+    (74) usr_param -> SEPARATOR USER . ASSIGN STRING
+
+    ASSIGN          shift and go to state 115
+
+
+state 87
+
+    (75) usr_param -> SEPARATOR PASS . ASSIGN ID
+    (76) usr_param -> SEPARATOR PASS . ASSIGN STRING
+    (77) usr_param -> SEPARATOR PASS . ASSIGN NUMBER
+
+    ASSIGN          shift and go to state 116
+
+
+state 88
+
+    (78) usr_param -> SEPARATOR GRP . ASSIGN ID
+    (79) usr_param -> SEPARATOR GRP . ASSIGN STRING
+
+    ASSIGN          shift and go to state 117
+
+
+state 89
+
+    (81) mkdir_params -> mkdir_params mkdir_param .
+
+    SEPARATOR       reduce using rule 81 (mkdir_params -> mkdir_params mkdir_param .)
+    MKDISK          reduce using rule 81 (mkdir_params -> mkdir_params mkdir_param .)
+    RMDISK          reduce using rule 81 (mkdir_params -> mkdir_params mkdir_param .)
+    FDISK           reduce using rule 81 (mkdir_params -> mkdir_params mkdir_param .)
+    MOUNT           reduce using rule 81 (mkdir_params -> mkdir_params mkdir_param .)
+    UNMOUNT         reduce using rule 81 (mkdir_params -> mkdir_params mkdir_param .)
+    MKFS            reduce using rule 81 (mkdir_params -> mkdir_params mkdir_param .)
+    LOGIN           reduce using rule 81 (mkdir_params -> mkdir_params mkdir_param .)
+    LOGOUT          reduce using rule 81 (mkdir_params -> mkdir_params mkdir_param .)
+    MKGRP           reduce using rule 81 (mkdir_params -> mkdir_params mkdir_param .)
+    MKUSR           reduce using rule 81 (mkdir_params -> mkdir_params mkdir_param .)
+    MKDIR           reduce using rule 81 (mkdir_params -> mkdir_params mkdir_param .)
+    $end            reduce using rule 81 (mkdir_params -> mkdir_params mkdir_param .)
+
+
+state 90
+
+    (83) mkdir_param -> SEPARATOR PATH . ASSIGN PATHWITHQUOTES
+    (84) mkdir_param -> SEPARATOR PATH . ASSIGN PATHWITHOUTQUOTES
+
+    ASSIGN          shift and go to state 118
+
+
+state 91
+
+    (85) mkdir_param -> SEPARATOR R .
+
+    SEPARATOR       reduce using rule 85 (mkdir_param -> SEPARATOR R .)
+    MKDISK          reduce using rule 85 (mkdir_param -> SEPARATOR R .)
+    RMDISK          reduce using rule 85 (mkdir_param -> SEPARATOR R .)
+    FDISK           reduce using rule 85 (mkdir_param -> SEPARATOR R .)
+    MOUNT           reduce using rule 85 (mkdir_param -> SEPARATOR R .)
+    UNMOUNT         reduce using rule 85 (mkdir_param -> SEPARATOR R .)
+    MKFS            reduce using rule 85 (mkdir_param -> SEPARATOR R .)
+    LOGIN           reduce using rule 85 (mkdir_param -> SEPARATOR R .)
+    LOGOUT          reduce using rule 85 (mkdir_param -> SEPARATOR R .)
+    MKGRP           reduce using rule 85 (mkdir_param -> SEPARATOR R .)
+    MKUSR           reduce using rule 85 (mkdir_param -> SEPARATOR R .)
+    MKDIR           reduce using rule 85 (mkdir_param -> SEPARATOR R .)
+    $end            reduce using rule 85 (mkdir_param -> SEPARATOR R .)
+
+
+state 92
+
+    (20) mkdisk_param -> SEPARATOR SIZE ASSIGN . NUMBER
+
+    NUMBER          shift and go to state 119
+
+
+state 93
+
+    (21) mkdisk_param -> SEPARATOR PATH ASSIGN . PATHWITHQUOTES
+    (22) mkdisk_param -> SEPARATOR PATH ASSIGN . PATHWITHOUTQUOTES
+
+    PATHWITHQUOTES  shift and go to state 120
+    PATHWITHOUTQUOTES shift and go to state 121
+
+
+state 94
+
+    (23) mkdisk_param -> SEPARATOR UNIT ASSIGN . ID
+
+    ID              shift and go to state 122
+
+
+state 95
+
+    (24) mkdisk_param -> SEPARATOR FIT ASSIGN . ID
+
+    ID              shift and go to state 123
+
+
+state 96
+
+    (16) rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN . PATHWITHQUOTES
+    (17) rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN . PATHWITHOUTQUOTES
+
+    PATHWITHQUOTES  shift and go to state 124
+    PATHWITHOUTQUOTES shift and go to state 125
+
+
+state 97
+
+    (28) fdisk_param -> SEPARATOR SIZE ASSIGN . NUMBER
+
+    NUMBER          shift and go to state 126
+
+
+state 98
+
+    (29) fdisk_param -> SEPARATOR PATH ASSIGN . PATHWITHQUOTES
+    (30) fdisk_param -> SEPARATOR PATH ASSIGN . PATHWITHOUTQUOTES
+
+    PATHWITHQUOTES  shift and go to state 127
+    PATHWITHOUTQUOTES shift and go to state 128
+
+
+state 99
+
+    (31) fdisk_param -> SEPARATOR NAME ASSIGN . ID
+    (32) fdisk_param -> SEPARATOR NAME ASSIGN . PATHWITHOUTQUOTES
+
+    ID              shift and go to state 129
+    PATHWITHOUTQUOTES shift and go to state 130
+
+
+state 100
+
+    (33) fdisk_param -> SEPARATOR UNIT ASSIGN . ID
+
+    ID              shift and go to state 131
+
+
+state 101
+
+    (34) fdisk_param -> SEPARATOR TYPE ASSIGN . ID
+
+    ID              shift and go to state 132
+
+
+state 102
+
+    (35) fdisk_param -> SEPARATOR FIT ASSIGN . ID
+
+    ID              shift and go to state 133
+
+
+state 103
+
+    (36) fdisk_param -> SEPARATOR DELETE ASSIGN . ID
+
+    ID              shift and go to state 134
+
+
+state 104
+
+    (37) fdisk_param -> SEPARATOR ADD ASSIGN . NUMBER
+    (38) fdisk_param -> SEPARATOR ADD ASSIGN . NEGATIVE
+
+    NUMBER          shift and go to state 135
+    NEGATIVE        shift and go to state 136
+
+
+state 105
+
+    (42) mount_param -> SEPARATOR PATH ASSIGN . PATHWITHQUOTES
+    (43) mount_param -> SEPARATOR PATH ASSIGN . PATHWITHOUTQUOTES
+
+    PATHWITHQUOTES  shift and go to state 137
+    PATHWITHOUTQUOTES shift and go to state 138
+
+
+state 106
+
+    (44) mount_param -> SEPARATOR NAME ASSIGN . ID
+
+    ID              shift and go to state 139
+
+
+state 107
+
+    (48) unmount_param -> SEPARATOR ID_PARAM ASSIGN . MOUNTNAME
+
+    MOUNTNAME       shift and go to state 140
+
+
+state 108
+
+    (52) mkfs_param -> SEPARATOR ID_PARAM ASSIGN . MOUNTNAME
+
+    MOUNTNAME       shift and go to state 141
+
+
+state 109
+
+    (53) mkfs_param -> SEPARATOR TYPE ASSIGN . ID
+
+    ID              shift and go to state 142
+
+
+state 110
+
+    (54) mkfs_param -> SEPARATOR FS ASSIGN . MOUNTNAME
+
+    MOUNTNAME       shift and go to state 143
+
+
+state 111
+
+    (58) login_param -> SEPARATOR USER ASSIGN . STRING
+    (62) login_param -> SEPARATOR USER ASSIGN . ID
+
+    STRING          shift and go to state 144
+    ID              shift and go to state 145
+
+
+state 112
+
+    (59) login_param -> SEPARATOR PASS ASSIGN . STRING
+    (60) login_param -> SEPARATOR PASS ASSIGN . ID
+    (61) login_param -> SEPARATOR PASS ASSIGN . NUMBER
+
+    STRING          shift and go to state 146
+    ID              shift and go to state 147
+    NUMBER          shift and go to state 148
+
+
+state 113
+
+    (63) login_param -> SEPARATOR ID_PARAM ASSIGN . MOUNTNAME
+
+    MOUNTNAME       shift and go to state 149
+
+
+state 114
+
+    (68) mkgrp_param -> SEPARATOR NAME ASSIGN . ID
+    (69) mkgrp_param -> SEPARATOR NAME ASSIGN . STRING
+
+    ID              shift and go to state 150
+    STRING          shift and go to state 151
+
+
+state 115
+
+    (73) usr_param -> SEPARATOR USER ASSIGN . ID
+    (74) usr_param -> SEPARATOR USER ASSIGN . STRING
+
+    ID              shift and go to state 152
+    STRING          shift and go to state 153
+
+
+state 116
+
+    (75) usr_param -> SEPARATOR PASS ASSIGN . ID
+    (76) usr_param -> SEPARATOR PASS ASSIGN . STRING
+    (77) usr_param -> SEPARATOR PASS ASSIGN . NUMBER
+
+    ID              shift and go to state 154
+    STRING          shift and go to state 155
+    NUMBER          shift and go to state 156
+
+
+state 117
+
+    (78) usr_param -> SEPARATOR GRP ASSIGN . ID
+    (79) usr_param -> SEPARATOR GRP ASSIGN . STRING
+
+    ID              shift and go to state 157
+    STRING          shift and go to state 158
+
+
+state 118
+
+    (83) mkdir_param -> SEPARATOR PATH ASSIGN . PATHWITHQUOTES
+    (84) mkdir_param -> SEPARATOR PATH ASSIGN . PATHWITHOUTQUOTES
+
+    PATHWITHQUOTES  shift and go to state 159
+    PATHWITHOUTQUOTES shift and go to state 160
+
+
+state 119
+
+    (20) mkdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .
+
+    SEPARATOR       reduce using rule 20 (mkdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
+    MKDISK          reduce using rule 20 (mkdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
+    RMDISK          reduce using rule 20 (mkdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
+    FDISK           reduce using rule 20 (mkdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
+    MOUNT           reduce using rule 20 (mkdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
+    UNMOUNT         reduce using rule 20 (mkdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
+    MKFS            reduce using rule 20 (mkdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
+    LOGIN           reduce using rule 20 (mkdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
+    LOGOUT          reduce using rule 20 (mkdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
+    MKGRP           reduce using rule 20 (mkdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
+    MKUSR           reduce using rule 20 (mkdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
+    MKDIR           reduce using rule 20 (mkdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
+    $end            reduce using rule 20 (mkdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
+
+
+state 120
+
+    (21) mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .
+
+    SEPARATOR       reduce using rule 21 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    MKDISK          reduce using rule 21 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    RMDISK          reduce using rule 21 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    FDISK           reduce using rule 21 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    MOUNT           reduce using rule 21 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    UNMOUNT         reduce using rule 21 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    MKFS            reduce using rule 21 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    LOGIN           reduce using rule 21 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    LOGOUT          reduce using rule 21 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    MKGRP           reduce using rule 21 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    MKUSR           reduce using rule 21 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    MKDIR           reduce using rule 21 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    $end            reduce using rule 21 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+
+
+state 121
+
+    (22) mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .
+
+    SEPARATOR       reduce using rule 22 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    MKDISK          reduce using rule 22 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    RMDISK          reduce using rule 22 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    FDISK           reduce using rule 22 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    MOUNT           reduce using rule 22 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    UNMOUNT         reduce using rule 22 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    MKFS            reduce using rule 22 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    LOGIN           reduce using rule 22 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    LOGOUT          reduce using rule 22 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    MKGRP           reduce using rule 22 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    MKUSR           reduce using rule 22 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    MKDIR           reduce using rule 22 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    $end            reduce using rule 22 (mkdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+
+
+state 122
+
+    (23) mkdisk_param -> SEPARATOR UNIT ASSIGN ID .
+
+    SEPARATOR       reduce using rule 23 (mkdisk_param -> SEPARATOR UNIT ASSIGN ID .)
+    MKDISK          reduce using rule 23 (mkdisk_param -> SEPARATOR UNIT ASSIGN ID .)
+    RMDISK          reduce using rule 23 (mkdisk_param -> SEPARATOR UNIT ASSIGN ID .)
+    FDISK           reduce using rule 23 (mkdisk_param -> SEPARATOR UNIT ASSIGN ID .)
+    MOUNT           reduce using rule 23 (mkdisk_param -> SEPARATOR UNIT ASSIGN ID .)
+    UNMOUNT         reduce using rule 23 (mkdisk_param -> SEPARATOR UNIT ASSIGN ID .)
+    MKFS            reduce using rule 23 (mkdisk_param -> SEPARATOR UNIT ASSIGN ID .)
+    LOGIN           reduce using rule 23 (mkdisk_param -> SEPARATOR UNIT ASSIGN ID .)
+    LOGOUT          reduce using rule 23 (mkdisk_param -> SEPARATOR UNIT ASSIGN ID .)
+    MKGRP           reduce using rule 23 (mkdisk_param -> SEPARATOR UNIT ASSIGN ID .)
+    MKUSR           reduce using rule 23 (mkdisk_param -> SEPARATOR UNIT ASSIGN ID .)
+    MKDIR           reduce using rule 23 (mkdisk_param -> SEPARATOR UNIT ASSIGN ID .)
+    $end            reduce using rule 23 (mkdisk_param -> SEPARATOR UNIT ASSIGN ID .)
+
+
+state 123
+
+    (24) mkdisk_param -> SEPARATOR FIT ASSIGN ID .
+
+    SEPARATOR       reduce using rule 24 (mkdisk_param -> SEPARATOR FIT ASSIGN ID .)
+    MKDISK          reduce using rule 24 (mkdisk_param -> SEPARATOR FIT ASSIGN ID .)
+    RMDISK          reduce using rule 24 (mkdisk_param -> SEPARATOR FIT ASSIGN ID .)
+    FDISK           reduce using rule 24 (mkdisk_param -> SEPARATOR FIT ASSIGN ID .)
+    MOUNT           reduce using rule 24 (mkdisk_param -> SEPARATOR FIT ASSIGN ID .)
+    UNMOUNT         reduce using rule 24 (mkdisk_param -> SEPARATOR FIT ASSIGN ID .)
+    MKFS            reduce using rule 24 (mkdisk_param -> SEPARATOR FIT ASSIGN ID .)
+    LOGIN           reduce using rule 24 (mkdisk_param -> SEPARATOR FIT ASSIGN ID .)
+    LOGOUT          reduce using rule 24 (mkdisk_param -> SEPARATOR FIT ASSIGN ID .)
+    MKGRP           reduce using rule 24 (mkdisk_param -> SEPARATOR FIT ASSIGN ID .)
+    MKUSR           reduce using rule 24 (mkdisk_param -> SEPARATOR FIT ASSIGN ID .)
+    MKDIR           reduce using rule 24 (mkdisk_param -> SEPARATOR FIT ASSIGN ID .)
+    $end            reduce using rule 24 (mkdisk_param -> SEPARATOR FIT ASSIGN ID .)
+
+
+state 124
+
+    (16) rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHQUOTES .
+
+    MKDISK          reduce using rule 16 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    RMDISK          reduce using rule 16 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    FDISK           reduce using rule 16 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    MOUNT           reduce using rule 16 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    UNMOUNT         reduce using rule 16 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    MKFS            reduce using rule 16 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    LOGIN           reduce using rule 16 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    LOGOUT          reduce using rule 16 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    MKGRP           reduce using rule 16 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    MKUSR           reduce using rule 16 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    MKDIR           reduce using rule 16 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    $end            reduce using rule 16 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+
+
+state 125
+
+    (17) rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .
+
+    MKDISK          reduce using rule 17 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    RMDISK          reduce using rule 17 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    FDISK           reduce using rule 17 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    MOUNT           reduce using rule 17 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    UNMOUNT         reduce using rule 17 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    MKFS            reduce using rule 17 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    LOGIN           reduce using rule 17 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    LOGOUT          reduce using rule 17 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    MKGRP           reduce using rule 17 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    MKUSR           reduce using rule 17 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    MKDIR           reduce using rule 17 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    $end            reduce using rule 17 (rmdisk_block -> RMDISK SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+
+
+state 126
+
+    (28) fdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .
+
+    SEPARATOR       reduce using rule 28 (fdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
+    MKDISK          reduce using rule 28 (fdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
+    RMDISK          reduce using rule 28 (fdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
+    FDISK           reduce using rule 28 (fdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
+    MOUNT           reduce using rule 28 (fdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
+    UNMOUNT         reduce using rule 28 (fdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
+    MKFS            reduce using rule 28 (fdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
+    LOGIN           reduce using rule 28 (fdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
+    LOGOUT          reduce using rule 28 (fdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
+    MKGRP           reduce using rule 28 (fdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
+    MKUSR           reduce using rule 28 (fdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
+    MKDIR           reduce using rule 28 (fdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
+    $end            reduce using rule 28 (fdisk_param -> SEPARATOR SIZE ASSIGN NUMBER .)
+
+
+state 127
+
+    (29) fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .
+
+    SEPARATOR       reduce using rule 29 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    MKDISK          reduce using rule 29 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    RMDISK          reduce using rule 29 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    FDISK           reduce using rule 29 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    MOUNT           reduce using rule 29 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    UNMOUNT         reduce using rule 29 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    MKFS            reduce using rule 29 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    LOGIN           reduce using rule 29 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    LOGOUT          reduce using rule 29 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    MKGRP           reduce using rule 29 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    MKUSR           reduce using rule 29 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    MKDIR           reduce using rule 29 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    $end            reduce using rule 29 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+
+
+state 128
+
+    (30) fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .
+
+    SEPARATOR       reduce using rule 30 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    MKDISK          reduce using rule 30 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    RMDISK          reduce using rule 30 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    FDISK           reduce using rule 30 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    MOUNT           reduce using rule 30 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    UNMOUNT         reduce using rule 30 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    MKFS            reduce using rule 30 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    LOGIN           reduce using rule 30 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    LOGOUT          reduce using rule 30 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    MKGRP           reduce using rule 30 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    MKUSR           reduce using rule 30 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    MKDIR           reduce using rule 30 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    $end            reduce using rule 30 (fdisk_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+
+
+state 129
+
+    (31) fdisk_param -> SEPARATOR NAME ASSIGN ID .
+
+    SEPARATOR       reduce using rule 31 (fdisk_param -> SEPARATOR NAME ASSIGN ID .)
+    MKDISK          reduce using rule 31 (fdisk_param -> SEPARATOR NAME ASSIGN ID .)
+    RMDISK          reduce using rule 31 (fdisk_param -> SEPARATOR NAME ASSIGN ID .)
+    FDISK           reduce using rule 31 (fdisk_param -> SEPARATOR NAME ASSIGN ID .)
+    MOUNT           reduce using rule 31 (fdisk_param -> SEPARATOR NAME ASSIGN ID .)
+    UNMOUNT         reduce using rule 31 (fdisk_param -> SEPARATOR NAME ASSIGN ID .)
+    MKFS            reduce using rule 31 (fdisk_param -> SEPARATOR NAME ASSIGN ID .)
+    LOGIN           reduce using rule 31 (fdisk_param -> SEPARATOR NAME ASSIGN ID .)
+    LOGOUT          reduce using rule 31 (fdisk_param -> SEPARATOR NAME ASSIGN ID .)
+    MKGRP           reduce using rule 31 (fdisk_param -> SEPARATOR NAME ASSIGN ID .)
+    MKUSR           reduce using rule 31 (fdisk_param -> SEPARATOR NAME ASSIGN ID .)
+    MKDIR           reduce using rule 31 (fdisk_param -> SEPARATOR NAME ASSIGN ID .)
+    $end            reduce using rule 31 (fdisk_param -> SEPARATOR NAME ASSIGN ID .)
+
+
+state 130
+
+    (32) fdisk_param -> SEPARATOR NAME ASSIGN PATHWITHOUTQUOTES .
+
+    SEPARATOR       reduce using rule 32 (fdisk_param -> SEPARATOR NAME ASSIGN PATHWITHOUTQUOTES .)
+    MKDISK          reduce using rule 32 (fdisk_param -> SEPARATOR NAME ASSIGN PATHWITHOUTQUOTES .)
+    RMDISK          reduce using rule 32 (fdisk_param -> SEPARATOR NAME ASSIGN PATHWITHOUTQUOTES .)
+    FDISK           reduce using rule 32 (fdisk_param -> SEPARATOR NAME ASSIGN PATHWITHOUTQUOTES .)
+    MOUNT           reduce using rule 32 (fdisk_param -> SEPARATOR NAME ASSIGN PATHWITHOUTQUOTES .)
+    UNMOUNT         reduce using rule 32 (fdisk_param -> SEPARATOR NAME ASSIGN PATHWITHOUTQUOTES .)
+    MKFS            reduce using rule 32 (fdisk_param -> SEPARATOR NAME ASSIGN PATHWITHOUTQUOTES .)
+    LOGIN           reduce using rule 32 (fdisk_param -> SEPARATOR NAME ASSIGN PATHWITHOUTQUOTES .)
+    LOGOUT          reduce using rule 32 (fdisk_param -> SEPARATOR NAME ASSIGN PATHWITHOUTQUOTES .)
+    MKGRP           reduce using rule 32 (fdisk_param -> SEPARATOR NAME ASSIGN PATHWITHOUTQUOTES .)
+    MKUSR           reduce using rule 32 (fdisk_param -> SEPARATOR NAME ASSIGN PATHWITHOUTQUOTES .)
+    MKDIR           reduce using rule 32 (fdisk_param -> SEPARATOR NAME ASSIGN PATHWITHOUTQUOTES .)
+    $end            reduce using rule 32 (fdisk_param -> SEPARATOR NAME ASSIGN PATHWITHOUTQUOTES .)
+
+
+state 131
+
+    (33) fdisk_param -> SEPARATOR UNIT ASSIGN ID .
+
+    SEPARATOR       reduce using rule 33 (fdisk_param -> SEPARATOR UNIT ASSIGN ID .)
+    MKDISK          reduce using rule 33 (fdisk_param -> SEPARATOR UNIT ASSIGN ID .)
+    RMDISK          reduce using rule 33 (fdisk_param -> SEPARATOR UNIT ASSIGN ID .)
+    FDISK           reduce using rule 33 (fdisk_param -> SEPARATOR UNIT ASSIGN ID .)
+    MOUNT           reduce using rule 33 (fdisk_param -> SEPARATOR UNIT ASSIGN ID .)
+    UNMOUNT         reduce using rule 33 (fdisk_param -> SEPARATOR UNIT ASSIGN ID .)
+    MKFS            reduce using rule 33 (fdisk_param -> SEPARATOR UNIT ASSIGN ID .)
+    LOGIN           reduce using rule 33 (fdisk_param -> SEPARATOR UNIT ASSIGN ID .)
+    LOGOUT          reduce using rule 33 (fdisk_param -> SEPARATOR UNIT ASSIGN ID .)
+    MKGRP           reduce using rule 33 (fdisk_param -> SEPARATOR UNIT ASSIGN ID .)
+    MKUSR           reduce using rule 33 (fdisk_param -> SEPARATOR UNIT ASSIGN ID .)
+    MKDIR           reduce using rule 33 (fdisk_param -> SEPARATOR UNIT ASSIGN ID .)
+    $end            reduce using rule 33 (fdisk_param -> SEPARATOR UNIT ASSIGN ID .)
+
+
+state 132
+
+    (34) fdisk_param -> SEPARATOR TYPE ASSIGN ID .
+
+    SEPARATOR       reduce using rule 34 (fdisk_param -> SEPARATOR TYPE ASSIGN ID .)
+    MKDISK          reduce using rule 34 (fdisk_param -> SEPARATOR TYPE ASSIGN ID .)
+    RMDISK          reduce using rule 34 (fdisk_param -> SEPARATOR TYPE ASSIGN ID .)
+    FDISK           reduce using rule 34 (fdisk_param -> SEPARATOR TYPE ASSIGN ID .)
+    MOUNT           reduce using rule 34 (fdisk_param -> SEPARATOR TYPE ASSIGN ID .)
+    UNMOUNT         reduce using rule 34 (fdisk_param -> SEPARATOR TYPE ASSIGN ID .)
+    MKFS            reduce using rule 34 (fdisk_param -> SEPARATOR TYPE ASSIGN ID .)
+    LOGIN           reduce using rule 34 (fdisk_param -> SEPARATOR TYPE ASSIGN ID .)
+    LOGOUT          reduce using rule 34 (fdisk_param -> SEPARATOR TYPE ASSIGN ID .)
+    MKGRP           reduce using rule 34 (fdisk_param -> SEPARATOR TYPE ASSIGN ID .)
+    MKUSR           reduce using rule 34 (fdisk_param -> SEPARATOR TYPE ASSIGN ID .)
+    MKDIR           reduce using rule 34 (fdisk_param -> SEPARATOR TYPE ASSIGN ID .)
+    $end            reduce using rule 34 (fdisk_param -> SEPARATOR TYPE ASSIGN ID .)
+
+
+state 133
+
+    (35) fdisk_param -> SEPARATOR FIT ASSIGN ID .
+
+    SEPARATOR       reduce using rule 35 (fdisk_param -> SEPARATOR FIT ASSIGN ID .)
+    MKDISK          reduce using rule 35 (fdisk_param -> SEPARATOR FIT ASSIGN ID .)
+    RMDISK          reduce using rule 35 (fdisk_param -> SEPARATOR FIT ASSIGN ID .)
+    FDISK           reduce using rule 35 (fdisk_param -> SEPARATOR FIT ASSIGN ID .)
+    MOUNT           reduce using rule 35 (fdisk_param -> SEPARATOR FIT ASSIGN ID .)
+    UNMOUNT         reduce using rule 35 (fdisk_param -> SEPARATOR FIT ASSIGN ID .)
+    MKFS            reduce using rule 35 (fdisk_param -> SEPARATOR FIT ASSIGN ID .)
+    LOGIN           reduce using rule 35 (fdisk_param -> SEPARATOR FIT ASSIGN ID .)
+    LOGOUT          reduce using rule 35 (fdisk_param -> SEPARATOR FIT ASSIGN ID .)
+    MKGRP           reduce using rule 35 (fdisk_param -> SEPARATOR FIT ASSIGN ID .)
+    MKUSR           reduce using rule 35 (fdisk_param -> SEPARATOR FIT ASSIGN ID .)
+    MKDIR           reduce using rule 35 (fdisk_param -> SEPARATOR FIT ASSIGN ID .)
+    $end            reduce using rule 35 (fdisk_param -> SEPARATOR FIT ASSIGN ID .)
+
+
+state 134
+
+    (36) fdisk_param -> SEPARATOR DELETE ASSIGN ID .
+
+    SEPARATOR       reduce using rule 36 (fdisk_param -> SEPARATOR DELETE ASSIGN ID .)
+    MKDISK          reduce using rule 36 (fdisk_param -> SEPARATOR DELETE ASSIGN ID .)
+    RMDISK          reduce using rule 36 (fdisk_param -> SEPARATOR DELETE ASSIGN ID .)
+    FDISK           reduce using rule 36 (fdisk_param -> SEPARATOR DELETE ASSIGN ID .)
+    MOUNT           reduce using rule 36 (fdisk_param -> SEPARATOR DELETE ASSIGN ID .)
+    UNMOUNT         reduce using rule 36 (fdisk_param -> SEPARATOR DELETE ASSIGN ID .)
+    MKFS            reduce using rule 36 (fdisk_param -> SEPARATOR DELETE ASSIGN ID .)
+    LOGIN           reduce using rule 36 (fdisk_param -> SEPARATOR DELETE ASSIGN ID .)
+    LOGOUT          reduce using rule 36 (fdisk_param -> SEPARATOR DELETE ASSIGN ID .)
+    MKGRP           reduce using rule 36 (fdisk_param -> SEPARATOR DELETE ASSIGN ID .)
+    MKUSR           reduce using rule 36 (fdisk_param -> SEPARATOR DELETE ASSIGN ID .)
+    MKDIR           reduce using rule 36 (fdisk_param -> SEPARATOR DELETE ASSIGN ID .)
+    $end            reduce using rule 36 (fdisk_param -> SEPARATOR DELETE ASSIGN ID .)
+
+
+state 135
+
+    (37) fdisk_param -> SEPARATOR ADD ASSIGN NUMBER .
+
+    SEPARATOR       reduce using rule 37 (fdisk_param -> SEPARATOR ADD ASSIGN NUMBER .)
+    MKDISK          reduce using rule 37 (fdisk_param -> SEPARATOR ADD ASSIGN NUMBER .)
+    RMDISK          reduce using rule 37 (fdisk_param -> SEPARATOR ADD ASSIGN NUMBER .)
+    FDISK           reduce using rule 37 (fdisk_param -> SEPARATOR ADD ASSIGN NUMBER .)
+    MOUNT           reduce using rule 37 (fdisk_param -> SEPARATOR ADD ASSIGN NUMBER .)
+    UNMOUNT         reduce using rule 37 (fdisk_param -> SEPARATOR ADD ASSIGN NUMBER .)
+    MKFS            reduce using rule 37 (fdisk_param -> SEPARATOR ADD ASSIGN NUMBER .)
+    LOGIN           reduce using rule 37 (fdisk_param -> SEPARATOR ADD ASSIGN NUMBER .)
+    LOGOUT          reduce using rule 37 (fdisk_param -> SEPARATOR ADD ASSIGN NUMBER .)
+    MKGRP           reduce using rule 37 (fdisk_param -> SEPARATOR ADD ASSIGN NUMBER .)
+    MKUSR           reduce using rule 37 (fdisk_param -> SEPARATOR ADD ASSIGN NUMBER .)
+    MKDIR           reduce using rule 37 (fdisk_param -> SEPARATOR ADD ASSIGN NUMBER .)
+    $end            reduce using rule 37 (fdisk_param -> SEPARATOR ADD ASSIGN NUMBER .)
+
+
+state 136
+
+    (38) fdisk_param -> SEPARATOR ADD ASSIGN NEGATIVE .
+
+    SEPARATOR       reduce using rule 38 (fdisk_param -> SEPARATOR ADD ASSIGN NEGATIVE .)
+    MKDISK          reduce using rule 38 (fdisk_param -> SEPARATOR ADD ASSIGN NEGATIVE .)
+    RMDISK          reduce using rule 38 (fdisk_param -> SEPARATOR ADD ASSIGN NEGATIVE .)
+    FDISK           reduce using rule 38 (fdisk_param -> SEPARATOR ADD ASSIGN NEGATIVE .)
+    MOUNT           reduce using rule 38 (fdisk_param -> SEPARATOR ADD ASSIGN NEGATIVE .)
+    UNMOUNT         reduce using rule 38 (fdisk_param -> SEPARATOR ADD ASSIGN NEGATIVE .)
+    MKFS            reduce using rule 38 (fdisk_param -> SEPARATOR ADD ASSIGN NEGATIVE .)
+    LOGIN           reduce using rule 38 (fdisk_param -> SEPARATOR ADD ASSIGN NEGATIVE .)
+    LOGOUT          reduce using rule 38 (fdisk_param -> SEPARATOR ADD ASSIGN NEGATIVE .)
+    MKGRP           reduce using rule 38 (fdisk_param -> SEPARATOR ADD ASSIGN NEGATIVE .)
+    MKUSR           reduce using rule 38 (fdisk_param -> SEPARATOR ADD ASSIGN NEGATIVE .)
+    MKDIR           reduce using rule 38 (fdisk_param -> SEPARATOR ADD ASSIGN NEGATIVE .)
+    $end            reduce using rule 38 (fdisk_param -> SEPARATOR ADD ASSIGN NEGATIVE .)
+
+
+state 137
+
+    (42) mount_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .
+
+    SEPARATOR       reduce using rule 42 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    MKDISK          reduce using rule 42 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    RMDISK          reduce using rule 42 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    FDISK           reduce using rule 42 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    MOUNT           reduce using rule 42 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    UNMOUNT         reduce using rule 42 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    MKFS            reduce using rule 42 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    LOGIN           reduce using rule 42 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    LOGOUT          reduce using rule 42 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    MKGRP           reduce using rule 42 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    MKUSR           reduce using rule 42 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    MKDIR           reduce using rule 42 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    $end            reduce using rule 42 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+
+
+state 138
+
+    (43) mount_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .
+
+    SEPARATOR       reduce using rule 43 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    MKDISK          reduce using rule 43 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    RMDISK          reduce using rule 43 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    FDISK           reduce using rule 43 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    MOUNT           reduce using rule 43 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    UNMOUNT         reduce using rule 43 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    MKFS            reduce using rule 43 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    LOGIN           reduce using rule 43 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    LOGOUT          reduce using rule 43 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    MKGRP           reduce using rule 43 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    MKUSR           reduce using rule 43 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    MKDIR           reduce using rule 43 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    $end            reduce using rule 43 (mount_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+
+
+state 139
+
+    (44) mount_param -> SEPARATOR NAME ASSIGN ID .
+
+    SEPARATOR       reduce using rule 44 (mount_param -> SEPARATOR NAME ASSIGN ID .)
+    MKDISK          reduce using rule 44 (mount_param -> SEPARATOR NAME ASSIGN ID .)
+    RMDISK          reduce using rule 44 (mount_param -> SEPARATOR NAME ASSIGN ID .)
+    FDISK           reduce using rule 44 (mount_param -> SEPARATOR NAME ASSIGN ID .)
+    MOUNT           reduce using rule 44 (mount_param -> SEPARATOR NAME ASSIGN ID .)
+    UNMOUNT         reduce using rule 44 (mount_param -> SEPARATOR NAME ASSIGN ID .)
+    MKFS            reduce using rule 44 (mount_param -> SEPARATOR NAME ASSIGN ID .)
+    LOGIN           reduce using rule 44 (mount_param -> SEPARATOR NAME ASSIGN ID .)
+    LOGOUT          reduce using rule 44 (mount_param -> SEPARATOR NAME ASSIGN ID .)
+    MKGRP           reduce using rule 44 (mount_param -> SEPARATOR NAME ASSIGN ID .)
+    MKUSR           reduce using rule 44 (mount_param -> SEPARATOR NAME ASSIGN ID .)
+    MKDIR           reduce using rule 44 (mount_param -> SEPARATOR NAME ASSIGN ID .)
+    $end            reduce using rule 44 (mount_param -> SEPARATOR NAME ASSIGN ID .)
+
+
+state 140
+
+    (48) unmount_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .
+
+    SEPARATOR       reduce using rule 48 (unmount_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    MKDISK          reduce using rule 48 (unmount_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    RMDISK          reduce using rule 48 (unmount_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    FDISK           reduce using rule 48 (unmount_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    MOUNT           reduce using rule 48 (unmount_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    UNMOUNT         reduce using rule 48 (unmount_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    MKFS            reduce using rule 48 (unmount_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    LOGIN           reduce using rule 48 (unmount_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    LOGOUT          reduce using rule 48 (unmount_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    MKGRP           reduce using rule 48 (unmount_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    MKUSR           reduce using rule 48 (unmount_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    MKDIR           reduce using rule 48 (unmount_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    $end            reduce using rule 48 (unmount_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+
+
+state 141
+
+    (52) mkfs_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .
+
+    SEPARATOR       reduce using rule 52 (mkfs_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    MKDISK          reduce using rule 52 (mkfs_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    RMDISK          reduce using rule 52 (mkfs_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    FDISK           reduce using rule 52 (mkfs_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    MOUNT           reduce using rule 52 (mkfs_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    UNMOUNT         reduce using rule 52 (mkfs_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    MKFS            reduce using rule 52 (mkfs_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    LOGIN           reduce using rule 52 (mkfs_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    LOGOUT          reduce using rule 52 (mkfs_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    MKGRP           reduce using rule 52 (mkfs_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    MKUSR           reduce using rule 52 (mkfs_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    MKDIR           reduce using rule 52 (mkfs_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    $end            reduce using rule 52 (mkfs_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+
+
+state 142
+
+    (53) mkfs_param -> SEPARATOR TYPE ASSIGN ID .
+
+    SEPARATOR       reduce using rule 53 (mkfs_param -> SEPARATOR TYPE ASSIGN ID .)
+    MKDISK          reduce using rule 53 (mkfs_param -> SEPARATOR TYPE ASSIGN ID .)
+    RMDISK          reduce using rule 53 (mkfs_param -> SEPARATOR TYPE ASSIGN ID .)
+    FDISK           reduce using rule 53 (mkfs_param -> SEPARATOR TYPE ASSIGN ID .)
+    MOUNT           reduce using rule 53 (mkfs_param -> SEPARATOR TYPE ASSIGN ID .)
+    UNMOUNT         reduce using rule 53 (mkfs_param -> SEPARATOR TYPE ASSIGN ID .)
+    MKFS            reduce using rule 53 (mkfs_param -> SEPARATOR TYPE ASSIGN ID .)
+    LOGIN           reduce using rule 53 (mkfs_param -> SEPARATOR TYPE ASSIGN ID .)
+    LOGOUT          reduce using rule 53 (mkfs_param -> SEPARATOR TYPE ASSIGN ID .)
+    MKGRP           reduce using rule 53 (mkfs_param -> SEPARATOR TYPE ASSIGN ID .)
+    MKUSR           reduce using rule 53 (mkfs_param -> SEPARATOR TYPE ASSIGN ID .)
+    MKDIR           reduce using rule 53 (mkfs_param -> SEPARATOR TYPE ASSIGN ID .)
+    $end            reduce using rule 53 (mkfs_param -> SEPARATOR TYPE ASSIGN ID .)
+
+
+state 143
+
+    (54) mkfs_param -> SEPARATOR FS ASSIGN MOUNTNAME .
+
+    SEPARATOR       reduce using rule 54 (mkfs_param -> SEPARATOR FS ASSIGN MOUNTNAME .)
+    MKDISK          reduce using rule 54 (mkfs_param -> SEPARATOR FS ASSIGN MOUNTNAME .)
+    RMDISK          reduce using rule 54 (mkfs_param -> SEPARATOR FS ASSIGN MOUNTNAME .)
+    FDISK           reduce using rule 54 (mkfs_param -> SEPARATOR FS ASSIGN MOUNTNAME .)
+    MOUNT           reduce using rule 54 (mkfs_param -> SEPARATOR FS ASSIGN MOUNTNAME .)
+    UNMOUNT         reduce using rule 54 (mkfs_param -> SEPARATOR FS ASSIGN MOUNTNAME .)
+    MKFS            reduce using rule 54 (mkfs_param -> SEPARATOR FS ASSIGN MOUNTNAME .)
+    LOGIN           reduce using rule 54 (mkfs_param -> SEPARATOR FS ASSIGN MOUNTNAME .)
+    LOGOUT          reduce using rule 54 (mkfs_param -> SEPARATOR FS ASSIGN MOUNTNAME .)
+    MKGRP           reduce using rule 54 (mkfs_param -> SEPARATOR FS ASSIGN MOUNTNAME .)
+    MKUSR           reduce using rule 54 (mkfs_param -> SEPARATOR FS ASSIGN MOUNTNAME .)
+    MKDIR           reduce using rule 54 (mkfs_param -> SEPARATOR FS ASSIGN MOUNTNAME .)
+    $end            reduce using rule 54 (mkfs_param -> SEPARATOR FS ASSIGN MOUNTNAME .)
+
+
+state 144
+
+    (58) login_param -> SEPARATOR USER ASSIGN STRING .
+
+    SEPARATOR       reduce using rule 58 (login_param -> SEPARATOR USER ASSIGN STRING .)
+    MKDISK          reduce using rule 58 (login_param -> SEPARATOR USER ASSIGN STRING .)
+    RMDISK          reduce using rule 58 (login_param -> SEPARATOR USER ASSIGN STRING .)
+    FDISK           reduce using rule 58 (login_param -> SEPARATOR USER ASSIGN STRING .)
+    MOUNT           reduce using rule 58 (login_param -> SEPARATOR USER ASSIGN STRING .)
+    UNMOUNT         reduce using rule 58 (login_param -> SEPARATOR USER ASSIGN STRING .)
+    MKFS            reduce using rule 58 (login_param -> SEPARATOR USER ASSIGN STRING .)
+    LOGIN           reduce using rule 58 (login_param -> SEPARATOR USER ASSIGN STRING .)
+    LOGOUT          reduce using rule 58 (login_param -> SEPARATOR USER ASSIGN STRING .)
+    MKGRP           reduce using rule 58 (login_param -> SEPARATOR USER ASSIGN STRING .)
+    MKUSR           reduce using rule 58 (login_param -> SEPARATOR USER ASSIGN STRING .)
+    MKDIR           reduce using rule 58 (login_param -> SEPARATOR USER ASSIGN STRING .)
+    $end            reduce using rule 58 (login_param -> SEPARATOR USER ASSIGN STRING .)
+
+
+state 145
+
+    (62) login_param -> SEPARATOR USER ASSIGN ID .
+
+    SEPARATOR       reduce using rule 62 (login_param -> SEPARATOR USER ASSIGN ID .)
+    MKDISK          reduce using rule 62 (login_param -> SEPARATOR USER ASSIGN ID .)
+    RMDISK          reduce using rule 62 (login_param -> SEPARATOR USER ASSIGN ID .)
+    FDISK           reduce using rule 62 (login_param -> SEPARATOR USER ASSIGN ID .)
+    MOUNT           reduce using rule 62 (login_param -> SEPARATOR USER ASSIGN ID .)
+    UNMOUNT         reduce using rule 62 (login_param -> SEPARATOR USER ASSIGN ID .)
+    MKFS            reduce using rule 62 (login_param -> SEPARATOR USER ASSIGN ID .)
+    LOGIN           reduce using rule 62 (login_param -> SEPARATOR USER ASSIGN ID .)
+    LOGOUT          reduce using rule 62 (login_param -> SEPARATOR USER ASSIGN ID .)
+    MKGRP           reduce using rule 62 (login_param -> SEPARATOR USER ASSIGN ID .)
+    MKUSR           reduce using rule 62 (login_param -> SEPARATOR USER ASSIGN ID .)
+    MKDIR           reduce using rule 62 (login_param -> SEPARATOR USER ASSIGN ID .)
+    $end            reduce using rule 62 (login_param -> SEPARATOR USER ASSIGN ID .)
+
+
+state 146
+
+    (59) login_param -> SEPARATOR PASS ASSIGN STRING .
+
+    SEPARATOR       reduce using rule 59 (login_param -> SEPARATOR PASS ASSIGN STRING .)
+    MKDISK          reduce using rule 59 (login_param -> SEPARATOR PASS ASSIGN STRING .)
+    RMDISK          reduce using rule 59 (login_param -> SEPARATOR PASS ASSIGN STRING .)
+    FDISK           reduce using rule 59 (login_param -> SEPARATOR PASS ASSIGN STRING .)
+    MOUNT           reduce using rule 59 (login_param -> SEPARATOR PASS ASSIGN STRING .)
+    UNMOUNT         reduce using rule 59 (login_param -> SEPARATOR PASS ASSIGN STRING .)
+    MKFS            reduce using rule 59 (login_param -> SEPARATOR PASS ASSIGN STRING .)
+    LOGIN           reduce using rule 59 (login_param -> SEPARATOR PASS ASSIGN STRING .)
+    LOGOUT          reduce using rule 59 (login_param -> SEPARATOR PASS ASSIGN STRING .)
+    MKGRP           reduce using rule 59 (login_param -> SEPARATOR PASS ASSIGN STRING .)
+    MKUSR           reduce using rule 59 (login_param -> SEPARATOR PASS ASSIGN STRING .)
+    MKDIR           reduce using rule 59 (login_param -> SEPARATOR PASS ASSIGN STRING .)
+    $end            reduce using rule 59 (login_param -> SEPARATOR PASS ASSIGN STRING .)
+
+
+state 147
+
+    (60) login_param -> SEPARATOR PASS ASSIGN ID .
+
+    SEPARATOR       reduce using rule 60 (login_param -> SEPARATOR PASS ASSIGN ID .)
+    MKDISK          reduce using rule 60 (login_param -> SEPARATOR PASS ASSIGN ID .)
+    RMDISK          reduce using rule 60 (login_param -> SEPARATOR PASS ASSIGN ID .)
+    FDISK           reduce using rule 60 (login_param -> SEPARATOR PASS ASSIGN ID .)
+    MOUNT           reduce using rule 60 (login_param -> SEPARATOR PASS ASSIGN ID .)
+    UNMOUNT         reduce using rule 60 (login_param -> SEPARATOR PASS ASSIGN ID .)
+    MKFS            reduce using rule 60 (login_param -> SEPARATOR PASS ASSIGN ID .)
+    LOGIN           reduce using rule 60 (login_param -> SEPARATOR PASS ASSIGN ID .)
+    LOGOUT          reduce using rule 60 (login_param -> SEPARATOR PASS ASSIGN ID .)
+    MKGRP           reduce using rule 60 (login_param -> SEPARATOR PASS ASSIGN ID .)
+    MKUSR           reduce using rule 60 (login_param -> SEPARATOR PASS ASSIGN ID .)
+    MKDIR           reduce using rule 60 (login_param -> SEPARATOR PASS ASSIGN ID .)
+    $end            reduce using rule 60 (login_param -> SEPARATOR PASS ASSIGN ID .)
+
+
+state 148
+
+    (61) login_param -> SEPARATOR PASS ASSIGN NUMBER .
+
+    SEPARATOR       reduce using rule 61 (login_param -> SEPARATOR PASS ASSIGN NUMBER .)
+    MKDISK          reduce using rule 61 (login_param -> SEPARATOR PASS ASSIGN NUMBER .)
+    RMDISK          reduce using rule 61 (login_param -> SEPARATOR PASS ASSIGN NUMBER .)
+    FDISK           reduce using rule 61 (login_param -> SEPARATOR PASS ASSIGN NUMBER .)
+    MOUNT           reduce using rule 61 (login_param -> SEPARATOR PASS ASSIGN NUMBER .)
+    UNMOUNT         reduce using rule 61 (login_param -> SEPARATOR PASS ASSIGN NUMBER .)
+    MKFS            reduce using rule 61 (login_param -> SEPARATOR PASS ASSIGN NUMBER .)
+    LOGIN           reduce using rule 61 (login_param -> SEPARATOR PASS ASSIGN NUMBER .)
+    LOGOUT          reduce using rule 61 (login_param -> SEPARATOR PASS ASSIGN NUMBER .)
+    MKGRP           reduce using rule 61 (login_param -> SEPARATOR PASS ASSIGN NUMBER .)
+    MKUSR           reduce using rule 61 (login_param -> SEPARATOR PASS ASSIGN NUMBER .)
+    MKDIR           reduce using rule 61 (login_param -> SEPARATOR PASS ASSIGN NUMBER .)
+    $end            reduce using rule 61 (login_param -> SEPARATOR PASS ASSIGN NUMBER .)
+
+
+state 149
+
+    (63) login_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .
+
+    SEPARATOR       reduce using rule 63 (login_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    MKDISK          reduce using rule 63 (login_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    RMDISK          reduce using rule 63 (login_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    FDISK           reduce using rule 63 (login_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    MOUNT           reduce using rule 63 (login_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    UNMOUNT         reduce using rule 63 (login_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    MKFS            reduce using rule 63 (login_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    LOGIN           reduce using rule 63 (login_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    LOGOUT          reduce using rule 63 (login_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    MKGRP           reduce using rule 63 (login_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    MKUSR           reduce using rule 63 (login_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    MKDIR           reduce using rule 63 (login_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+    $end            reduce using rule 63 (login_param -> SEPARATOR ID_PARAM ASSIGN MOUNTNAME .)
+
+
+state 150
+
+    (68) mkgrp_param -> SEPARATOR NAME ASSIGN ID .
+
+    SEPARATOR       reduce using rule 68 (mkgrp_param -> SEPARATOR NAME ASSIGN ID .)
+    MKDISK          reduce using rule 68 (mkgrp_param -> SEPARATOR NAME ASSIGN ID .)
+    RMDISK          reduce using rule 68 (mkgrp_param -> SEPARATOR NAME ASSIGN ID .)
+    FDISK           reduce using rule 68 (mkgrp_param -> SEPARATOR NAME ASSIGN ID .)
+    MOUNT           reduce using rule 68 (mkgrp_param -> SEPARATOR NAME ASSIGN ID .)
+    UNMOUNT         reduce using rule 68 (mkgrp_param -> SEPARATOR NAME ASSIGN ID .)
+    MKFS            reduce using rule 68 (mkgrp_param -> SEPARATOR NAME ASSIGN ID .)
+    LOGIN           reduce using rule 68 (mkgrp_param -> SEPARATOR NAME ASSIGN ID .)
+    LOGOUT          reduce using rule 68 (mkgrp_param -> SEPARATOR NAME ASSIGN ID .)
+    MKGRP           reduce using rule 68 (mkgrp_param -> SEPARATOR NAME ASSIGN ID .)
+    MKUSR           reduce using rule 68 (mkgrp_param -> SEPARATOR NAME ASSIGN ID .)
+    MKDIR           reduce using rule 68 (mkgrp_param -> SEPARATOR NAME ASSIGN ID .)
+    $end            reduce using rule 68 (mkgrp_param -> SEPARATOR NAME ASSIGN ID .)
+
+
+state 151
+
+    (69) mkgrp_param -> SEPARATOR NAME ASSIGN STRING .
+
+    SEPARATOR       reduce using rule 69 (mkgrp_param -> SEPARATOR NAME ASSIGN STRING .)
+    MKDISK          reduce using rule 69 (mkgrp_param -> SEPARATOR NAME ASSIGN STRING .)
+    RMDISK          reduce using rule 69 (mkgrp_param -> SEPARATOR NAME ASSIGN STRING .)
+    FDISK           reduce using rule 69 (mkgrp_param -> SEPARATOR NAME ASSIGN STRING .)
+    MOUNT           reduce using rule 69 (mkgrp_param -> SEPARATOR NAME ASSIGN STRING .)
+    UNMOUNT         reduce using rule 69 (mkgrp_param -> SEPARATOR NAME ASSIGN STRING .)
+    MKFS            reduce using rule 69 (mkgrp_param -> SEPARATOR NAME ASSIGN STRING .)
+    LOGIN           reduce using rule 69 (mkgrp_param -> SEPARATOR NAME ASSIGN STRING .)
+    LOGOUT          reduce using rule 69 (mkgrp_param -> SEPARATOR NAME ASSIGN STRING .)
+    MKGRP           reduce using rule 69 (mkgrp_param -> SEPARATOR NAME ASSIGN STRING .)
+    MKUSR           reduce using rule 69 (mkgrp_param -> SEPARATOR NAME ASSIGN STRING .)
+    MKDIR           reduce using rule 69 (mkgrp_param -> SEPARATOR NAME ASSIGN STRING .)
+    $end            reduce using rule 69 (mkgrp_param -> SEPARATOR NAME ASSIGN STRING .)
+
+
+state 152
+
+    (73) usr_param -> SEPARATOR USER ASSIGN ID .
+
+    SEPARATOR       reduce using rule 73 (usr_param -> SEPARATOR USER ASSIGN ID .)
+    MKDISK          reduce using rule 73 (usr_param -> SEPARATOR USER ASSIGN ID .)
+    RMDISK          reduce using rule 73 (usr_param -> SEPARATOR USER ASSIGN ID .)
+    FDISK           reduce using rule 73 (usr_param -> SEPARATOR USER ASSIGN ID .)
+    MOUNT           reduce using rule 73 (usr_param -> SEPARATOR USER ASSIGN ID .)
+    UNMOUNT         reduce using rule 73 (usr_param -> SEPARATOR USER ASSIGN ID .)
+    MKFS            reduce using rule 73 (usr_param -> SEPARATOR USER ASSIGN ID .)
+    LOGIN           reduce using rule 73 (usr_param -> SEPARATOR USER ASSIGN ID .)
+    LOGOUT          reduce using rule 73 (usr_param -> SEPARATOR USER ASSIGN ID .)
+    MKGRP           reduce using rule 73 (usr_param -> SEPARATOR USER ASSIGN ID .)
+    MKUSR           reduce using rule 73 (usr_param -> SEPARATOR USER ASSIGN ID .)
+    MKDIR           reduce using rule 73 (usr_param -> SEPARATOR USER ASSIGN ID .)
+    $end            reduce using rule 73 (usr_param -> SEPARATOR USER ASSIGN ID .)
+
+
+state 153
+
+    (74) usr_param -> SEPARATOR USER ASSIGN STRING .
+
+    SEPARATOR       reduce using rule 74 (usr_param -> SEPARATOR USER ASSIGN STRING .)
+    MKDISK          reduce using rule 74 (usr_param -> SEPARATOR USER ASSIGN STRING .)
+    RMDISK          reduce using rule 74 (usr_param -> SEPARATOR USER ASSIGN STRING .)
+    FDISK           reduce using rule 74 (usr_param -> SEPARATOR USER ASSIGN STRING .)
+    MOUNT           reduce using rule 74 (usr_param -> SEPARATOR USER ASSIGN STRING .)
+    UNMOUNT         reduce using rule 74 (usr_param -> SEPARATOR USER ASSIGN STRING .)
+    MKFS            reduce using rule 74 (usr_param -> SEPARATOR USER ASSIGN STRING .)
+    LOGIN           reduce using rule 74 (usr_param -> SEPARATOR USER ASSIGN STRING .)
+    LOGOUT          reduce using rule 74 (usr_param -> SEPARATOR USER ASSIGN STRING .)
+    MKGRP           reduce using rule 74 (usr_param -> SEPARATOR USER ASSIGN STRING .)
+    MKUSR           reduce using rule 74 (usr_param -> SEPARATOR USER ASSIGN STRING .)
+    MKDIR           reduce using rule 74 (usr_param -> SEPARATOR USER ASSIGN STRING .)
+    $end            reduce using rule 74 (usr_param -> SEPARATOR USER ASSIGN STRING .)
+
+
+state 154
+
+    (75) usr_param -> SEPARATOR PASS ASSIGN ID .
+
+    SEPARATOR       reduce using rule 75 (usr_param -> SEPARATOR PASS ASSIGN ID .)
+    MKDISK          reduce using rule 75 (usr_param -> SEPARATOR PASS ASSIGN ID .)
+    RMDISK          reduce using rule 75 (usr_param -> SEPARATOR PASS ASSIGN ID .)
+    FDISK           reduce using rule 75 (usr_param -> SEPARATOR PASS ASSIGN ID .)
+    MOUNT           reduce using rule 75 (usr_param -> SEPARATOR PASS ASSIGN ID .)
+    UNMOUNT         reduce using rule 75 (usr_param -> SEPARATOR PASS ASSIGN ID .)
+    MKFS            reduce using rule 75 (usr_param -> SEPARATOR PASS ASSIGN ID .)
+    LOGIN           reduce using rule 75 (usr_param -> SEPARATOR PASS ASSIGN ID .)
+    LOGOUT          reduce using rule 75 (usr_param -> SEPARATOR PASS ASSIGN ID .)
+    MKGRP           reduce using rule 75 (usr_param -> SEPARATOR PASS ASSIGN ID .)
+    MKUSR           reduce using rule 75 (usr_param -> SEPARATOR PASS ASSIGN ID .)
+    MKDIR           reduce using rule 75 (usr_param -> SEPARATOR PASS ASSIGN ID .)
+    $end            reduce using rule 75 (usr_param -> SEPARATOR PASS ASSIGN ID .)
+
+
+state 155
+
+    (76) usr_param -> SEPARATOR PASS ASSIGN STRING .
+
+    SEPARATOR       reduce using rule 76 (usr_param -> SEPARATOR PASS ASSIGN STRING .)
+    MKDISK          reduce using rule 76 (usr_param -> SEPARATOR PASS ASSIGN STRING .)
+    RMDISK          reduce using rule 76 (usr_param -> SEPARATOR PASS ASSIGN STRING .)
+    FDISK           reduce using rule 76 (usr_param -> SEPARATOR PASS ASSIGN STRING .)
+    MOUNT           reduce using rule 76 (usr_param -> SEPARATOR PASS ASSIGN STRING .)
+    UNMOUNT         reduce using rule 76 (usr_param -> SEPARATOR PASS ASSIGN STRING .)
+    MKFS            reduce using rule 76 (usr_param -> SEPARATOR PASS ASSIGN STRING .)
+    LOGIN           reduce using rule 76 (usr_param -> SEPARATOR PASS ASSIGN STRING .)
+    LOGOUT          reduce using rule 76 (usr_param -> SEPARATOR PASS ASSIGN STRING .)
+    MKGRP           reduce using rule 76 (usr_param -> SEPARATOR PASS ASSIGN STRING .)
+    MKUSR           reduce using rule 76 (usr_param -> SEPARATOR PASS ASSIGN STRING .)
+    MKDIR           reduce using rule 76 (usr_param -> SEPARATOR PASS ASSIGN STRING .)
+    $end            reduce using rule 76 (usr_param -> SEPARATOR PASS ASSIGN STRING .)
+
+
+state 156
+
+    (77) usr_param -> SEPARATOR PASS ASSIGN NUMBER .
+
+    SEPARATOR       reduce using rule 77 (usr_param -> SEPARATOR PASS ASSIGN NUMBER .)
+    MKDISK          reduce using rule 77 (usr_param -> SEPARATOR PASS ASSIGN NUMBER .)
+    RMDISK          reduce using rule 77 (usr_param -> SEPARATOR PASS ASSIGN NUMBER .)
+    FDISK           reduce using rule 77 (usr_param -> SEPARATOR PASS ASSIGN NUMBER .)
+    MOUNT           reduce using rule 77 (usr_param -> SEPARATOR PASS ASSIGN NUMBER .)
+    UNMOUNT         reduce using rule 77 (usr_param -> SEPARATOR PASS ASSIGN NUMBER .)
+    MKFS            reduce using rule 77 (usr_param -> SEPARATOR PASS ASSIGN NUMBER .)
+    LOGIN           reduce using rule 77 (usr_param -> SEPARATOR PASS ASSIGN NUMBER .)
+    LOGOUT          reduce using rule 77 (usr_param -> SEPARATOR PASS ASSIGN NUMBER .)
+    MKGRP           reduce using rule 77 (usr_param -> SEPARATOR PASS ASSIGN NUMBER .)
+    MKUSR           reduce using rule 77 (usr_param -> SEPARATOR PASS ASSIGN NUMBER .)
+    MKDIR           reduce using rule 77 (usr_param -> SEPARATOR PASS ASSIGN NUMBER .)
+    $end            reduce using rule 77 (usr_param -> SEPARATOR PASS ASSIGN NUMBER .)
+
+
+state 157
+
+    (78) usr_param -> SEPARATOR GRP ASSIGN ID .
+
+    SEPARATOR       reduce using rule 78 (usr_param -> SEPARATOR GRP ASSIGN ID .)
+    MKDISK          reduce using rule 78 (usr_param -> SEPARATOR GRP ASSIGN ID .)
+    RMDISK          reduce using rule 78 (usr_param -> SEPARATOR GRP ASSIGN ID .)
+    FDISK           reduce using rule 78 (usr_param -> SEPARATOR GRP ASSIGN ID .)
+    MOUNT           reduce using rule 78 (usr_param -> SEPARATOR GRP ASSIGN ID .)
+    UNMOUNT         reduce using rule 78 (usr_param -> SEPARATOR GRP ASSIGN ID .)
+    MKFS            reduce using rule 78 (usr_param -> SEPARATOR GRP ASSIGN ID .)
+    LOGIN           reduce using rule 78 (usr_param -> SEPARATOR GRP ASSIGN ID .)
+    LOGOUT          reduce using rule 78 (usr_param -> SEPARATOR GRP ASSIGN ID .)
+    MKGRP           reduce using rule 78 (usr_param -> SEPARATOR GRP ASSIGN ID .)
+    MKUSR           reduce using rule 78 (usr_param -> SEPARATOR GRP ASSIGN ID .)
+    MKDIR           reduce using rule 78 (usr_param -> SEPARATOR GRP ASSIGN ID .)
+    $end            reduce using rule 78 (usr_param -> SEPARATOR GRP ASSIGN ID .)
+
+
+state 158
+
+    (79) usr_param -> SEPARATOR GRP ASSIGN STRING .
+
+    SEPARATOR       reduce using rule 79 (usr_param -> SEPARATOR GRP ASSIGN STRING .)
+    MKDISK          reduce using rule 79 (usr_param -> SEPARATOR GRP ASSIGN STRING .)
+    RMDISK          reduce using rule 79 (usr_param -> SEPARATOR GRP ASSIGN STRING .)
+    FDISK           reduce using rule 79 (usr_param -> SEPARATOR GRP ASSIGN STRING .)
+    MOUNT           reduce using rule 79 (usr_param -> SEPARATOR GRP ASSIGN STRING .)
+    UNMOUNT         reduce using rule 79 (usr_param -> SEPARATOR GRP ASSIGN STRING .)
+    MKFS            reduce using rule 79 (usr_param -> SEPARATOR GRP ASSIGN STRING .)
+    LOGIN           reduce using rule 79 (usr_param -> SEPARATOR GRP ASSIGN STRING .)
+    LOGOUT          reduce using rule 79 (usr_param -> SEPARATOR GRP ASSIGN STRING .)
+    MKGRP           reduce using rule 79 (usr_param -> SEPARATOR GRP ASSIGN STRING .)
+    MKUSR           reduce using rule 79 (usr_param -> SEPARATOR GRP ASSIGN STRING .)
+    MKDIR           reduce using rule 79 (usr_param -> SEPARATOR GRP ASSIGN STRING .)
+    $end            reduce using rule 79 (usr_param -> SEPARATOR GRP ASSIGN STRING .)
+
+
+state 159
+
+    (83) mkdir_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .
+
+    SEPARATOR       reduce using rule 83 (mkdir_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    MKDISK          reduce using rule 83 (mkdir_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    RMDISK          reduce using rule 83 (mkdir_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    FDISK           reduce using rule 83 (mkdir_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    MOUNT           reduce using rule 83 (mkdir_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    UNMOUNT         reduce using rule 83 (mkdir_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    MKFS            reduce using rule 83 (mkdir_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    LOGIN           reduce using rule 83 (mkdir_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    LOGOUT          reduce using rule 83 (mkdir_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    MKGRP           reduce using rule 83 (mkdir_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    MKUSR           reduce using rule 83 (mkdir_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    MKDIR           reduce using rule 83 (mkdir_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+    $end            reduce using rule 83 (mkdir_param -> SEPARATOR PATH ASSIGN PATHWITHQUOTES .)
+
+
+state 160
+
+    (84) mkdir_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .
+
+    SEPARATOR       reduce using rule 84 (mkdir_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    MKDISK          reduce using rule 84 (mkdir_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    RMDISK          reduce using rule 84 (mkdir_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    FDISK           reduce using rule 84 (mkdir_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    MOUNT           reduce using rule 84 (mkdir_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    UNMOUNT         reduce using rule 84 (mkdir_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    MKFS            reduce using rule 84 (mkdir_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    LOGIN           reduce using rule 84 (mkdir_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    LOGOUT          reduce using rule 84 (mkdir_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    MKGRP           reduce using rule 84 (mkdir_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    MKUSR           reduce using rule 84 (mkdir_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    MKDIR           reduce using rule 84 (mkdir_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
+    $end            reduce using rule 84 (mkdir_param -> SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES .)
 

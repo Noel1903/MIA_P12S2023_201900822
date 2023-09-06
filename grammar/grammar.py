@@ -12,6 +12,11 @@ from commands.rmdisk import rmdisk
 from commands.fdisk import fdisk
 from commands.mount import mount
 from commands.unmount import unmount
+from commands.mkfs import mkfs
+from commands.login import login
+from commands.mkgrp import mkgrp
+from commands.mkusr import mkusr
+from commands.mkdir import mkdir
 #reserved words
 reserved = {
     'mkdisk' : 'MKDISK',
@@ -28,20 +33,33 @@ reserved = {
     'delete' : 'DELETE',
     'add' : 'ADD',
     'id': 'ID_PARAM',
+    'mkfs' : 'MKFS',
+    'fs' : 'FS',
+    'login' : 'LOGIN',
+    'user' : 'USER',
+    'pass' : 'PASS',
+    'logout' : 'LOGOUT',
+    'mkgrp' : 'MKGRP',
+    'mkusr' : 'MKUSR',
+    'grp' : 'GRP',
+    'r'     : 'R',
+    'mkdir' : 'MKDIR'
+
 }
 
 #Tokens
 tokens = [
-    'SEPARATOR',
-    'ASSIGN',
-    'PATHWITHQUOTES',
-    'PATHWITHOUTQUOTES',
-    'MOUNTNAME',
+    'SEPARATOR',#-
+    'ASSIGN',#=
+    'PATHWITHQUOTES',#"ruta"
+    'PATHWITHOUTQUOTES',#ruta
+    'MOUNTNAME',#221Disco1
     'NUMBER',
     'NEGATIVE',
     'ID',
     'STRING'
 ] + list(reserved.values())
+
 t_SEPARATOR = r'-'
 t_ASSIGN = r'='
 
@@ -96,7 +114,7 @@ def t_error(t):
 
 import ply.lex as lex
 lexer = lex.lex()
-
+#sintactico empieza aqui
 def p_init(t):
     'init : commandsI'
     t[0] = t[1]
@@ -115,7 +133,13 @@ def p_command(t):
                | rmdisk_block
                | fdisk_block
                | mount_block
-               | unmount_block'''
+               | unmount_block
+               | mkfs_block
+               | login_block
+               | logout_block
+               | mkgrp_block
+               | usr_block
+               | mkdir_block'''
     t[0] = t[1]
 
 def p_mkdisk_block(t):
@@ -237,6 +261,132 @@ def p_unmount_param(t):
     if t[2] == "id":
         t[0] = ["id", t[4]]
 
+def p_mkfs_block(t):
+    'mkfs_block : MKFS mkfs_params'
+    t[0] = mkfs(t[2])
+
+def p_mkfs_params(t):
+    '''mkfs_params : mkfs_params mkfs_param
+                   | mkfs_param'''
+    if len(t) == 3:
+        t[1].append(t[2])
+        t[0] = t[1]
+    else:
+        t[0] = [t[1]]
+
+def p_mkfs_param(t):
+    '''mkfs_param : SEPARATOR ID_PARAM ASSIGN MOUNTNAME
+                  | SEPARATOR TYPE ASSIGN ID
+                  | SEPARATOR FS ASSIGN MOUNTNAME'''
+    if t[2] == "id":
+        t[0] = ["id", t[4]]
+    elif t[2] == "type":
+        t[0] = ["type", t[4]]
+    elif t[2] == "fs":
+        t[0] = ["fs", t[4]]
+
+
+def p_login_block(t):
+    'login_block : LOGIN login_params'
+    t[0] = login(t[2])
+
+def p_login_params(t):
+    '''login_params : login_params login_param
+                    | login_param'''
+    if len(t) == 3:
+        t[1].append(t[2])
+        t[0] = t[1]
+    else:
+        t[0] = [t[1]]
+    
+def p_login_param(t):
+    '''login_param : SEPARATOR USER ASSIGN STRING
+                   | SEPARATOR PASS ASSIGN STRING
+                   | SEPARATOR PASS ASSIGN ID
+                   | SEPARATOR PASS ASSIGN NUMBER
+                   | SEPARATOR USER ASSIGN ID
+                   | SEPARATOR ID_PARAM ASSIGN MOUNTNAME'''
+    if t[2] == "user":
+        t[0] = ["user", t[4]]
+    elif t[2] == "pass":
+        t[0] = ["pass", t[4]]
+    elif t[2] == "id":
+        t[0] = ["id", t[4]]
+
+
+def p_logout_block(t):
+    'logout_block : LOGOUT'
+    t[0] = ["logout"]
+
+def p_mkgrp_block(t):
+    'mkgrp_block : MKGRP mkgrp_params'
+    t[0] = mkgrp(t[2])
+
+def p_mkgrp_params(t):
+    '''mkgrp_params : mkgrp_params mkgrp_param
+                    | mkgrp_param'''
+    if len(t) == 3:
+        t[1].append(t[2])
+        t[0] = t[1]
+    else:
+        t[0] = [t[1]]
+
+def p_mkgrp_param(t):
+    '''mkgrp_param : SEPARATOR NAME ASSIGN ID
+                   | SEPARATOR NAME ASSIGN STRING'''
+    if t[2] == "name":
+        t[0] = ["name", t[4]]
+
+def p_usr_block(t):
+    'usr_block : MKUSR usr_params'
+    t[0] = mkusr(t[2])
+
+def p_usr_params(t):
+    '''usr_params : usr_params usr_param
+                  | usr_param'''
+    if len(t) == 3:
+        t[1].append(t[2])
+        t[0] = t[1]
+    else:
+        t[0] = [t[1]]
+
+def p_usr_param(t):
+    '''usr_param : SEPARATOR USER ASSIGN ID
+                 | SEPARATOR USER ASSIGN STRING
+                 | SEPARATOR PASS ASSIGN ID
+                 | SEPARATOR PASS ASSIGN STRING
+                 | SEPARATOR PASS ASSIGN NUMBER
+                 | SEPARATOR GRP ASSIGN ID
+                 | SEPARATOR GRP ASSIGN STRING'''
+    if t[2] == "user":
+        t[0] = ["user", t[4]]
+    elif t[2] == "pass":
+        t[0] = ["pass", t[4]]
+    elif t[2] == "grp":
+        t[0] = ["grp", t[4]]
+
+def p_mkdir_block(t):
+    'mkdir_block : MKDIR mkdir_params'
+    t[0] = mkdir(t[2])
+
+def p_mkdir_params(t):
+    '''mkdir_params : mkdir_params mkdir_param
+                    | mkdir_param'''
+    if len(t) == 3:
+        t[1].append(t[2])
+        t[0] = t[1]
+    else:
+        t[0] = [t[1]]
+    
+def p_mkdir_param(t):
+    '''mkdir_param : SEPARATOR PATH ASSIGN PATHWITHQUOTES
+                   | SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES
+                   | SEPARATOR R'''
+    if t[2] == "path":
+        t[0] = ["path", t[4]]
+    elif t[2] == "r":
+        t[0] = ["r", ""]
+
 def p_error(t):
     print("Syntax error at '%s'" % t.value)
 
@@ -258,8 +408,18 @@ input_text = '''mkdisk -size = 10 -unit=K -path=/home/usuario/Disco2.dsk
               fdisk -add = -300 -unit = b -path = "/home/usuario 1/Disco1.dsk" -name = PartitionL1
               mount -path = "/home/usuario 1/Disco1.dsk" -name = Partition1
               mount -path = "/home/usuario 1/Disco1.dsk" -name = Partition2
-              unmount -id = 221Disco1
-              unmount -id = 221Disco2'''
+              unmount -id = 221Disco2
+              mkfs -type=full -id = 222Disco1 -fs = 2fs
+              mkfs -type=full -id = 221Disco1 -fs = 2fs
+              login -user=root -pass = 123 -id = 222Disco1
+              mkgrp -name = usuarios
+              mkgrp -name = usuarios2
+              mkusr -user = usuario1 -pass = 123 -grp = usuarios
+              mkdir -path = /home/user1
+              mkdir -path = /home/tmp
+              mkdir -path = /home/user1/example
+              login -user=root -pass = 123 -id = 221Disco1
+              mkgrp -name = usuariosejemplo'''
               
 commands = parser.parse(input_text)
 #fdisk -size = 10 -unit = b -path = "/home/usuario 1/Disco1.dsk" -type = l -name = PartitionL1
