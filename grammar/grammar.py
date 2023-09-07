@@ -17,6 +17,7 @@ from commands.login import login
 from commands.mkgrp import mkgrp
 from commands.mkusr import mkusr
 from commands.mkdir import mkdir
+from commands.mkfile import mkfile
 #reserved words
 reserved = {
     'mkdisk' : 'MKDISK',
@@ -43,7 +44,9 @@ reserved = {
     'mkusr' : 'MKUSR',
     'grp' : 'GRP',
     'r'     : 'R',
-    'mkdir' : 'MKDIR'
+    'mkdir' : 'MKDIR',
+    'mkfile' : 'MKFILE',
+    'cont' : 'CONT'
 
 }
 
@@ -139,7 +142,8 @@ def p_command(t):
                | logout_block
                | mkgrp_block
                | usr_block
-               | mkdir_block'''
+               | mkdir_block
+               | mkfile_block'''
     t[0] = t[1]
 
 def p_mkdisk_block(t):
@@ -387,6 +391,32 @@ def p_mkdir_param(t):
     elif t[2] == "r":
         t[0] = ["r", ""]
 
+def p_mkfile_block(t):
+    'mkfile_block : MKFILE mkfile_params'
+    t[0] = mkfile(t[2])
+
+def p_mkfile_params(t):
+    '''mkfile_params : mkfile_params mkfile_param
+                     | mkfile_param'''
+    if len(t) == 3:
+        t[1].append(t[2])
+        t[0] = t[1]
+    else:
+        t[0] = [t[1]]
+    
+def p_mkfile_param(t):
+    '''mkfile_param : SEPARATOR PATH ASSIGN PATHWITHQUOTES
+                    | SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES
+                    | SEPARATOR CONT ASSIGN PATHWITHQUOTES
+                    | SEPARATOR CONT ASSIGN PATHWITHOUTQUOTES
+                    | SEPARATOR SIZE ASSIGN NUMBER'''
+    if t[2] == "path":
+        t[0] = ["path", t[4]]
+    elif t[2] == "cont":
+        t[0] = ["cont", t[4]]
+    elif t[2] == "size":
+        t[0] = ["size", t[4]]
+
 def p_error(t):
     print("Syntax error at '%s'" % t.value)
 
@@ -417,10 +447,18 @@ input_text = '''mkdisk -size = 10 -unit=K -path=/home/usuario/Disco2.dsk
               mkusr -user = usuario1 -pass = 123 -grp = usuarios
               mkdir -path = /home
               mkdir -path = /tmp
-              mkdir -path = /home/usuario
-              mkdir -path = /home/usuario/Documentos
+              
+              mkfile -path = /home/usuario/Documentos/Archivo1.txt -size = 9
+
+              mkdir -path = /bin
+
+              mkfile -path = /home/usuario/Documentos/Archivo2.txt -cont = /home/noel/Documentos/Ejemplo.txt
+              mkusr -user = noel -pass = contra123 -grp = usuarios2
               login -user=root -pass = 123 -id = 221Disco1
-              mkgrp -name = usuariosejemplo'''
+              mkgrp -name = usuariosejemplo
+              mkusr -user = usuarioNoel -pass = 123 -grp = usuariosejemplo
+              mkdir -path = /home/usuario/Documentos
+              mkdir -path = /boot/chmod'''
               
 commands = parser.parse(input_text)
 #fdisk -size = 10 -unit = b -path = "/home/usuario 1/Disco1.dsk" -type = l -name = PartitionL1

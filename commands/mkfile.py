@@ -2,14 +2,18 @@ from  commands.login import login
 from commands.mount import mount
 import struct
 
-class mkdir:
+class mkfile:
     path_mount =""
     def __init__(self,params = None):
         self.params = params
         if params != None:
-            self.execute()
             self.path = ""
             self.r = ""
+            self.size = 0
+            self.cont = ""
+            self.execute()
+            
+
 
     def getIndexBock(self,bitmap_block):
         bitmap_block = bitmap_block.decode('utf-8')
@@ -31,6 +35,10 @@ class mkdir:
                 self.path = i[1]
             elif i[0] == "r":
                 self.r = i[1]
+            elif i[0] == "size":
+                self.size = i[1]
+            elif i[0] == "cont":
+                self.cont = i[1]
         
         log = login(None)
         id = log.getId()[len(log.getId())-1]
@@ -71,53 +79,96 @@ class mkdir:
                     data_sb = f.read(struct.calcsize(format_sb))
                     sb_unpack = struct.unpack(format_sb,data_sb)
                     index_inode = 0
+                    inode_file = 0
                     self.path = self.path.split("/")
+                    cont = 0
                     for i in self.path:
                         if i == "":
+                            cont += 1
                             continue
+
                         index_inode = self.searchInode(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2],index_inode,i)
-                        print(index_inode,"este regresa")
-                    self.showBlocks(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2])
-                    
-                    print("Carpeta creada")
+                        if cont == len(self.path)-2:
+                            inode_file = index_inode
+
+                        if cont == len(self.path)-1:
+                            print(i,index_inode-1)
+                            self.createFile(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2],index_inode-1,i)
+                        
+                        cont += 1
+
+                    print("Archivo creado")
                 elif partition2[5].decode('utf-8').rstrip("\x00") == part_m.name_partition:
                     f.seek(partition2[3])
                     data_sb = f.read(struct.calcsize(format_sb))
                     sb_unpack = struct.unpack(format_sb,data_sb)
                     index_inode = 0
+                    inode_file = 0
                     self.path = self.path.split("/")
+                    cont = 0
                     for i in self.path:
                         if i == "":
+                            cont += 1
                             continue
-                        index_inode = self.searchInode(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2],index_inode,i)
-                    self.showBlocks(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2])
-                    
-                    print("Carpeta creada")
 
+                        index_inode = self.searchInode(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2],index_inode,i)
+                        if cont == len(self.path)-2:
+                            inode_file = index_inode
+
+                        if cont == len(self.path)-1:
+                            print(i,index_inode-1)
+                            self.createFile(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2],index_inode-1,i)
+                        
+                        cont += 1
+
+                    print("Archivo creado")
                 elif partition3[5].decode('utf-8').rstrip("\x00") == part_m.name_partition:
                     f.seek(partition3[3])
                     data_sb = f.read(struct.calcsize(format_sb))
                     sb_unpack = struct.unpack(format_sb,data_sb)
                     index_inode = 0
+                    inode_file = 0
                     self.path = self.path.split("/")
+                    cont = 0
                     for i in self.path:
                         if i == "":
+                            cont += 1
                             continue
-                        index_inode = self.searchInode(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2],index_inode,i)
 
-                    print("Carpeta creada")
+                        index_inode = self.searchInode(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2],index_inode,i)
+                        if cont == len(self.path)-2:
+                            inode_file = index_inode
+
+                        if cont == len(self.path)-1:
+                            print(i,index_inode-1)
+                            self.createFile(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2],index_inode-1,i)
+                        
+                        cont += 1
+
+                    print("Archivo creado")
                 elif partition4[5].decode('utf-8').rstrip("\x00") == part_m.name_partition:
                     f.seek(partition4[3])
                     data_sb = f.read(struct.calcsize(format_sb))
                     sb_unpack = struct.unpack(format_sb,data_sb)
                     index_inode = 0
+                    inode_file = 0
                     self.path = self.path.split("/")
+                    cont = 0
                     for i in self.path:
                         if i == "":
+                            cont += 1
                             continue
+
                         index_inode = self.searchInode(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2],index_inode,i)
-                    self.showBlocks(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2])
-                    print("Carpeta creada")
+                        
+                        if cont == len(self.path)-1:
+                            print(i,index_inode-1)
+                            self.createFile(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2],index_inode,i)
+                        
+                        cont += 1
+                print("**********************************ARCHIVO**********************************")
+                self.showBlocks(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2])
+                print("Archivo creado")
 
 
     def searchInode(self,bm_inodes,bm_blocks,start_inodes,start_blocks,inode_size,block_size,index,folder):
@@ -279,8 +330,72 @@ class mkdir:
                     inode_return = self.getIndexInode(f.read(inode_size))
                     f.seek(posicion_init)
                     f.write(struct.pack(format_i,inode_unpack[0],inode_unpack[1],inode_unpack[2],inode_unpack[3],inode_unpack[4],inode_unpack[5],inode_unpack[6],inode_unpack[7],inode_unpack[8],inode_unpack[9],inode_unpack[10],inode_unpack[11],inode_unpack[12],inode_unpack[13],inode_unpack[14],inode_unpack[15],inode_unpack[16],inode_unpack[17],inode_unpack[18],inode_unpack[19],inode_unpack[20],inode_unpack[21],inode_unpack[22]))
-                    return inode_return -1
+                    return inode_return - 1
                 cont += 1
+
+
+    def createFile(self,bm_inodes,bm_blocks,start_inodes,start_blocks,inode_size,block_size,index,folder):
+        format_i = "I I I I I I 15i c I"
+        format_b_folder = "12s i 12s i 12s i 12s i"
+        format_b = "64s"
+        with open(self.path_mount,"rb+") as f:
+            f.seek(start_inodes+(struct.calcsize(format_i)*(index)))
+            inode_unpack = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
+            print(inode_unpack,"inodo file")
+            #inode_unpack = list(inode_unpack)
+            i_block = inode_unpack[6:21]
+            inode_unpack = list(inode_unpack)
+            print(inode_unpack,"inodo")
+            cont = 0
+            text_file = ""
+            if self.size > 0:
+                n = 0
+                for i in range(self.size+1):
+                    text_file += str(n)
+                    n += 1
+                    if n == 10:
+                        n = 0
+            else:
+                print(self.cont)
+                try:
+                    with open(self.cont,"r") as file:
+                        
+                        text_file = file.read()
+                        file.close()
+                except:
+                    print("No se encontro el archivo")
+                    return
+
+            i = i_block[0]
+            i = i-1
+            f.seek(start_blocks+(struct.calcsize(format_b_folder)*(i)))
+            sizeP = len(text_file)
+            if sizeP <= 64:
+                f.write(struct.pack(format_b,text_file.encode('utf-8')))
+
+                print("Archivo creado")
+                return
+            
+            else:
+                while sizeP > 64:
+                    f.seek(bm_blocks)
+                    i = self.getIndexBock(f.read(block_size))
+                    f.seek(start_blocks+(struct.calcsize(format_b_folder)*(i)))
+                    f.write(struct.pack(format_b,text_file[0:64].encode('utf-8')))
+                    f.seek(bm_blocks+(i-1))
+                    f.write(b'1')
+                    text_file = text_file[64:]
+                    sizeP = len(text_file)
+                    if sizeP <= 64:
+                        f.seek(bm_blocks)
+                        i = self.getIndexBock(f.read(block_size))
+                        f.seek(start_blocks+(struct.calcsize(format_b_folder)*(i)))
+                        f.write(struct.pack(format_b,text_file.encode('utf-8')))
+                        f.seek(bm_blocks+(i-1))
+                        f.write(b'1')
+                        print("Archivo creado")
+                        return
+
 
     def showBlocks(self,bm_inodes,bm_blocks,start_inodes,start_blocks,inode_size,block_size):
 
@@ -319,7 +434,6 @@ class mkdir:
 
 
 
-        
 
 
                     
