@@ -1,0 +1,67 @@
+digraph G{
+node[shape=square]
+inode0[label="
+i_uid = 1\ni_gid = 1
+i_size = 27
+i_atime = 1694311288
+i_ctime = 1694311288
+i_mtime = 1694311288
+i_block = [1,6,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,]
+i_type = b'0'
+i_perm = 777\n"]
+inode1[label="
+i_uid = 1\ni_gid = 1
+i_size = 27
+i_atime = 1694311288
+i_ctime = 1694311288
+i_mtime = 1694311288
+i_block = [2,3,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,]
+i_type = b'1'
+i_perm = 777\n"]
+inode2[label="
+i_uid = 1\ni_gid = 1
+i_size = 1
+i_atime = 1
+i_ctime = 1
+i_mtime = 1
+i_block = [4,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,]
+i_type = b'\x00'
+i_perm = 664\n"]
+inode3[label="
+i_uid = 1\ni_gid = 1
+i_size = 1
+i_atime = 1
+i_ctime = 1
+i_mtime = 1
+i_block = [5,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,]
+i_type = b'\x00'
+i_perm = 664\n"]
+inode4[label="
+i_uid = 1\ni_gid = 1
+i_size = 1
+i_atime = 1
+i_ctime = 1
+i_mtime = 1
+i_block = [6,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,]
+i_type = b'\x00'
+i_perm = 664\n"]
+inode5[label="
+i_uid = 1\ni_gid = 1
+i_size = 1
+i_atime = 1
+i_ctime = 1
+i_mtime = 1
+i_block = [8,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,]
+i_type = b'\x00'
+i_perm = 664\n"]
+inode6[label="
+i_uid = 1\ni_gid = 1
+i_size = 1
+i_atime = 1
+i_ctime = 1
+i_mtime = 1
+i_block = [9,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,]
+i_type = b'\x00'
+i_perm = 664\n"]
+inode0->inode1->inode2->inode3->inode4->inode5->inode6->null
+}

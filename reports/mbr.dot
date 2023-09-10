@@ -1,0 +1,60 @@
+digraph G{
+node[shape=plaintext]
+graph[label=<
+<table border='1' cellborder='1' cellspacing='0'>
+<tr><td colspan='2' bgcolor='#9F4AFF'><b>MBR</b></td></tr>
+<tr><td><b>mbr_tamaño</b></td><td>25600</td></tr>
+<tr><td><b>mbr_fecha_creacion</b></td><td>1694295931</td></tr>
+<tr><td><b>mbr_disk_signature</b></td><td>526022342</td></tr>
+<tr><td colspan='2' bgcolor='#9F4AFF'><b>Particion 1</b></td></tr>
+<tr><td><b>part_status</b></td><td>1</td></tr>
+<tr><td><b>part_type</b></td><td>p</td></tr>
+<tr><td><b>part_fit</b></td><td>f</td></tr>
+<tr><td><b>part_start</b></td><td>124</td></tr>
+<tr><td><b>part_size</b></td><td>5120</td></tr>
+<tr><td><b>part_name</b></td><td>Partition1</td></tr>
+<tr><td colspan='2' bgcolor='#9F4AFF'><b>Particion 2</b></td></tr>
+<tr><td><b>part_status</b></td><td>1</td></tr>
+<tr><td><b>part_type</b></td><td>p</td></tr>
+<tr><td><b>part_fit</b></td><td>f</td></tr>
+<tr><td><b>part_start</b></td><td>5244</td></tr>
+<tr><td><b>part_size</b></td><td>10240</td></tr>
+<tr><td><b>part_name</b></td><td>Partition2</td></tr>
+<tr><td colspan='2' bgcolor='#9F4AFF'><b>Particion 3</b></td></tr>
+<tr><td><b>part_status</b></td><td>1</td></tr>
+<tr><td><b>part_type</b></td><td>p</td></tr>
+<tr><td><b>part_fit</b></td><td>f</td></tr>
+<tr><td><b>part_start</b></td><td>15484</td></tr>
+<tr><td><b>part_size</b></td><td>5120</td></tr>
+<tr><td><b>part_name</b></td><td>Partition3</td></tr>
+<tr><td colspan='2' bgcolor='#9F4AFF'><b>Particion 4</b></td></tr>
+<tr><td><b>part_status</b></td><td>1</td></tr>
+<tr><td><b>part_type</b></td><td>e</td></tr>
+<tr><td><b>part_fit</b></td><td>f</td></tr>
+<tr><td><b>part_start</b></td><td>20604</td></tr>
+<tr><td><b>part_size</b></td><td>4096</td></tr>
+<tr><td><b>part_name</b></td><td>Partition4</td></tr>
+<tr><td colspan='2' bgcolor='#FF8000'><b>EBR</b></td></tr>
+<tr><td><b>part_status</b></td><td>1</td></tr>
+<tr><td><b>part_fit</b></td><td>f</td></tr>
+<tr><td><b>part_start</b></td><td>20604</td></tr>
+<tr><td><b>part_size</b></td><td>2000</td></tr>
+<tr><td><b>part_next</b></td><td>22604</td></tr>
+<tr><td><b>part_name</b></td><td>PartitionL</td></tr>
+<tr><td colspan='2' bgcolor='#FF8000'><b>EBR</b></td></tr>
+<tr><td><b>part_status</b></td><td>1</td></tr>
+<tr><td><b>part_fit</b></td><td>f</td></tr>
+<tr><td><b>part_start</b></td><td>22636</td></tr>
+<tr><td><b>part_size</b></td><td>1500</td></tr>
+<tr><td><b>part_next</b></td><td>24504</td></tr>
+<tr><td><b>part_name</b></td><td>PartitionL1</td></tr>
+<tr><td colspan='2' bgcolor='#FF8000'><b>EBR</b></td></tr>
+<tr><td><b>part_status</b></td><td>1</td></tr>
+<tr><td><b>part_fit</b></td><td>f</td></tr>
+<tr><td><b>part_start</b></td><td>24536</td></tr>
+<tr><td><b>part_size</b></td><td>50</td></tr>
+<tr><td><b>part_next</b></td><td>-1</td></tr>
+<tr><td><b>part_name</b></td><td>PartitionL2</td></tr>
+</table>
+>];
+}

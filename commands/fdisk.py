@@ -173,7 +173,7 @@ class fdisk:
                 f.seek(partition1[3])
                 data_ebr = f.read(struct.calcsize(format_ebr))
                 ebr_unpack = struct.unpack(format_ebr,data_ebr)
-                next_part = ebr_unpack[4]
+                next_part = partition1[3]
 
                 while next_part != -1:
                     f.seek(next_part)
@@ -211,7 +211,7 @@ class fdisk:
                 f.seek(partition2[3])
                 data_ebr = f.read(struct.calcsize(format_ebr))
                 ebr_unpack = struct.unpack(format_ebr,data_ebr)
-                next_part = ebr_unpack[4]
+                next_part = partition2[3]
 
                 while next_part != -1:
                     f.seek(next_part)
@@ -249,7 +249,7 @@ class fdisk:
                 f.seek(partition3[3])
                 data_ebr = f.read(struct.calcsize(format_ebr))
                 ebr_unpack = struct.unpack(format_ebr,data_ebr)
-                next_part = ebr_unpack[4]
+                next_part = partition3[3]
 
                 while next_part != -1:
                     f.seek(next_part)
@@ -287,7 +287,7 @@ class fdisk:
                 f.seek(partition4[3])
                 data_ebr = f.read(struct.calcsize(format_ebr))
                 ebr_unpack = struct.unpack(format_ebr,data_ebr)
-                next_part = ebr_unpack[4]
+                next_part = partition4[3]
 
                 while next_part != -1:
                     f.seek(next_part)
@@ -397,7 +397,7 @@ class fdisk:
                 f.seek(partition1[3])
                 data_ebr = f.read(len(format_ebr))
                 ebr_unpack = struct.unpack(format_ebr,data_ebr)
-                next_part = ebr_unpack[4]
+                next_part = partition1[3]
 
                 while next_part != -1:
                     f.seek(next_part)
@@ -428,7 +428,7 @@ class fdisk:
                 f.seek(partition2[3])
                 data_ebr = f.read(len(format_ebr))
                 ebr_unpack = struct.unpack(format_ebr,data_ebr)
-                next_part = ebr_unpack[4]
+                next_part = partition2[3]
 
                 while next_part != -1:
                     f.seek(next_part)
@@ -459,7 +459,7 @@ class fdisk:
                 f.seek(partition3[3])
                 data_ebr = f.read(len(format_ebr))
                 ebr_unpack = struct.unpack(format_ebr,data_ebr)
-                next_part = ebr_unpack[4]
+                next_part = partition3[3]
 
                 while next_part != -1:
                     f.seek(next_part)
@@ -490,7 +490,7 @@ class fdisk:
                 f.seek(partition4[3])
                 data_ebr = f.read(struct.calcsize(format_ebr))
                 ebr_unpack = struct.unpack(format_ebr,data_ebr)
-                next_part = ebr_unpack[4]
+                next_part = partition4[3]
 
                 while next_part != -1:
                     f.seek(next_part)

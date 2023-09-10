@@ -92,7 +92,7 @@ class mkfile:
                             inode_file = index_inode
 
                         if cont == len(self.path)-1:
-                            print(i,index_inode-1)
+                            #print(i,index_inode-1)
                             self.createFile(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2],index_inode-1,i)
                         
                         cont += 1
@@ -339,13 +339,13 @@ class mkfile:
         format_b_folder = "12s i 12s i 12s i 12s i"
         format_b = "64s"
         with open(self.path_mount,"rb+") as f:
+            pos_init = start_inodes+(struct.calcsize(format_i)*(index))
             f.seek(start_inodes+(struct.calcsize(format_i)*(index)))
             inode_unpack = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
-            print(inode_unpack,"inodo file")
+            #print(inode_unpack,"inodo file")
             #inode_unpack = list(inode_unpack)
             i_block = inode_unpack[6:21]
             inode_unpack = list(inode_unpack)
-            print(inode_unpack,"inodo")
             cont = 0
             text_file = ""
             if self.size > 0:
@@ -368,34 +368,51 @@ class mkfile:
 
             i = i_block[0]
             i = i-1
+            print(i,"index archivo")
             f.seek(start_blocks+(struct.calcsize(format_b_folder)*(i)))
             sizeP = len(text_file)
+            cont = 0
             if sizeP <= 64:
                 f.write(struct.pack(format_b,text_file.encode('utf-8')))
 
                 print("Archivo creado")
-                return
-            
+                
+           
             else:
+                count = 0
                 while sizeP > 64:
                     f.seek(bm_blocks)
-                    i = self.getIndexBock(f.read(block_size))
-                    f.seek(start_blocks+(struct.calcsize(format_b_folder)*(i)))
+                    if count == 0:
+                        i = i + 1 
+                    else:
+                        i = self.getIndexBock(f.read(block_size))
+                    print(i-1,"index archivo")
+                    f.seek(start_blocks+(struct.calcsize(format_b_folder)*(i-1)))
                     f.write(struct.pack(format_b,text_file[0:64].encode('utf-8')))
                     f.seek(bm_blocks+(i-1))
                     f.write(b'1')
+                    print("Archivo creado")
+                    inode_unpack[cont+6] = i
+                    cont += 1
                     text_file = text_file[64:]
                     sizeP = len(text_file)
                     if sizeP <= 64:
                         f.seek(bm_blocks)
                         i = self.getIndexBock(f.read(block_size))
-                        f.seek(start_blocks+(struct.calcsize(format_b_folder)*(i)))
+                        f.seek(start_blocks+(struct.calcsize(format_b_folder)*(i-1)))
                         f.write(struct.pack(format_b,text_file.encode('utf-8')))
                         f.seek(bm_blocks+(i-1))
                         f.write(b'1')
+                        inode_unpack[cont+6] = i
+                        cont += 1
                         print("Archivo creado")
-                        return
 
+                    count += 1
+            f.seek(pos_init)
+            inodo_pack = struct.pack(format_i,inode_unpack[0],inode_unpack[1],inode_unpack[2],inode_unpack[3],inode_unpack[4],inode_unpack[5],inode_unpack[6],inode_unpack[7],inode_unpack[8],inode_unpack[9],inode_unpack[10],inode_unpack[11],inode_unpack[12],inode_unpack[13],inode_unpack[14],inode_unpack[15],inode_unpack[16],inode_unpack[17],inode_unpack[18],inode_unpack[19],inode_unpack[20],'1'.encode('utf-8'),inode_unpack[22])           
+            f.write(inodo_pack)
+            f.close()
+            return
 
     def showBlocks(self,bm_inodes,bm_blocks,start_inodes,start_blocks,inode_size,block_size):
 

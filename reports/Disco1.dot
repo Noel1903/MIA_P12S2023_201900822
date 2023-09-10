@@ -1,0 +1,14 @@
+digraph G{
+node[shape=plaintext]
+graph[label=<
+<table border='1' cellborder='1' cellspacing='1'>
+<tr><td rowspan='3'>MBR</td>
+<td rowspan = '3'>Primaria<br/>20.0%</td>
+<td rowspan = '3'>Primaria<br/>40.0%</td>
+<td rowspan = '3'>Primaria<br/>20.0%</td>
+<td rowspan = '6'>Extendida</td>
+</tr>
+<tr><td>Ebr</td><td>Logica</td><td>Ebr</td><td>Logica</td><td>Ebr</td><td>Logica</td></tr>
+</tr></table>
+>];
+}

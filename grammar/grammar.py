@@ -18,6 +18,7 @@ from commands.mkgrp import mkgrp
 from commands.mkusr import mkusr
 from commands.mkdir import mkdir
 from commands.mkfile import mkfile
+from commands.rep import rep
 #reserved words
 reserved = {
     'mkdisk' : 'MKDISK',
@@ -46,7 +47,9 @@ reserved = {
     'r'     : 'R',
     'mkdir' : 'MKDIR',
     'mkfile' : 'MKFILE',
-    'cont' : 'CONT'
+    'cont' : 'CONT',
+    'rep' : 'REP',
+    'ruta' : 'RUTA',
 
 }
 
@@ -143,7 +146,8 @@ def p_command(t):
                | mkgrp_block
                | usr_block
                | mkdir_block
-               | mkfile_block'''
+               | mkfile_block
+               | rep_block'''
     t[0] = t[1]
 
 def p_mkdisk_block(t):
@@ -417,6 +421,37 @@ def p_mkfile_param(t):
     elif t[2] == "size":
         t[0] = ["size", t[4]]
 
+
+def p_rep_block(t):
+    'rep_block : REP rep_params'
+    t[0] = rep(t[2])
+
+def p_rep_params(t):
+    '''rep_params : rep_params rep_param
+                  | rep_param'''
+    if len(t) == 3:
+        t[1].append(t[2])
+        t[0] = t[1]
+    else:
+        t[0] = [t[1]]
+
+def p_rep_param(t):
+    '''rep_param : SEPARATOR ID_PARAM ASSIGN MOUNTNAME
+                 | SEPARATOR RUTA ASSIGN PATHWITHQUOTES
+                 | SEPARATOR RUTA ASSIGN PATHWITHOUTQUOTES
+                 | SEPARATOR PATH ASSIGN PATHWITHQUOTES
+                 | SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES
+                 | SEPARATOR NAME ASSIGN ID
+                 | SEPARATOR NAME ASSIGN STRING'''
+    if t[2] == "id":
+        t[0] = ["id", t[4]]
+    elif t[2] == "ruta":
+        t[0] = ["ruta", t[4]]
+    elif t[2] == "name":
+        t[0] = ["name", t[4]]
+    elif t[2] == "path":
+        t[0] = ["path", t[4]]
+
 def p_error(t):
     print("Syntax error at '%s'" % t.value)
 
@@ -448,7 +483,7 @@ input_text = '''mkdisk -size = 10 -unit=K -path=/home/usuario/Disco2.dsk
               mkdir -path = /home
               mkdir -path = /tmp
               
-              mkfile -path = /home/usuario/Documentos/Archivo1.txt -size = 9
+              mkfile -path = /home/usuario/Documentos/Archivo1.txt -size = 128 
 
               mkdir -path = /bin
 
@@ -458,7 +493,10 @@ input_text = '''mkdisk -size = 10 -unit=K -path=/home/usuario/Disco2.dsk
               mkgrp -name = usuariosejemplo
               mkusr -user = usuarioNoel -pass = 123 -grp = usuariosejemplo
               mkdir -path = /home/usuario/Documentos
-              mkdir -path = /boot/chmod'''
+              mkdir -path = /boot/chmod
+              rep -id = 221Disco1 -path=/home/Disco1MBR.png -name = mbr
+              rep -id = 221Disco1 -path=/home/Disco1DISK.png -name = disk
+              rep -id = 221Disco1 -path=/home/Disco1Inodes.png -name = inode'''
               
 commands = parser.parse(input_text)
 #fdisk -size = 10 -unit = b -path = "/home/usuario 1/Disco1.dsk" -type = l -name = PartitionL1

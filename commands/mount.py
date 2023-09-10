@@ -24,10 +24,10 @@ class mount:
             return True
         
     def getCont(self,nameDisk):
-        count = 1
+        count = 4
         for i in self.partitions_mounted:
             if i.nameDisk == nameDisk:
-                count =  i.count + 1  
+                count += 1  
         return count
 
     def execute(self):
@@ -52,7 +52,7 @@ class mount:
             format_mbr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
             data_bytes = f.read(struct.calcsize(format_mbr))
             mbr_unpack = struct.unpack(format_mbr,data_bytes)
-            
+            cont = 5
             partition1 = mbr_unpack[4:10]
             partition2 = mbr_unpack[10:16]
             partition3 = mbr_unpack[16:22]
@@ -60,25 +60,25 @@ class mount:
             if self.nameExist(self.name,partition1[5],partition2[5],partition3[5],partition4[5]):
                 if self.name == partition1[5].decode('utf-8').rstrip("\x00"):
                     cont = self.getCont(name_disk)
-                    id_mount = self.id_carnet + str(cont) + name_disk
+                    id_mount = self.id_carnet + str(1) + name_disk
                     self.partitions_mounted.append(Mount(name_disk,id_mount,cont,partition1[5].decode('utf-8').rstrip("\x00"),self.path.replace(" ",r"\ ")))
                     print("Particion montada con exito")
                     return        
                 elif self.name == partition2[5].decode('utf-8').rstrip("\x00"):
                     cont = self.getCont(name_disk)
-                    id_mount = self.id_carnet + str(cont) + name_disk
+                    id_mount = self.id_carnet + str(2) + name_disk
                     self.partitions_mounted.append(Mount(name_disk,id_mount,cont,partition2[5].decode('utf-8').rstrip("\x00"),self.path.replace(" ",r"\ "))) 
                     print("Particion montada con exito")
                     return
                 elif self.name == partition3[5].decode('utf-8').rstrip("\x00"):
                     cont = self.getCont(name_disk)
-                    id_mount = self.id_carnet + str(cont) + name_disk
+                    id_mount = self.id_carnet + str(3) + name_disk
                     self.partitions_mounted.append(Mount(name_disk,id_mount,cont,partition3[5].decode('utf-8').rstrip("\x00"),self.path.replace(" ",r"\ "))) 
                     print("Particion montada con exito")
                     return  
                 elif self.name == partition4[5].decode('utf-8').rstrip("\x00"):
                     cont = self.getCont(name_disk)
-                    id_mount = self.id_carnet + str(cont) + name_disk
+                    id_mount = self.id_carnet + str(4) + name_disk
                     self.partitions_mounted.append(Mount(name_disk,id_mount,cont,partition4[5].decode('utf-8').rstrip("\x00"),self.path.replace(" ",r"\ "))) 
                     print("Particion montada con exito")
                     return      

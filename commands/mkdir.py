@@ -279,7 +279,7 @@ class mkdir:
                     inode_return = self.getIndexInode(f.read(inode_size))
                     f.seek(posicion_init)
                     f.write(struct.pack(format_i,inode_unpack[0],inode_unpack[1],inode_unpack[2],inode_unpack[3],inode_unpack[4],inode_unpack[5],inode_unpack[6],inode_unpack[7],inode_unpack[8],inode_unpack[9],inode_unpack[10],inode_unpack[11],inode_unpack[12],inode_unpack[13],inode_unpack[14],inode_unpack[15],inode_unpack[16],inode_unpack[17],inode_unpack[18],inode_unpack[19],inode_unpack[20],inode_unpack[21],inode_unpack[22]))
-                    return inode_return -1
+                    return inode_return - 1
                 cont += 1
 
     def showBlocks(self,bm_inodes,bm_blocks,start_inodes,start_blocks,inode_size,block_size):
