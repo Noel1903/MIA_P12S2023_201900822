@@ -1,4 +1,3 @@
-
 class Partition:
     def __init__(self,part_status,part_type,part_fit,part_start,part_s,part_name):
         self.part_status = part_status
@@ -91,33 +90,3 @@ class Journaling:
         self.journaling_operation = journaling_operation
         self.journaling_content = journaling_content
         self.journaling_date = journaling_date
-
-
-
-
-
-
-
-
-'''
-from dataclasses import dataclass
-@dataclass
-class Partition:
-    part_status: chr
-    part_type: chr
-    part_fit: chr
-    part_start: int
-    part_s: int
-    part_name: str
-    
-@dataclass
-class MBR:
-    mbr_tamano: int
-    mbr_fecha_creacion: datetime
-    mbr_dsk_signature: int
-    dsk_fit: chr
-    mbr_partition_1: Partition
-    mbr_partition_2: Partition
-    mbr_partition_3: Partition
-    mbr_partition_4: Partition
-'''

@@ -1,0 +1,356 @@
+digraph G{
+node[shape=none]
+rankdir=LR
+inode1[label=<
+<table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
+<tr><td colspan="2">Inodo 1</td></tr>
+<tr><td>i_type</td><td>b'0'</td></tr>
+<tr><td>ap0</td><td  port = "cell1">1</td></tr>
+<tr><td>ap1</td><td  port = "cell5">5</td></tr>
+<tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap4</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap5</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap6</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap7</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap8</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap9</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap10</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap11</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap12</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap13</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap14</td><td  port = "cell-1">-1</td></tr>
+<tr><td>i_perm</td><td>777</td></tr>
+</table>
+>]
+inode2[label=<
+<table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
+<tr><td colspan="2">Inodo 2</td></tr>
+<tr><td>i_type</td><td>b'1'</td></tr>
+<tr><td>ap0</td><td  port = "cell2">2</td></tr>
+<tr><td>ap1</td><td  port = "cell3">3</td></tr>
+<tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap4</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap5</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap6</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap7</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap8</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap9</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap10</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap11</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap12</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap13</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap14</td><td  port = "cell-1">-1</td></tr>
+<tr><td>i_perm</td><td>777</td></tr>
+</table>
+>]
+inode3[label=<
+<table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
+<tr><td colspan="2">Inodo 3</td></tr>
+<tr><td>i_type</td><td>b'0'</td></tr>
+<tr><td>ap0</td><td  port = "cell4">4</td></tr>
+<tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap4</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap5</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap6</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap7</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap8</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap9</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap10</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap11</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap12</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap13</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap14</td><td  port = "cell-1">-1</td></tr>
+<tr><td>i_perm</td><td>664</td></tr>
+</table>
+>]
+inode4[label=<
+<table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
+<tr><td colspan="2">Inodo 4</td></tr>
+<tr><td>i_type</td><td>b'0'</td></tr>
+<tr><td>ap0</td><td  port = "cell6">6</td></tr>
+<tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap4</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap5</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap6</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap7</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap8</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap9</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap10</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap11</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap12</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap13</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap14</td><td  port = "cell-1">-1</td></tr>
+<tr><td>i_perm</td><td>664</td></tr>
+</table>
+>]
+inode5[label=<
+<table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
+<tr><td colspan="2">Inodo 5</td></tr>
+<tr><td>i_type</td><td>b'0'</td></tr>
+<tr><td>ap0</td><td  port = "cell7">7</td></tr>
+<tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap4</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap5</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap6</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap7</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap8</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap9</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap10</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap11</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap12</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap13</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap14</td><td  port = "cell-1">-1</td></tr>
+<tr><td>i_perm</td><td>664</td></tr>
+</table>
+>]
+inode6[label=<
+<table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
+<tr><td colspan="2">Inodo 6</td></tr>
+<tr><td>i_type</td><td>b'0'</td></tr>
+<tr><td>ap0</td><td  port = "cell8">8</td></tr>
+<tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap4</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap5</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap6</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap7</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap8</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap9</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap10</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap11</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap12</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap13</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap14</td><td  port = "cell-1">-1</td></tr>
+<tr><td>i_perm</td><td>664</td></tr>
+</table>
+>]
+inode7[label=<
+<table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
+<tr><td colspan="2">Inodo 7</td></tr>
+<tr><td>i_type</td><td>b'1'</td></tr>
+<tr><td>ap0</td><td  port = "cell9">9</td></tr>
+<tr><td>ap1</td><td  port = "cell10">10</td></tr>
+<tr><td>ap2</td><td  port = "cell11">11</td></tr>
+<tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap4</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap5</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap6</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap7</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap8</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap9</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap10</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap11</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap12</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap13</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap14</td><td  port = "cell-1">-1</td></tr>
+<tr><td>i_perm</td><td>664</td></tr>
+</table>
+>]
+inode8[label=<
+<table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
+<tr><td colspan="2">Inodo 8</td></tr>
+<tr><td>i_type</td><td>b'0'</td></tr>
+<tr><td>ap0</td><td  port = "cell12">12</td></tr>
+<tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap4</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap5</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap6</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap7</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap8</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap9</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap10</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap11</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap12</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap13</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap14</td><td  port = "cell-1">-1</td></tr>
+<tr><td>i_perm</td><td>664</td></tr>
+</table>
+>]
+inode9[label=<
+<table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
+<tr><td colspan="2">Inodo 9</td></tr>
+<tr><td>i_type</td><td>b'1'</td></tr>
+<tr><td>ap0</td><td  port = "cell13">13</td></tr>
+<tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap4</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap5</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap6</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap7</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap8</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap9</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap10</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap11</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap12</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap13</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap14</td><td  port = "cell-1">-1</td></tr>
+<tr><td>i_perm</td><td>664</td></tr>
+</table>
+>]
+block1[label=<
+<table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
+<tr><td colspan="2">Bloque Carpeta 1</td></tr>
+<tr><td>.</td>
+<td port = "in0">0</td></tr>
+<tr><td>..</td>
+<td port = "in0">0</td></tr>
+<tr><td>users.txt</td>
+<td port = "in2">2</td></tr>
+<tr><td>home</td>
+<td port = "in3">3</td></tr>
+</table>
+>]
+block5[label=<
+<table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
+<tr><td colspan="2">Bloque Carpeta 5</td></tr>
+<tr><td>tmp</td>
+<td port = "in4">4</td></tr>
+<tr><td>bin</td>
+<td port = "in8">8</td></tr>
+<tr><td></td>
+<td port = "in-1">-1</td></tr>
+<tr><td></td>
+<td port = "in-1">-1</td></tr>
+</table>
+>]
+block4[label=<
+<table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
+<tr><td colspan="2">Bloque Carpeta 4</td></tr>
+<tr><td>.</td>
+<td port = "in0">0</td></tr>
+<tr><td>..</td>
+<td port = "in0">0</td></tr>
+<tr><td>usuario</td>
+<td port = "in5">5</td></tr>
+<tr><td></td>
+<td port = "in-1">-1</td></tr>
+</table>
+>]
+block6[label=<
+<table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
+<tr><td colspan="2">Bloque Carpeta 6</td></tr>
+<tr><td>.</td>
+<td port = "in0">0</td></tr>
+<tr><td>..</td>
+<td port = "in0">0</td></tr>
+<tr><td></td>
+<td port = "in-1">-1</td></tr>
+<tr><td></td>
+<td port = "in-1">-1</td></tr>
+</table>
+>]
+block7[label=<
+<table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
+<tr><td colspan="2">Bloque Carpeta 7</td></tr>
+<tr><td>.</td>
+<td port = "in0">0</td></tr>
+<tr><td>..</td>
+<td port = "in0">0</td></tr>
+<tr><td>Documentos</td>
+<td port = "in6">6</td></tr>
+<tr><td></td>
+<td port = "in-1">-1</td></tr>
+</table>
+>]
+block8[label=<
+<table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
+<tr><td colspan="2">Bloque Carpeta 8</td></tr>
+<tr><td>.</td>
+<td port = "in0">0</td></tr>
+<tr><td>..</td>
+<td port = "in0">0</td></tr>
+<tr><td>Archivo1.txt</td>
+<td port = "in7">7</td></tr>
+<tr><td>Archivo2.txt</td>
+<td port = "in9">9</td></tr>
+</table>
+>]
+block12[label=<
+<table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
+<tr><td colspan="2">Bloque Carpeta 12</td></tr>
+<tr><td>.</td>
+<td port = "in0">0</td></tr>
+<tr><td>..</td>
+<td port = "in0">0</td></tr>
+<tr><td></td>
+<td port = "in-1">-1</td></tr>
+<tr><td></td>
+<td port = "in-1">-1</td></tr>
+</table>
+>]
+block2[label=<
+<table border="0" cellborder="1" cellspacing="0" bgcolor="#F9D800">
+<tr><td colspan="2">Bloque Archivo 2</td></tr>
+<tr><td>b_content</td><td>1,G,root
+1,U,root,root,123
+2,G,usuarios
+3,G,usuarios2
+2,U,usuari</td></tr>
+</table>
+>]
+block3[label=<
+<table border="0" cellborder="1" cellspacing="0" bgcolor="#F9D800">
+<tr><td colspan="2">Bloque Archivo 3</td></tr>
+<tr><td>b_content</td><td>os,usuario1,123
+3,U,usuarios2,noel,contra123
+</td></tr>
+</table>
+>]
+block9[label=<
+<table border="0" cellborder="1" cellspacing="0" bgcolor="#F9D800">
+<tr><td colspan="2">Bloque Archivo 9</td></tr>
+<tr><td>b_content</td><td>0123456789012345678901234567890123456789012345678901234567890123</td></tr>
+</table>
+>]
+block10[label=<
+<table border="0" cellborder="1" cellspacing="0" bgcolor="#F9D800">
+<tr><td colspan="2">Bloque Archivo 10</td></tr>
+<tr><td>b_content</td><td>4567890123456789012345678901234567890123456789012345678901234567</td></tr>
+</table>
+>]
+block11[label=<
+<table border="0" cellborder="1" cellspacing="0" bgcolor="#F9D800">
+<tr><td colspan="2">Bloque Archivo 11</td></tr>
+<tr><td>b_content</td><td>8</td></tr>
+</table>
+>]
+block13[label=<
+<table border="0" cellborder="1" cellspacing="0" bgcolor="#F9D800">
+<tr><td colspan="2">Bloque Archivo 13</td></tr>
+<tr><td>b_content</td><td>Hola como estas</td></tr>
+</table>
+>]
+inode1:cell1->block1
+inode1:cell5->block5
+inode2:cell2->block2
+inode2:cell3->block3
+inode3:cell4->block4
+inode4:cell6->block6
+inode5:cell7->block7
+inode6:cell8->block8
+inode7:cell9->block9
+inode7:cell10->block10
+inode7:cell11->block11
+inode8:cell12->block12
+inode9:cell13->block13
+block1:in2->inode2
+block1:in3->inode3
+block5:in4->inode4
+block5:in8->inode8
+block4:in5->inode5
+block7:in6->inode6
+block8:in7->inode7
+block8:in9->inode9
+}

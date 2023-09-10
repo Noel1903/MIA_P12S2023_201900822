@@ -189,7 +189,3 @@ class mount:
                     print("No existe una particion extendida")
                     return
             f.close()
-
-
-
-    

@@ -496,8 +496,10 @@ input_text = '''mkdisk -size = 10 -unit=K -path=/home/usuario/Disco2.dsk
               mkdir -path = /boot/chmod
               rep -id = 221Disco1 -path=/home/Disco1MBR.png -name = mbr
               rep -id = 221Disco1 -path=/home/Disco1DISK.png -name = disk
-              rep -id = 221Disco1 -path=/home/Disco1Inodes.png -name = inode'''
+              rep -id = 222Disco1 -path=/home/Disco1Inodes.png -name = inode
+              rep -id = 222Disco1 -path=/home/Disco1Block.png -name = block
+              rep -id = 222Disco1 -path=/home/bm_disco.txt -name = bm_inode
+              rep -id = 222Disco1 -path=/home/bm_block.txt -name = bm_block
+              rep -id = 222Disco1 -path=/home/treeDisk.png -name =tree'''
               
 commands = parser.parse(input_text)
-#fdisk -size = 10 -unit = b -path = "/home/usuario 1/Disco1.dsk" -type = l -name = PartitionL1
-

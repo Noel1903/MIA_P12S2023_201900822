@@ -4,8 +4,8 @@ graph[label=<
 <table border='1' cellborder='1' cellspacing='0'>
 <tr><td colspan='2' bgcolor='#9F4AFF'><b>MBR</b></td></tr>
 <tr><td><b>mbr_tamaño</b></td><td>25600</td></tr>
-<tr><td><b>mbr_fecha_creacion</b></td><td>1694311288</td></tr>
-<tr><td><b>mbr_disk_signature</b></td><td>366898872</td></tr>
+<tr><td><b>mbr_fecha_creacion</b></td><td>1694383894</td></tr>
+<tr><td><b>mbr_disk_signature</b></td><td>152370421</td></tr>
 <tr><td colspan='2' bgcolor='#9F4AFF'><b>Particion 1</b></td></tr>
 <tr><td><b>part_status</b></td><td>1</td></tr>
 <tr><td><b>part_type</b></td><td>p</td></tr>

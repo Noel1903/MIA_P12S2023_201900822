@@ -1245,9 +1245,3 @@ class fdisk:
                                 f.close()
                                 print("Particion logica creada exitosamente")
                                 return
-        
-                                                       
-
-                                                       
-
-                            
