@@ -15,6 +15,9 @@ class login:
             self.password = ""
             self.id = ""
 
+    def setUserLogued(self):
+        self.userlogued = [False]
+
     def getUser(self):
         return self.userlog
 
@@ -36,7 +39,7 @@ class login:
         format_mbr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
         format_ebr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s"
         format_sb = "I I I I I I I I I I I I I I I I I"
-        format_i = "I I I I I I 15i c I"
+        format_i = "I I I I I I 16i c I"
         format_b_folder = "12s i 12s i 12s i 12s i"
         format_b = "64s"
 
@@ -71,7 +74,7 @@ class login:
                 f.seek(inode_start)
                 inode_user_unpacked = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
                 #print(inode_user_unpacked)
-                i_block = inode_user_unpacked[6:21]
+                i_block = inode_user_unpacked[6:22]
                 users_txt = ""
                 for i in i_block:
                     f.seek(block_start + ((i-1) * struct.calcsize(format_b)))
@@ -105,7 +108,7 @@ class login:
                 f.seek(inode_start)
                 inode_user_unpacked = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
                 #print(inode_user_unpacked)
-                i_block = inode_user_unpacked[6:21]
+                i_block = inode_user_unpacked[6:22]
                 users_txt = ""
                 for i in i_block:
                     f.seek(block_start + ((i-1) * struct.calcsize(format_b)))
@@ -139,7 +142,7 @@ class login:
                 f.seek(inode_start)
                 inode_user_unpacked = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
                 #print(inode_user_unpacked)
-                i_block = inode_user_unpacked[6:21]
+                i_block = inode_user_unpacked[6:22]
                 users_txt = ""
                 for i in i_block:
                     f.seek(block_start + ((i-1) * struct.calcsize(format_b)))
@@ -171,7 +174,7 @@ class login:
                 f.seek(inode_start)
                 inode_user_unpacked = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
                 #print(inode_user_unpacked)
-                i_block = inode_user_unpacked[6:21]
+                i_block = inode_user_unpacked[6:22]
                 users_txt = ""
                 for i in i_block:
                     f.seek(block_start + ((i-1) * struct.calcsize(format_b)))

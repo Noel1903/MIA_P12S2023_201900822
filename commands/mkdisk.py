@@ -21,6 +21,9 @@ class mkdisk:
                 self.unit = param[1]
             elif param[0] == "fit":
                 self.fit = param[1]
+            else:
+                print("Parametro "+param[0]+" no reconocido")
+                return
         self.fit = self.fit.lower()
         self.unit = self.unit.lower()
         
@@ -30,8 +33,7 @@ class mkdisk:
             print("Size must be greater than 0")
 
     def createDisk(self):
-        if self.fit == "ff":
-            self.createDiskFF()
+        self.createDiskFF()
 
     def createDiskFF(self):
         if self.unit == "k":

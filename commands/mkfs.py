@@ -56,7 +56,7 @@ class mkfs:
         format_mbr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
         format_ebr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s"
         format_sb = "I I I I I I I I I I I I I I I I I"
-        format_i = "I I I I I I 15i c I"
+        format_i = "I I I I I I 16i c I"
         format_b_folder = "12s i"
         format_b = "64s"
         part_m = 0
@@ -127,7 +127,7 @@ class mkfs:
                         f.write(b'0')
                     #Se escriben los inodos
                     f.seek(inode_start)
-                    iblock = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
+                    iblock = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
                     for i in range(bitmap_inodes):
                         inode = struct.pack(format_i,0,0,0,0,0,0,*iblock,'0'.encode('utf-8'),0)
                         f.write(inode)
@@ -154,14 +154,14 @@ class mkfs:
                     inode_root_unpack[4] = int(datetime.datetime.now().timestamp())
                     inode_root_unpack[5] = int(datetime.datetime.now().timestamp())
                     inode_root_unpack[6] = index_b
-                    inode_root_unpack[21] = '0'.encode('utf-8')
-                    inode_root_unpack[22] = 777
+                    inode_root_unpack[22] = '0'.encode('utf-8')
+                    inode_root_unpack[23] = 777
                     f.seek(bm_inode_start)
                     f.seek(inode_start+((self.getIndexInode(f.read(inodes_count))-1)*inode_size))
                     f.write(struct.pack(format_i,inode_root_unpack[0],inode_root_unpack[1],inode_root_unpack[2],inode_root_unpack[3],inode_root_unpack[4],
                                         inode_root_unpack[5],inode_root_unpack[6],inode_root_unpack[7],inode_root_unpack[8],inode_root_unpack[9],inode_root_unpack[10],
                                         inode_root_unpack[11],inode_root_unpack[12],inode_root_unpack[13],inode_root_unpack[14],inode_root_unpack[15],inode_root_unpack[16],
-                                        inode_root_unpack[17],inode_root_unpack[18],inode_root_unpack[19],inode_root_unpack[20],inode_root_unpack[21],inode_root_unpack[22]))
+                                        inode_root_unpack[17],inode_root_unpack[18],inode_root_unpack[19],inode_root_unpack[20],inode_root_unpack[21],inode_root_unpack[22],inode_root_unpack[23]))
                     #se setea 1 en el bitmap de inodos
                     f.seek(bm_inode_start)
                     f.write(b'1')
@@ -194,11 +194,11 @@ class mkfs:
                     inode_users_unpack[4] = int(datetime.datetime.now().timestamp())
                     inode_users_unpack[5] = int(datetime.datetime.now().timestamp())
                     inode_users_unpack[6] = index_b
-                    inode_users_unpack[21] = '1'.encode('utf-8')
-                    inode_users_unpack[22] = 777
+                    inode_users_unpack[22] = '1'.encode('utf-8')
+                    inode_users_unpack[23] = 777
                     f.seek(bm_inode_start)
                     f.seek(inode_start+((self.getIndexInode(f.read(inodes_count))-1)*inode_size))
-                    f.write(struct.pack(format_i,inode_users_unpack[0],inode_users_unpack[1],inode_users_unpack[2],inode_users_unpack[3],inode_users_unpack[4],inode_users_unpack[5],inode_users_unpack[6],inode_users_unpack[7],inode_users_unpack[8],inode_users_unpack[9],inode_users_unpack[10],inode_users_unpack[11],inode_users_unpack[12],inode_users_unpack[13],inode_users_unpack[14],inode_users_unpack[15],inode_users_unpack[16],inode_users_unpack[17],inode_users_unpack[18],inode_users_unpack[19],inode_users_unpack[20],inode_users_unpack[21],inode_users_unpack[22]))
+                    f.write(struct.pack(format_i,inode_users_unpack[0],inode_users_unpack[1],inode_users_unpack[2],inode_users_unpack[3],inode_users_unpack[4],inode_users_unpack[5],inode_users_unpack[6],inode_users_unpack[7],inode_users_unpack[8],inode_users_unpack[9],inode_users_unpack[10],inode_users_unpack[11],inode_users_unpack[12],inode_users_unpack[13],inode_users_unpack[14],inode_users_unpack[15],inode_users_unpack[16],inode_users_unpack[17],inode_users_unpack[18],inode_users_unpack[19],inode_users_unpack[20],inode_users_unpack[21],inode_users_unpack[22],inode_users_unpack[23]))
                     #se setea 1 en el bitmap de inodos
                     f.seek(bm_inode_start)
                     f.seek(bm_inode_start+self.getIndexInode(f.read(inodes_count))-1)
@@ -256,7 +256,7 @@ class mkfs:
                         f.write(b'0')
                     #Se escriben los inodos
                     f.seek(inode_start)
-                    iblock = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
+                    iblock = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
                     for i in range(bitmap_inodes):
                         inode = struct.pack(format_i,0,0,0,0,0,0,*iblock,'0'.encode('utf-8'),0)
                         f.write(inode)
@@ -283,14 +283,14 @@ class mkfs:
                     inode_root_unpack[4] = int(datetime.datetime.now().timestamp())
                     inode_root_unpack[5] = int(datetime.datetime.now().timestamp())
                     inode_root_unpack[6] = index_b
-                    inode_root_unpack[21] = '0'.encode('utf-8')
-                    inode_root_unpack[22] = 777
+                    inode_root_unpack[22] = '0'.encode('utf-8')
+                    inode_root_unpack[23] = 777
                     f.seek(bm_inode_start)
                     f.seek(inode_start+((self.getIndexInode(f.read(inodes_count))-1)*inode_size))
                     f.write(struct.pack(format_i,inode_root_unpack[0],inode_root_unpack[1],inode_root_unpack[2],inode_root_unpack[3],inode_root_unpack[4],
                                         inode_root_unpack[5],inode_root_unpack[6],inode_root_unpack[7],inode_root_unpack[8],inode_root_unpack[9],inode_root_unpack[10],
                                         inode_root_unpack[11],inode_root_unpack[12],inode_root_unpack[13],inode_root_unpack[14],inode_root_unpack[15],inode_root_unpack[16],
-                                        inode_root_unpack[17],inode_root_unpack[18],inode_root_unpack[19],inode_root_unpack[20],inode_root_unpack[21],inode_root_unpack[22]))
+                                        inode_root_unpack[17],inode_root_unpack[18],inode_root_unpack[19],inode_root_unpack[20],inode_root_unpack[21],inode_root_unpack[22],inode_root_unpack[23]))
                     #se setea 1 en el bitmap de inodos
                     f.seek(bm_inode_start)
                     f.write(b'1')
@@ -323,11 +323,11 @@ class mkfs:
                     inode_users_unpack[4] = int(datetime.datetime.now().timestamp())
                     inode_users_unpack[5] = int(datetime.datetime.now().timestamp())
                     inode_users_unpack[6] = index_b
-                    inode_users_unpack[21] = '1'.encode('utf-8')
-                    inode_users_unpack[22] = 777
+                    inode_users_unpack[22] = '1'.encode('utf-8')
+                    inode_users_unpack[23] = 777
                     f.seek(bm_inode_start)
                     f.seek(inode_start+((self.getIndexInode(f.read(inodes_count))-1)*inode_size))
-                    f.write(struct.pack(format_i,inode_users_unpack[0],inode_users_unpack[1],inode_users_unpack[2],inode_users_unpack[3],inode_users_unpack[4],inode_users_unpack[5],inode_users_unpack[6],inode_users_unpack[7],inode_users_unpack[8],inode_users_unpack[9],inode_users_unpack[10],inode_users_unpack[11],inode_users_unpack[12],inode_users_unpack[13],inode_users_unpack[14],inode_users_unpack[15],inode_users_unpack[16],inode_users_unpack[17],inode_users_unpack[18],inode_users_unpack[19],inode_users_unpack[20],inode_users_unpack[21],inode_users_unpack[22]))
+                    f.write(struct.pack(format_i,inode_users_unpack[0],inode_users_unpack[1],inode_users_unpack[2],inode_users_unpack[3],inode_users_unpack[4],inode_users_unpack[5],inode_users_unpack[6],inode_users_unpack[7],inode_users_unpack[8],inode_users_unpack[9],inode_users_unpack[10],inode_users_unpack[11],inode_users_unpack[12],inode_users_unpack[13],inode_users_unpack[14],inode_users_unpack[15],inode_users_unpack[16],inode_users_unpack[17],inode_users_unpack[18],inode_users_unpack[19],inode_users_unpack[20],inode_users_unpack[21],inode_users_unpack[22],inode_users_unpack[23]))
                     #se setea 1 en el bitmap de inodos
                     f.seek(bm_inode_start)
                     f.seek(bm_inode_start+self.getIndexInode(f.read(inodes_count))-1)
@@ -385,7 +385,7 @@ class mkfs:
                         f.write(b'0')
                     #Se escriben los inodos
                     f.seek(inode_start)
-                    iblock = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
+                    iblock = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
                     for i in range(bitmap_inodes):
                         inode = struct.pack(format_i,0,0,0,0,0,0,*iblock,'0'.encode('utf-8'),0)
                         f.write(inode)
@@ -412,14 +412,14 @@ class mkfs:
                     inode_root_unpack[4] = int(datetime.datetime.now().timestamp())
                     inode_root_unpack[5] = int(datetime.datetime.now().timestamp())
                     inode_root_unpack[6] = index_b
-                    inode_root_unpack[21] = '0'.encode('utf-8')
-                    inode_root_unpack[22] = 777
+                    inode_root_unpack[22] = '0'.encode('utf-8')
+                    inode_root_unpack[23] = 777
                     f.seek(bm_inode_start)
                     f.seek(inode_start+((self.getIndexInode(f.read(inodes_count))-1)*inode_size))
                     f.write(struct.pack(format_i,inode_root_unpack[0],inode_root_unpack[1],inode_root_unpack[2],inode_root_unpack[3],inode_root_unpack[4],
                                         inode_root_unpack[5],inode_root_unpack[6],inode_root_unpack[7],inode_root_unpack[8],inode_root_unpack[9],inode_root_unpack[10],
                                         inode_root_unpack[11],inode_root_unpack[12],inode_root_unpack[13],inode_root_unpack[14],inode_root_unpack[15],inode_root_unpack[16],
-                                        inode_root_unpack[17],inode_root_unpack[18],inode_root_unpack[19],inode_root_unpack[20],inode_root_unpack[21],inode_root_unpack[22]))
+                                        inode_root_unpack[17],inode_root_unpack[18],inode_root_unpack[19],inode_root_unpack[20],inode_root_unpack[21],inode_root_unpack[22],inode_root_unpack[23]))
                     #se setea 1 en el bitmap de inodos
                     f.seek(bm_inode_start)
                     f.write(b'1')
@@ -452,11 +452,11 @@ class mkfs:
                     inode_users_unpack[4] = int(datetime.datetime.now().timestamp())
                     inode_users_unpack[5] = int(datetime.datetime.now().timestamp())
                     inode_users_unpack[6] = index_b
-                    inode_users_unpack[21] = '1'.encode('utf-8')
-                    inode_users_unpack[22] = 777
+                    inode_users_unpack[22] = '1'.encode('utf-8')
+                    inode_users_unpack[23] = 777
                     f.seek(bm_inode_start)
                     f.seek(inode_start+((self.getIndexInode(f.read(inodes_count))-1)*inode_size))
-                    f.write(struct.pack(format_i,inode_users_unpack[0],inode_users_unpack[1],inode_users_unpack[2],inode_users_unpack[3],inode_users_unpack[4],inode_users_unpack[5],inode_users_unpack[6],inode_users_unpack[7],inode_users_unpack[8],inode_users_unpack[9],inode_users_unpack[10],inode_users_unpack[11],inode_users_unpack[12],inode_users_unpack[13],inode_users_unpack[14],inode_users_unpack[15],inode_users_unpack[16],inode_users_unpack[17],inode_users_unpack[18],inode_users_unpack[19],inode_users_unpack[20],inode_users_unpack[21],inode_users_unpack[22]))
+                    f.write(struct.pack(format_i,inode_users_unpack[0],inode_users_unpack[1],inode_users_unpack[2],inode_users_unpack[3],inode_users_unpack[4],inode_users_unpack[5],inode_users_unpack[6],inode_users_unpack[7],inode_users_unpack[8],inode_users_unpack[9],inode_users_unpack[10],inode_users_unpack[11],inode_users_unpack[12],inode_users_unpack[13],inode_users_unpack[14],inode_users_unpack[15],inode_users_unpack[16],inode_users_unpack[17],inode_users_unpack[18],inode_users_unpack[19],inode_users_unpack[20],inode_users_unpack[21],inode_users_unpack[22],inode_users_unpack[23]))
                     #se setea 1 en el bitmap de inodos
                     f.seek(bm_inode_start)
                     f.seek(bm_inode_start+self.getIndexInode(f.read(inodes_count))-1)
@@ -514,7 +514,7 @@ class mkfs:
                         f.write(b'0')
                     #Se escriben los inodos
                     f.seek(inode_start)
-                    iblock = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
+                    iblock = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
                     for i in range(bitmap_inodes):
                         inode = struct.pack(format_i,0,0,0,0,0,0,*iblock,'0'.encode('utf-8'),0)
                         f.write(inode)
@@ -541,14 +541,14 @@ class mkfs:
                     inode_root_unpack[4] = int(datetime.datetime.now().timestamp())
                     inode_root_unpack[5] = int(datetime.datetime.now().timestamp())
                     inode_root_unpack[6] = index_b
-                    inode_root_unpack[21] = '0'.encode('utf-8')
-                    inode_root_unpack[22] = 777
+                    inode_root_unpack[22] = '0'.encode('utf-8')
+                    inode_root_unpack[23] = 777
                     f.seek(bm_inode_start)
                     f.seek(inode_start+((self.getIndexInode(f.read(inodes_count))-1)*inode_size))
                     f.write(struct.pack(format_i,inode_root_unpack[0],inode_root_unpack[1],inode_root_unpack[2],inode_root_unpack[3],inode_root_unpack[4],
                                         inode_root_unpack[5],inode_root_unpack[6],inode_root_unpack[7],inode_root_unpack[8],inode_root_unpack[9],inode_root_unpack[10],
                                         inode_root_unpack[11],inode_root_unpack[12],inode_root_unpack[13],inode_root_unpack[14],inode_root_unpack[15],inode_root_unpack[16],
-                                        inode_root_unpack[17],inode_root_unpack[18],inode_root_unpack[19],inode_root_unpack[20],inode_root_unpack[21],inode_root_unpack[22]))
+                                        inode_root_unpack[17],inode_root_unpack[18],inode_root_unpack[19],inode_root_unpack[20],inode_root_unpack[21],inode_root_unpack[22],inode_root_unpack[23]))
                     #se setea 1 en el bitmap de inodos
                     f.seek(bm_inode_start)
                     f.write(b'1')
@@ -581,11 +581,11 @@ class mkfs:
                     inode_users_unpack[4] = int(datetime.datetime.now().timestamp())
                     inode_users_unpack[5] = int(datetime.datetime.now().timestamp())
                     inode_users_unpack[6] = index_b
-                    inode_users_unpack[21] = '1'.encode('utf-8')
-                    inode_users_unpack[22] = 777
+                    inode_users_unpack[22] = '1'.encode('utf-8')
+                    inode_users_unpack[23] = 777
                     f.seek(bm_inode_start)
                     f.seek(inode_start+((self.getIndexInode(f.read(inodes_count))-1)*inode_size))
-                    f.write(struct.pack(format_i,inode_users_unpack[0],inode_users_unpack[1],inode_users_unpack[2],inode_users_unpack[3],inode_users_unpack[4],inode_users_unpack[5],inode_users_unpack[6],inode_users_unpack[7],inode_users_unpack[8],inode_users_unpack[9],inode_users_unpack[10],inode_users_unpack[11],inode_users_unpack[12],inode_users_unpack[13],inode_users_unpack[14],inode_users_unpack[15],inode_users_unpack[16],inode_users_unpack[17],inode_users_unpack[18],inode_users_unpack[19],inode_users_unpack[20],inode_users_unpack[21],inode_users_unpack[22]))
+                    f.write(struct.pack(format_i,inode_users_unpack[0],inode_users_unpack[1],inode_users_unpack[2],inode_users_unpack[3],inode_users_unpack[4],inode_users_unpack[5],inode_users_unpack[6],inode_users_unpack[7],inode_users_unpack[8],inode_users_unpack[9],inode_users_unpack[10],inode_users_unpack[11],inode_users_unpack[12],inode_users_unpack[13],inode_users_unpack[14],inode_users_unpack[15],inode_users_unpack[16],inode_users_unpack[17],inode_users_unpack[18],inode_users_unpack[19],inode_users_unpack[20],inode_users_unpack[21],inode_users_unpack[22],inode_users_unpack[23]))
                     #se setea 1 en el bitmap de inodos
                     f.seek(bm_inode_start)
                     f.seek(bm_inode_start+self.getIndexInode(f.read(inodes_count))-1)

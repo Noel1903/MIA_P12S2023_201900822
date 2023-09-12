@@ -172,7 +172,7 @@ class mkfile:
 
 
     def searchInode(self,bm_inodes,bm_blocks,start_inodes,start_blocks,inode_size,block_size,index,folder):
-        format_i = "I I I I I I 15i c I"
+        format_i = "I I I I I I 16i c I"
         format_b_folder = "12s i 12s i 12s i 12s i"
         with open(self.path_mount,"rb+") as f:
             if index != 0:
@@ -182,7 +182,7 @@ class mkfile:
             inode_unpack = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
             #inode_unpack = list(inode_unpack)
             print(inode_unpack,"INODO PADRE")
-            i_block = inode_unpack[6:21]
+            i_block = inode_unpack[6:22]
             inode_unpack = list(inode_unpack)
             
             cont = 0
@@ -209,7 +209,7 @@ class mkfile:
                         f.write(struct.pack(format_b_folder,block_unpack[0],block_unpack[1],block_unpack[2],block_unpack[3],block_unpack[4],block_unpack[5],block_unpack[6],block_unpack[7]))
                         
                         f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
-                        f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                        f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
                         f.seek(bm_inodes+(inode_pointer-1))
                         f.write(b'1')
                         f.seek(bm_blocks)
@@ -219,7 +219,7 @@ class mkfile:
                         f.seek(bm_blocks+(block_pointer-1))
                         f.write(b'1')
                         f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
-                        f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                        f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
                         f.seek(bm_inodes)
                         inode_pointer = self.getIndexInode(f.read(inode_size))
                         return inode_pointer - 1
@@ -233,7 +233,7 @@ class mkfile:
                         f.seek(bm_inodes+(inode_pointer-1))
                         f.write(b'1')
                         f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
-                        f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                        f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
                         f.seek(bm_blocks)
                         block_pointer = self.getIndexBock(f.read(block_size))
                         f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_pointer-1)))
@@ -241,7 +241,7 @@ class mkfile:
                         f.seek(bm_blocks+(block_pointer-1))
                         f.write(b'1')
                         f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
-                        f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                        f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
                         f.seek(bm_inodes)
                         inode_pointer = self.getIndexInode(f.read(inode_size))
                         return inode_pointer - 1
@@ -255,7 +255,7 @@ class mkfile:
                         f.seek(bm_inodes+(inode_pointer-1))
                         f.write(b'1')
                         f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
-                        f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                        f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
                         f.seek(bm_blocks)
                         block_pointer = self.getIndexBock(f.read(block_size))
                         f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_pointer-1)))
@@ -263,7 +263,7 @@ class mkfile:
                         f.seek(bm_blocks+(block_pointer-1))
                         f.write(b'1')
                         f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
-                        f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                        f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
                         f.seek(bm_inodes)
                         inode_pointer = self.getIndexInode(f.read(inode_size))
                         return inode_pointer - 1
@@ -280,7 +280,7 @@ class mkfile:
                         f.write(b'1')
                         f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
                         #print(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
-                        f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                        f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
                         f.seek(bm_blocks)
                         block_pointer = self.getIndexBock(f.read(block_size))
                         f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_pointer-1)))
@@ -290,7 +290,7 @@ class mkfile:
                         f.write(b'1')
                         f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
                         print(block_pointer)
-                        print(f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664)))
+                        print(f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664)))
                        
                         f.seek(bm_inodes)
                         inode_pointer = self.getIndexInode(f.read(inode_size))
@@ -312,7 +312,7 @@ class mkfile:
                     block_pointer = self.getIndexBock(f.read(block_size))
                     f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
                     #se crea el nuevo inodo
-                    f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                    f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
                     #se marca como ocupado el inodo
                     f.seek(bm_inodes+(inode_pointer-1))
                     f.write(b'1')
@@ -324,18 +324,18 @@ class mkfile:
                     f.write(b'1')
                     f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
                     #se escribe el nuevo inodo
-                    f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
-                    inode_unpack[cont+6] = inode_return + 1
+                    f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                    inode_unpack[cont+6] = block_pointer - 1
                     f.seek(bm_inodes)
                     inode_return = self.getIndexInode(f.read(inode_size))
                     f.seek(posicion_init)
-                    f.write(struct.pack(format_i,inode_unpack[0],inode_unpack[1],inode_unpack[2],inode_unpack[3],inode_unpack[4],inode_unpack[5],inode_unpack[6],inode_unpack[7],inode_unpack[8],inode_unpack[9],inode_unpack[10],inode_unpack[11],inode_unpack[12],inode_unpack[13],inode_unpack[14],inode_unpack[15],inode_unpack[16],inode_unpack[17],inode_unpack[18],inode_unpack[19],inode_unpack[20],inode_unpack[21],inode_unpack[22]))
+                    f.write(struct.pack(format_i,inode_unpack[0],inode_unpack[1],inode_unpack[2],inode_unpack[3],inode_unpack[4],inode_unpack[5],inode_unpack[6],inode_unpack[7],inode_unpack[8],inode_unpack[9],inode_unpack[10],inode_unpack[11],inode_unpack[12],inode_unpack[13],inode_unpack[14],inode_unpack[15],inode_unpack[16],inode_unpack[17],inode_unpack[18],inode_unpack[19],inode_unpack[20],inode_unpack[21],inode_unpack[22],inode_unpack[23]))
                     return inode_return - 1
                 cont += 1
 
 
     def createFile(self,bm_inodes,bm_blocks,start_inodes,start_blocks,inode_size,block_size,index,folder):
-        format_i = "I I I I I I 15i c I"
+        format_i = "I I I I I I 16i c I"
         format_b_folder = "12s i 12s i 12s i 12s i"
         format_b = "64s"
         with open(self.path_mount,"rb+") as f:
@@ -344,7 +344,7 @@ class mkfile:
             inode_unpack = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
             #print(inode_unpack,"inodo file")
             #inode_unpack = list(inode_unpack)
-            i_block = inode_unpack[6:21]
+            i_block = inode_unpack[6:22]
             inode_unpack = list(inode_unpack)
             cont = 0
             text_file = ""
@@ -409,7 +409,7 @@ class mkfile:
 
                     count += 1
             f.seek(pos_init)
-            inodo_pack = struct.pack(format_i,inode_unpack[0],inode_unpack[1],inode_unpack[2],inode_unpack[3],inode_unpack[4],inode_unpack[5],inode_unpack[6],inode_unpack[7],inode_unpack[8],inode_unpack[9],inode_unpack[10],inode_unpack[11],inode_unpack[12],inode_unpack[13],inode_unpack[14],inode_unpack[15],inode_unpack[16],inode_unpack[17],inode_unpack[18],inode_unpack[19],inode_unpack[20],'1'.encode('utf-8'),inode_unpack[22])           
+            inodo_pack = struct.pack(format_i,inode_unpack[0],inode_unpack[1],inode_unpack[2],inode_unpack[3],inode_unpack[4],inode_unpack[5],inode_unpack[6],inode_unpack[7],inode_unpack[8],inode_unpack[9],inode_unpack[10],inode_unpack[11],inode_unpack[12],inode_unpack[13],inode_unpack[14],inode_unpack[15],inode_unpack[16],inode_unpack[17],inode_unpack[18],inode_unpack[19],inode_unpack[20],inode_unpack[21],'1'.encode('utf-8'),inode_unpack[23])           
             f.write(inodo_pack)
             f.close()
             return

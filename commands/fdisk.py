@@ -395,7 +395,7 @@ class fdisk:
             nameExist = False
             with open(self.path.replace(" ",r"\ "),"rb+") as f:
                 f.seek(partition1[3])
-                data_ebr = f.read(len(format_ebr))
+                data_ebr = f.read(struct.calcsize(format_ebr))
                 ebr_unpack = struct.unpack(format_ebr,data_ebr)
                 next_part = partition1[3]
 
@@ -426,14 +426,16 @@ class fdisk:
             nameExist = False
             with open(self.path.replace(" ",r"\ "),"rb+") as f:
                 f.seek(partition2[3])
-                data_ebr = f.read(len(format_ebr))
+                data_ebr = f.read(struct.calcsize(format_ebr))
                 ebr_unpack = struct.unpack(format_ebr,data_ebr)
                 next_part = partition2[3]
 
                 while next_part != -1:
                     f.seek(next_part)
                     data_ebr = f.read(struct.calcsize(format_ebr))
+                    
                     ebr_unpack = struct.unpack(format_ebr,data_ebr)
+
                     if self.name == ebr_unpack[5].decode('utf-8').rstrip("\x00"):
                         nameExist = True
                         ebr_pack = struct.pack(format_ebr,
@@ -457,7 +459,7 @@ class fdisk:
             nameExist = False
             with open(self.path.replace(" ",r"\ "),"rb+") as f:
                 f.seek(partition3[3])
-                data_ebr = f.read(len(format_ebr))
+                data_ebr = f.read(struct.calcsize(format_ebr))
                 ebr_unpack = struct.unpack(format_ebr,data_ebr)
                 next_part = partition3[3]
 
@@ -560,12 +562,12 @@ class fdisk:
             partition3 = mbr_unpack[16:22]
             partition4 = mbr_unpack[22:28]
             type_p = type_p.replace(" ",r"")
-            if type_p == 'f':
-                if self.nameExist(self.name,partition1[5],partition2[5],partition3[5],partition4[5]):
-                    print("Ya existe una particion con ese nombre")
-                    return
-                self.setFirstFit(partition1,partition2,partition3,partition4,mbr_unpack)
             
+            if self.nameExist(self.name,partition1[5],partition2[5],partition3[5],partition4[5]):
+                print("Ya existe una particion con ese nombre")
+                return
+            self.setFirstFit(partition1,partition2,partition3,partition4,mbr_unpack)
+        
             f.close()
 
     def setFirstFit(self,partition1,partition2,partition3,partition4,mbr_unpack):
@@ -688,14 +690,14 @@ class fdisk:
             partition3 = mbr_unpack[16:22]
             partition4 = mbr_unpack[22:28]
             type_p = type_p.replace(" ",r"")
-            if type_p == 'f':
-                if self.nameExist(self.name,partition1[5],partition2[5],partition3[5],partition4[5]):
-                    print("Ya existe una particion con ese nombre")
-                    return
-                if self.existExtend(partition1[1],partition2[1],partition3[1],partition4[1]):
-                    print("Ya existe una particion extendida")
-                    return
-                self.setFirstFitExtend(partition1,partition2,partition3,partition4,mbr_unpack)
+            
+            if self.nameExist(self.name,partition1[5],partition2[5],partition3[5],partition4[5]):
+                print("Ya existe una particion con ese nombre")
+                return
+            if self.existExtend(partition1[1],partition2[1],partition3[1],partition4[1]):
+                print("Ya existe una particion extendida")
+                return
+            self.setFirstFitExtend(partition1,partition2,partition3,partition4,mbr_unpack)
             
             f.close()
 
@@ -858,15 +860,15 @@ class fdisk:
             partition3 = mbr_unpack[16:22]
             partition4 = mbr_unpack[22:28]
             type_p = type_p.replace(" ",r"")
-            if type_p == 'f':
-                if self.nameExist(self.name,partition1[5],partition2[5],partition3[5],partition4[5]):
-                    print("Ya existe una particion con ese nombre")
-                    return
-                if self.existExtend(partition1[1],partition2[1],partition3[1],partition4[1])!=True:
-                    print("No existe una particion extendida")
-                    return
-                self.setFirstFitLogic(partition1,partition2,partition3,partition4,mbr_unpack)
             
+            if self.nameExist(self.name,partition1[5],partition2[5],partition3[5],partition4[5]):
+                print("Ya existe una particion con ese nombre")
+                return
+            if self.existExtend(partition1[1],partition2[1],partition3[1],partition4[1])!=True:
+                print("No existe una particion extendida")
+                return
+            self.setFirstFitLogic(partition1,partition2,partition3,partition4,mbr_unpack)
+        
             f.close()
 
     def setFirstFitLogic(self,partition1,partition2,partition3,partition4,mbr_unpack):
@@ -939,11 +941,11 @@ class fdisk:
                                 return
                         else:
                             acumSize=acumSize+size_part
-                            print(acumSize,"Acumulado")
+                            #print(acumSize,"Acumulado")
                             f.seek(acumSize)
                             ebr_bytes = f.read(ebr_size)
                             ebr_unpack = struct.unpack(format_ebr,ebr_bytes)
-                            print(ebr_unpack)
+                            #print(ebr_unpack)
                             size_next = ebr_unpack[4]
                             size_part = ebr_unpack[3]
                             part_init = acumSize
@@ -1088,7 +1090,7 @@ class fdisk:
                     f.seek(partition3[3])
                     ebr_bytes = f.read(ebr_size)
                     ebr_unpack = struct.unpack(format_ebr,ebr_bytes)
-                    print(ebr_unpack)
+                    #print(ebr_unpack)
                     size_next = ebr_unpack[4]
                     size_part = ebr_unpack[3]
                     part_init = partition3[3]
@@ -1180,10 +1182,10 @@ class fdisk:
                     return
                 else:
                     f.seek(partition4[3])
-                    print(partition4[3])
+                    #print(partition4[3])
                     ebr_bytes = f.read(ebr_size)
                     ebr_unpack = struct.unpack(format_ebr,ebr_bytes)
-                    print(ebr_unpack)
+                    #print(ebr_unpack)
                     size_next = ebr_unpack[4]
                     size_part = ebr_unpack[3]
                     part_init = partition4[3]

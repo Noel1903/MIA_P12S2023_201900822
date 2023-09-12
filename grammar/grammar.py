@@ -19,6 +19,8 @@ from commands.mkusr import mkusr
 from commands.mkdir import mkdir
 from commands.mkfile import mkfile
 from commands.rep import rep
+from commands.pause import pause
+from commands.logout import logout
 #reserved words
 reserved = {
     'mkdisk' : 'MKDISK',
@@ -50,7 +52,7 @@ reserved = {
     'cont' : 'CONT',
     'rep' : 'REP',
     'ruta' : 'RUTA',
-
+    'pause': 'PAUSE',
 }
 
 #Tokens
@@ -114,6 +116,10 @@ def t_newline(t):
     r'\n+'
     t.lexer.lineno += t.value.count("\n")
 
+def t_line_comm(t):
+    r'\#.*'
+    t.lexer.lineno += 1
+
 def t_error(t):
     print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
@@ -147,8 +153,17 @@ def p_command(t):
                | usr_block
                | mkdir_block
                | mkfile_block
-               | rep_block'''
+               | rep_block
+               | pause_block'''
     t[0] = t[1]
+
+def p_pause_block(t):
+    'pause_block : PAUSE'
+    t[0] = pause(t[1])
+
+def p_logout_block(t):
+    'logout_block : LOGOUT'
+    t[0] = logout(t[1])
 
 def p_mkdisk_block(t):
     'mkdisk_block : MKDISK mkdisk_params'
@@ -324,7 +339,7 @@ def p_login_param(t):
 
 def p_logout_block(t):
     'logout_block : LOGOUT'
-    t[0] = ["logout"]
+    t[0] = logout(t[1])
 
 def p_mkgrp_block(t):
     'mkgrp_block : MKGRP mkgrp_params'
@@ -458,48 +473,65 @@ def p_error(t):
 import ply.yacc as yacc
 parser = yacc.yacc()
 
-input_text = '''mkdisk -size = 10 -unit=K -path=/home/usuario/Disco2.dsk
-              mkdisk -size = 25 -unit=k -path="/home/usuario 1/Disco1.dsk"
-              rmdisk -path=/home/usuario/Disco2.dsk
-              fdisk -size = 5 -unit = k -path = "/home/usuario 1/Disco1.dsk" -type = p -name = Partition1
-              fdisk -size = 10 -unit = k -path = "/home/usuario 1/Disco1.dsk" -type = p -name = Partition2
-              fdisk -size = 5 -unit = k -path = "/home/usuario 1/Disco1.dsk" -type = p -name = Partition3
-              fdisk -size = 4 -unit = k -path = "/home/usuario 1/Disco1.dsk" -type = e -name = Partition4
-              fdisk -size = 2000 -unit = b -path = "/home/usuario 1/Disco1.dsk" -type = l -name = PartitionL
-              fdisk -size = 1900 -unit = b -path = "/home/usuario 1/Disco1.dsk" -type = l -name = PartitionL1
-              fdisk -size = 50 -unit = b -path = "/home/usuario 1/Disco1.dsk" -type = l -name = PartitionL2
-              fdisk -path= "/home/usuario 1/Disco1.dsk" -delete = full -name = PartitionL1
-              fdisk -size = 1500 -unit = b -path = "/home/usuario 1/Disco1.dsk" -type = l -name = PartitionL1
-              fdisk -add = -300 -unit = b -path = "/home/usuario 1/Disco1.dsk" -name = PartitionL1
-              mount -path = "/home/usuario 1/Disco1.dsk" -name = Partition1
-              mount -path = "/home/usuario 1/Disco1.dsk" -name = Partition2
-              unmount -id = 221Disco2
-              mkfs -type=full -id = 222Disco1 -fs = 2fs
-              mkfs -type=full -id = 221Disco1 -fs = 2fs
-              login -user=root -pass = 123 -id = 222Disco1
-              mkgrp -name = usuarios
-              mkgrp -name = usuarios2
-              mkusr -user = usuario1 -pass = 123 -grp = usuarios
-              mkdir -path = /home
-              mkdir -path = /tmp
-              
-              mkfile -path = /home/usuario/Documentos/Archivo1.txt -size = 128 
+input_text = '''#CREACION DE DISCOS
+mkdisk -size=20 -unit=m -path=/home/archivos/Discos/Disco1.dsk
+Mkdisk -unit=k -size=51200 -path=/home/archivos/DiscosDisco2.dsk -fit=BF
+mkdisk -size=10 -path=/home/archivos/Discos/Disco3.dsk
+mkdisk -size=51200 -path="/home/archivos/Discos/mis archivos/Disco4.dsk" -unit=K
+mkdisk -size=20 -path="/home/archivos/Discos/mis archivos/Disco5.dsk" -unit=M -fit=WF
+#Deberia dar error
+mkdisk -param=x -s=30 -path=/home/archivos/archivos/fase1/Disco.dsk
 
-              mkdir -path = /bin
+#ELIMINACION DE DISCOS
+#El primero deberia dar error
+rmdisk -path=/home/archivos/Disco3.dsk
+rmdisk -path=/home/Discos/Disco3.dsk
+RMdisk -path="/home/archivos/Discos/mis archivos/Disco4.dsk"
 
-              mkfile -path = /home/usuario/Documentos/Archivo2.txt -cont = /home/noel/Documentos/Ejemplo.txt
-              mkusr -user = noel -pass = contra123 -grp = usuarios2
-              login -user=root -pass = 123 -id = 221Disco1
-              mkgrp -name = usuariosejemplo
-              mkusr -user = usuarioNoel -pass = 123 -grp = usuariosejemplo
-              mkdir -path = /home/usuario/Documentos
-              mkdir -path = /boot/chmod
-              rep -id = 221Disco1 -path=/home/Disco1MBR.png -name = mbr
-              rep -id = 221Disco1 -path=/home/Disco1DISK.png -name = disk
-              rep -id = 222Disco1 -path=/home/Disco1Inodes.png -name = inode
-              rep -id = 222Disco1 -path=/home/Disco1Block.png -name = block
-              rep -id = 222Disco1 -path=/home/bm_disco.txt -name = bm_inode
-              rep -id = 222Disco1 -path=/home/bm_block.txt -name = bm_block
-              rep -id = 222Disco1 -path=/home/treeDisk.png -name =tree'''
+
+#CREACION DE PARTICION
+fdisk -type=P -unit=K -name=Part1 -size=7680 -path=/home/archivos/Discos/Disco1.dsk -fit=BF
+#MOUNT
+#Recuerden corroborar con los digitos de su carne
+mount -path=/home/archivos/Discos/Disco1.dsk -name=Part1 #191a
+#CREACION DE SISTEMA DE ARCHIVOS
+mkfs -type=full -id=221Disco1 -fs=2fs
+rep -id=221Disco1 -path=/home/archivos/reports/reporte1_tree.png -name=tree
+pause
+#LOGIN
+login -user=root -pass=123 -id=221Disco1
+#CREACION DE CARPETAS
+mkdir -path=/bin
+mkdir -path=/boot
+mkdir -path=/cdrom
+mkdir -path=/dev
+mkdir -path=/etc
+mkdir -path=/home
+mkdir -path=/lib
+mkdir -path=/lib64
+mkdir -path=/media
+mkdir -path=/mnt
+mkdir -path=/opt
+mkdir -path=/proc
+mkdir -path=/run
+mkdir -path=/sbin
+mkdir -path=/snap
+mkdir -path=/srv
+mkdir -path=/sys
+mkdir -path=/tmp
+mkdir -path=/var
+mkdir -path="/home/archivos/archivos 19"
+mkdir -path=/home/archivos/user/docs/usac
+mkdir -path=/home/archivos/carpeta1/carpeta2/carpeta3/carpeta4/carpeta5
+logout
+
+login -user=usuario1 -pass=password -id=221Disco1
+
+#CREACION DE ARCHIVOS
+mkfile -path=/home/archivos/user/docs/Tarea.txt -size=75
+mkfile -path=/home/archivos/user/docs/Tarea2.txt -size=1050
+
+rep -id=221Disco1 -path=/home/archivos/reports/reporte1_tree.png -name=tree
+'''
               
 commands = parser.parse(input_text)

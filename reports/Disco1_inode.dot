@@ -4,18 +4,18 @@ rankdir=LR
 inode0[label="
 i_uid = 1\ni_gid = 1
 i_size = 27
-i_atime = 1694383894
-i_ctime = 1694383894
-i_mtime = 1694383894
+i_atime = 1694437720
+i_ctime = 1694437720
+i_mtime = 1694437720
 i_block = [1,5,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,]
 i_type = b'0'
 i_perm = 777\n"]
 inode1[label="
 i_uid = 1\ni_gid = 1
 i_size = 27
-i_atime = 1694383894
-i_ctime = 1694383894
-i_mtime = 1694383894
+i_atime = 1694437720
+i_ctime = 1694437720
+i_mtime = 1694437720
 i_block = [2,3,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,]
 i_type = b'1'
 i_perm = 777\n"]

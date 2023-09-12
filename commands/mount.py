@@ -41,151 +41,157 @@ class mount:
         self.showPartitions()
 
     def showPartitions(self):
+        print("Lista de particiones montadas:")
         for i in self.partitions_mounted:
-            print("Nombre: " + i.nameDisk + " ID: " + i.part_id + " Contador: " + str(i.count))
+            print("Nombre: " + i.nameDisk + " ID: " + i.part_id)
+        
 
     def mount(self):
 
         name_disk = os.path.basename(self.path)[:-4]
-        with open(self.path.replace(" ",r"\ "), "rb+") as f:
-            f.seek(0)
-            format_mbr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
-            data_bytes = f.read(struct.calcsize(format_mbr))
-            mbr_unpack = struct.unpack(format_mbr,data_bytes)
-            cont = 5
-            partition1 = mbr_unpack[4:10]
-            partition2 = mbr_unpack[10:16]
-            partition3 = mbr_unpack[16:22]
-            partition4 = mbr_unpack[22:28]
-            if self.nameExist(self.name,partition1[5],partition2[5],partition3[5],partition4[5]):
-                if self.name == partition1[5].decode('utf-8').rstrip("\x00"):
-                    cont = self.getCont(name_disk)
-                    id_mount = self.id_carnet + str(1) + name_disk
-                    self.partitions_mounted.append(Mount(name_disk,id_mount,cont,partition1[5].decode('utf-8').rstrip("\x00"),self.path.replace(" ",r"\ ")))
-                    print("Particion montada con exito")
-                    return        
-                elif self.name == partition2[5].decode('utf-8').rstrip("\x00"):
-                    cont = self.getCont(name_disk)
-                    id_mount = self.id_carnet + str(2) + name_disk
-                    self.partitions_mounted.append(Mount(name_disk,id_mount,cont,partition2[5].decode('utf-8').rstrip("\x00"),self.path.replace(" ",r"\ "))) 
-                    print("Particion montada con exito")
-                    return
-                elif self.name == partition3[5].decode('utf-8').rstrip("\x00"):
-                    cont = self.getCont(name_disk)
-                    id_mount = self.id_carnet + str(3) + name_disk
-                    self.partitions_mounted.append(Mount(name_disk,id_mount,cont,partition3[5].decode('utf-8').rstrip("\x00"),self.path.replace(" ",r"\ "))) 
-                    print("Particion montada con exito")
-                    return  
-                elif self.name == partition4[5].decode('utf-8').rstrip("\x00"):
-                    cont = self.getCont(name_disk)
-                    id_mount = self.id_carnet + str(4) + name_disk
-                    self.partitions_mounted.append(Mount(name_disk,id_mount,cont,partition4[5].decode('utf-8').rstrip("\x00"),self.path.replace(" ",r"\ "))) 
-                    print("Particion montada con exito")
-                    return      
-            else:
-                format_ebr = "c c I I i 16s"
-                if partition1[1].decode('utf-8').rstrip("\x00") == 'e':
-                    nameExist = False
-                    with open(self.path.replace(" ",r"\ "),"rb+") as f:
-                        f.seek(partition1[3])
-                        data_ebr = f.read(struct.calcsize(format_ebr))
-                        ebr_unpack = struct.unpack(format_ebr,data_ebr)
-                        next_part = ebr_unpack[4]
-
-                        while next_part != -1:
-                            f.seek(next_part)
-                            data_ebr = f.read(struct.calcsize(format_ebr))
-                            ebr_unpack = struct.unpack(format_ebr,data_ebr)
-                            if self.name == ebr_unpack[5].decode('utf-8').rstrip("\x00"):
-                                nameExist = True
-                                cont = self.getCont(name_disk)
-                                id_mount = self.id_carnet + str(cont) + name_disk
-                                self.partitions_mounted.append(Mount(name_disk,id_mount,cont,ebr_unpack[5].decode('utf-8').rstrip("\x00"),self.path.replace(" ",r"\ "))) 
-                                break
-                            next_part = ebr_unpack[4]
-                        f.close()
-                    if nameExist:
-                        print("Particion montada exitosamente")
+        try:
+            with open(self.path.replace(" ",r"\ "), "rb+") as f:
+                f.seek(0)
+                format_mbr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
+                data_bytes = f.read(struct.calcsize(format_mbr))
+                mbr_unpack = struct.unpack(format_mbr,data_bytes)
+                cont = 5
+                partition1 = mbr_unpack[4:10]
+                partition2 = mbr_unpack[10:16]
+                partition3 = mbr_unpack[16:22]
+                partition4 = mbr_unpack[22:28]
+                if self.nameExist(self.name,partition1[5],partition2[5],partition3[5],partition4[5]):
+                    if self.name == partition1[5].decode('utf-8').rstrip("\x00"):
+                        #cont = self.getCont(name_disk)
+                        id_mount = self.id_carnet + str(1) + name_disk
+                        self.partitions_mounted.append(Mount(name_disk,id_mount,cont,partition1[5].decode('utf-8').rstrip("\x00"),self.path.replace(" ",r"\ ")))
+                        print("Particion montada con exito")
+                        return        
+                    elif self.name == partition2[5].decode('utf-8').rstrip("\x00"):
+                        #cont = self.getCont(name_disk)
+                        id_mount = self.id_carnet + str(2) + name_disk
+                        self.partitions_mounted.append(Mount(name_disk,id_mount,cont,partition2[5].decode('utf-8').rstrip("\x00"),self.path.replace(" ",r"\ "))) 
+                        print("Particion montada con exito")
                         return
-                    print("No existe una particion con ese nombre")
-                    return
-                elif partition2[1].decode('utf-8').rstrip("\x00") == 'e':
-                    nameExist = False
-                    with open(self.path.replace(" ",r"\ "),"rb+") as f:
-                        f.seek(partition2[3])
-                        data_ebr = f.read(struct.calcsize(format_ebr))
-                        ebr_unpack = struct.unpack(format_ebr,data_ebr)
-                        next_part = ebr_unpack[4]
-
-                        while next_part != -1:
-                            f.seek(next_part)
-                            data_ebr = f.read(struct.calcsize(format_ebr))
-                            ebr_unpack = struct.unpack(format_ebr,data_ebr)
-                            if self.name == ebr_unpack[5].decode('utf-8').rstrip("\x00"):
-                                nameExist = True
-                                cont = self.getCont(name_disk)
-                                id_mount = self.id_carnet + str(cont) + name_disk
-                                self.partitions_mounted.append(Mount(name_disk,id_mount,cont,ebr_unpack[5].decode('utf-8').rstrip("\x00"),self.path.replace(" ",r"\ "))) 
-                                break
-                                
-                            next_part = ebr_unpack[4]
-                        f.close()
-                    if nameExist:
-                        print("Particion montada exitosamente")
-                        return
-                    print("No existe una particion con ese nombre")
-                    return
-                elif partition3[1].decode('utf-8').rstrip("\x00") == 'e':
-                    nameExist = False
-                    with open(self.path.replace(" ",r"\ "),"rb+") as f:
-                        f.seek(partition3[3])
-                        data_ebr = f.read(struct.calcsize(format_ebr))
-                        ebr_unpack = struct.unpack(format_ebr,data_ebr)
-                        next_part = ebr_unpack[4]
-
-                        while next_part != -1:
-                            f.seek(next_part)
-                            data_ebr = f.read(struct.calcsize(format_ebr))
-                            ebr_unpack = struct.unpack(format_ebr,data_ebr)
-                            if self.name == ebr_unpack[5].decode('utf-8').rstrip("\x00"):
-                                nameExist = True
-                                cont = self.getCont(name_disk)
-                                id_mount = self.id_carnet + str(cont) + name_disk
-                                self.partitions_mounted.append(Mount(name_disk,id_mount,cont,ebr_unpack[5].decode('utf-8').rstrip("\x00"),self.path.replace(" ",r"\ "))) 
-                                break
-                            next_part = ebr_unpack[4]
-                        f.close()
-                    if nameExist:
-                        print("Particion montada exitosamente")
-                        return
-                    print("No existe una particion con ese nombre")
-                    return
-                elif partition4[1].decode('utf-8').rstrip("\x00") == 'e':
-                    nameExist = False
-                    with open(self.path.replace(" ",r"\ "),"rb+") as f:
-                        f.seek(partition4[3])
-                        data_ebr = f.read(struct.calcsize(format_ebr))
-                        ebr_unpack = struct.unpack(format_ebr,data_ebr)
-                        next_part = ebr_unpack[4]
-
-                        while next_part != -1:
-                            f.seek(next_part)
-                            data_ebr = f.read(struct.calcsize(format_ebr))
-                            ebr_unpack = struct.unpack(format_ebr,data_ebr)
-                            if self.name == ebr_unpack[5].decode('utf-8').rstrip("\x00"):
-                                nameExist = True
-                                cont = self.getCont(name_disk)
-                                id_mount = self.id_carnet + str(cont) + name_disk
-                                self.partitions_mounted.append(Mount(name_disk,id_mount,cont,ebr_unpack[5].decode('utf-8').rstrip("\x00"),self.path.replace(" ",r"\ "))) 
-                                break
-                            next_part = ebr_unpack[4]
-                        f.close()
-                    if nameExist:
-                        print("Particion montada exitosamente")
-                        return
-                    print("No existe una particion con ese nombre")
-                    return
+                    elif self.name == partition3[5].decode('utf-8').rstrip("\x00"):
+                        cont = self.getCont(name_disk)
+                        id_mount = self.id_carnet + str(3) + name_disk
+                        self.partitions_mounted.append(Mount(name_disk,id_mount,cont,partition3[5].decode('utf-8').rstrip("\x00"),self.path.replace(" ",r"\ "))) 
+                        print("Particion montada con exito")
+                        return  
+                    elif self.name == partition4[5].decode('utf-8').rstrip("\x00"):
+                        cont = self.getCont(name_disk)
+                        id_mount = self.id_carnet + str(4) + name_disk
+                        self.partitions_mounted.append(Mount(name_disk,id_mount,cont,partition4[5].decode('utf-8').rstrip("\x00"),self.path.replace(" ",r"\ "))) 
+                        print("Particion montada con exito")
+                        return      
                 else:
-                    print("No existe una particion extendida")
-                    return
-            f.close()
+                    format_ebr = "c c I I i 16s"
+                    if partition1[1].decode('utf-8').rstrip("\x00") == 'e':
+                        nameExist = False
+                        with open(self.path.replace(" ",r"\ "),"rb+") as f:
+                            f.seek(partition1[3])
+                            data_ebr = f.read(struct.calcsize(format_ebr))
+                            ebr_unpack = struct.unpack(format_ebr,data_ebr)
+                            next_part = ebr_unpack[4]
+
+                            while next_part != -1:
+                                f.seek(next_part)
+                                data_ebr = f.read(struct.calcsize(format_ebr))
+                                ebr_unpack = struct.unpack(format_ebr,data_ebr)
+                                if self.name == ebr_unpack[5].decode('utf-8').rstrip("\x00"):
+                                    nameExist = True
+                                    cont = self.getCont(name_disk)
+                                    id_mount = self.id_carnet + str(cont) + name_disk
+                                    self.partitions_mounted.append(Mount(name_disk,id_mount,cont,ebr_unpack[5].decode('utf-8').rstrip("\x00"),self.path.replace(" ",r"\ "))) 
+                                    break
+                                next_part = ebr_unpack[4]
+                            f.close()
+                        if nameExist:
+                            print("Particion montada exitosamente")
+                            return
+                        print("No existe una particion con ese nombre")
+                        return
+                    elif partition2[1].decode('utf-8').rstrip("\x00") == 'e':
+                        nameExist = False
+                        with open(self.path.replace(" ",r"\ "),"rb+") as f:
+                            f.seek(partition2[3])
+                            data_ebr = f.read(struct.calcsize(format_ebr))
+                            ebr_unpack = struct.unpack(format_ebr,data_ebr)
+                            next_part = ebr_unpack[4]
+
+                            while next_part != -1:
+                                f.seek(next_part)
+                                data_ebr = f.read(struct.calcsize(format_ebr))
+                                ebr_unpack = struct.unpack(format_ebr,data_ebr)
+                                if self.name == ebr_unpack[5].decode('utf-8').rstrip("\x00"):
+                                    nameExist = True
+                                    cont = self.getCont(name_disk)
+                                    id_mount = self.id_carnet + str(cont) + name_disk
+                                    self.partitions_mounted.append(Mount(name_disk,id_mount,cont,ebr_unpack[5].decode('utf-8').rstrip("\x00"),self.path.replace(" ",r"\ "))) 
+                                    break
+                                    
+                                next_part = ebr_unpack[4]
+                            f.close()
+                        if nameExist:
+                            print("Particion montada exitosamente")
+                            return
+                        print("No existe una particion con ese nombre")
+                        return
+                    elif partition3[1].decode('utf-8').rstrip("\x00") == 'e':
+                        nameExist = False
+                        with open(self.path.replace(" ",r"\ "),"rb+") as f:
+                            f.seek(partition3[3])
+                            data_ebr = f.read(struct.calcsize(format_ebr))
+                            ebr_unpack = struct.unpack(format_ebr,data_ebr)
+                            next_part = ebr_unpack[4]
+
+                            while next_part != -1:
+                                f.seek(next_part)
+                                data_ebr = f.read(struct.calcsize(format_ebr))
+                                ebr_unpack = struct.unpack(format_ebr,data_ebr)
+                                if self.name == ebr_unpack[5].decode('utf-8').rstrip("\x00"):
+                                    nameExist = True
+                                    cont = self.getCont(name_disk)
+                                    id_mount = self.id_carnet + str(cont) + name_disk
+                                    self.partitions_mounted.append(Mount(name_disk,id_mount,cont,ebr_unpack[5].decode('utf-8').rstrip("\x00"),self.path.replace(" ",r"\ "))) 
+                                    break
+                                next_part = ebr_unpack[4]
+                            f.close()
+                        if nameExist:
+                            print("Particion montada exitosamente")
+                            return
+                        print("No existe una particion con ese nombre")
+                        return
+                    elif partition4[1].decode('utf-8').rstrip("\x00") == 'e':
+                        nameExist = False
+                        with open(self.path.replace(" ",r"\ "),"rb+") as f:
+                            f.seek(partition4[3])
+                            data_ebr = f.read(struct.calcsize(format_ebr))
+                            ebr_unpack = struct.unpack(format_ebr,data_ebr)
+                            next_part = ebr_unpack[4]
+
+                            while next_part != -1:
+                                f.seek(next_part)
+                                data_ebr = f.read(struct.calcsize(format_ebr))
+                                ebr_unpack = struct.unpack(format_ebr,data_ebr)
+                                if self.name == ebr_unpack[5].decode('utf-8').rstrip("\x00"):
+                                    nameExist = True
+                                    cont = self.getCont(name_disk)
+                                    id_mount = self.id_carnet + str(cont) + name_disk
+                                    self.partitions_mounted.append(Mount(name_disk,id_mount,cont,ebr_unpack[5].decode('utf-8').rstrip("\x00"),self.path.replace(" ",r"\ "))) 
+                                    break
+                                next_part = ebr_unpack[4]
+                            f.close()
+                        if nameExist:
+                            print("Particion montada exitosamente")
+                            return
+                        print("No existe una particion con ese nombre")
+                        return
+                    else:
+                        print("No existe una particion extendida")
+                        return
+                f.close()
+        except:
+            print("No existe el disco")
+            return

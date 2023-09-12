@@ -1,0 +1,27 @@
+digraph G{
+node[shape=plaintext]
+graph[label=<
+<table border='1' cellborder='1' cellspacing='2' color='orange'>
+<tr><td rowspan='3'>MBR</td>
+<td rowspan = '3'>Primaria<br/>20.0%</td>
+<td rowspan = '3'>Primaria<br/>10.0%</td>
+<td rowspan = '3'>Libre<br/>0.0%</td>
+<td colspan = '26'>Extendida</td>
+</tr>
+<tr><td>Ebr</td><td>Logica<br/>3.0%</td>
+<td>Ebr</td><td>Logica<br/>3.0%</td>
+<td>Ebr</td><td>Logica<br/>3.0%</td>
+<td>Ebr</td><td>Logica<br/>3.0%</td>
+<td>Ebr</td><td>Logica<br/>3.0%</td>
+<td>Ebr</td><td>Logica<br/>3.0%</td>
+<td>Ebr</td><td>Logica<br/>3.0%</td>
+<td>Ebr</td><td>Logica<br/>3.0%</td>
+<td>Ebr</td><td>Logica<br/>3.0%</td>
+<td>Ebr</td><td>Logica<br/>3.0%</td>
+<td>Ebr</td><td>Logica<br/>3.0%</td>
+<td>Ebr</td><td>Logica<br/>3.0%</td>
+<td>Ebr</td><td>Logica<br/>3.0%</td>
+</tr>
+</table>
+>];
+}

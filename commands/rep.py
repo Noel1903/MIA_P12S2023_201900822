@@ -939,7 +939,7 @@ class rep:
     def repTree(self,name_partition):
         format_mbr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
         format_sb = "I I I I I I I I I I I I I I I I I"
-        format_i = "I I I I I I 15i c I"
+        format_i = "I I I I I I 16i c I"
         format_block = "64s"
         format_folder = "12s i 12s i 12s i 12s i"
         blocks_files = []
@@ -982,22 +982,22 @@ class rep:
                         report += "inode"+str(i+1)+"[label=<\n"
                         report += "<table border=\"0\" cellborder=\"1\" cellspacing=\"0\" bgcolor=\"#E850FF\">\n"
                         report += "<tr><td colspan=\"2\">Inodo "+str(i+1)+"</td></tr>\n"
-                        report += "<tr><td>i_type</td><td>"+str(inode_unpack[21])+"</td></tr>\n"
-                        for j in range(15):
+                        report += "<tr><td>i_type</td><td>"+str(inode_unpack[22])+"</td></tr>\n"
+                        for j in range(16):
                             report += "<tr><td>ap"+str(j)+"</td><td  port = \"cell"+str(inode_unpack[6+j])+"\">"+str(inode_unpack[6+j])+"</td></tr>\n"
-                        report += "<tr><td>i_perm</td><td>"+str(inode_unpack[22])+"</td></tr>\n"
+                        report += "<tr><td>i_perm</td><td>"+str(inode_unpack[23])+"</td></tr>\n"
                         report += "</table>\n"
                         report += ">]\n"
-                        if inode_unpack[21].decode('utf-8') == '0':
-                            for j in range(15):
+                        if inode_unpack[22].decode('utf-8') == '0':
+                            for j in range(16):
                                 if inode_unpack[6+j] != -1:
                                     blocks_folders.append(inode_unpack[6+j])
-                        elif inode_unpack[21].decode('utf-8') == '1':
-                            for j in range(15):
+                        elif inode_unpack[22].decode('utf-8') == '1':
+                            for j in range(16):
                                 if inode_unpack[6+j] != -1:
                                     blocks_files.append(inode_unpack[6+j])
 
-                        for j in range(15):
+                        for j in range(16):
                             if inode_unpack[6+j] != -1:
                                 reportfeet += "inode"+str(i+1)+":cell"+str(inode_unpack[6+j])+"->block"+str(inode_unpack[6+j])+"\n"
 
@@ -1080,22 +1080,22 @@ class rep:
                         report += "inode"+str(i+1)+"[label=<\n"
                         report += "<table border=\"0\" cellborder=\"1\" cellspacing=\"0\" bgcolor=\"#E850FF\">\n"
                         report += "<tr><td colspan=\"2\">Inodo "+str(i+1)+"</td></tr>\n"
-                        report += "<tr><td>i_type</td><td>"+str(inode_unpack[21])+"</td></tr>\n"
-                        for j in range(15):
+                        report += "<tr><td>i_type</td><td>"+str(inode_unpack[22])+"</td></tr>\n"
+                        for j in range(16):
                             report += "<tr><td>ap"+str(j)+"</td><td  port = \"cell"+str(inode_unpack[6+j])+"\">"+str(inode_unpack[6+j])+"</td></tr>\n"
-                        report += "<tr><td>i_perm</td><td>"+str(inode_unpack[22])+"</td></tr>\n"
+                        report += "<tr><td>i_perm</td><td>"+str(inode_unpack[23])+"</td></tr>\n"
                         report += "</table>\n"
                         report += ">]\n"
-                        if inode_unpack[21].decode('utf-8') == '0':
-                            for j in range(15):
+                        if inode_unpack[22].decode('utf-8') == '0':
+                            for j in range(16):
                                 if inode_unpack[6+j] != -1:
                                     blocks_folders.append(inode_unpack[6+j])
-                        elif inode_unpack[21].decode('utf-8') == '1':
-                            for j in range(15):
+                        elif inode_unpack[22].decode('utf-8') == '1':
+                            for j in range(16):
                                 if inode_unpack[6+j] != -1:
                                     blocks_files.append(inode_unpack[6+j])
 
-                        for j in range(15):
+                        for j in range(16):
                             if inode_unpack[6+j] != -1:
                                 reportfeet += "inode"+str(i+1)+":cell"+str(inode_unpack[6+j])+"->block"+str(inode_unpack[6+j])+"\n"
 
@@ -1178,22 +1178,22 @@ class rep:
                         report += "inode"+str(i+1)+"[label=<\n"
                         report += "<table border=\"0\" cellborder=\"1\" cellspacing=\"0\" bgcolor=\"#E850FF\">\n"
                         report += "<tr><td colspan=\"2\">Inodo "+str(i+1)+"</td></tr>\n"
-                        report += "<tr><td>i_type</td><td>"+str(inode_unpack[21])+"</td></tr>\n"
-                        for j in range(15):
+                        report += "<tr><td>i_type</td><td>"+str(inode_unpack[22])+"</td></tr>\n"
+                        for j in range(16):
                             report += "<tr><td>ap"+str(j)+"</td><td  port = \"cell"+str(inode_unpack[6+j])+"\">"+str(inode_unpack[6+j])+"</td></tr>\n"
-                        report += "<tr><td>i_perm</td><td>"+str(inode_unpack[22])+"</td></tr>\n"
+                        report += "<tr><td>i_perm</td><td>"+str(inode_unpack[23])+"</td></tr>\n"
                         report += "</table>\n"
                         report += ">]\n"
-                        if inode_unpack[21].decode('utf-8') == '0':
-                            for j in range(15):
+                        if inode_unpack[22].decode('utf-8') == '0':
+                            for j in range(16):
                                 if inode_unpack[6+j] != -1:
                                     blocks_folders.append(inode_unpack[6+j])
-                        elif inode_unpack[21].decode('utf-8') == '1':
-                            for j in range(15):
+                        elif inode_unpack[22].decode('utf-8') == '1':
+                            for j in range(16):
                                 if inode_unpack[6+j] != -1:
                                     blocks_files.append(inode_unpack[6+j])
 
-                        for j in range(15):
+                        for j in range(16):
                             if inode_unpack[6+j] != -1:
                                 reportfeet += "inode"+str(i+1)+":cell"+str(inode_unpack[6+j])+"->block"+str(inode_unpack[6+j])+"\n"
 
@@ -1248,7 +1248,7 @@ class rep:
                 print("Reporte generado con exito")
                 return
             elif partition4[5].decode('utf-8').rstrip("\x00") == name_partition:
-                f.seek(partition4[3])
+                f.seek(partition1[3])
                 sb_pack = f.read(struct.calcsize(format_sb))
                 sb_unpack = struct.unpack(format_sb,sb_pack)
                 bm_inode_start = sb_unpack[13]
@@ -1276,22 +1276,22 @@ class rep:
                         report += "inode"+str(i+1)+"[label=<\n"
                         report += "<table border=\"0\" cellborder=\"1\" cellspacing=\"0\" bgcolor=\"#E850FF\">\n"
                         report += "<tr><td colspan=\"2\">Inodo "+str(i+1)+"</td></tr>\n"
-                        report += "<tr><td>i_type</td><td>"+str(inode_unpack[21])+"</td></tr>\n"
-                        for j in range(15):
+                        report += "<tr><td>i_type</td><td>"+str(inode_unpack[22])+"</td></tr>\n"
+                        for j in range(16):
                             report += "<tr><td>ap"+str(j)+"</td><td  port = \"cell"+str(inode_unpack[6+j])+"\">"+str(inode_unpack[6+j])+"</td></tr>\n"
-                        report += "<tr><td>i_perm</td><td>"+str(inode_unpack[22])+"</td></tr>\n"
+                        report += "<tr><td>i_perm</td><td>"+str(inode_unpack[23])+"</td></tr>\n"
                         report += "</table>\n"
                         report += ">]\n"
-                        if inode_unpack[21].decode('utf-8') == '0':
-                            for j in range(15):
+                        if inode_unpack[22].decode('utf-8') == '0':
+                            for j in range(16):
                                 if inode_unpack[6+j] != -1:
                                     blocks_folders.append(inode_unpack[6+j])
-                        elif inode_unpack[21].decode('utf-8') == '1':
-                            for j in range(15):
+                        elif inode_unpack[22].decode('utf-8') == '1':
+                            for j in range(16):
                                 if inode_unpack[6+j] != -1:
                                     blocks_files.append(inode_unpack[6+j])
 
-                        for j in range(15):
+                        for j in range(16):
                             if inode_unpack[6+j] != -1:
                                 reportfeet += "inode"+str(i+1)+":cell"+str(inode_unpack[6+j])+"->block"+str(inode_unpack[6+j])+"\n"
 
@@ -1344,21 +1344,4 @@ class rep:
                     f.close()
                 subprocess.run(['dot','-Tpng',dot_file,'-o',self.path],check=True)
                 print("Reporte generado con exito")
-                
-
-                        
-                        
-
-
-
-                
-
-
-        
-            
-        
-
-
-            
-
-
+                return
