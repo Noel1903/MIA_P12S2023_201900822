@@ -25,6 +25,7 @@ from commands.cat import cat
 from commands.rename import rename
 from commands.rmgrp import rmgrp
 from commands.rmusr import rmusr
+from commands.remove import remove
 #reserved words
 reserved = {
     'mkdisk' : 'MKDISK',
@@ -62,6 +63,7 @@ reserved = {
     'rename': 'RENAME',
     'rmgrp': 'RMGRP',
     'rmusr': 'RMUSR',
+    'remove': 'REMOVE',
 }
 
 #Tokens
@@ -181,8 +183,30 @@ def p_command(t):
                | cat_block
                | rename_block
                | rmgrp_block
-               | rmusr_block'''
+               | rmusr_block
+               | remove_block'''
     t[0] = t[1]
+
+def p_remove_block(t):
+    'remove_block : REMOVE remove_params'
+    t[0] = remove(t[2])
+
+def p_remove_params(t):
+    '''remove_params : remove_params remove_param
+                     | remove_param'''
+    if len(t) == 3:
+        t[1].append(t[2])
+        t[0] = t[1]
+    else: 
+        t[0] = [t[1]]
+
+def p_remove_param(t):
+    '''remove_param : SEPARATOR PATH ASSIGN PATHWITHQUOTES
+                    | SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES'''
+    if t[2] == "path":
+        t[0] = ["path", t[4]]
+
+
 
 def p_rmusr_block(t):
     'rmusr_block : RMUSR rmusr_params'
@@ -639,6 +663,10 @@ mkusr -user=osmar -pass=123 -grp=users
 mkusr -user=leonor -pass=123 -grp=users
 cat -file1 =/home/archivos/user/docs/Tarea2.txt -file2=/home/archivos/user/docs/Tarea1.txt -file3=/users.txt
 rename -path=/home/archivos/user/docs/Tarea2.txt -name=Tarea3.txt
+remove -path=/home/archivos/user/docs/Tarea1.txt
+mkdir -path=/home/archivos/user/docs/Prueba
+remove -path=/home/archivos
+mkfile -path=/home/archivos/user/docs/Tarea1.txt -size=30
 
 rep -id=221Disco1 -path=/home/archivos/reports/reporte1_tree.png -name=tree
 

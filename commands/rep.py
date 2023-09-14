@@ -1076,11 +1076,10 @@ class rep:
                         reportfeet += "block"+str(blocks_folders[i])+":in"+str(block_unpack[5])+"->inode"+str(block_unpack[5])+"\n"
                     if block_unpack[7] != -1 and block_unpack[7] != 0:
                         reportfeet += "block"+str(blocks_folders[i])+":in"+str(block_unpack[7])+"->inode"+str(block_unpack[7])+"\n"
-                print(blocks_files)
+                
                 for i in range(len(blocks_files)):
                     f.seek(block_start + ((blocks_files[i]-1) * struct.calcsize(format_block)))
                     block_pack = f.read(struct.calcsize(format_block))
-                    print(block_pack)
                     block_unpack = struct.unpack(format_block,block_pack)
                     block_unpack = list(block_unpack)
                     report += "block"+str(blocks_files[i])+"[label=<\n"
