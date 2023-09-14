@@ -666,7 +666,9 @@ rename -path=/home/archivos/user/docs/Tarea2.txt -name=Tarea3.txt
 remove -path=/home/archivos/user/docs/Tarea1.txt
 mkdir -path=/home/archivos/user/docs/Prueba
 remove -path=/home/archivos
+
 mkfile -path=/home/archivos/user/docs/Tarea1.txt -size=30
+mkfile -path=/home/archivos/user/docs/Tarea2.txt -size=200
 
 rep -id=221Disco1 -path=/home/archivos/reports/reporte1_tree.png -name=tree
 

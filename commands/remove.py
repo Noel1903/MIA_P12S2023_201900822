@@ -244,13 +244,88 @@ class remove:
                                 block_unpack2 = struct.unpack(format_b_folder,f.read(struct.calcsize(format_b_folder)))
                                 block_unpack2 = list(block_unpack2)
                                 if block_unpack2[0].decode('utf-8').rstrip("\x00") == folder:
-                                    return block_unpack2[1]
+                                    f.seek(start_inodes+(struct.calcsize(format_i)*(block_unpack2[1]-1)))
+                                    position = start_inodes+(struct.calcsize(format_i)*(block_unpack2[1]-1))
+                                    inoderemove_unpack = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
+                                    typeInode = inoderemove_unpack[22]
+                                    if typeInode.decode('utf-8') == '1':
+                                        self.removeFile(position,start_blocks,bm_blocks,bm_inodes,block_unpack2[1]-1)
+                                        block_unpack2[0] = bytes("",'utf-8')
+                                        block_unpack2[1] = -1
+                                        f.seek(start_blocks+(struct.calcsize(format_b_folder)*i))
+                                        f.write(struct.pack(format_b_folder,*block_unpack2))
+                                        return
+                                    else:
+                                        index_block = block_unpack2[1]-1
+                                        block_unpack2[0] = bytes("",'utf-8')
+                                        block_unpack2[1] = -1
+                                        f.seek(start_blocks+(struct.calcsize(format_b_folder)*i))
+                                        f.write(struct.pack(format_b_folder,*block_unpack2))
+                                        self.removeFolder(bm_inodes,bm_blocks,start_inodes,start_blocks,inode_size,block_size,index_block,folder)
+                            
+
+                                    
                                 elif block_unpack2[2].decode('utf-8').rstrip("\x00") == folder:
-                                    return block_unpack2[3]
+                                    f.seek(start_inodes+(struct.calcsize(format_i)*(block_unpack2[3]-1)))
+                                    position = start_inodes+(struct.calcsize(format_i)*(block_unpack2[3]-1))
+                                    inoderemove_unpack = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
+                                    typeInode = inoderemove_unpack[22]
+                                    if typeInode.decode('utf-8') == '1':
+                                        self.removeFile(position,start_blocks,bm_blocks,bm_inodes,block_unpack2[3]-1)
+                                        block_unpack2[2] = bytes("",'utf-8')
+                                        block_unpack2[3] = -1
+                                        f.seek(start_blocks+(struct.calcsize(format_b_folder)*i))
+                                        f.write(struct.pack(format_b_folder,*block_unpack2))
+                                        return
+                                    else:
+                                        index_block = block_unpack2[3]-1
+                                        block_unpack2[2] = bytes("",'utf-8')
+                                        block_unpack2[3] = -1
+                                        f.seek(start_blocks+(struct.calcsize(format_b_folder)*i))
+                                        f.write(struct.pack(format_b_folder,*block_unpack2))
+                                        self.removeFolder(bm_inodes,bm_blocks,start_inodes,start_blocks,inode_size,block_size,index_block,folder)
+                            
                                 elif block_unpack2[4].decode('utf-8').rstrip("\x00") == folder:
-                                    return block_unpack2[5]
+                                    f.seek(start_inodes+(struct.calcsize(format_i)*(block_unpack2[5]-1)))
+                                    position = start_inodes+(struct.calcsize(format_i)*(block_unpack2[5]-1))
+                                    inoderemove_unpack = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
+                                    typeInode = inoderemove_unpack[22]
+                                    if typeInode.decode('utf-8') == '1':
+                                        self.removeFile(position,start_blocks,bm_blocks,bm_inodes,block_unpack2[5]-1)
+                                        block_unpack2[4] = bytes("",'utf-8')
+                                        block_unpack2[5] = -1
+                                        f.seek(start_blocks+(struct.calcsize(format_b_folder)*i))
+                                        f.write(struct.pack(format_b_folder,*block_unpack2))
+                                        return
+                                    else:
+                                        index_block = block_unpack2[5]-1
+                                        block_unpack2[4] = bytes("",'utf-8')
+                                        block_unpack2[5] = -1
+                                        f.seek(start_blocks+(struct.calcsize(format_b_folder)*i))
+                                        f.write(struct.pack(format_b_folder,*block_unpack2))
+                                        self.removeFolder(bm_inodes,bm_blocks,start_inodes,start_blocks,inode_size,block_size,index_block,folder)
+                            
                                 elif block_unpack2[6].decode('utf-8').rstrip("\x00") == folder:
-                                    return block_unpack2[7]
+                                    print("ENTRO")
+                                    f.seek(start_inodes+(struct.calcsize(format_i)*(block_unpack2[7]-1)))
+                                    position = start_inodes+(struct.calcsize(format_i)*(block_unpack2[7]-1))
+                                    inoderemove_unpack = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
+                                    typeInode = inoderemove_unpack[22]
+                                    if typeInode.decode('utf-8') == '1':
+                                        self.removeFile(position,start_blocks,bm_blocks,bm_inodes,block_unpack2[7]-1)
+                                        block_unpack2[6] = bytes("",'utf-8')
+                                        block_unpack2[7] = -1
+                                        f.seek(start_blocks+(struct.calcsize(format_b_folder)*i))
+                                        f.write(struct.pack(format_b_folder,*block_unpack2))
+                                        return
+                                    else:
+                                        index_block = block_unpack2[7]-1
+                                        block_unpack2[6] = bytes("",'utf-8')
+                                        block_unpack2[7] = -1
+                                        f.seek(start_blocks+(struct.calcsize(format_b_folder)*i))
+                                        f.write(struct.pack(format_b_folder,*block_unpack2))
+                                        self.removeFolder(bm_inodes,bm_blocks,start_inodes,start_blocks,inode_size,block_size,index_block,folder)
+                            
                 cont += 1
         
                     
@@ -272,7 +347,7 @@ class remove:
                 if i != -1:
                     f.seek(start_blocks+(struct.calcsize(format_b_folder)*i))
                     f.write(struct.pack(format_b,bytes("",'utf-8')))
-                    f.seek(bm_blocks+(struct.calcsize(format_b)*i))
+                    f.seek(bm_blocks+i)
                     f.write(b'0')
                     inoderemove_unpack[6+cont] = -1
                     cont += 1
@@ -301,47 +376,142 @@ class remove:
             for i in i_block:
                 i = i - 1
                 if i != -1:
-                    f.seek(start_blocks+(struct.calcsize(format_b_folder)*i))
-                    block = struct.unpack(format_b_folder,f.read(struct.calcsize(format_b_folder)))
-                    block = list(block)
-                    if block[1] != -1 and block[1] != 0:
-                        f.seek(start_inodes+(struct.calcsize(format_i)*(block[1]-1)))
-                        inoderemove_unpack = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
-                        typeInode = inoderemove_unpack[22]
-                        if typeInode.decode('utf-8') == '1':
-                            self.removeFile(start_inodes+(struct.calcsize(format_i)*(block[1]-1)),start_blocks,bm_blocks,bm_inodes,block[1]-1)
-                        else:
-                            self.removeFolder(bm_inodes,bm_blocks,start_inodes,start_blocks,inode_size,block_size,block[1]-1,folder)
-                    if block[3] != -1 and block[3] != 0:
-                        f.seek(start_inodes+(struct.calcsize(format_i)*(block[3]-1)))
-                        inoderemove_unpack = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
-                        typeInode = inoderemove_unpack[22]
-                        if typeInode.decode('utf-8') == '1':
-                            self.removeFile(start_inodes+(struct.calcsize(format_i)*(block[3]-1)),start_blocks,bm_blocks,bm_inodes,block[3]-1)
-                        else:
-                            self.removeFolder(bm_inodes,bm_blocks,start_inodes,start_blocks,inode_size,block_size,block[3]-1,folder)
-                    if block[5] != -1 and block[5] != 0:
-                        f.seek(start_inodes+(struct.calcsize(format_i)*(block[5]-1)))
-                        inoderemove_unpack = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
-                        typeInode = inoderemove_unpack[22]
-                        if typeInode.decode('utf-8') == '1':
-                            self.removeFile(start_inodes+(struct.calcsize(format_i)*(block[5]-1)),start_blocks,bm_blocks,bm_inodes,block[5]-1)
-                        else:
-                            self.removeFolder(bm_inodes,bm_blocks,start_inodes,start_blocks,inode_size,block_size,block[5]-1,folder)
-                    if block[7] != -1 and block[7] != 0:
-                        f.seek(start_inodes+(struct.calcsize(format_i)*(block[7]-1)))
-                        inoderemove_unpack = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
-                        typeInode = inoderemove_unpack[22]
-                        if typeInode.decode('utf-8') == '1':
-                            self.removeFile(start_inodes+(struct.calcsize(format_i)*(block[7]-1)),start_blocks,bm_blocks,bm_inodes,block[7]-1)
-                        else:
-                            self.removeFolder(bm_inodes,bm_blocks,start_inodes,start_blocks,inode_size,block_size,block[7]-1,folder)
+                    if cont < 13:
+                        f.seek(start_blocks+(struct.calcsize(format_b_folder)*i))
+                        block = struct.unpack(format_b_folder,f.read(struct.calcsize(format_b_folder)))
+                        block = list(block)
+                        if block[1] != -1 and block[1] != 0:
+                            f.seek(start_inodes+(struct.calcsize(format_i)*(block[1]-1)))
+                            inoderemove_unpack = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
+                            typeInode = inoderemove_unpack[22]
+                            if typeInode.decode('utf-8') == '1':
+                                self.removeFile(start_inodes+(struct.calcsize(format_i)*(block[1]-1)),start_blocks,bm_blocks,bm_inodes,block[1]-1)
+                            else:
+                                self.removeFolder(bm_inodes,bm_blocks,start_inodes,start_blocks,inode_size,block_size,block[1]-1,folder)
+                        if block[3] != -1 and block[3] != 0:
+                            f.seek(start_inodes+(struct.calcsize(format_i)*(block[3]-1)))
+                            inoderemove_unpack = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
+                            typeInode = inoderemove_unpack[22]
+                            if typeInode.decode('utf-8') == '1':
+                                self.removeFile(start_inodes+(struct.calcsize(format_i)*(block[3]-1)),start_blocks,bm_blocks,bm_inodes,block[3]-1)
+                            else:
+                                self.removeFolder(bm_inodes,bm_blocks,start_inodes,start_blocks,inode_size,block_size,block[3]-1,folder)
+                        if block[5] != -1 and block[5] != 0:
+                            f.seek(start_inodes+(struct.calcsize(format_i)*(block[5]-1)))
+                            inoderemove_unpack = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
+                            typeInode = inoderemove_unpack[22]
+                            if typeInode.decode('utf-8') == '1':
+                                self.removeFile(start_inodes+(struct.calcsize(format_i)*(block[5]-1)),start_blocks,bm_blocks,bm_inodes,block[5]-1)
+                            else:
+                                self.removeFolder(bm_inodes,bm_blocks,start_inodes,start_blocks,inode_size,block_size,block[5]-1,folder)
+                        if block[7] != -1 and block[7] != 0:
+                            f.seek(start_inodes+(struct.calcsize(format_i)*(block[7]-1)))
+                            inoderemove_unpack = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
+                            typeInode = inoderemove_unpack[22]
+                            if typeInode.decode('utf-8') == '1':
+                                self.removeFile(start_inodes+(struct.calcsize(format_i)*(block[7]-1)),start_blocks,bm_blocks,bm_inodes,block[7]-1)
+                            else:
+                                self.removeFolder(bm_inodes,bm_blocks,start_inodes,start_blocks,inode_size,block_size,block[7]-1,folder)
+                    elif cont >= 13:
+                        f.seek(start_blocks+(struct.calcsize(format_b_folder)*i))
+                        block_unpack = struct.unpack(format_pointers,f.read(struct.calcsize(format_pointers)))
+                        block_unpack = list(block_unpack)
+                        #print(block_unpack)
+                        for j in range(len(block_unpack)):
+                            if block_unpack[j] != -1:
+                                f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_unpack[j]-1)))
+                                block_unpack2 = struct.unpack(format_b_folder,f.read(struct.calcsize(format_b_folder)))
+                                block_unpack2 = list(block_unpack2)
+                                if block_unpack2[0].decode('utf-8').rstrip("\x00") == folder:
+                                    f.seek(start_inodes+(struct.calcsize(format_i)*(block_unpack2[1]-1)))
+                                    position = start_inodes+(struct.calcsize(format_i)*(block_unpack2[1]-1))
+                                    inoderemove_unpack = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
+                                    typeInode = inoderemove_unpack[22]
+                                    if typeInode.decode('utf-8') == '1':
+                                        self.removeFile(position,start_blocks,bm_blocks,bm_inodes,block_unpack2[1]-1)
+                                        block_unpack2[0] = bytes("",'utf-8')
+                                        block_unpack2[1] = -1
+                                        f.seek(start_blocks+(struct.calcsize(format_b_folder)*i))
+                                        f.write(struct.pack(format_b_folder,*block_unpack2))
+                                        return
+                                    else:
+                                        index_block = block_unpack2[1]-1
+                                        block_unpack2[0] = bytes("",'utf-8')
+                                        block_unpack2[1] = -1
+                                        f.seek(start_blocks+(struct.calcsize(format_b_folder)*i))
+                                        f.write(struct.pack(format_b_folder,*block_unpack2))
+                                        self.removeFolder(bm_inodes,bm_blocks,start_inodes,start_blocks,inode_size,block_size,index_block,folder)
+                            
+
+                                    
+                                elif block_unpack2[2].decode('utf-8').rstrip("\x00") == folder:
+                                    f.seek(start_inodes+(struct.calcsize(format_i)*(block_unpack2[3]-1)))
+                                    position = start_inodes+(struct.calcsize(format_i)*(block_unpack2[3]-1))
+                                    inoderemove_unpack = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
+                                    typeInode = inoderemove_unpack[22]
+                                    if typeInode.decode('utf-8') == '1':
+                                        self.removeFile(position,start_blocks,bm_blocks,bm_inodes,block_unpack2[3]-1)
+                                        block_unpack2[2] = bytes("",'utf-8')
+                                        block_unpack2[3] = -1
+                                        f.seek(start_blocks+(struct.calcsize(format_b_folder)*i))
+                                        f.write(struct.pack(format_b_folder,*block_unpack2))
+                                        return
+                                    else:
+                                        index_block = block_unpack2[3]-1
+                                        block_unpack2[2] = bytes("",'utf-8')
+                                        block_unpack2[3] = -1
+                                        f.seek(start_blocks+(struct.calcsize(format_b_folder)*i))
+                                        f.write(struct.pack(format_b_folder,*block_unpack2))
+                                        self.removeFolder(bm_inodes,bm_blocks,start_inodes,start_blocks,inode_size,block_size,index_block,folder)
+                            
+                                elif block_unpack2[4].decode('utf-8').rstrip("\x00") == folder:
+                                    f.seek(start_inodes+(struct.calcsize(format_i)*(block_unpack2[5]-1)))
+                                    position = start_inodes+(struct.calcsize(format_i)*(block_unpack2[5]-1))
+                                    inoderemove_unpack = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
+                                    typeInode = inoderemove_unpack[22]
+                                    if typeInode.decode('utf-8') == '1':
+                                        self.removeFile(position,start_blocks,bm_blocks,bm_inodes,block_unpack2[5]-1)
+                                        block_unpack2[4] = bytes("",'utf-8')
+                                        block_unpack2[5] = -1
+                                        f.seek(start_blocks+(struct.calcsize(format_b_folder)*i))
+                                        f.write(struct.pack(format_b_folder,*block_unpack2))
+                                        return
+                                    else:
+                                        index_block = block_unpack2[5]-1
+                                        block_unpack2[4] = bytes("",'utf-8')
+                                        block_unpack2[5] = -1
+                                        f.seek(start_blocks+(struct.calcsize(format_b_folder)*i))
+                                        f.write(struct.pack(format_b_folder,*block_unpack2))
+                                        self.removeFolder(bm_inodes,bm_blocks,start_inodes,start_blocks,inode_size,block_size,index_block,folder)
+                            
+                                elif block_unpack2[6].decode('utf-8').rstrip("\x00") == folder:
+                                    print("ENTRO")
+                                    f.seek(start_inodes+(struct.calcsize(format_i)*(block_unpack2[7]-1)))
+                                    position = start_inodes+(struct.calcsize(format_i)*(block_unpack2[7]-1))
+                                    inoderemove_unpack = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
+                                    typeInode = inoderemove_unpack[22]
+                                    if typeInode.decode('utf-8') == '1':
+                                        self.removeFile(position,start_blocks,bm_blocks,bm_inodes,block_unpack2[7]-1)
+                                        block_unpack2[6] = bytes("",'utf-8')
+                                        block_unpack2[7] = -1
+                                        f.seek(start_blocks+(struct.calcsize(format_b_folder)*i))
+                                        f.write(struct.pack(format_b_folder,*block_unpack2))
+                                        return
+                                    else:
+                                        index_block = block_unpack2[7]-1
+                                        block_unpack2[6] = bytes("",'utf-8')
+                                        block_unpack2[7] = -1
+                                        f.seek(start_blocks+(struct.calcsize(format_b_folder)*i))
+                                        f.write(struct.pack(format_b_folder,*block_unpack2))
+                                        self.removeFolder(bm_inodes,bm_blocks,start_inodes,start_blocks,inode_size,block_size,index_block,folder)
+                            
+
                     f.seek(start_blocks+(struct.calcsize(format_b_folder)*i))
                     f.write(struct.pack(format_b,bytes("",'utf-8')))
-                    f.seek(bm_blocks+(struct.calcsize(format_b)*i))
+                    f.seek(bm_blocks+i)
                     f.write(b'0')
                     inode_unpack[6+cont] = -1
-                    cont += 1
+            cont += 1
             f.seek(start_inodes+(struct.calcsize(format_i)*index))
             f.write(struct.pack(format_i,*inode_unpack))
             f.seek(bm_inodes+index)

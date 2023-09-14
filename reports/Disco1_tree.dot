@@ -189,7 +189,7 @@ inode9[label=<
 <table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
 <tr><td colspan="2">Inodo 9</td></tr>
 <tr><td>i_type</td><td>b'0'</td></tr>
-<tr><td>ap0</td><td  port = "cell21">21</td></tr>
+<tr><td>ap0</td><td  port = "cell13">13</td></tr>
 <tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
@@ -212,7 +212,7 @@ inode10[label=<
 <table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
 <tr><td colspan="2">Inodo 10</td></tr>
 <tr><td>i_type</td><td>b'0'</td></tr>
-<tr><td>ap0</td><td  port = "cell22">22</td></tr>
+<tr><td>ap0</td><td  port = "cell14">14</td></tr>
 <tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
@@ -235,7 +235,7 @@ inode11[label=<
 <table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
 <tr><td colspan="2">Inodo 11</td></tr>
 <tr><td>i_type</td><td>b'0'</td></tr>
-<tr><td>ap0</td><td  port = "cell23">23</td></tr>
+<tr><td>ap0</td><td  port = "cell15">15</td></tr>
 <tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
@@ -258,10 +258,33 @@ inode12[label=<
 <table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
 <tr><td colspan="2">Inodo 12</td></tr>
 <tr><td>i_type</td><td>b'1'</td></tr>
-<tr><td>ap0</td><td  port = "cell24">24</td></tr>
+<tr><td>ap0</td><td  port = "cell16">16</td></tr>
 <tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap4</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap5</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap6</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap7</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap8</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap9</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap10</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap11</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap12</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap13</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap14</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap15</td><td  port = "cell-1">-1</td></tr>
+<tr><td>i_perm</td><td>664</td></tr>
+</table>
+>]
+inode13[label=<
+<table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
+<tr><td colspan="2">Inodo 13</td></tr>
+<tr><td>i_type</td><td>b'1'</td></tr>
+<tr><td>ap0</td><td  port = "cell17">17</td></tr>
+<tr><td>ap1</td><td  port = "cell18">18</td></tr>
+<tr><td>ap2</td><td  port = "cell20">20</td></tr>
+<tr><td>ap3</td><td  port = "cell21">21</td></tr>
 <tr><td>ap4</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap5</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap6</td><td  port = "cell-1">-1</td></tr>
@@ -394,9 +417,9 @@ block12[label=<
 <td port = "in-1">-1</td></tr>
 </table>
 >]
-block21[label=<
+block13[label=<
 <table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
-<tr><td colspan="2">Bloque Carpeta 21</td></tr>
+<tr><td colspan="2">Bloque Carpeta 13</td></tr>
 <tr><td>.</td>
 <td port = "in0">0</td></tr>
 <tr><td>..</td>
@@ -407,9 +430,9 @@ block21[label=<
 <td port = "in-1">-1</td></tr>
 </table>
 >]
-block22[label=<
+block14[label=<
 <table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
-<tr><td colspan="2">Bloque Carpeta 22</td></tr>
+<tr><td colspan="2">Bloque Carpeta 14</td></tr>
 <tr><td>.</td>
 <td port = "in0">0</td></tr>
 <tr><td>..</td>
@@ -420,17 +443,17 @@ block22[label=<
 <td port = "in-1">-1</td></tr>
 </table>
 >]
-block23[label=<
+block15[label=<
 <table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
-<tr><td colspan="2">Bloque Carpeta 23</td></tr>
+<tr><td colspan="2">Bloque Carpeta 15</td></tr>
 <tr><td>.</td>
 <td port = "in0">0</td></tr>
 <tr><td>..</td>
 <td port = "in0">0</td></tr>
 <tr><td>Tarea1.txt</td>
 <td port = "in12">12</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
+<tr><td>Tarea2.txt</td>
+<td port = "in13">13</td></tr>
 </table>
 >]
 block2[label=<
@@ -469,10 +492,34 @@ block19[label=<
 </td></tr>
 </table>
 >]
-block24[label=<
+block16[label=<
 <table border="0" cellborder="1" cellspacing="0" bgcolor="#F9D800">
-<tr><td colspan="2">Bloque Archivo 24</td></tr>
+<tr><td colspan="2">Bloque Archivo 16</td></tr>
 <tr><td>b_content</td><td>0123456789012345678901234567890</td></tr>
+</table>
+>]
+block17[label=<
+<table border="0" cellborder="1" cellspacing="0" bgcolor="#F9D800">
+<tr><td colspan="2">Bloque Archivo 17</td></tr>
+<tr><td>b_content</td><td>0123456789012345678901234567890123456789012345678901234567890123</td></tr>
+</table>
+>]
+block18[label=<
+<table border="0" cellborder="1" cellspacing="0" bgcolor="#F9D800">
+<tr><td colspan="2">Bloque Archivo 18</td></tr>
+<tr><td>b_content</td><td>4567890123456789012345678901234567890123456789012345678901234567</td></tr>
+</table>
+>]
+block20[label=<
+<table border="0" cellborder="1" cellspacing="0" bgcolor="#F9D800">
+<tr><td colspan="2">Bloque Archivo 20</td></tr>
+<tr><td>b_content</td><td>8901234567890123456789012345678901234567890123456789012345678901</td></tr>
+</table>
+>]
+block21[label=<
+<table border="0" cellborder="1" cellspacing="0" bgcolor="#F9D800">
+<tr><td colspan="2">Bloque Archivo 21</td></tr>
+<tr><td>b_content</td><td>234567890</td></tr>
 </table>
 >]
 inode1:cell1->block1
@@ -488,10 +535,14 @@ inode5:cell8->block8
 inode6:cell9->block9
 inode7:cell10->block10
 inode8:cell12->block12
-inode9:cell21->block21
-inode10:cell22->block22
-inode11:cell23->block23
-inode12:cell24->block24
+inode9:cell13->block13
+inode10:cell14->block14
+inode11:cell15->block15
+inode12:cell16->block16
+inode13:cell17->block17
+inode13:cell18->block18
+inode13:cell20->block20
+inode13:cell21->block21
 block1:in2->inode2
 block1:in3->inode3
 block6:in4->inode4
@@ -500,7 +551,8 @@ block6:in6->inode6
 block6:in7->inode7
 block11:in8->inode8
 block12:in9->inode9
-block21:in10->inode10
-block22:in11->inode11
-block23:in12->inode12
+block13:in10->inode10
+block14:in11->inode11
+block15:in12->inode12
+block15:in13->inode13
 }
