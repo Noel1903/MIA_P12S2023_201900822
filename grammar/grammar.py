@@ -21,6 +21,10 @@ from commands.mkfile import mkfile
 from commands.rep import rep
 from commands.pause import pause
 from commands.logout import logout
+from commands.cat import cat
+from commands.rename import rename
+from commands.rmgrp import rmgrp
+from commands.rmusr import rmusr
 #reserved words
 reserved = {
     'mkdisk' : 'MKDISK',
@@ -53,24 +57,41 @@ reserved = {
     'rep' : 'REP',
     'ruta' : 'RUTA',
     'pause': 'PAUSE',
+    'cat': 'CAT',
+    'file': 'FILE',
+    'rename': 'RENAME',
+    'rmgrp': 'RMGRP',
+    'rmusr': 'RMUSR',
 }
 
 #Tokens
 tokens = [
     'SEPARATOR',#-
     'ASSIGN',#=
+    'FILEN',
+    'EXTENSION',
     'PATHWITHQUOTES',#"ruta"
     'PATHWITHOUTQUOTES',#ruta
     'MOUNTNAME',#221Disco1
     'NUMBER',
     'NEGATIVE',
     'ID',
-    'STRING'
+    'STRING',
 ] + list(reserved.values())
 
 t_SEPARATOR = r'-'
 t_ASSIGN = r'='
 
+
+def t_FILEN(t):
+    r'file\d+'
+    t.value = t.value 
+    return t
+
+def t_EXTENSION(t):
+    r'([a-zA-Z0-9])+\.[a-zA-Z0-9]+'
+    t.value = t.value 
+    return t
 
 def t_PATHWITHQUOTES(t):
     r'\".*\"'
@@ -106,6 +127,8 @@ def t_STRING(t):
     r'\".*\"'
     t.value = t.value[1:-1]
     return t
+
+
 
 
 #Ignore
@@ -154,8 +177,50 @@ def p_command(t):
                | mkdir_block
                | mkfile_block
                | rep_block
-               | pause_block'''
+               | pause_block
+               | cat_block
+               | rename_block
+               | rmgrp_block
+               | rmusr_block'''
     t[0] = t[1]
+
+def p_rmusr_block(t):
+    'rmusr_block : RMUSR rmusr_params'
+    t[0] = rmusr(t[2])
+
+def p_rmusr_params(t):
+    '''rmusr_params : rmusr_params rmusr_param
+                    | rmusr_param'''
+    if len(t) == 3:
+        t[1].append(t[2])
+        t[0] = t[1]
+    else: 
+        t[0] = [t[1]]
+
+def p_rmusr_param(t):
+    '''rmusr_param : SEPARATOR USER ASSIGN ID
+                   | SEPARATOR USER ASSIGN STRING'''
+    if t[2] == "user":
+        t[0] = ["user", t[4]]
+
+def p_rmgrp_block(t):
+    'rmgrp_block : RMGRP rmgrp_params'
+    t[0] = rmgrp(t[2])
+
+def p_rmgrp_params(t):
+    '''rmgrp_params : rmgrp_params rmgrp_param
+                    | rmgrp_param'''
+    if len(t) == 3:
+        t[1].append(t[2])
+        t[0] = t[1]
+    else:
+        t[0] = [t[1]]
+
+def p_rmgrp_param(t):
+    '''rmgrp_param : SEPARATOR NAME ASSIGN ID
+                   | SEPARATOR NAME ASSIGN STRING'''
+    if t[2] == "name":
+        t[0] = ["name", t[4]]
 
 def p_pause_block(t):
     'pause_block : PAUSE'
@@ -374,8 +439,8 @@ def p_usr_params(t):
         t[0] = [t[1]]
 
 def p_usr_param(t):
-    '''usr_param : SEPARATOR USER ASSIGN ID
-                 | SEPARATOR USER ASSIGN STRING
+    '''usr_param : SEPARATOR USER ASSIGN STRING
+                 | SEPARATOR USER ASSIGN ID
                  | SEPARATOR PASS ASSIGN ID
                  | SEPARATOR PASS ASSIGN STRING
                  | SEPARATOR PASS ASSIGN NUMBER
@@ -467,6 +532,55 @@ def p_rep_param(t):
     elif t[2] == "path":
         t[0] = ["path", t[4]]
 
+def p_cat_block(t):
+    'cat_block : CAT cat_params'
+    t[0] = cat(t[2])
+
+
+def p_cat_params(t):
+    '''cat_params : cat_params cat_param
+                  | cat_param'''
+    if len(t) == 3:
+        t[1].append(t[2])
+        t[0] = t[1]
+    else:
+        t[0] = [t[1]]
+
+def p_cat_param(t):
+    '''cat_param : SEPARATOR FILEN ASSIGN PATHWITHQUOTES
+                 | SEPARATOR FILEN ASSIGN PATHWITHOUTQUOTES
+                 | SEPARATOR FILEN ASSIGN PATHWITHQUOTES cat_param
+                 | SEPARATOR FILEN ASSIGN PATHWITHOUTQUOTES cat_param'''
+    if len(t) == 6:
+        t[5].append(["path", t[4]])
+        t[0] = t[5]
+    else:
+        t[0] = [["path", t[4]]]
+
+def p_rename_block(t):
+    'rename_block : RENAME rename_params'
+    t[0] = rename(t[2])
+
+def p_rename_params(t):
+    '''rename_params : rename_params rename_param
+                     | rename_param'''
+    if len(t) == 3:
+        t[1].append(t[2])
+        t[0] = t[1]
+    else:
+        t[0] = [t[1]]
+    
+def p_rename_param(t):
+    '''rename_param : SEPARATOR PATH ASSIGN PATHWITHQUOTES
+                    | SEPARATOR PATH ASSIGN PATHWITHOUTQUOTES
+                    | SEPARATOR NAME ASSIGN EXTENSION
+                    | SEPARATOR NAME ASSIGN ID
+                    | SEPARATOR NAME ASSIGN STRING'''
+    if t[2] == "path":
+        t[0] = ["path", t[4]]
+    elif t[2] == "name":
+        t[0] = ["name", t[4]]
+
 def p_error(t):
     print("Syntax error at '%s'" % t.value)
 
@@ -496,42 +610,38 @@ fdisk -type=P -unit=K -name=Part1 -size=7680 -path=/home/archivos/Discos/Disco1.
 mount -path=/home/archivos/Discos/Disco1.dsk -name=Part1 #191a
 #CREACION DE SISTEMA DE ARCHIVOS
 mkfs -type=full -id=221Disco1 -fs=2fs
-rep -id=221Disco1 -path=/home/archivos/reports/reporte1_tree.png -name=tree
-pause
-#LOGIN
+
 login -user=root -pass=123 -id=221Disco1
+#CREACION DE GRUPOS
+mkgrp -name=usuarios
+mkgrp -name=adm
+mkgrp -name=users
+mkgrp -name=estudiantes
+
+rmgrp -name=estudiantes
+#CREACION DE USUARIOS
+mkusr -user=noel -pass=123 -grp=usuarios
+mkusr -user=carlos -pass=123 -grp=adm
+mkusr -user=arturo -pass=dark -grp=users
+rmusr -user=arturo
+
 #CREACION DE CARPETAS
 mkdir -path=/bin
 mkdir -path=/boot
 mkdir -path=/cdrom
 mkdir -path=/dev
 mkdir -path=/etc
-mkdir -path=/home
-mkdir -path=/lib
-mkdir -path=/lib64
-mkdir -path=/media
-mkdir -path=/mnt
-mkdir -path=/opt
-mkdir -path=/proc
-mkdir -path=/run
-mkdir -path=/sbin
-mkdir -path=/snap
-mkdir -path=/srv
-mkdir -path=/sys
-mkdir -path=/tmp
-mkdir -path=/var
-mkdir -path="/home/archivos/archivos 19"
-mkdir -path=/home/archivos/user/docs/usac
-mkdir -path=/home/archivos/carpeta1/carpeta2/carpeta3/carpeta4/carpeta5
-logout
+mkfile -path=/home/archivos/user/docs/Tarea2.txt -size=100
+mkfile -path=/home/archivos/user/docs/Tarea1.txt -size=30
 
-login -user=usuario1 -pass=password -id=221Disco1
-
-#CREACION DE ARCHIVOS
-mkfile -path=/home/archivos/user/docs/Tarea.txt -size=75
-mkfile -path=/home/archivos/user/docs/Tarea2.txt -size=1050
+mkusr -user=hany -pass=galletas -grp=users
+mkusr -user=osmar -pass=123 -grp=users
+mkusr -user=leonor -pass=123 -grp=users
+cat -file1 =/home/archivos/user/docs/Tarea2.txt -file2=/home/archivos/user/docs/Tarea1.txt -file3=/users.txt
+rename -path=/home/archivos/user/docs/Tarea2.txt -name=Tarea3.txt
 
 rep -id=221Disco1 -path=/home/archivos/reports/reporte1_tree.png -name=tree
+
 '''
               
 commands = parser.parse(input_text)

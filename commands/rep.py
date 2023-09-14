@@ -339,7 +339,7 @@ class rep:
     def repInode(self,name_partition):
         format_mbr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
         format_sb = "I I I I I I I I I I I I I I I I I"
-        format_i = "I I I I I I 15i c I"
+        format_i = "I I I I I I 16i c I"
 
         with open(self.path_mount, "rb+") as f:
             f.seek(0)
@@ -942,8 +942,10 @@ class rep:
         format_i = "I I I I I I 16i c I"
         format_block = "64s"
         format_folder = "12s i 12s i 12s i 12s i"
+        format_pointers = "16i"
         blocks_files = []
         blocks_folders = []
+        blocks_pointers = []
         with open(self.path_mount, "rb+") as f:
             f.seek(0)
             mbr_pack = f.read(struct.calcsize(format_mbr))
@@ -991,22 +993,68 @@ class rep:
                         if inode_unpack[22].decode('utf-8') == '0':
                             for j in range(16):
                                 if inode_unpack[6+j] != -1:
-                                    blocks_folders.append(inode_unpack[6+j])
+                                    if j < 13:
+                                        blocks_folders.append(inode_unpack[6+j])
+                                    elif j >= 13:
+                                        blocks_pointers.append(inode_unpack[6+j])
+                                        f.seek(block_start + ((inode_unpack[6+j]-1) * struct.calcsize(format_block)))
+                                        block_pack = f.read(struct.calcsize(format_pointers))
+                                        block_unpack = struct.unpack(format_pointers,block_pack)
+                                        block_unpack = list(block_unpack)
+                                        for k in range(16):
+                                            if block_unpack[k] != -1:
+                                                blocks_folders.append(block_unpack[k])
+
                         elif inode_unpack[22].decode('utf-8') == '1':
                             for j in range(16):
                                 if inode_unpack[6+j] != -1:
-                                    blocks_files.append(inode_unpack[6+j])
+                                    if j < 13:
+                                        blocks_files.append(inode_unpack[6+j])
+                                    elif j >= 13:
+                                        blocks_pointers.append(inode_unpack[6+j])
+                                        f.seek(block_start + ((inode_unpack[6+j]-1) * struct.calcsize(format_block)))
+                                        block_pack = f.read(struct.calcsize(format_pointers))
+                                        block_unpack = struct.unpack(format_pointers,block_pack)
+                                        block_unpack = list(block_unpack)
+                                        for k in range(16):
+                                            if block_unpack[k] != -1:
+                                                blocks_files.append(block_unpack[k])
+                        
 
                         for j in range(16):
                             if inode_unpack[6+j] != -1:
-                                reportfeet += "inode"+str(i+1)+":cell"+str(inode_unpack[6+j])+"->block"+str(inode_unpack[6+j])+"\n"
+                                if j < 13:
+                                    reportfeet += "inode"+str(i+1)+":cell"+str(inode_unpack[6+j])+"->block"+str(inode_unpack[6+j])+"\n"
+                                elif j == 13:
+                                    reportfeet += "inode"+str(i+1)+":cell"+str(inode_unpack[6+j])+"->pointer"+str(inode_unpack[6+j])+"\n"
+
+                
+                #print(blocks_folders)
+                #print(blocks_files)
+                #print(blocks_pointers)
+                for i in range(len(blocks_pointers)):
+                    f.seek(block_start + ((blocks_pointers[i]-1) * struct.calcsize(format_block)))
+                    block_pack = f.read(struct.calcsize(format_pointers))
+                    block_unpack = struct.unpack(format_pointers,block_pack)
+                    block_unpack = list(block_unpack)
+                    #print(block_unpack,"reportando apuntadores")
+                    report += "pointer"+str(blocks_pointers[i])+"[label=<\n"
+                    report += "<table border=\"0\" cellborder=\"1\" cellspacing=\"0\" bgcolor=\"#FFA850\">\n"
+                    report += "<tr><td colspan=\"2\">Bloque Puntero "+str(blocks_pointers[i])+"</td></tr>\n"
+                    for j in range(16):
+                        report += "<tr><td>pointer"+str(j)+"</td><td port = \"cell"+str(block_unpack[j])+"\">"+str(block_unpack[j])+"</td></tr>\n"
+                    report += "</table>\n"
+                    report += ">]\n"
+                    for j in range(16):
+                        if block_unpack[j] != -1:
+                            reportfeet += "pointer"+str(blocks_pointers[i])+":cell"+str(block_unpack[j])+"->block"+str(block_unpack[j])+"\n"
 
                 for i in range(len(blocks_folders)):
                     f.seek(block_start + ((blocks_folders[i]-1) * struct.calcsize(format_block)))
                     block_pack = f.read(struct.calcsize(format_block))
                     block_unpack = struct.unpack(format_folder,block_pack)
                     block_unpack = list(block_unpack)
-                    
+                    #print(block_unpack,"reportando carpetas")
                     report += "block"+str(blocks_folders[i])+"[label=<\n"
                     report += "<table border=\"0\" cellborder=\"1\" cellspacing=\"0\" bgcolor=\"#00F9CF\">\n"
                     report += "<tr><td colspan=\"2\">Bloque Carpeta "+str(blocks_folders[i])+"</td></tr>\n"
@@ -1028,10 +1076,11 @@ class rep:
                         reportfeet += "block"+str(blocks_folders[i])+":in"+str(block_unpack[5])+"->inode"+str(block_unpack[5])+"\n"
                     if block_unpack[7] != -1 and block_unpack[7] != 0:
                         reportfeet += "block"+str(blocks_folders[i])+":in"+str(block_unpack[7])+"->inode"+str(block_unpack[7])+"\n"
-
+                print(blocks_files)
                 for i in range(len(blocks_files)):
                     f.seek(block_start + ((blocks_files[i]-1) * struct.calcsize(format_block)))
                     block_pack = f.read(struct.calcsize(format_block))
+                    print(block_pack)
                     block_unpack = struct.unpack(format_block,block_pack)
                     block_unpack = list(block_unpack)
                     report += "block"+str(blocks_files[i])+"[label=<\n"

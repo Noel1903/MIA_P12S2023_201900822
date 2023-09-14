@@ -1,5 +1,7 @@
 from  commands.login import login
 from commands.mount import mount
+from structs.struct import Journaling
+import pickle,datetime
 import struct
 class mkgrp:
     def __init__(self,params = None):
@@ -7,6 +9,13 @@ class mkgrp:
         self.name = ""
         if params != None:
             self.execute()
+        
+    def getIndexBock(self,bitmap_block):
+        bitmap_block = bitmap_block.decode('utf-8')
+        for i in range(len(bitmap_block)):
+            if bitmap_block[i] == '0':
+                return i+1
+        return -1
 
     def execute(self):
         for i in self.params:
@@ -22,7 +31,7 @@ class mkgrp:
             format_mbr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
             format_ebr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s"
             format_sb = "I I I I I I I I I I I I I I I I I"
-            format_i = "I I I I I I 15i c I"
+            format_i = "I I I I I I 16i c I"
             format_b_folder = "12s i 12s i 12s i 12s i"
             format_b = "64s"
 
@@ -54,10 +63,12 @@ class mkgrp:
                     sb_unpack = struct.unpack(format_sb,data_sb)
                     inode_start = sb_unpack[15] + struct.calcsize(format_i)
                     block_start = sb_unpack[16]
+                    bm_block_start = sb_unpack[14]
+                    size_bm_block = sb_unpack[2]
                     f.seek(inode_start)
                     inode_user_unpacked = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
                     #print(inode_user_unpacked)
-                    i_block = inode_user_unpacked[6:21]
+                    i_block = inode_user_unpacked[6:22]
                     users_txt = ""
                     idG = 0
                     block_count = 0
@@ -74,7 +85,7 @@ class mkgrp:
                             users_txt01 = users_txt01[:-1]
                             user = ""
 
-                            print(users_txt01)
+                            
                             block_count = i
                         else:
                             print("block_count",block_count)
@@ -90,7 +101,6 @@ class mkgrp:
                     f.seek(block_start + ((block_count-1) * struct.calcsize(format_b)))       
                     users_txt = struct.unpack(format_b,f.read(struct.calcsize(format_b)))[0].decode('utf-8').rstrip("\x00")
                     sizeP = len(users_txt)
-                    print(users_txt)
                     addGroup = str(idG+1)+",G,"+self.name+"\n"
                     if sizeP + len(addGroup)<=64:
                         users_txt += addGroup
@@ -99,8 +109,8 @@ class mkgrp:
                         f.seek(block_start + ((block_count-1) * struct.calcsize(format_b)))
                         f.write(struct.pack(format_b,users_txt))
                         print("Grupo creado")
-                        f.close()
                         return
+                        
                     else:
                         addGroupN = ""
                         for i in addGroup:
@@ -116,7 +126,11 @@ class mkgrp:
                                 f.write(struct.pack(format_b,users_txt02))
 
                         count  = 0
-                        block_count += 1
+                        f.seek(bm_block_start)
+                        bitmap_block = f.read(size_bm_block)
+                        index_block = self.getIndexBock(bitmap_block)
+                        
+                        block_count = index_block
                         f.seek(inode_start)
                         inode_user_unpacked = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
                         inode_user_unpacked = list(inode_user_unpacked)
@@ -134,10 +148,13 @@ class mkgrp:
                                 f.seek(sb_unpack[14]+block_count-1)
                                 f.write(b'1')
                                 print("Grupo creado")
-                                f.close()
                                 return
+                                
                             count += 1
-                        return     
+                        
+                        f.close()
+                    return
+                             
                 elif partition2[5].decode('utf-8').rstrip("\x00") == part_m.name_partition:
                     f.seek(partition2[3])
                     data_sb = f.read(struct.calcsize(format_sb))
@@ -147,7 +164,7 @@ class mkgrp:
                     f.seek(inode_start)
                     inode_user_unpacked = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
                     #print(inode_user_unpacked)
-                    i_block = inode_user_unpacked[6:21]
+                    i_block = inode_user_unpacked[6:22]
                     users_txt = ""
                     idG = 0
                     block_count = 0
@@ -237,7 +254,7 @@ class mkgrp:
                     f.seek(inode_start)
                     inode_user_unpacked = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
                     #print(inode_user_unpacked)
-                    i_block = inode_user_unpacked[6:21]
+                    i_block = inode_user_unpacked[6:22]
                     users_txt = ""
                     idG = 0
                     block_count = 0
@@ -327,7 +344,7 @@ class mkgrp:
                     f.seek(inode_start)
                     inode_user_unpacked = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
                     #print(inode_user_unpacked)
-                    i_block = inode_user_unpacked[6:21]
+                    i_block = inode_user_unpacked[6:22]
                     users_txt = ""
                     idG = 0
                     block_count = 0

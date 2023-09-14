@@ -10,6 +10,13 @@ class mkusr:
         if params != None:
             self.execute()
 
+    def getIndexBock(self,bitmap_block):
+        bitmap_block = bitmap_block.decode('utf-8')
+        for i in range(len(bitmap_block)):
+            if bitmap_block[i] == '0':
+                return i+1
+        return -1
+
     def execute(self):
         for i in self.params:
             if i[0] == "user":
@@ -28,7 +35,7 @@ class mkusr:
             format_mbr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
             format_ebr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s"
             format_sb = "I I I I I I I I I I I I I I I I I"
-            format_i = "I I I I I I 15i c I"
+            format_i = "I I I I I I 16i c I"
             format_b_folder = "12s i 12s i 12s i 12s i"
             format_b = "64s"
 
@@ -60,10 +67,12 @@ class mkusr:
                     sb_unpack = struct.unpack(format_sb,data_sb)
                     inode_start = sb_unpack[15] + struct.calcsize(format_i)
                     block_start = sb_unpack[16]
+                    bm_block_start = sb_unpack[14]
+                    size_bm_block = sb_unpack[2]
                     f.seek(inode_start)
                     inode_user_unpacked = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
                     #print(inode_user_unpacked)
-                    i_block = inode_user_unpacked[6:21]
+                    i_block = inode_user_unpacked[6:22]
                     users_txt = ""
                     idG = 0
                     block_count = 0
@@ -80,10 +89,9 @@ class mkusr:
                             users_txt01 = users_txt01[:-1]
                             user = ""
 
-                            print(users_txt01)
+                          
                             block_count = i
                         else:
-                            print("block_count",block_count)
                             break
                     for j in users_txt01:
                         user = j.split(",")
@@ -96,7 +104,6 @@ class mkusr:
                     f.seek(block_start + ((block_count-1) * struct.calcsize(format_b)))       
                     users_txt = struct.unpack(format_b,f.read(struct.calcsize(format_b)))[0].decode('utf-8').rstrip("\x00")
                     sizeP = len(users_txt)
-                    print(users_txt)
                     addGroup = str(idG+1)+",U,"+self.grp+","+self.user+","+self.passw+"\n"
                     if sizeP + len(addGroup)<=64:
                         users_txt += addGroup
@@ -122,10 +129,16 @@ class mkusr:
                                 f.write(struct.pack(format_b,users_txt02))
 
                         count  = 0
-                        block_count += 1
+                        f.seek(bm_block_start)
+
+                        bitmap_block = f.read(size_bm_block)
+                        index_block = self.getIndexBock(bitmap_block)
+                        
+                        block_count = index_block
                         f.seek(inode_start)
                         inode_user_unpacked = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
                         inode_user_unpacked = list(inode_user_unpacked)
+                       
                         for i in i_block:
                             if i == -1:
                                 inode_user_unpacked[6+count] = block_count
@@ -150,10 +163,12 @@ class mkusr:
                     sb_unpack = struct.unpack(format_sb,data_sb)
                     inode_start = sb_unpack[15] + struct.calcsize(format_i)
                     block_start = sb_unpack[16]
+                    bm_block_start = sb_unpack[14]
+                    size_bm_block = sb_unpack[2]
                     f.seek(inode_start)
                     inode_user_unpacked = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
                     #print(inode_user_unpacked)
-                    i_block = inode_user_unpacked[6:21]
+                    i_block = inode_user_unpacked[6:22]
                     users_txt = ""
                     idG = 0
                     block_count = 0
@@ -170,10 +185,9 @@ class mkusr:
                             users_txt01 = users_txt01[:-1]
                             user = ""
 
-                            print(users_txt01)
+                          
                             block_count = i
                         else:
-                            print("block_count",block_count)
                             break
                     for j in users_txt01:
                         user = j.split(",")
@@ -186,7 +200,6 @@ class mkusr:
                     f.seek(block_start + ((block_count-1) * struct.calcsize(format_b)))       
                     users_txt = struct.unpack(format_b,f.read(struct.calcsize(format_b)))[0].decode('utf-8').rstrip("\x00")
                     sizeP = len(users_txt)
-                    print(users_txt)
                     addGroup = str(idG+1)+",U,"+self.grp+","+self.user+","+self.passw+"\n"
                     if sizeP + len(addGroup)<=64:
                         users_txt += addGroup
@@ -212,10 +225,16 @@ class mkusr:
                                 f.write(struct.pack(format_b,users_txt02))
 
                         count  = 0
-                        block_count += 1
+                        f.seek(bm_block_start)
+
+                        bitmap_block = f.read(size_bm_block)
+                        index_block = self.getIndexBock(bitmap_block)
+                        
+                        block_count = index_block
                         f.seek(inode_start)
                         inode_user_unpacked = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
                         inode_user_unpacked = list(inode_user_unpacked)
+                       
                         for i in i_block:
                             if i == -1:
                                 inode_user_unpacked[6+count] = block_count
@@ -233,17 +252,19 @@ class mkusr:
                                 f.close()
                                 return
                             count += 1
-                        return     
+                        return
                 elif partition3[5].decode('utf-8').rstrip("\x00") == part_m.name_partition:
                     f.seek(partition3[3])
                     data_sb = f.read(struct.calcsize(format_sb))
                     sb_unpack = struct.unpack(format_sb,data_sb)
                     inode_start = sb_unpack[15] + struct.calcsize(format_i)
                     block_start = sb_unpack[16]
+                    bm_block_start = sb_unpack[14]
+                    size_bm_block = sb_unpack[2]
                     f.seek(inode_start)
                     inode_user_unpacked = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
                     #print(inode_user_unpacked)
-                    i_block = inode_user_unpacked[6:21]
+                    i_block = inode_user_unpacked[6:22]
                     users_txt = ""
                     idG = 0
                     block_count = 0
@@ -260,10 +281,9 @@ class mkusr:
                             users_txt01 = users_txt01[:-1]
                             user = ""
 
-                            print(users_txt01)
+                          
                             block_count = i
                         else:
-                            print("block_count",block_count)
                             break
                     for j in users_txt01:
                         user = j.split(",")
@@ -276,7 +296,6 @@ class mkusr:
                     f.seek(block_start + ((block_count-1) * struct.calcsize(format_b)))       
                     users_txt = struct.unpack(format_b,f.read(struct.calcsize(format_b)))[0].decode('utf-8').rstrip("\x00")
                     sizeP = len(users_txt)
-                    print(users_txt)
                     addGroup = str(idG+1)+",U,"+self.grp+","+self.user+","+self.passw+"\n"
                     if sizeP + len(addGroup)<=64:
                         users_txt += addGroup
@@ -302,10 +321,16 @@ class mkusr:
                                 f.write(struct.pack(format_b,users_txt02))
 
                         count  = 0
-                        block_count += 1
+                        f.seek(bm_block_start)
+
+                        bitmap_block = f.read(size_bm_block)
+                        index_block = self.getIndexBock(bitmap_block)
+                        
+                        block_count = index_block
                         f.seek(inode_start)
                         inode_user_unpacked = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
                         inode_user_unpacked = list(inode_user_unpacked)
+                       
                         for i in i_block:
                             if i == -1:
                                 inode_user_unpacked[6+count] = block_count
@@ -323,17 +348,19 @@ class mkusr:
                                 f.close()
                                 return
                             count += 1
-                        return     
+                        return   
                 elif partition4[5].decode('utf-8').rstrip("\x00") == part_m.name_partition:
                     f.seek(partition4[3])
                     data_sb = f.read(struct.calcsize(format_sb))
                     sb_unpack = struct.unpack(format_sb,data_sb)
                     inode_start = sb_unpack[15] + struct.calcsize(format_i)
                     block_start = sb_unpack[16]
+                    bm_block_start = sb_unpack[14]
+                    size_bm_block = sb_unpack[2]
                     f.seek(inode_start)
                     inode_user_unpacked = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
                     #print(inode_user_unpacked)
-                    i_block = inode_user_unpacked[6:21]
+                    i_block = inode_user_unpacked[6:22]
                     users_txt = ""
                     idG = 0
                     block_count = 0
@@ -350,10 +377,9 @@ class mkusr:
                             users_txt01 = users_txt01[:-1]
                             user = ""
 
-                            print(users_txt01)
+                          
                             block_count = i
                         else:
-                            print("block_count",block_count)
                             break
                     for j in users_txt01:
                         user = j.split(",")
@@ -366,7 +392,6 @@ class mkusr:
                     f.seek(block_start + ((block_count-1) * struct.calcsize(format_b)))       
                     users_txt = struct.unpack(format_b,f.read(struct.calcsize(format_b)))[0].decode('utf-8').rstrip("\x00")
                     sizeP = len(users_txt)
-                    print(users_txt)
                     addGroup = str(idG+1)+",U,"+self.grp+","+self.user+","+self.passw+"\n"
                     if sizeP + len(addGroup)<=64:
                         users_txt += addGroup
@@ -392,10 +417,16 @@ class mkusr:
                                 f.write(struct.pack(format_b,users_txt02))
 
                         count  = 0
-                        block_count += 1
+                        f.seek(bm_block_start)
+
+                        bitmap_block = f.read(size_bm_block)
+                        index_block = self.getIndexBock(bitmap_block)
+                        
+                        block_count = index_block
                         f.seek(inode_start)
                         inode_user_unpacked = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
                         inode_user_unpacked = list(inode_user_unpacked)
+                       
                         for i in i_block:
                             if i == -1:
                                 inode_user_unpacked[6+count] = block_count
@@ -413,6 +444,6 @@ class mkusr:
                                 f.close()
                                 return
                             count += 1
-                        return                
+                        return       
                     
         return

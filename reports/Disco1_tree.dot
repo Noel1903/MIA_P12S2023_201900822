@@ -6,11 +6,11 @@ inode1[label=<
 <tr><td colspan="2">Inodo 1</td></tr>
 <tr><td>i_type</td><td>b'0'</td></tr>
 <tr><td>ap0</td><td  port = "cell1">1</td></tr>
-<tr><td>ap1</td><td  port = "cell4">4</td></tr>
-<tr><td>ap2</td><td  port = "cell9">9</td></tr>
-<tr><td>ap3</td><td  port = "cell14">14</td></tr>
-<tr><td>ap4</td><td  port = "cell19">19</td></tr>
-<tr><td>ap5</td><td  port = "cell24">24</td></tr>
+<tr><td>ap1</td><td  port = "cell6">6</td></tr>
+<tr><td>ap2</td><td  port = "cell11">11</td></tr>
+<tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap4</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap5</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap6</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap7</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap8</td><td  port = "cell-1">-1</td></tr>
@@ -29,9 +29,9 @@ inode2[label=<
 <tr><td colspan="2">Inodo 2</td></tr>
 <tr><td>i_type</td><td>b'1'</td></tr>
 <tr><td>ap0</td><td  port = "cell2">2</td></tr>
-<tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
+<tr><td>ap1</td><td  port = "cell3">3</td></tr>
+<tr><td>ap2</td><td  port = "cell4">4</td></tr>
+<tr><td>ap3</td><td  port = "cell19">19</td></tr>
 <tr><td>ap4</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap5</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap6</td><td  port = "cell-1">-1</td></tr>
@@ -51,7 +51,7 @@ inode3[label=<
 <table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
 <tr><td colspan="2">Inodo 3</td></tr>
 <tr><td>i_type</td><td>b'0'</td></tr>
-<tr><td>ap0</td><td  port = "cell3">3</td></tr>
+<tr><td>ap0</td><td  port = "cell5">5</td></tr>
 <tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
@@ -74,7 +74,7 @@ inode4[label=<
 <table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
 <tr><td colspan="2">Inodo 4</td></tr>
 <tr><td>i_type</td><td>b'0'</td></tr>
-<tr><td>ap0</td><td  port = "cell5">5</td></tr>
+<tr><td>ap0</td><td  port = "cell7">7</td></tr>
 <tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
@@ -97,7 +97,7 @@ inode5[label=<
 <table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
 <tr><td colspan="2">Inodo 5</td></tr>
 <tr><td>i_type</td><td>b'0'</td></tr>
-<tr><td>ap0</td><td  port = "cell6">6</td></tr>
+<tr><td>ap0</td><td  port = "cell8">8</td></tr>
 <tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
@@ -120,7 +120,7 @@ inode6[label=<
 <table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
 <tr><td colspan="2">Inodo 6</td></tr>
 <tr><td>i_type</td><td>b'0'</td></tr>
-<tr><td>ap0</td><td  port = "cell7">7</td></tr>
+<tr><td>ap0</td><td  port = "cell9">9</td></tr>
 <tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
@@ -143,7 +143,7 @@ inode7[label=<
 <table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
 <tr><td colspan="2">Inodo 7</td></tr>
 <tr><td>i_type</td><td>b'0'</td></tr>
-<tr><td>ap0</td><td  port = "cell8">8</td></tr>
+<tr><td>ap0</td><td  port = "cell10">10</td></tr>
 <tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
@@ -166,7 +166,7 @@ inode8[label=<
 <table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
 <tr><td colspan="2">Inodo 8</td></tr>
 <tr><td>i_type</td><td>b'0'</td></tr>
-<tr><td>ap0</td><td  port = "cell10">10</td></tr>
+<tr><td>ap0</td><td  port = "cell12">12</td></tr>
 <tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
@@ -189,7 +189,7 @@ inode9[label=<
 <table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
 <tr><td colspan="2">Inodo 9</td></tr>
 <tr><td>i_type</td><td>b'0'</td></tr>
-<tr><td>ap0</td><td  port = "cell11">11</td></tr>
+<tr><td>ap0</td><td  port = "cell13">13</td></tr>
 <tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
@@ -212,7 +212,7 @@ inode10[label=<
 <table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
 <tr><td colspan="2">Inodo 10</td></tr>
 <tr><td>i_type</td><td>b'0'</td></tr>
-<tr><td>ap0</td><td  port = "cell12">12</td></tr>
+<tr><td>ap0</td><td  port = "cell14">14</td></tr>
 <tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
@@ -235,7 +235,7 @@ inode11[label=<
 <table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
 <tr><td colspan="2">Inodo 11</td></tr>
 <tr><td>i_type</td><td>b'0'</td></tr>
-<tr><td>ap0</td><td  port = "cell13">13</td></tr>
+<tr><td>ap0</td><td  port = "cell15">15</td></tr>
 <tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
@@ -257,9 +257,9 @@ inode11[label=<
 inode12[label=<
 <table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
 <tr><td colspan="2">Inodo 12</td></tr>
-<tr><td>i_type</td><td>b'0'</td></tr>
-<tr><td>ap0</td><td  port = "cell15">15</td></tr>
-<tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
+<tr><td>i_type</td><td>b'1'</td></tr>
+<tr><td>ap0</td><td  port = "cell16">16</td></tr>
+<tr><td>ap1</td><td  port = "cell17">17</td></tr>
 <tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap4</td><td  port = "cell-1">-1</td></tr>
@@ -280,53 +280,7 @@ inode12[label=<
 inode13[label=<
 <table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
 <tr><td colspan="2">Inodo 13</td></tr>
-<tr><td>i_type</td><td>b'0'</td></tr>
-<tr><td>ap0</td><td  port = "cell16">16</td></tr>
-<tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap4</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap5</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap6</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap7</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap8</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap9</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap10</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap11</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap12</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap13</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap14</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap15</td><td  port = "cell-1">-1</td></tr>
-<tr><td>i_perm</td><td>664</td></tr>
-</table>
->]
-inode14[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
-<tr><td colspan="2">Inodo 14</td></tr>
-<tr><td>i_type</td><td>b'0'</td></tr>
-<tr><td>ap0</td><td  port = "cell17">17</td></tr>
-<tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap4</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap5</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap6</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap7</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap8</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap9</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap10</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap11</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap12</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap13</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap14</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap15</td><td  port = "cell-1">-1</td></tr>
-<tr><td>i_perm</td><td>664</td></tr>
-</table>
->]
-inode15[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
-<tr><td colspan="2">Inodo 15</td></tr>
-<tr><td>i_type</td><td>b'0'</td></tr>
+<tr><td>i_type</td><td>b'1'</td></tr>
 <tr><td>ap0</td><td  port = "cell18">18</td></tr>
 <tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
 <tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
@@ -346,420 +300,6 @@ inode15[label=<
 <tr><td>i_perm</td><td>664</td></tr>
 </table>
 >]
-inode16[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
-<tr><td colspan="2">Inodo 16</td></tr>
-<tr><td>i_type</td><td>b'0'</td></tr>
-<tr><td>ap0</td><td  port = "cell20">20</td></tr>
-<tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap4</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap5</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap6</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap7</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap8</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap9</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap10</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap11</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap12</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap13</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap14</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap15</td><td  port = "cell-1">-1</td></tr>
-<tr><td>i_perm</td><td>664</td></tr>
-</table>
->]
-inode17[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
-<tr><td colspan="2">Inodo 17</td></tr>
-<tr><td>i_type</td><td>b'0'</td></tr>
-<tr><td>ap0</td><td  port = "cell21">21</td></tr>
-<tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap4</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap5</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap6</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap7</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap8</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap9</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap10</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap11</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap12</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap13</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap14</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap15</td><td  port = "cell-1">-1</td></tr>
-<tr><td>i_perm</td><td>664</td></tr>
-</table>
->]
-inode18[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
-<tr><td colspan="2">Inodo 18</td></tr>
-<tr><td>i_type</td><td>b'0'</td></tr>
-<tr><td>ap0</td><td  port = "cell22">22</td></tr>
-<tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap4</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap5</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap6</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap7</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap8</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap9</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap10</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap11</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap12</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap13</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap14</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap15</td><td  port = "cell-1">-1</td></tr>
-<tr><td>i_perm</td><td>664</td></tr>
-</table>
->]
-inode19[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
-<tr><td colspan="2">Inodo 19</td></tr>
-<tr><td>i_type</td><td>b'0'</td></tr>
-<tr><td>ap0</td><td  port = "cell23">23</td></tr>
-<tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap4</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap5</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap6</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap7</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap8</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap9</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap10</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap11</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap12</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap13</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap14</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap15</td><td  port = "cell-1">-1</td></tr>
-<tr><td>i_perm</td><td>664</td></tr>
-</table>
->]
-inode20[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
-<tr><td colspan="2">Inodo 20</td></tr>
-<tr><td>i_type</td><td>b'0'</td></tr>
-<tr><td>ap0</td><td  port = "cell25">25</td></tr>
-<tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap4</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap5</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap6</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap7</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap8</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap9</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap10</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap11</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap12</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap13</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap14</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap15</td><td  port = "cell-1">-1</td></tr>
-<tr><td>i_perm</td><td>664</td></tr>
-</table>
->]
-inode21[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
-<tr><td colspan="2">Inodo 21</td></tr>
-<tr><td>i_type</td><td>b'0'</td></tr>
-<tr><td>ap0</td><td  port = "cell26">26</td></tr>
-<tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap4</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap5</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap6</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap7</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap8</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap9</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap10</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap11</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap12</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap13</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap14</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap15</td><td  port = "cell-1">-1</td></tr>
-<tr><td>i_perm</td><td>664</td></tr>
-</table>
->]
-inode22[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
-<tr><td colspan="2">Inodo 22</td></tr>
-<tr><td>i_type</td><td>b'0'</td></tr>
-<tr><td>ap0</td><td  port = "cell27">27</td></tr>
-<tr><td>ap1</td><td  port = "cell32">32</td></tr>
-<tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap4</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap5</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap6</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap7</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap8</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap9</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap10</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap11</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap12</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap13</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap14</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap15</td><td  port = "cell-1">-1</td></tr>
-<tr><td>i_perm</td><td>664</td></tr>
-</table>
->]
-inode23[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
-<tr><td colspan="2">Inodo 23</td></tr>
-<tr><td>i_type</td><td>b'0'</td></tr>
-<tr><td>ap0</td><td  port = "cell28">28</td></tr>
-<tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap4</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap5</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap6</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap7</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap8</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap9</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap10</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap11</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap12</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap13</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap14</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap15</td><td  port = "cell-1">-1</td></tr>
-<tr><td>i_perm</td><td>664</td></tr>
-</table>
->]
-inode24[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
-<tr><td colspan="2">Inodo 24</td></tr>
-<tr><td>i_type</td><td>b'0'</td></tr>
-<tr><td>ap0</td><td  port = "cell29">29</td></tr>
-<tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap4</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap5</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap6</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap7</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap8</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap9</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap10</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap11</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap12</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap13</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap14</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap15</td><td  port = "cell-1">-1</td></tr>
-<tr><td>i_perm</td><td>664</td></tr>
-</table>
->]
-inode25[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
-<tr><td colspan="2">Inodo 25</td></tr>
-<tr><td>i_type</td><td>b'0'</td></tr>
-<tr><td>ap0</td><td  port = "cell30">30</td></tr>
-<tr><td>ap1</td><td  port = "cell40">40</td></tr>
-<tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap4</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap5</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap6</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap7</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap8</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap9</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap10</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap11</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap12</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap13</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap14</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap15</td><td  port = "cell-1">-1</td></tr>
-<tr><td>i_perm</td><td>664</td></tr>
-</table>
->]
-inode26[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
-<tr><td colspan="2">Inodo 26</td></tr>
-<tr><td>i_type</td><td>b'0'</td></tr>
-<tr><td>ap0</td><td  port = "cell31">31</td></tr>
-<tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap4</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap5</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap6</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap7</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap8</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap9</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap10</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap11</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap12</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap13</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap14</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap15</td><td  port = "cell-1">-1</td></tr>
-<tr><td>i_perm</td><td>664</td></tr>
-</table>
->]
-inode27[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
-<tr><td colspan="2">Inodo 27</td></tr>
-<tr><td>i_type</td><td>b'0'</td></tr>
-<tr><td>ap0</td><td  port = "cell33">33</td></tr>
-<tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap4</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap5</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap6</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap7</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap8</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap9</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap10</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap11</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap12</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap13</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap14</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap15</td><td  port = "cell-1">-1</td></tr>
-<tr><td>i_perm</td><td>664</td></tr>
-</table>
->]
-inode28[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
-<tr><td colspan="2">Inodo 28</td></tr>
-<tr><td>i_type</td><td>b'0'</td></tr>
-<tr><td>ap0</td><td  port = "cell34">34</td></tr>
-<tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap4</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap5</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap6</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap7</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap8</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap9</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap10</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap11</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap12</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap13</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap14</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap15</td><td  port = "cell-1">-1</td></tr>
-<tr><td>i_perm</td><td>664</td></tr>
-</table>
->]
-inode29[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
-<tr><td colspan="2">Inodo 29</td></tr>
-<tr><td>i_type</td><td>b'0'</td></tr>
-<tr><td>ap0</td><td  port = "cell35">35</td></tr>
-<tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap4</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap5</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap6</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap7</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap8</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap9</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap10</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap11</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap12</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap13</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap14</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap15</td><td  port = "cell-1">-1</td></tr>
-<tr><td>i_perm</td><td>664</td></tr>
-</table>
->]
-inode30[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
-<tr><td colspan="2">Inodo 30</td></tr>
-<tr><td>i_type</td><td>b'0'</td></tr>
-<tr><td>ap0</td><td  port = "cell36">36</td></tr>
-<tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap4</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap5</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap6</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap7</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap8</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap9</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap10</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap11</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap12</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap13</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap14</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap15</td><td  port = "cell-1">-1</td></tr>
-<tr><td>i_perm</td><td>664</td></tr>
-</table>
->]
-inode31[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
-<tr><td colspan="2">Inodo 31</td></tr>
-<tr><td>i_type</td><td>b'0'</td></tr>
-<tr><td>ap0</td><td  port = "cell37">37</td></tr>
-<tr><td>ap1</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap4</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap5</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap6</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap7</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap8</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap9</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap10</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap11</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap12</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap13</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap14</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap15</td><td  port = "cell-1">-1</td></tr>
-<tr><td>i_perm</td><td>664</td></tr>
-</table>
->]
-inode32[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
-<tr><td colspan="2">Inodo 32</td></tr>
-<tr><td>i_type</td><td>b'1'</td></tr>
-<tr><td>ap0</td><td  port = "cell38">38</td></tr>
-<tr><td>ap1</td><td  port = "cell39">39</td></tr>
-<tr><td>ap2</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap3</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap4</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap5</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap6</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap7</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap8</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap9</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap10</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap11</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap12</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap13</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap14</td><td  port = "cell-1">-1</td></tr>
-<tr><td>ap15</td><td  port = "cell-1">-1</td></tr>
-<tr><td>i_perm</td><td>664</td></tr>
-</table>
->]
-inode33[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#E850FF">
-<tr><td colspan="2">Inodo 33</td></tr>
-<tr><td>i_type</td><td>b'1'</td></tr>
-<tr><td>ap0</td><td  port = "cell41">41</td></tr>
-<tr><td>ap1</td><td  port = "cell42">42</td></tr>
-<tr><td>ap2</td><td  port = "cell43">43</td></tr>
-<tr><td>ap3</td><td  port = "cell44">44</td></tr>
-<tr><td>ap4</td><td  port = "cell45">45</td></tr>
-<tr><td>ap5</td><td  port = "cell46">46</td></tr>
-<tr><td>ap6</td><td  port = "cell47">47</td></tr>
-<tr><td>ap7</td><td  port = "cell48">48</td></tr>
-<tr><td>ap8</td><td  port = "cell49">49</td></tr>
-<tr><td>ap9</td><td  port = "cell50">50</td></tr>
-<tr><td>ap10</td><td  port = "cell51">51</td></tr>
-<tr><td>ap11</td><td  port = "cell52">52</td></tr>
-<tr><td>ap12</td><td  port = "cell53">53</td></tr>
-<tr><td>ap13</td><td  port = "cell54">54</td></tr>
-<tr><td>ap14</td><td  port = "cell55">55</td></tr>
-<tr><td>ap15</td><td  port = "cell56">56</td></tr>
-<tr><td>i_perm</td><td>664</td></tr>
-</table>
->]
 block1[label=<
 <table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
 <tr><td colspan="2">Bloque Carpeta 1</td></tr>
@@ -773,9 +313,9 @@ block1[label=<
 <td port = "in3">3</td></tr>
 </table>
 >]
-block4[label=<
+block6[label=<
 <table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
-<tr><td colspan="2">Bloque Carpeta 4</td></tr>
+<tr><td colspan="2">Bloque Carpeta 6</td></tr>
 <tr><td>boot</td>
 <td port = "in4">4</td></tr>
 <tr><td>cdrom</td>
@@ -786,65 +326,13 @@ block4[label=<
 <td port = "in7">7</td></tr>
 </table>
 >]
-block9[label=<
+block11[label=<
 <table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
-<tr><td colspan="2">Bloque Carpeta 9</td></tr>
+<tr><td colspan="2">Bloque Carpeta 11</td></tr>
 <tr><td>home</td>
 <td port = "in8">8</td></tr>
-<tr><td>lib</td>
-<td port = "in9">9</td></tr>
-<tr><td>lib64</td>
-<td port = "in10">10</td></tr>
-<tr><td>media</td>
-<td port = "in11">11</td></tr>
-</table>
->]
-block14[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
-<tr><td colspan="2">Bloque Carpeta 14</td></tr>
-<tr><td>mnt</td>
-<td port = "in12">12</td></tr>
-<tr><td>opt</td>
-<td port = "in13">13</td></tr>
-<tr><td>proc</td>
-<td port = "in14">14</td></tr>
-<tr><td>run</td>
-<td port = "in15">15</td></tr>
-</table>
->]
-block19[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
-<tr><td colspan="2">Bloque Carpeta 19</td></tr>
-<tr><td>sbin</td>
-<td port = "in16">16</td></tr>
-<tr><td>snap</td>
-<td port = "in17">17</td></tr>
-<tr><td>srv</td>
-<td port = "in18">18</td></tr>
-<tr><td>sys</td>
-<td port = "in19">19</td></tr>
-</table>
->]
-block24[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
-<tr><td colspan="2">Bloque Carpeta 24</td></tr>
-<tr><td>tmp</td>
-<td port = "in20">20</td></tr>
-<tr><td>var</td>
-<td port = "in21">21</td></tr>
 <tr><td></td>
 <td port = "in-1">-1</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-</table>
->]
-block3[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
-<tr><td colspan="2">Bloque Carpeta 3</td></tr>
-<tr><td>.</td>
-<td port = "in0">0</td></tr>
-<tr><td>..</td>
-<td port = "in0">0</td></tr>
 <tr><td></td>
 <td port = "in-1">-1</td></tr>
 <tr><td></td>
@@ -854,19 +342,6 @@ block3[label=<
 block5[label=<
 <table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
 <tr><td colspan="2">Bloque Carpeta 5</td></tr>
-<tr><td>.</td>
-<td port = "in0">0</td></tr>
-<tr><td>..</td>
-<td port = "in0">0</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-</table>
->]
-block6[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
-<tr><td colspan="2">Bloque Carpeta 6</td></tr>
 <tr><td>.</td>
 <td port = "in0">0</td></tr>
 <tr><td>..</td>
@@ -903,22 +378,22 @@ block8[label=<
 <td port = "in-1">-1</td></tr>
 </table>
 >]
-block10[label=<
+block9[label=<
 <table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
-<tr><td colspan="2">Bloque Carpeta 10</td></tr>
+<tr><td colspan="2">Bloque Carpeta 9</td></tr>
 <tr><td>.</td>
 <td port = "in0">0</td></tr>
 <tr><td>..</td>
 <td port = "in0">0</td></tr>
-<tr><td>archivos</td>
-<td port = "in22">22</td></tr>
+<tr><td></td>
+<td port = "in-1">-1</td></tr>
 <tr><td></td>
 <td port = "in-1">-1</td></tr>
 </table>
 >]
-block11[label=<
+block10[label=<
 <table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
-<tr><td colspan="2">Bloque Carpeta 11</td></tr>
+<tr><td colspan="2">Bloque Carpeta 10</td></tr>
 <tr><td>.</td>
 <td port = "in0">0</td></tr>
 <tr><td>..</td>
@@ -936,8 +411,8 @@ block12[label=<
 <td port = "in0">0</td></tr>
 <tr><td>..</td>
 <td port = "in0">0</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
+<tr><td>archivos</td>
+<td port = "in9">9</td></tr>
 <tr><td></td>
 <td port = "in-1">-1</td></tr>
 </table>
@@ -949,8 +424,21 @@ block13[label=<
 <td port = "in0">0</td></tr>
 <tr><td>..</td>
 <td port = "in0">0</td></tr>
+<tr><td>user</td>
+<td port = "in10">10</td></tr>
 <tr><td></td>
 <td port = "in-1">-1</td></tr>
+</table>
+>]
+block14[label=<
+<table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
+<tr><td colspan="2">Bloque Carpeta 14</td></tr>
+<tr><td>.</td>
+<td port = "in0">0</td></tr>
+<tr><td>..</td>
+<td port = "in0">0</td></tr>
+<tr><td>docs</td>
+<td port = "in11">11</td></tr>
 <tr><td></td>
 <td port = "in-1">-1</td></tr>
 </table>
@@ -962,283 +450,10 @@ block15[label=<
 <td port = "in0">0</td></tr>
 <tr><td>..</td>
 <td port = "in0">0</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-</table>
->]
-block16[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
-<tr><td colspan="2">Bloque Carpeta 16</td></tr>
-<tr><td>.</td>
-<td port = "in0">0</td></tr>
-<tr><td>..</td>
-<td port = "in0">0</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-</table>
->]
-block17[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
-<tr><td colspan="2">Bloque Carpeta 17</td></tr>
-<tr><td>.</td>
-<td port = "in0">0</td></tr>
-<tr><td>..</td>
-<td port = "in0">0</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-</table>
->]
-block18[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
-<tr><td colspan="2">Bloque Carpeta 18</td></tr>
-<tr><td>.</td>
-<td port = "in0">0</td></tr>
-<tr><td>..</td>
-<td port = "in0">0</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-</table>
->]
-block20[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
-<tr><td colspan="2">Bloque Carpeta 20</td></tr>
-<tr><td>.</td>
-<td port = "in0">0</td></tr>
-<tr><td>..</td>
-<td port = "in0">0</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-</table>
->]
-block21[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
-<tr><td colspan="2">Bloque Carpeta 21</td></tr>
-<tr><td>.</td>
-<td port = "in0">0</td></tr>
-<tr><td>..</td>
-<td port = "in0">0</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-</table>
->]
-block22[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
-<tr><td colspan="2">Bloque Carpeta 22</td></tr>
-<tr><td>.</td>
-<td port = "in0">0</td></tr>
-<tr><td>..</td>
-<td port = "in0">0</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-</table>
->]
-block23[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
-<tr><td colspan="2">Bloque Carpeta 23</td></tr>
-<tr><td>.</td>
-<td port = "in0">0</td></tr>
-<tr><td>..</td>
-<td port = "in0">0</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-</table>
->]
-block25[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
-<tr><td colspan="2">Bloque Carpeta 25</td></tr>
-<tr><td>.</td>
-<td port = "in0">0</td></tr>
-<tr><td>..</td>
-<td port = "in0">0</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-</table>
->]
-block26[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
-<tr><td colspan="2">Bloque Carpeta 26</td></tr>
-<tr><td>.</td>
-<td port = "in0">0</td></tr>
-<tr><td>..</td>
-<td port = "in0">0</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-</table>
->]
-block27[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
-<tr><td colspan="2">Bloque Carpeta 27</td></tr>
-<tr><td>.</td>
-<td port = "in0">0</td></tr>
-<tr><td>..</td>
-<td port = "in0">0</td></tr>
-<tr><td>archivos 19</td>
-<td port = "in23">23</td></tr>
-<tr><td>user</td>
-<td port = "in24">24</td></tr>
-</table>
->]
-block32[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
-<tr><td colspan="2">Bloque Carpeta 32</td></tr>
-<tr><td>carpeta1</td>
-<td port = "in27">27</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-</table>
->]
-block28[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
-<tr><td colspan="2">Bloque Carpeta 28</td></tr>
-<tr><td>.</td>
-<td port = "in0">0</td></tr>
-<tr><td>..</td>
-<td port = "in0">0</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-</table>
->]
-block29[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
-<tr><td colspan="2">Bloque Carpeta 29</td></tr>
-<tr><td>.</td>
-<td port = "in0">0</td></tr>
-<tr><td>..</td>
-<td port = "in0">0</td></tr>
-<tr><td>docs</td>
-<td port = "in25">25</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-</table>
->]
-block30[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
-<tr><td colspan="2">Bloque Carpeta 30</td></tr>
-<tr><td>.</td>
-<td port = "in0">0</td></tr>
-<tr><td>..</td>
-<td port = "in0">0</td></tr>
-<tr><td>usac</td>
-<td port = "in26">26</td></tr>
-<tr><td>Tarea.txt</td>
-<td port = "in32">32</td></tr>
-</table>
->]
-block40[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
-<tr><td colspan="2">Bloque Carpeta 40</td></tr>
-<tr><td>Tarea2.txt</td>
-<td port = "in33">33</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-</table>
->]
-block31[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
-<tr><td colspan="2">Bloque Carpeta 31</td></tr>
-<tr><td>.</td>
-<td port = "in0">0</td></tr>
-<tr><td>..</td>
-<td port = "in0">0</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-</table>
->]
-block33[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
-<tr><td colspan="2">Bloque Carpeta 33</td></tr>
-<tr><td>.</td>
-<td port = "in0">0</td></tr>
-<tr><td>..</td>
-<td port = "in0">0</td></tr>
-<tr><td>carpeta2</td>
-<td port = "in28">28</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-</table>
->]
-block34[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
-<tr><td colspan="2">Bloque Carpeta 34</td></tr>
-<tr><td>.</td>
-<td port = "in0">0</td></tr>
-<tr><td>..</td>
-<td port = "in0">0</td></tr>
-<tr><td>carpeta3</td>
-<td port = "in29">29</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-</table>
->]
-block35[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
-<tr><td colspan="2">Bloque Carpeta 35</td></tr>
-<tr><td>.</td>
-<td port = "in0">0</td></tr>
-<tr><td>..</td>
-<td port = "in0">0</td></tr>
-<tr><td>carpeta4</td>
-<td port = "in30">30</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-</table>
->]
-block36[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
-<tr><td colspan="2">Bloque Carpeta 36</td></tr>
-<tr><td>.</td>
-<td port = "in0">0</td></tr>
-<tr><td>..</td>
-<td port = "in0">0</td></tr>
-<tr><td>carpeta5</td>
-<td port = "in31">31</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-</table>
->]
-block37[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#00F9CF">
-<tr><td colspan="2">Bloque Carpeta 37</td></tr>
-<tr><td>.</td>
-<td port = "in0">0</td></tr>
-<tr><td>..</td>
-<td port = "in0">0</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
-<tr><td></td>
-<td port = "in-1">-1</td></tr>
+<tr><td>Tarea3.txt</td>
+<td port = "in12">12</td></tr>
+<tr><td>Tarea1.txt</td>
+<td port = "in13">13</td></tr>
 </table>
 >]
 block2[label=<
@@ -1246,203 +461,84 @@ block2[label=<
 <tr><td colspan="2">Bloque Archivo 2</td></tr>
 <tr><td>b_content</td><td>1,G,root
 1,U,root,root,123
+2,G,usuarios
+3,G,adm
+4,G,users
+0,G,es</td></tr>
+</table>
+>]
+block3[label=<
+<table border="0" cellborder="1" cellspacing="0" bgcolor="#F9D800">
+<tr><td colspan="2">Bloque Archivo 3</td></tr>
+<tr><td>b_content</td><td>tudiantes
+2,U,usuarios,noel,123
+3,U,adm,carlos,123
+0,U,users,art</td></tr>
+</table>
+>]
+block4[label=<
+<table border="0" cellborder="1" cellspacing="0" bgcolor="#F9D800">
+<tr><td colspan="2">Bloque Archivo 4</td></tr>
+<tr><td>b_content</td><td>uro,dark
+1,U,users,hany,galletas
+2,U,users,osmar,123
+3,U,users,l</td></tr>
+</table>
+>]
+block19[label=<
+<table border="0" cellborder="1" cellspacing="0" bgcolor="#F9D800">
+<tr><td colspan="2">Bloque Archivo 19</td></tr>
+<tr><td>b_content</td><td>eonor,123
 </td></tr>
 </table>
 >]
-block38[label=<
+block16[label=<
 <table border="0" cellborder="1" cellspacing="0" bgcolor="#F9D800">
-<tr><td colspan="2">Bloque Archivo 38</td></tr>
+<tr><td colspan="2">Bloque Archivo 16</td></tr>
 <tr><td>b_content</td><td>0123456789012345678901234567890123456789012345678901234567890123</td></tr>
 </table>
 >]
-block39[label=<
+block17[label=<
 <table border="0" cellborder="1" cellspacing="0" bgcolor="#F9D800">
-<tr><td colspan="2">Bloque Archivo 39</td></tr>
-<tr><td>b_content</td><td>456789012345</td></tr>
+<tr><td colspan="2">Bloque Archivo 17</td></tr>
+<tr><td>b_content</td><td>4567890123456789012345678901234567890</td></tr>
 </table>
 >]
-block41[label=<
+block18[label=<
 <table border="0" cellborder="1" cellspacing="0" bgcolor="#F9D800">
-<tr><td colspan="2">Bloque Archivo 41</td></tr>
-<tr><td>b_content</td><td>0123456789012345678901234567890123456789012345678901234567890123</td></tr>
-</table>
->]
-block42[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#F9D800">
-<tr><td colspan="2">Bloque Archivo 42</td></tr>
-<tr><td>b_content</td><td>4567890123456789012345678901234567890123456789012345678901234567</td></tr>
-</table>
->]
-block43[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#F9D800">
-<tr><td colspan="2">Bloque Archivo 43</td></tr>
-<tr><td>b_content</td><td>8901234567890123456789012345678901234567890123456789012345678901</td></tr>
-</table>
->]
-block44[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#F9D800">
-<tr><td colspan="2">Bloque Archivo 44</td></tr>
-<tr><td>b_content</td><td>2345678901234567890123456789012345678901234567890123456789012345</td></tr>
-</table>
->]
-block45[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#F9D800">
-<tr><td colspan="2">Bloque Archivo 45</td></tr>
-<tr><td>b_content</td><td>6789012345678901234567890123456789012345678901234567890123456789</td></tr>
-</table>
->]
-block46[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#F9D800">
-<tr><td colspan="2">Bloque Archivo 46</td></tr>
-<tr><td>b_content</td><td>0123456789012345678901234567890123456789012345678901234567890123</td></tr>
-</table>
->]
-block47[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#F9D800">
-<tr><td colspan="2">Bloque Archivo 47</td></tr>
-<tr><td>b_content</td><td>4567890123456789012345678901234567890123456789012345678901234567</td></tr>
-</table>
->]
-block48[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#F9D800">
-<tr><td colspan="2">Bloque Archivo 48</td></tr>
-<tr><td>b_content</td><td>8901234567890123456789012345678901234567890123456789012345678901</td></tr>
-</table>
->]
-block49[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#F9D800">
-<tr><td colspan="2">Bloque Archivo 49</td></tr>
-<tr><td>b_content</td><td>2345678901234567890123456789012345678901234567890123456789012345</td></tr>
-</table>
->]
-block50[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#F9D800">
-<tr><td colspan="2">Bloque Archivo 50</td></tr>
-<tr><td>b_content</td><td>6789012345678901234567890123456789012345678901234567890123456789</td></tr>
-</table>
->]
-block51[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#F9D800">
-<tr><td colspan="2">Bloque Archivo 51</td></tr>
-<tr><td>b_content</td><td>0123456789012345678901234567890123456789012345678901234567890123</td></tr>
-</table>
->]
-block52[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#F9D800">
-<tr><td colspan="2">Bloque Archivo 52</td></tr>
-<tr><td>b_content</td><td>4567890123456789012345678901234567890123456789012345678901234567</td></tr>
-</table>
->]
-block53[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#F9D800">
-<tr><td colspan="2">Bloque Archivo 53</td></tr>
-<tr><td>b_content</td><td>8901234567890123456789012345678901234567890123456789012345678901</td></tr>
-</table>
->]
-block54[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#F9D800">
-<tr><td colspan="2">Bloque Archivo 54</td></tr>
-<tr><td>b_content</td><td>2345678901234567890123456789012345678901234567890123456789012345</td></tr>
-</table>
->]
-block55[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#F9D800">
-<tr><td colspan="2">Bloque Archivo 55</td></tr>
-<tr><td>b_content</td><td>6789012345678901234567890123456789012345678901234567890123456789</td></tr>
-</table>
->]
-block56[label=<
-<table border="0" cellborder="1" cellspacing="0" bgcolor="#F9D800">
-<tr><td colspan="2">Bloque Archivo 56</td></tr>
-<tr><td>b_content</td><td>0123456789012345678901234567890123456789012345678901234567890123</td></tr>
+<tr><td colspan="2">Bloque Archivo 18</td></tr>
+<tr><td>b_content</td><td>0123456789012345678901234567890</td></tr>
 </table>
 >]
 inode1:cell1->block1
-inode1:cell4->block4
-inode1:cell9->block9
-inode1:cell14->block14
-inode1:cell19->block19
-inode1:cell24->block24
+inode1:cell6->block6
+inode1:cell11->block11
 inode2:cell2->block2
-inode3:cell3->block3
-inode4:cell5->block5
-inode5:cell6->block6
-inode6:cell7->block7
-inode7:cell8->block8
-inode8:cell10->block10
-inode9:cell11->block11
-inode10:cell12->block12
-inode11:cell13->block13
-inode12:cell15->block15
-inode13:cell16->block16
-inode14:cell17->block17
-inode15:cell18->block18
-inode16:cell20->block20
-inode17:cell21->block21
-inode18:cell22->block22
-inode19:cell23->block23
-inode20:cell25->block25
-inode21:cell26->block26
-inode22:cell27->block27
-inode22:cell32->block32
-inode23:cell28->block28
-inode24:cell29->block29
-inode25:cell30->block30
-inode25:cell40->block40
-inode26:cell31->block31
-inode27:cell33->block33
-inode28:cell34->block34
-inode29:cell35->block35
-inode30:cell36->block36
-inode31:cell37->block37
-inode32:cell38->block38
-inode32:cell39->block39
-inode33:cell41->block41
-inode33:cell42->block42
-inode33:cell43->block43
-inode33:cell44->block44
-inode33:cell45->block45
-inode33:cell46->block46
-inode33:cell47->block47
-inode33:cell48->block48
-inode33:cell49->block49
-inode33:cell50->block50
-inode33:cell51->block51
-inode33:cell52->block52
-inode33:cell53->block53
-inode33:cell54->block54
-inode33:cell55->block55
-inode33:cell56->block56
+inode2:cell3->block3
+inode2:cell4->block4
+inode2:cell19->block19
+inode3:cell5->block5
+inode4:cell7->block7
+inode5:cell8->block8
+inode6:cell9->block9
+inode7:cell10->block10
+inode8:cell12->block12
+inode9:cell13->block13
+inode10:cell14->block14
+inode11:cell15->block15
+inode12:cell16->block16
+inode12:cell17->block17
+inode13:cell18->block18
 block1:in2->inode2
 block1:in3->inode3
-block4:in4->inode4
-block4:in5->inode5
-block4:in6->inode6
-block4:in7->inode7
-block9:in8->inode8
-block9:in9->inode9
-block9:in10->inode10
-block9:in11->inode11
-block14:in12->inode12
-block14:in13->inode13
-block14:in14->inode14
-block14:in15->inode15
-block19:in16->inode16
-block19:in17->inode17
-block19:in18->inode18
-block19:in19->inode19
-block24:in20->inode20
-block24:in21->inode21
-block10:in22->inode22
-block27:in23->inode23
-block27:in24->inode24
-block32:in27->inode27
-block29:in25->inode25
-block30:in26->inode26
-block30:in32->inode32
-block40:in33->inode33
-block33:in28->inode28
-block34:in29->inode29
-block35:in30->inode30
-block36:in31->inode31
+block6:in4->inode4
+block6:in5->inode5
+block6:in6->inode6
+block6:in7->inode7
+block11:in8->inode8
+block12:in9->inode9
+block13:in10->inode10
+block14:in11->inode11
+block15:in12->inode12
+block15:in13->inode13
 }

@@ -44,7 +44,7 @@ class mkfile:
         id = log.getId()[len(log.getId())-1]
         userlogued = log.getUserLogued()[len(log.getUserLogued())-1]
         user = log.getUser()[len(log.getUser())-1]
-        print(id,userlogued,user)
+        #print(id,userlogued,user)
         if userlogued and id!= "":
             format_mbr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
             format_ebr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s"
@@ -167,13 +167,15 @@ class mkfile:
                         
                         cont += 1
                 print("**********************************ARCHIVO**********************************")
-                self.showBlocks(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2])
+                #self.showBlocks(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2])
                 print("Archivo creado")
 
 
     def searchInode(self,bm_inodes,bm_blocks,start_inodes,start_blocks,inode_size,block_size,index,folder):
         format_i = "I I I I I I 16i c I"
         format_b_folder = "12s i 12s i 12s i 12s i"
+        format_pointers = "16i"
+        block_p = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
         with open(self.path_mount,"rb+") as f:
             if index != 0:
                 index = index - 1 
@@ -181,7 +183,7 @@ class mkfile:
             f.seek(start_inodes+(struct.calcsize(format_i)*(index)))
             inode_unpack = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
             #inode_unpack = list(inode_unpack)
-            print(inode_unpack,"INODO PADRE")
+            #print(inode_unpack,"INODO PADRE")
             i_block = inode_unpack[6:22]
             inode_unpack = list(inode_unpack)
             
@@ -189,148 +191,350 @@ class mkfile:
             for i in i_block:
                 if i != -1:
                     i = i-1
-                    f.seek(start_blocks+(struct.calcsize(format_b_folder)*i))
-                    block_unpack = struct.unpack(format_b_folder,f.read(struct.calcsize(format_b_folder)))
-                    block_unpack = list(block_unpack)
-                    if block_unpack[0].decode('utf-8').rstrip("\x00") == folder:
-                        return block_unpack[1]
-                    elif block_unpack[2].decode('utf-8').rstrip("\x00") == folder:
-                        return block_unpack[3]
-                    elif block_unpack[4].decode('utf-8').rstrip("\x00") == folder:
-                        return block_unpack[5]
-                    elif block_unpack[6].decode('utf-8').rstrip("\x00") == folder:
-                        return block_unpack[7]
-                    elif block_unpack[0].decode('utf-8').rstrip("\x00") == "":
-                        f.seek(bm_inodes)
-                        inode_pointer = self.getIndexInode(f.read(inode_size))
-                        block_unpack[0] = folder.encode('utf-8')
-                        block_unpack[1] = inode_pointer
+                    if cont < 13:
                         f.seek(start_blocks+(struct.calcsize(format_b_folder)*i))
-                        f.write(struct.pack(format_b_folder,block_unpack[0],block_unpack[1],block_unpack[2],block_unpack[3],block_unpack[4],block_unpack[5],block_unpack[6],block_unpack[7]))
+                        block_unpack = struct.unpack(format_b_folder,f.read(struct.calcsize(format_b_folder)))
+                        block_unpack = list(block_unpack)
+                        if block_unpack[0].decode('utf-8').rstrip("\x00") == folder:
+                            return block_unpack[1]
+                        elif block_unpack[2].decode('utf-8').rstrip("\x00") == folder:
+                            return block_unpack[3]
+                        elif block_unpack[4].decode('utf-8').rstrip("\x00") == folder:
+                            return block_unpack[5]
+                        elif block_unpack[6].decode('utf-8').rstrip("\x00") == folder:
+                            return block_unpack[7]
+                        elif block_unpack[0].decode('utf-8').rstrip("\x00") == "":
+                            f.seek(bm_inodes)
+                            inode_pointer = self.getIndexInode(f.read(inode_size))
+                            block_unpack[0] = folder.encode('utf-8')
+                            block_unpack[1] = inode_pointer
+                            f.seek(start_blocks+(struct.calcsize(format_b_folder)*i))
+                            f.write(struct.pack(format_b_folder,block_unpack[0],block_unpack[1],block_unpack[2],block_unpack[3],block_unpack[4],block_unpack[5],block_unpack[6],block_unpack[7]))
+                            
+                            f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
+                            f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                            f.seek(bm_inodes+(inode_pointer-1))
+                            f.write(b'1')
+                            f.seek(bm_blocks)
+                            block_pointer = self.getIndexBock(f.read(block_size))
+                            f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_pointer-1)))
+                            f.write(struct.pack(format_b_folder,b'.',0,b'..',0,b'',-1,b'',-1))
+                            f.seek(bm_blocks+(block_pointer-1))
+                            f.write(b'1')
+                            f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
+                            f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                            f.seek(bm_inodes)
+                            inode_pointer = self.getIndexInode(f.read(inode_size))
+                            return inode_pointer - 1
+                        elif block_unpack[2].decode('utf-8').rstrip("\x00") == "":
+                            f.seek(bm_inodes)
+                            inode_pointer = self.getIndexInode(f.read(inode_size))
+                            block_unpack[2] = folder.encode('utf-8')
+                            block_unpack[3] = inode_pointer
+                            f.seek(start_blocks+(struct.calcsize(format_b_folder)*i))
+                            f.write(struct.pack(format_b_folder,block_unpack[0],block_unpack[1],block_unpack[2],block_unpack[3],block_unpack[4],block_unpack[5],block_unpack[6],block_unpack[7]))
+                            f.seek(bm_inodes+(inode_pointer-1))
+                            f.write(b'1')
+                            f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
+                            f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                            f.seek(bm_blocks)
+                            block_pointer = self.getIndexBock(f.read(block_size))
+                            f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_pointer-1)))
+                            f.write(struct.pack(format_b_folder,b'.',0,b'..',0,b'',-1,b'',-1))
+                            f.seek(bm_blocks+(block_pointer-1))
+                            f.write(b'1')
+                            f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
+                            f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                            f.seek(bm_inodes)
+                            inode_pointer = self.getIndexInode(f.read(inode_size))
+                            return inode_pointer - 1
+                        elif block_unpack[4].decode('utf-8').rstrip("\x00") == "":
+                            f.seek(bm_inodes)
+                            inode_pointer = self.getIndexInode(f.read(inode_size))
+                            block_unpack[4] = folder.encode('utf-8')
+                            block_unpack[5] = inode_pointer
+                            f.seek(start_blocks+(struct.calcsize(format_b_folder)*i))
+                            f.write(struct.pack(format_b_folder,block_unpack[0],block_unpack[1],block_unpack[2],block_unpack[3],block_unpack[4],block_unpack[5],block_unpack[6],block_unpack[7]))
+                            f.seek(bm_inodes+(inode_pointer-1))
+                            f.write(b'1')
+                            f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
+                            f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                            f.seek(bm_blocks)
+                            block_pointer = self.getIndexBock(f.read(block_size))
+                            f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_pointer-1)))
+                            f.write(struct.pack(format_b_folder,b'.',0,b'..',0,b'',-1,b'',-1))
+                            f.seek(bm_blocks+(block_pointer-1))
+                            f.write(b'1')
+                            f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
+                            f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                            f.seek(bm_inodes)
+                            inode_pointer = self.getIndexInode(f.read(inode_size))
+                            return inode_pointer - 1
+                        elif block_unpack[6].decode('utf-8').rstrip("\x00") == "":
+                            print("Aqui debe estr el home")
+                            f.seek(bm_inodes)
+                            inode_pointer = self.getIndexInode(f.read(inode_size))
+                            block_unpack[6] = folder.encode('utf-8')
+                            block_unpack[7] = inode_pointer
+                            f.seek(start_blocks+(struct.calcsize(format_b_folder)*i))
+                            #print(start_blocks+(block_size*i),"bloque de carpeta")
+                            f.write(struct.pack(format_b_folder,block_unpack[0],block_unpack[1],block_unpack[2],block_unpack[3],block_unpack[4],block_unpack[5],block_unpack[6],block_unpack[7]))
+                            f.seek(bm_inodes+(inode_pointer-1))
+                            f.write(b'1')
+                            f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
+                            #print(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
+                            f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                            f.seek(bm_blocks)
+                            block_pointer = self.getIndexBock(f.read(block_size))
+                            f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_pointer-1)))
+                            #print(start_blocks+(block_size*block_pointer-1),"bloque de carpeta . . . ")
+                            f.write(struct.pack(format_b_folder,b'.',0,b'..',0,b'',-1,b'',-1))
+                            f.seek(bm_blocks+(block_pointer-1))
+                            f.write(b'1')
+                            f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
+                            print(block_pointer)
+                            print(f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664)))
                         
-                        f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
-                        f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
-                        f.seek(bm_inodes+(inode_pointer-1))
-                        f.write(b'1')
-                        f.seek(bm_blocks)
-                        block_pointer = self.getIndexBock(f.read(block_size))
-                        f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_pointer-1)))
-                        f.write(struct.pack(format_b_folder,b'.',0,b'..',0,b'',-1,b'',-1))
-                        f.seek(bm_blocks+(block_pointer-1))
-                        f.write(b'1')
-                        f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
-                        f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
-                        f.seek(bm_inodes)
-                        inode_pointer = self.getIndexInode(f.read(inode_size))
-                        return inode_pointer - 1
-                    elif block_unpack[2].decode('utf-8').rstrip("\x00") == "":
-                        f.seek(bm_inodes)
-                        inode_pointer = self.getIndexInode(f.read(inode_size))
-                        block_unpack[2] = folder.encode('utf-8')
-                        block_unpack[3] = inode_pointer
+                            f.seek(bm_inodes)
+                            inode_pointer = self.getIndexInode(f.read(inode_size))
+                            print(inode_pointer)
+                            return inode_pointer - 1
+                    elif cont >= 13:
                         f.seek(start_blocks+(struct.calcsize(format_b_folder)*i))
-                        f.write(struct.pack(format_b_folder,block_unpack[0],block_unpack[1],block_unpack[2],block_unpack[3],block_unpack[4],block_unpack[5],block_unpack[6],block_unpack[7]))
-                        f.seek(bm_inodes+(inode_pointer-1))
-                        f.write(b'1')
-                        f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
-                        f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
-                        f.seek(bm_blocks)
-                        block_pointer = self.getIndexBock(f.read(block_size))
-                        f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_pointer-1)))
-                        f.write(struct.pack(format_b_folder,b'.',0,b'..',0,b'',-1,b'',-1))
-                        f.seek(bm_blocks+(block_pointer-1))
-                        f.write(b'1')
-                        f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
-                        f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
-                        f.seek(bm_inodes)
-                        inode_pointer = self.getIndexInode(f.read(inode_size))
-                        return inode_pointer - 1
-                    elif block_unpack[4].decode('utf-8').rstrip("\x00") == "":
-                        f.seek(bm_inodes)
-                        inode_pointer = self.getIndexInode(f.read(inode_size))
-                        block_unpack[4] = folder.encode('utf-8')
-                        block_unpack[5] = inode_pointer
-                        f.seek(start_blocks+(struct.calcsize(format_b_folder)*i))
-                        f.write(struct.pack(format_b_folder,block_unpack[0],block_unpack[1],block_unpack[2],block_unpack[3],block_unpack[4],block_unpack[5],block_unpack[6],block_unpack[7]))
-                        f.seek(bm_inodes+(inode_pointer-1))
-                        f.write(b'1')
-                        f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
-                        f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
-                        f.seek(bm_blocks)
-                        block_pointer = self.getIndexBock(f.read(block_size))
-                        f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_pointer-1)))
-                        f.write(struct.pack(format_b_folder,b'.',0,b'..',0,b'',-1,b'',-1))
-                        f.seek(bm_blocks+(block_pointer-1))
-                        f.write(b'1')
-                        f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
-                        f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
-                        f.seek(bm_inodes)
-                        inode_pointer = self.getIndexInode(f.read(inode_size))
-                        return inode_pointer - 1
-                    elif block_unpack[6].decode('utf-8').rstrip("\x00") == "":
-                        print("Aqui debe estr el home")
-                        f.seek(bm_inodes)
-                        inode_pointer = self.getIndexInode(f.read(inode_size))
-                        block_unpack[6] = folder.encode('utf-8')
-                        block_unpack[7] = inode_pointer
-                        f.seek(start_blocks+(struct.calcsize(format_b_folder)*i))
-                        #print(start_blocks+(block_size*i),"bloque de carpeta")
-                        f.write(struct.pack(format_b_folder,block_unpack[0],block_unpack[1],block_unpack[2],block_unpack[3],block_unpack[4],block_unpack[5],block_unpack[6],block_unpack[7]))
-                        f.seek(bm_inodes+(inode_pointer-1))
-                        f.write(b'1')
-                        f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
-                        #print(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
-                        f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
-                        f.seek(bm_blocks)
-                        block_pointer = self.getIndexBock(f.read(block_size))
-                        f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_pointer-1)))
-                        #print(start_blocks+(block_size*block_pointer-1),"bloque de carpeta . . . ")
-                        f.write(struct.pack(format_b_folder,b'.',0,b'..',0,b'',-1,b'',-1))
-                        f.seek(bm_blocks+(block_pointer-1))
-                        f.write(b'1')
-                        f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
-                        print(block_pointer)
-                        print(f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664)))
-                       
-                        f.seek(bm_inodes)
-                        inode_pointer = self.getIndexInode(f.read(inode_size))
-                        print(inode_pointer)
-                        return inode_pointer - 1
+                        block_unpack = struct.unpack(format_pointers,f.read(struct.calcsize(format_pointers)))
+                        block_unpack = list(block_unpack)
+                        #print(block_unpack)
+                        for j in range(len(block_unpack)):
+                            if block_unpack[j] != -1:
+                                f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_unpack[j]-1)))
+                                block_unpack2 = struct.unpack(format_b_folder,f.read(struct.calcsize(format_b_folder)))
+                                block_unpack2 = list(block_unpack2)
+                                print(block_unpack2)
+                                if block_unpack2[0].decode('utf-8').rstrip("\x00") == folder:
+                                    return block_unpack2[1]
+                                elif block_unpack2[2].decode('utf-8').rstrip("\x00") == folder:
+                                    return block_unpack2[3]
+                                elif block_unpack2[4].decode('utf-8').rstrip("\x00") == folder:
+                                    return block_unpack2[5]
+                                elif block_unpack2[6].decode('utf-8').rstrip("\x00") == folder:
+                                    return block_unpack2[7]
+                                elif block_unpack2[0].decode('utf-8').rstrip("\x00") == "":
+                                    f.seek(bm_inodes)
+                                    inode_pointer = self.getIndexInode(f.read(inode_size))
+                                    block_unpack2[0] = folder.encode('utf-8')
+                                    block_unpack2[1] = inode_pointer
+                                    f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_unpack[j]-1)))
+                                    f.write(struct.pack(format_b_folder,block_unpack2[0],block_unpack2[1],block_unpack2[2],block_unpack2[3],block_unpack2[4],block_unpack[5],block_unpack2[6],block_unpack2[7]))
+                                    
+                                    f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
+                                    f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                                    f.seek(bm_inodes+(inode_pointer-1))
+                                    f.write(b'1')
+                                    f.seek(bm_blocks)
+                                    block_pointer = self.getIndexBock(f.read(block_size))
+                                    f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_pointer-1)))
+                                    f.write(struct.pack(format_b_folder,b'.',0,b'..',0,b'',-1,b'',-1))
+                                    f.seek(bm_blocks+(block_pointer-1))
+                                    f.write(b'1')
+                                    f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
+                                    f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                                    f.seek(bm_inodes)
+                                    inode_pointer = self.getIndexInode(f.read(inode_size))
+                                    return inode_pointer - 1
+                                elif block_unpack2[2].decode('utf-8').rstrip("\x00") == "":
+                                    f.seek(bm_inodes)
+                                    inode_pointer = self.getIndexInode(f.read(inode_size))
+                                    block_unpack2[2] = folder.encode('utf-8')
+                                    block_unpack2[3] = inode_pointer
+                                    f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_unpack[j]-1)))
+                                    f.write(struct.pack(format_b_folder,block_unpack2[0],block_unpack2[1],block_unpack2[2],block_unpack2[3],block_unpack2[4],block_unpack2[5],block_unpack2[6],block_unpack2[7]))
+                                    f.seek(bm_inodes+(inode_pointer-1))
+                                    f.write(b'1')
+                                    f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
+                                    f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                                    f.seek(bm_blocks)
+                                    block_pointer = self.getIndexBock(f.read(block_size))
+                                    f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_pointer-1)))
+                                    f.write(struct.pack(format_b_folder,b'.',0,b'..',0,b'',-1,b'',-1))
+                                    f.seek(bm_blocks+(block_pointer-1))
+                                    f.write(b'1')
+                                    f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
+                                    f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                                    f.seek(bm_inodes)
+                                    inode_pointer = self.getIndexInode(f.read(inode_size))
+                                    return inode_pointer - 1
+                                elif block_unpack2[4].decode('utf-8').rstrip("\x00") == "":
+                                    f.seek(bm_inodes)
+                                    inode_pointer = self.getIndexInode(f.read(inode_size))
+                                    block_unpack2[4] = folder.encode('utf-8')
+                                    block_unpack2[5] = inode_pointer
+                                    f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_unpack[j]-1)))
+                                    f.write(struct.pack(format_b_folder,block_unpack2[0],block_unpack2[1],block_unpack2[2],block_unpack2[3],block_unpack2[4],block_unpack2[5],block_unpack2[6],block_unpack2[7]))
+                                    f.seek(bm_inodes+(inode_pointer-1))
+                                    f.write(b'1')
+                                    f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
+                                    f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                                    f.seek(bm_blocks)
+                                    block_pointer = self.getIndexBock(f.read(block_size))
+                                    f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_pointer-1)))
+                                    f.write(struct.pack(format_b_folder,b'.',0,b'..',0,b'',-1,b'',-1))
+                                    f.seek(bm_blocks+(block_pointer-1))
+                                    f.write(b'1')
+                                    f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
+                                    f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                                    f.seek(bm_inodes)
+                                    inode_pointer = self.getIndexInode(f.read(inode_size))
+                                    return inode_pointer - 1
+                                elif block_unpack2[6].decode('utf-8').rstrip("\x00") == "":
+                                    print("Aqui debe estr el home")
+                                    f.seek(bm_inodes)
+                                    inode_pointer = self.getIndexInode(f.read(inode_size))
+                                    block_unpack2[6] = folder.encode('utf-8')
+                                    block_unpack2[7] = inode_pointer
+                                    f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_unpack[j]-1)))
+                                    #print(start_blocks+(block_size*i),"bloque de carpeta")
+                                    f.write(struct.pack(format_b_folder,block_unpack2[0],block_unpack2[1],block_unpack2[2],block_unpack2[3],block_unpack2[4],block_unpack2[5],block_unpack2[6],block_unpack2[7]))
+                                    f.seek(bm_inodes+(inode_pointer-1))
+                                    f.write(b'1')
+                                    f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
+                                    #print(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
+                                    f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                                    f.seek(bm_blocks)
+                                    block_pointer = self.getIndexBock(f.read(block_size))
+                                    f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_pointer-1)))
+                                    #print(start_blocks+(block_size*block_pointer-1),"bloque de carpeta . . . ")
+                                    f.write(struct.pack(format_b_folder,b'.',0,b'..',0,b'',-1,b'',-1))
+                                    f.seek(bm_blocks+(block_pointer-1))
+                                    f.write(b'1')
+                                    f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
+                                    print(block_pointer)
+                                    print(f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664)))
+                                
+                                    f.seek(bm_inodes)
+                                    inode_pointer = self.getIndexInode(f.read(inode_size))
+                                    print(inode_pointer)
+                                    return inode_pointer - 1
+                            else:
+                                f.seek(bm_blocks)
+                                block_pointer = self.getIndexBock(f.read(block_size))
+                                block_unpack[j] = block_pointer
+                                f.seek(start_blocks+(struct.calcsize(format_b_folder)*i))
+                                f.write(struct.pack(format_pointers,block_unpack[0],block_unpack[1],block_unpack[2],block_unpack[3],block_unpack[4],block_unpack[5],block_unpack[6],block_unpack[7],block_unpack[8],block_unpack[9],block_unpack[10],block_unpack[11],block_unpack[12],block_unpack[13],block_unpack[14],block_unpack[15]))
+                                f.seek(bm_inodes)
+                                inode_pointer = self.getIndexInode(f.read(inode_size))
+                                inode_return = inode_pointer
+                                f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_pointer-1)))
+                                #se localiza y se crea el nuevo bloque de la carpeta
+                                f.write(struct.pack(format_b_folder,folder.encode('utf-8')[0:12],inode_pointer,b'',-1,b'',-1,b'',-1))
+                                f.seek(bm_blocks+(block_pointer-1))
+                                #se marca como ocupado el bloque
+                                f.write(b'1')
+                                f.seek(bm_blocks)
+                                block_pointer = self.getIndexBock(f.read(block_size))
+                                f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
+                                #se crea el nuevo inodo
+                                f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                                #se marca como ocupado el inodo
+                                f.seek(bm_inodes+(inode_pointer-1))
+                                f.write(b'1')
+                                #se crea el bloque de la carpeta padre
+                                f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_pointer-1)))
+                                f.write(struct.pack(format_b_folder,b'.',0,b'..',0,b'',-1,b'',-1))
+                                #se marca como ocupado el bloque
+                                f.seek(bm_blocks+(block_pointer-1))
+                                f.write(b'1')
+                                f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
+                                #se escribe el nuevo inodo
+                                f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                                f.seek(bm_inodes)
+                                inode_return = self.getIndexInode(f.read(inode_size))
+                                return inode_return - 1
                 else:
-                    f.seek(bm_blocks)
-                    block_pointer = self.getIndexBock(f.read(block_size))
-                    f.seek(bm_inodes)
-                    inode_pointer = self.getIndexInode(f.read(inode_size))
-                    inode_return = inode_pointer
-                    f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_pointer-1)))
-                    #se localiza y se crea el nuevo bloque de la carpeta
-                    f.write(struct.pack(format_b_folder,folder.encode('utf-8')[0:12],inode_pointer,b'',-1,b'',-1,b'',-1))
-                    f.seek(bm_blocks+(block_pointer-1))
-                    #se marca como ocupado el bloque
-                    f.write(b'1')
-                    f.seek(bm_blocks)
-                    block_pointer = self.getIndexBock(f.read(block_size))
-                    f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
-                    #se crea el nuevo inodo
-                    f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
-                    #se marca como ocupado el inodo
-                    f.seek(bm_inodes+(inode_pointer-1))
-                    f.write(b'1')
-                    #se crea el bloque de la carpeta padre
-                    f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_pointer-1)))
-                    f.write(struct.pack(format_b_folder,b'.',0,b'..',0,b'',-1,b'',-1))
-                    #se marca como ocupado el bloque
-                    f.seek(bm_blocks+(block_pointer-1))
-                    f.write(b'1')
-                    f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
-                    #se escribe el nuevo inodo
-                    f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
-                    inode_unpack[cont+6] = block_pointer - 1
-                    f.seek(bm_inodes)
-                    inode_return = self.getIndexInode(f.read(inode_size))
-                    f.seek(posicion_init)
-                    f.write(struct.pack(format_i,inode_unpack[0],inode_unpack[1],inode_unpack[2],inode_unpack[3],inode_unpack[4],inode_unpack[5],inode_unpack[6],inode_unpack[7],inode_unpack[8],inode_unpack[9],inode_unpack[10],inode_unpack[11],inode_unpack[12],inode_unpack[13],inode_unpack[14],inode_unpack[15],inode_unpack[16],inode_unpack[17],inode_unpack[18],inode_unpack[19],inode_unpack[20],inode_unpack[21],inode_unpack[22],inode_unpack[23]))
-                    return inode_return - 1
+                    if cont < 13:
+                        f.seek(bm_blocks)
+                        block_pointer = self.getIndexBock(f.read(block_size))
+                        f.seek(bm_inodes)
+                        inode_pointer = self.getIndexInode(f.read(inode_size))
+                        inode_return = inode_pointer
+                        f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_pointer-1)))
+                        #se localiza y se crea el nuevo bloque de la carpeta
+                        f.write(struct.pack(format_b_folder,folder.encode('utf-8')[0:12],inode_pointer,b'',-1,b'',-1,b'',-1))
+                        f.seek(bm_blocks+(block_pointer-1))
+                        #se marca como ocupado el bloque
+                        f.write(b'1')
+                        f.seek(bm_blocks)
+                        block_pointer = self.getIndexBock(f.read(block_size))
+                        f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
+                        #se crea el nuevo inodo
+                        f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                        #se marca como ocupado el inodo
+                        f.seek(bm_inodes+(inode_pointer-1))
+                        f.write(b'1')
+                        #se crea el bloque de la carpeta padre
+                        f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_pointer-1)))
+                        f.write(struct.pack(format_b_folder,b'.',0,b'..',0,b'',-1,b'',-1))
+                        #se marca como ocupado el bloque
+                        f.seek(bm_blocks+(block_pointer-1))
+                        f.write(b'1')
+                        f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
+                        #se escribe el nuevo inodo
+                        f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                        inode_unpack[cont+6] = block_pointer - 1
+                        f.seek(bm_inodes)
+                        inode_return = self.getIndexInode(f.read(inode_size))
+                        f.seek(posicion_init)
+                        f.write(struct.pack(format_i,inode_unpack[0],inode_unpack[1],inode_unpack[2],inode_unpack[3],inode_unpack[4],inode_unpack[5],inode_unpack[6],inode_unpack[7],inode_unpack[8],inode_unpack[9],inode_unpack[10],inode_unpack[11],inode_unpack[12],inode_unpack[13],inode_unpack[14],inode_unpack[15],inode_unpack[16],inode_unpack[17],inode_unpack[18],inode_unpack[19],inode_unpack[20],inode_unpack[21],inode_unpack[22],inode_unpack[23]))
+                        return inode_return - 1
+                    elif cont >= 13:
+                        f.seek(bm_blocks)
+                        block_pointer01 = self.getIndexBock(f.read(block_size))
+                        f.seek(bm_inodes)
+                        inode_pointer = self.getIndexInode(f.read(inode_size))
+                        f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_pointer01-1)))
+                        #se localiza y se crea el bloque de apuntadores
+                        f.write(struct.pack(format_pointers,*block_p))
+                        f.seek(bm_blocks+(block_pointer01-1))
+                        #se marca como ocupado el bloque
+                        f.write(b'1')
+                        f.seek(bm_blocks)
+                        block_pointer = self.getIndexBock(f.read(block_size))
+                        f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_pointer01-1)))
+                        p = struct.unpack(format_pointers,f.read(struct.calcsize(format_pointers)))
+                        p = list(p)
+                        p[0] = block_pointer
+                        f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_pointer01-1)))
+                        f.write(struct.pack(format_pointers,p[0],p[1],p[2],p[3],p[4],p[5],p[6],p[7],p[8],p[9],p[10],p[11],p[12],p[13],p[14],p[15]))
+                        
+                        f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_pointer-1)))
+                        #se localiza y se crea el nuevo bloque de la carpeta
+                        f.write(struct.pack(format_b_folder,folder.encode('utf-8')[0:12],inode_pointer,b'',-1,b'',-1,b'',-1))
+                        f.seek(bm_blocks+(block_pointer-1))
+                        #se marca como ocupado el bloque
+                        f.write(b'1')
+                        f.seek(bm_blocks)
+                        block_pointer = self.getIndexBock(f.read(block_size))
+                        f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
+                        #se crea el nuevo inodo
+                        f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                        #se marca como ocupado el inodo
+                        f.seek(bm_inodes+(inode_pointer-1))
+                        f.write(b'1')
+                        #se crea el bloque de la carpeta padre
+                        f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_pointer-1)))
+                        f.write(struct.pack(format_b_folder,b'.',0,b'..',0,b'',-1,b'',-1))
+                        #se marca como ocupado el bloque
+                        f.seek(bm_blocks+(block_pointer-1))
+                        f.write(b'1')
+                        f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
+                        #se escribe el nuevo inodo
+                        f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                        inode_unpack[cont+6] = block_pointer01
+                        f.seek(bm_inodes)
+                        inode_return = self.getIndexInode(f.read(inode_size))
+                        f.seek(posicion_init)
+                        f.write(struct.pack(format_i,inode_unpack[0],inode_unpack[1],inode_unpack[2],inode_unpack[3],inode_unpack[4],inode_unpack[5],inode_unpack[6],inode_unpack[7],inode_unpack[8],inode_unpack[9],inode_unpack[10],inode_unpack[11],inode_unpack[12],inode_unpack[13],inode_unpack[14],inode_unpack[15],inode_unpack[16],inode_unpack[17],inode_unpack[18],inode_unpack[19],inode_unpack[20],inode_unpack[21],inode_unpack[22],inode_unpack[23]))
+                        return inode_return - 1
+
                 cont += 1
 
 
@@ -338,6 +542,7 @@ class mkfile:
         format_i = "I I I I I I 16i c I"
         format_b_folder = "12s i 12s i 12s i 12s i"
         format_b = "64s"
+        format_pointer = "16i"
         with open(self.path_mount,"rb+") as f:
             pos_init = start_inodes+(struct.calcsize(format_i)*(index))
             f.seek(start_inodes+(struct.calcsize(format_i)*(index)))
@@ -365,7 +570,7 @@ class mkfile:
                 except:
                     print("No se encontro el archivo")
                     return
-
+                
             i = i_block[0]
             i = i-1
             print(i,"index archivo")
@@ -413,6 +618,7 @@ class mkfile:
             f.write(inodo_pack)
             f.close()
             return
+            
 
     def showBlocks(self,bm_inodes,bm_blocks,start_inodes,start_blocks,inode_size,block_size):
 
