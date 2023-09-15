@@ -20,7 +20,7 @@ class rep:
                 self.path = i[1].replace(" ",r"\ ")
             elif i[0] == "id":
                 self.id = i[1]
-            elif i[0] == "route":
+            elif i[0] == "ruta":
                 self.route = i[1]
             else:
                 print("Error: parametro invalido " + i[0])
@@ -48,6 +48,10 @@ class rep:
             print("No se encontro la particion")
             return
         
+        directory = os.path.dirname(self.path)
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+        
         self.path_mount = part_m.path
         self.nameDisk = part_m.nameDisk
         
@@ -65,6 +69,11 @@ class rep:
             self.repBM_Block(part_m.name_partition)
         elif self.name == "tree":
             self.repTree(part_m.name_partition)
+        elif self.name == "sb":
+            self.repSB(part_m.name_partition)
+        elif self.name == "filer":
+            self.repFile(part_m.name_partition,self.route)
+
 
 
     def repMBR(self):
@@ -373,9 +382,9 @@ class rep:
                         inode_unpack = list(inode_unpack)
                         report += "inode"+str(i)+"[label=\"\n"
                         report += "i_uid = "+str(inode_unpack[0])+"\\ni_gid = "+str(inode_unpack[1])+"\ni_size = "+str(inode_unpack[2])+"\ni_atime = "+str(inode_unpack[3])+"\ni_ctime = "+str(inode_unpack[4])+"\ni_mtime = "+str(inode_unpack[5])+"\ni_block = ["
-                        for j in range(15):
+                        for j in range(16):
                             report += str(inode_unpack[6+j])+","
-                        report += "]\ni_type = "+str(inode_unpack[21])+"\ni_perm = "+str(inode_unpack[22])+"\\n"
+                        report += "]\ni_type = "+str(inode_unpack[22])+"\ni_perm = "+str(inode_unpack[23])+"\\n"
 
                         report += "\"]\n"
                 for i in range(len(bm_inode_unpack)):
@@ -409,9 +418,9 @@ class rep:
                         inode_unpack = list(inode_unpack)
                         report += "inode"+str(i)+"[label=\"\n"
                         report += "i_uid = "+str(inode_unpack[0])+"\\ni_gid = "+str(inode_unpack[1])+"\ni_size = "+str(inode_unpack[2])+"\ni_atime = "+str(inode_unpack[3])+"\ni_ctime = "+str(inode_unpack[4])+"\ni_mtime = "+str(inode_unpack[5])+"\ni_block = ["
-                        for j in range(15):
+                        for j in range(16):
                             report += str(inode_unpack[6+j])+","
-                        report += "]\ni_type = "+str(inode_unpack[21])+"\ni_perm = "+str(inode_unpack[22])+"\\n"
+                        report += "]\ni_type = "+str(inode_unpack[22])+"\ni_perm = "+str(inode_unpack[23])+"\\n"
 
                         report += "\"]\n"
                 for i in range(len(bm_inode_unpack)):
@@ -445,9 +454,9 @@ class rep:
                         inode_unpack = list(inode_unpack)
                         report += "inode"+str(i)+"[label=\"\n"
                         report += "i_uid = "+str(inode_unpack[0])+"\\ni_gid = "+str(inode_unpack[1])+"\ni_size = "+str(inode_unpack[2])+"\ni_atime = "+str(inode_unpack[3])+"\ni_ctime = "+str(inode_unpack[4])+"\ni_mtime = "+str(inode_unpack[5])+"\ni_block = ["
-                        for j in range(15):
+                        for j in range(16):
                             report += str(inode_unpack[6+j])+","
-                        report += "]\ni_type = "+str(inode_unpack[21])+"\ni_perm = "+str(inode_unpack[22])+"\\n"
+                        report += "]\ni_type = "+str(inode_unpack[22])+"\ni_perm = "+str(inode_unpack[23])+"\\n"
 
                         report += "\"]\n"
                 for i in range(len(bm_inode_unpack)):
@@ -481,9 +490,9 @@ class rep:
                         inode_unpack = list(inode_unpack)
                         report += "inode"+str(i)+"[label=\"\n"
                         report += "i_uid = "+str(inode_unpack[0])+"\\ni_gid = "+str(inode_unpack[1])+"\ni_size = "+str(inode_unpack[2])+"\ni_atime = "+str(inode_unpack[3])+"\ni_ctime = "+str(inode_unpack[4])+"\ni_mtime = "+str(inode_unpack[5])+"\ni_block = ["
-                        for j in range(15):
+                        for j in range(16):
                             report += str(inode_unpack[6+j])+","
-                        report += "]\ni_type = "+str(inode_unpack[21])+"\ni_perm = "+str(inode_unpack[22])+"\\n"
+                        report += "]\ni_type = "+str(inode_unpack[22])+"\ni_perm = "+str(inode_unpack[23])+"\\n"
 
                         report += "\"]\n"
                 for i in range(len(bm_inode_unpack)):
@@ -504,8 +513,9 @@ class rep:
     def repBlock(self,name_partition):
         format_mbr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
         format_sb = "I I I I I I I I I I I I I I I I I"
-        format_i = "I I I I I I 15i c I"
+        format_i = "I I I I I I 16i c I"
         format_block = "64s"
+        format_pointer = "16i"
         format_folder = "12s i 12s i 12s i 12s i"
 
         with open(self.path_mount, "rb+") as f:
@@ -522,7 +532,7 @@ class rep:
             report += "node[shape=square]\nrankdir=LR\n"
             blocks_files = []
             blocks_folders = []
-
+            blocks_pointers = []
             if partition1[5].decode('utf-8').rstrip("\x00") == name_partition:
                 f.seek(partition1[3])
                 sb_pack = f.read(struct.calcsize(format_sb))
@@ -540,14 +550,25 @@ class rep:
                         inode_pack = f.read(struct.calcsize(format_i))
                         inode_unpack = struct.unpack(format_i,inode_pack)
                         inode_unpack = list(inode_unpack)
-                        if inode_unpack[21].decode('utf-8') == '0':
-                            for j in range(15):
+                        if inode_unpack[22].decode('utf-8') == '0':
+                            for j in range(16):
                                 if inode_unpack[6+j] != -1:
-                                    blocks_folders.append(inode_unpack[6+j])
-                        elif inode_unpack[21].decode('utf-8') == '1':
-                            for j in range(15):
+                                    if j<13:
+                                        blocks_folders.append(inode_unpack[6+j])
+                                    else:
+                                        blocks_pointers.append(inode_unpack[6+j])
+                        elif inode_unpack[22].decode('utf-8') == '1':
+                            for j in range(16):
                                 if inode_unpack[6+j] != -1:
                                     blocks_files.append(inode_unpack[6+j])
+
+                for i in range(len(blocks_pointers)):
+                    f.seek(block_start + ((blocks_pointers[i]-1) * struct.calcsize(format_block)))
+                    block_pack = f.read(struct.calcsize(format_pointer))
+                    block_unpack = struct.unpack(format_pointer,block_pack)
+                    block_unpack = list(block_unpack)
+                    report += "block"+str(blocks_pointers[i])+"[label=\"block_pointer"+str(blocks_pointers)+"\n"
+                
 
                 for i in range(len(blocks_folders)):
                     f.seek(block_start + ((blocks_folders[i]-1) * struct.calcsize(format_block)))
@@ -569,7 +590,11 @@ class rep:
                 
                 max_bf = max(blocks_files)
                 max_bd = max(blocks_folders)
-                max_b = max(max_bf,max_bd)
+                if len(blocks_pointers) > 0:
+                    max_bp = max(blocks_pointers)
+                else:
+                    max_bp = 0
+                max_b = max(max_bf,max_bd,max_bp)
                 for i in range(max_b):
                     report += "block"+str(i+1)+"->"
                 report += "null\n"
@@ -600,14 +625,25 @@ class rep:
                         inode_pack = f.read(struct.calcsize(format_i))
                         inode_unpack = struct.unpack(format_i,inode_pack)
                         inode_unpack = list(inode_unpack)
-                        if inode_unpack[21].decode('utf-8') == '0':
-                            for j in range(15):
+                        if inode_unpack[22].decode('utf-8') == '0':
+                            for j in range(16):
                                 if inode_unpack[6+j] != -1:
-                                    blocks_folders.append(inode_unpack[6+j])
-                        elif inode_unpack[21].decode('utf-8') == '1':
-                            for j in range(15):
+                                    if j<13:
+                                        blocks_folders.append(inode_unpack[6+j])
+                                    else:
+                                        blocks_pointers.append(inode_unpack[6+j])
+                        elif inode_unpack[22].decode('utf-8') == '1':
+                            for j in range(16):
                                 if inode_unpack[6+j] != -1:
                                     blocks_files.append(inode_unpack[6+j])
+
+                for i in range(len(blocks_pointers)):
+                    f.seek(block_start + ((blocks_pointers[i]-1) * struct.calcsize(format_block)))
+                    block_pack = f.read(struct.calcsize(format_pointer))
+                    block_unpack = struct.unpack(format_pointer,block_pack)
+                    block_unpack = list(block_unpack)
+                    report += "block"+str(blocks_pointers[i])+"[label=\"block_pointer"+str(blocks_pointers)+"\n"
+                
 
                 for i in range(len(blocks_folders)):
                     f.seek(block_start + ((blocks_folders[i]-1) * struct.calcsize(format_block)))
@@ -629,11 +665,15 @@ class rep:
                 
                 max_bf = max(blocks_files)
                 max_bd = max(blocks_folders)
-                max_b = max(max_bf,max_bd)
+                if len(blocks_pointers) > 0:
+                    max_bp = max(blocks_pointers)
+                else:
+                    max_bp = 0
+                max_b = max(max_bf,max_bd,max_bp)
                 for i in range(max_b):
                     report += "block"+str(i+1)+"->"
                 report += "null\n"
-                report += "}\n" 
+                report += "}\n"
                 
                 f.close()
                 dot_file = '/home/noel/Documentos/USAC2023/Archivos/MIA_P12S2023_201900822/reports/'+self.nameDisk+'_block.dot'
@@ -660,14 +700,25 @@ class rep:
                         inode_pack = f.read(struct.calcsize(format_i))
                         inode_unpack = struct.unpack(format_i,inode_pack)
                         inode_unpack = list(inode_unpack)
-                        if inode_unpack[21].decode('utf-8') == '0':
-                            for j in range(15):
+                        if inode_unpack[22].decode('utf-8') == '0':
+                            for j in range(16):
                                 if inode_unpack[6+j] != -1:
-                                    blocks_folders.append(inode_unpack[6+j])
-                        elif inode_unpack[21].decode('utf-8') == '1':
-                            for j in range(15):
+                                    if j<13:
+                                        blocks_folders.append(inode_unpack[6+j])
+                                    else:
+                                        blocks_pointers.append(inode_unpack[6+j])
+                        elif inode_unpack[22].decode('utf-8') == '1':
+                            for j in range(16):
                                 if inode_unpack[6+j] != -1:
                                     blocks_files.append(inode_unpack[6+j])
+
+                for i in range(len(blocks_pointers)):
+                    f.seek(block_start + ((blocks_pointers[i]-1) * struct.calcsize(format_block)))
+                    block_pack = f.read(struct.calcsize(format_pointer))
+                    block_unpack = struct.unpack(format_pointer,block_pack)
+                    block_unpack = list(block_unpack)
+                    report += "block"+str(blocks_pointers[i])+"[label=\"block_pointer"+str(blocks_pointers)+"\n"
+                
 
                 for i in range(len(blocks_folders)):
                     f.seek(block_start + ((blocks_folders[i]-1) * struct.calcsize(format_block)))
@@ -689,11 +740,15 @@ class rep:
                 
                 max_bf = max(blocks_files)
                 max_bd = max(blocks_folders)
-                max_b = max(max_bf,max_bd)
+                if len(blocks_pointers) > 0:
+                    max_bp = max(blocks_pointers)
+                else:
+                    max_bp = 0
+                max_b = max(max_bf,max_bd,max_bp)
                 for i in range(max_b):
                     report += "block"+str(i+1)+"->"
                 report += "null\n"
-                report += "}\n" 
+                report += "}\n"
                 
                 f.close()
                 dot_file = '/home/noel/Documentos/USAC2023/Archivos/MIA_P12S2023_201900822/reports/'+self.nameDisk+'_block.dot'
@@ -721,14 +776,25 @@ class rep:
                         inode_pack = f.read(struct.calcsize(format_i))
                         inode_unpack = struct.unpack(format_i,inode_pack)
                         inode_unpack = list(inode_unpack)
-                        if inode_unpack[21].decode('utf-8') == '0':
-                            for j in range(15):
+                        if inode_unpack[22].decode('utf-8') == '0':
+                            for j in range(16):
                                 if inode_unpack[6+j] != -1:
-                                    blocks_folders.append(inode_unpack[6+j])
-                        elif inode_unpack[21].decode('utf-8') == '1':
-                            for j in range(15):
+                                    if j<13:
+                                        blocks_folders.append(inode_unpack[6+j])
+                                    else:
+                                        blocks_pointers.append(inode_unpack[6+j])
+                        elif inode_unpack[22].decode('utf-8') == '1':
+                            for j in range(16):
                                 if inode_unpack[6+j] != -1:
                                     blocks_files.append(inode_unpack[6+j])
+
+                for i in range(len(blocks_pointers)):
+                    f.seek(block_start + ((blocks_pointers[i]-1) * struct.calcsize(format_block)))
+                    block_pack = f.read(struct.calcsize(format_pointer))
+                    block_unpack = struct.unpack(format_pointer,block_pack)
+                    block_unpack = list(block_unpack)
+                    report += "block"+str(blocks_pointers[i])+"[label=\"block_pointer"+str(blocks_pointers)+"\n"
+                
 
                 for i in range(len(blocks_folders)):
                     f.seek(block_start + ((blocks_folders[i]-1) * struct.calcsize(format_block)))
@@ -750,7 +816,11 @@ class rep:
                 
                 max_bf = max(blocks_files)
                 max_bd = max(blocks_folders)
-                max_b = max(max_bf,max_bd)
+                if len(blocks_pointers) > 0:
+                    max_bp = max(blocks_pointers)
+                else:
+                    max_bp = 0
+                max_b = max(max_bf,max_bd,max_bp)
                 for i in range(max_b):
                     report += "block"+str(i+1)+"->"
                 report += "null\n"
@@ -1393,3 +1463,353 @@ class rep:
                 subprocess.run(['dot','-Tpng',dot_file,'-o',self.path],check=True)
                 print("Reporte generado con exito")
                 return
+            
+    def repSB(self,name_partition):
+        format_mbr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
+        format_sb = "I I I I I I I I I I I I I I I I I"
+        with open(self.path_mount, "rb+") as f:
+            f.seek(0)
+            mbr_pack = f.read(struct.calcsize(format_mbr))
+            mbr_unpack = struct.unpack(format_mbr,mbr_pack)
+            partition1 = mbr_unpack[4:10]
+            partition2 = mbr_unpack[10:16]
+            partition3 = mbr_unpack[16:22]
+            partition4 = mbr_unpack[22:28]
+            report = ""
+            report += "digraph G{\n"
+            report += "node[shape=none]\n"
+            report += "tablesb[label=<\n<table border=\"0\" cellborder=\"1\" cellspacing=\"0\" bgcolor=\"#00CC00\">\n"
+            report += "<tr><td colspan=\"2\">Reporte de Superbloque</td></tr>\n"
+
+            if partition1[5].decode('utf-8').rstrip("\x00") == name_partition:
+                f.seek(partition1[3])
+                sb_pack = f.read(struct.calcsize(format_sb))
+                sb_unpack = struct.unpack(format_sb,sb_pack)
+                report += "<tr><td>s_filesystem_type</td><td>"+str(sb_unpack[0])+"</td></tr>\n"
+                report += "<tr><td>s_inodes_count</td><td>"+str(sb_unpack[1])+"</td></tr>\n"
+                report += "<tr><td>s_blocks_count</td><td>"+str(sb_unpack[2])+"</td></tr>\n"
+                report += "<tr><td>s_free_blocks_count</td><td>"+str(sb_unpack[3])+"</td></tr>\n"
+                report += "<tr><td>s_free_inodes_count</td><td>"+str(sb_unpack[4])+"</td></tr>\n"
+                report += "<tr><td>s_mtime</td><td>"+str(sb_unpack[5])+"</td></tr>\n"
+                report += "<tr><td>s_umtime</td><td>"+str(sb_unpack[6])+"</td></tr>\n"
+                report += "<tr><td>s_mnt_count</td><td>"+str(sb_unpack[7])+"</td></tr>\n"
+                report += "<tr><td>s_magic</td><td>"+str(sb_unpack[8])+"</td></tr>\n"
+                report += "<tr><td>s_inode_size</td><td>"+str(sb_unpack[9])+"</td></tr>\n"
+                report += "<tr><td>s_block_size</td><td>"+str(sb_unpack[10])+"</td></tr>\n"
+                report += "<tr><td>s_first_ino</td><td>"+str(sb_unpack[11])+"</td></tr>\n"
+                report += "<tr><td>s_first_blo</td><td>"+str(sb_unpack[12])+"</td></tr>\n"
+                report += "<tr><td>s_bm_inode_start</td><td>"+str(sb_unpack[13])+"</td></tr>\n"
+                report += "<tr><td>s_bm_block_start</td><td>"+str(sb_unpack[14])+"</td></tr>\n"
+                report += "<tr><td>s_inode_start</td><td>"+str(sb_unpack[15])+"</td></tr>\n"
+                report += "<tr><td>s_block_start</td><td>"+str(sb_unpack[16])+"</td></tr>\n"
+                report += "</table>\n>]\n"
+                report += "}\n"
+                f.close()
+                dot_file = '/home/noel/Documentos/USAC2023/Archivos/MIA_P12S2023_201900822/reports/'+self.nameDisk+'_sb.dot'
+                with open(dot_file, "w") as f:
+                    f.write(report)
+                    f.close()
+                subprocess.run(['dot','-Tpng',dot_file,'-o',self.path],check=True)
+                print("Reporte generado con exito")
+                return
+            elif partition2[5].decode('utf-8').rstrip("\x00") == name_partition:
+                f.seek(partition2[3])
+                sb_pack = f.read(struct.calcsize(format_sb))
+                sb_unpack = struct.unpack(format_sb,sb_pack)
+                report += "<tr><td>s_filesystem_type</td><td>"+str(sb_unpack[0])+"</td></tr>\n"
+                report += "<tr><td>s_inodes_count</td><td>"+str(sb_unpack[1])+"</td></tr>\n"
+                report += "<tr><td>s_blocks_count</td><td>"+str(sb_unpack[2])+"</td></tr>\n"
+                report += "<tr><td>s_free_blocks_count</td><td>"+str(sb_unpack[3])+"</td></tr>\n"
+                report += "<tr><td>s_free_inodes_count</td><td>"+str(sb_unpack[4])+"</td></tr>\n"
+                report += "<tr><td>s_mtime</td><td>"+str(sb_unpack[5])+"</td></tr>\n"
+                report += "<tr><td>s_umtime</td><td>"+str(sb_unpack[6])+"</td></tr>\n"
+                report += "<tr><td>s_mnt_count</td><td>"+str(sb_unpack[7])+"</td></tr>\n"
+                report += "<tr><td>s_magic</td><td>"+str(sb_unpack[8])+"</td></tr>\n"
+                report += "<tr><td>s_inode_size</td><td>"+str(sb_unpack[9])+"</td></tr>\n"
+                report += "<tr><td>s_block_size</td><td>"+str(sb_unpack[10])+"</td></tr>\n"
+                report += "<tr><td>s_first_ino</td><td>"+str(sb_unpack[11])+"</td></tr>\n"
+                report += "<tr><td>s_first_blo</td><td>"+str(sb_unpack[12])+"</td></tr>\n"
+                report += "<tr><td>s_bm_inode_start</td><td>"+str(sb_unpack[13])+"</td></tr>\n"
+                report += "<tr><td>s_bm_block_start</td><td>"+str(sb_unpack[14])+"</td></tr>\n"
+                report += "<tr><td>s_inode_start</td><td>"+str(sb_unpack[15])+"</td></tr>\n"
+                report += "<tr><td>s_block_start</td><td>"+str(sb_unpack[16])+"</td></tr>\n"
+                report += "</table>\n>]\n"
+                report += "}\n"
+                f.close()
+                dot_file = '/home/noel/Documentos/USAC2023/Archivos/MIA_P12S2023_201900822/reports/'+self.nameDisk+'_sb.dot'
+                with open(dot_file, "w") as f:
+                    f.write(report)
+                    f.close()
+                subprocess.run(['dot','-Tpng',dot_file,'-o',self.path],check=True)
+                print("Reporte generado con exito")
+                return
+            elif partition3[5].decode('utf-8').rstrip("\x00") == name_partition:
+                f.seek(partition3[3])
+                sb_pack = f.read(struct.calcsize(format_sb))
+                sb_unpack = struct.unpack(format_sb,sb_pack)
+                report += "<tr><td>s_filesystem_type</td><td>"+str(sb_unpack[0])+"</td></tr>\n"
+                report += "<tr><td>s_inodes_count</td><td>"+str(sb_unpack[1])+"</td></tr>\n"
+                report += "<tr><td>s_blocks_count</td><td>"+str(sb_unpack[2])+"</td></tr>\n"
+                report += "<tr><td>s_free_blocks_count</td><td>"+str(sb_unpack[3])+"</td></tr>\n"
+                report += "<tr><td>s_free_inodes_count</td><td>"+str(sb_unpack[4])+"</td></tr>\n"
+                report += "<tr><td>s_mtime</td><td>"+str(sb_unpack[5])+"</td></tr>\n"
+                report += "<tr><td>s_umtime</td><td>"+str(sb_unpack[6])+"</td></tr>\n"
+                report += "<tr><td>s_mnt_count</td><td>"+str(sb_unpack[7])+"</td></tr>\n"
+                report += "<tr><td>s_magic</td><td>"+str(sb_unpack[8])+"</td></tr>\n"
+                report += "<tr><td>s_inode_size</td><td>"+str(sb_unpack[9])+"</td></tr>\n"
+                report += "<tr><td>s_block_size</td><td>"+str(sb_unpack[10])+"</td></tr>\n"
+                report += "<tr><td>s_first_ino</td><td>"+str(sb_unpack[11])+"</td></tr>\n"
+                report += "<tr><td>s_first_blo</td><td>"+str(sb_unpack[12])+"</td></tr>\n"
+                report += "<tr><td>s_bm_inode_start</td><td>"+str(sb_unpack[13])+"</td></tr>\n"
+                report += "<tr><td>s_bm_block_start</td><td>"+str(sb_unpack[14])+"</td></tr>\n"
+                report += "<tr><td>s_inode_start</td><td>"+str(sb_unpack[15])+"</td></tr>\n"
+                report += "<tr><td>s_block_start</td><td>"+str(sb_unpack[16])+"</td></tr>\n"
+                report += "</table>\n>]\n"
+                report += "}\n"
+                f.close()
+                dot_file = '/home/noel/Documentos/USAC2023/Archivos/MIA_P12S2023_201900822/reports/'+self.nameDisk+'_sb.dot'
+                with open(dot_file, "w") as f:
+                    f.write(report)
+                    f.close()
+                subprocess.run(['dot','-Tpng',dot_file,'-o',self.path],check=True)
+                print("Reporte generado con exito")
+                return
+            elif partition4[5].decode('utf-8').rstrip("\x00") == name_partition:
+                f.seek(partition4[3])
+                sb_pack = f.read(struct.calcsize(format_sb))
+                sb_unpack = struct.unpack(format_sb,sb_pack)
+                report += "<tr><td>s_filesystem_type</td><td>"+str(sb_unpack[0])+"</td></tr>\n"
+                report += "<tr><td>s_inodes_count</td><td>"+str(sb_unpack[1])+"</td></tr>\n"
+                report += "<tr><td>s_blocks_count</td><td>"+str(sb_unpack[2])+"</td></tr>\n"
+                report += "<tr><td>s_free_blocks_count</td><td>"+str(sb_unpack[3])+"</td></tr>\n"
+                report += "<tr><td>s_free_inodes_count</td><td>"+str(sb_unpack[4])+"</td></tr>\n"
+                report += "<tr><td>s_mtime</td><td>"+str(sb_unpack[5])+"</td></tr>\n"
+                report += "<tr><td>s_umtime</td><td>"+str(sb_unpack[6])+"</td></tr>\n"
+                report += "<tr><td>s_mnt_count</td><td>"+str(sb_unpack[7])+"</td></tr>\n"
+                report += "<tr><td>s_magic</td><td>"+str(sb_unpack[8])+"</td></tr>\n"
+                report += "<tr><td>s_inode_size</td><td>"+str(sb_unpack[9])+"</td></tr>\n"
+                report += "<tr><td>s_block_size</td><td>"+str(sb_unpack[10])+"</td></tr>\n"
+                report += "<tr><td>s_first_ino</td><td>"+str(sb_unpack[11])+"</td></tr>\n"
+                report += "<tr><td>s_first_blo</td><td>"+str(sb_unpack[12])+"</td></tr>\n"
+                report += "<tr><td>s_bm_inode_start</td><td>"+str(sb_unpack[13])+"</td></tr>\n"
+                report += "<tr><td>s_bm_block_start</td><td>"+str(sb_unpack[14])+"</td></tr>\n"
+                report += "<tr><td>s_inode_start</td><td>"+str(sb_unpack[15])+"</td></tr>\n"
+                report += "<tr><td>s_block_start</td><td>"+str(sb_unpack[16])+"</td></tr>\n"
+                report += "</table>\n>]\n"
+                report += "}\n"
+                f.close()
+                dot_file = '/home/noel/Documentos/USAC2023/Archivos/MIA_P12S2023_201900822/reports/'+self.nameDisk+'_sb.dot'
+                with open(dot_file, "w") as f:
+                    f.write(report)
+                    f.close()
+                subprocess.run(['dot','-Tpng',dot_file,'-o',self.path],check=True)
+                print("Reporte generado con exito")
+                return
+
+    def repFile(self,name_partition,path_file):
+        format_mbr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
+        format_sb = "I I I I I I I I I I I I I I I I I"
+        format_i = "I I I I I I 16i c I"
+        format_b = "64s"
+        format_pointer = "16i"
+        format_folder = "12s i 12s i 12s i 12s i"
+        with open(self.path_mount,"rb+") as f:
+            f.seek(0)
+            data_bytes = f.read(struct.calcsize(format_mbr))
+            mbr_unpack = struct.unpack(format_mbr,data_bytes)
+            partition1 = mbr_unpack[4:10]
+            partition2 = mbr_unpack[10:16]
+            partition3 = mbr_unpack[16:22]
+            partition4 = mbr_unpack[22:28]
+            if partition1[5].decode('utf-8').rstrip("\x00") == name_partition:
+                
+                f.seek(partition1[3])
+                data_sb = f.read(struct.calcsize(format_sb))
+                sb_unpack = struct.unpack(format_sb,data_sb)
+                index_inode = 0
+                inode_file = 0
+                path_file = path_file.split("/")
+                cont = 0
+                for i in path_file:
+                    if i == "":
+                        cont += 1
+                        continue
+
+                    index_inode = self.searchInode(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2],index_inode,i)
+                #print(index_inode)
+                f.seek(sb_unpack[15]+(struct.calcsize(format_i)*(index_inode-1)))
+                inode_unpack = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
+                #print(inode_unpack)
+                report = ""
+                inode_file = inode_unpack[6:22]
+                inode_file = list(inode_file)
+                for i in inode_file:
+                    if i == -1:
+                        continue
+                    f.seek(sb_unpack[16]+(struct.calcsize(format_b)*(i-1)))
+                    block_unpack = struct.unpack(format_b,f.read(struct.calcsize(format_b)))
+                    report += block_unpack[0].decode('utf-8').rstrip("\x00")
+
+                with open(self.path,"w") as f:
+                    f.write(report)
+                    f.close()
+                print("Reporte generado con exito")
+                return
+            elif partition2[5].decode('utf-8').rstrip("\x00") == name_partition:
+                f.seek(partition2[3])
+                data_sb = f.read(struct.calcsize(format_sb))
+                sb_unpack = struct.unpack(format_sb,data_sb)
+                index_inode = 0
+                inode_file = 0
+                path_file = path_file.split("/")
+                cont = 0
+                for i in path_file:
+                    if i == "":
+                        cont += 1
+                        continue
+
+                    index_inode = self.searchInode(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2],index_inode,i)
+                #print(index_inode)
+                f.seek(sb_unpack[15]+(struct.calcsize(format_i)*(index_inode-1)))
+                inode_unpack = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
+                #print(inode_unpack)
+                report = ""
+                inode_file = inode_unpack[6:22]
+                inode_file = list(inode_file)
+                for i in inode_file:
+                    if i == -1:
+                        continue
+                    f.seek(sb_unpack[16]+(struct.calcsize(format_b)*(i-1)))
+                    block_unpack = struct.unpack(format_b,f.read(struct.calcsize(format_b)))
+                    report += block_unpack[0].decode('utf-8').rstrip("\x00")
+
+                with open(self.path,"w") as f:
+                    f.write(report)
+                    f.close()
+                print("Reporte generado con exito")
+                return
+            elif partition3[5].decode('utf-8').rstrip("\x00") == name_partition:
+                f.seek(partition3[3])
+                data_sb = f.read(struct.calcsize(format_sb))
+                sb_unpack = struct.unpack(format_sb,data_sb)
+                index_inode = 0
+                inode_file = 0
+                path_file = path_file.split("/")
+                cont = 0
+                for i in path_file:
+                    if i == "":
+                        cont += 1
+                        continue
+
+                    index_inode = self.searchInode(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2],index_inode,i)
+                #print(index_inode)
+                f.seek(sb_unpack[15]+(struct.calcsize(format_i)*(index_inode-1)))
+                inode_unpack = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
+                #print(inode_unpack)
+                report = ""
+                inode_file = inode_unpack[6:22]
+                inode_file = list(inode_file)
+                for i in inode_file:
+                    if i == -1:
+                        continue
+                    f.seek(sb_unpack[16]+(struct.calcsize(format_b)*(i-1)))
+                    block_unpack = struct.unpack(format_b,f.read(struct.calcsize(format_b)))
+                    report += block_unpack[0].decode('utf-8').rstrip("\x00")
+
+                with open(self.path,"w") as f:
+                    f.write(report)
+                    f.close()
+                print("Reporte generado con exito")
+                return
+            elif partition4[5].decode('utf-8').rstrip("\x00") == name_partition:
+                f.seek(partition4[3])
+                data_sb = f.read(struct.calcsize(format_sb))
+                sb_unpack = struct.unpack(format_sb,data_sb)
+                index_inode = 0
+                inode_file = 0
+                path_file = path_file.split("/")
+                cont = 0
+                for i in path_file:
+                    if i == "":
+                        cont += 1
+                        continue
+
+                    index_inode = self.searchInode(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2],index_inode,i)
+                #print(index_inode)
+                f.seek(sb_unpack[15]+(struct.calcsize(format_i)*(index_inode-1)))
+                inode_unpack = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
+                #print(inode_unpack)
+                report = ""
+                inode_file = inode_unpack[6:22]
+                inode_file = list(inode_file)
+                for i in inode_file:
+                    if i == -1:
+                        continue
+                    f.seek(sb_unpack[16]+(struct.calcsize(format_b)*(i-1)))
+                    block_unpack = struct.unpack(format_b,f.read(struct.calcsize(format_b)))
+                    report += block_unpack[0].decode('utf-8').rstrip("\x00")
+
+                with open(self.path,"w") as f:
+                    f.write(report)
+                    f.close()
+                print("Reporte generado con exito")
+                return
+
+
+    def searchInode(self,bm_inodes,bm_blocks,start_inodes,start_blocks,inode_size,block_size,index,folder):
+        format_i = "I I I I I I 16i c I"
+        format_b_folder = "12s i 12s i 12s i 12s i"
+        format_pointers = "16i"
+        block_p = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
+        with open(self.path_mount,"rb+") as f:
+            if index != 0:
+                index = index - 1 
+            posicion_init = start_inodes+(struct.calcsize(format_i)*(index))
+            f.seek(start_inodes+(struct.calcsize(format_i)*(index)))
+            inode_unpack = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
+            #inode_unpack = list(inode_unpack)
+            #print(inode_unpack,"INODO PADRE")
+            i_block = inode_unpack[6:22]
+            inode_unpack = list(inode_unpack)
+            
+            cont = 0
+            for i in i_block:
+                i = i - 1
+                
+                if cont < 13:
+                    f.seek(start_blocks+(struct.calcsize(format_b_folder)*(i)))
+                    block_unpack = struct.unpack(format_b_folder,f.read(struct.calcsize(format_b_folder)))
+                    block_unpack = list(block_unpack)
+                    #print(block_unpack)
+                    if block_unpack[0].decode('utf-8').rstrip("\x00") == folder:
+                        
+                        return block_unpack[1]
+                    elif block_unpack[2].decode('utf-8').rstrip("\x00") == folder:
+                        return block_unpack[3]
+                    elif block_unpack[4].decode('utf-8').rstrip("\x00") == folder:
+                        return block_unpack[5]
+                    elif block_unpack[6].decode('utf-8').rstrip("\x00") == folder:
+                        return block_unpack[7]
+                    
+                elif cont>=13:
+                    f.seek(start_blocks+(struct.calcsize(format_pointers)*(i)))
+                    block_p = struct.unpack(format_pointers,f.read(struct.calcsize(format_pointers)))
+                    for j in block_p:
+                        
+                        f.seek(start_blocks+(struct.calcsize(format_b_folder)*(j-1)))
+                        block_unpack = struct.unpack(format_b_folder,f.read(struct.calcsize(format_b_folder)))
+                        block_unpack = list(block_unpack)
+                        if block_unpack[0].decode('utf-8').rstrip("\x00") == folder:
+                            
+                            return block_unpack[1]
+                        elif block_unpack[2].decode('utf-8').rstrip("\x00") == folder:
+                            
+                            return block_unpack[3]
+                        elif block_unpack[4].decode('utf-8').rstrip("\x00") == folder:
+                            
+                            return block_unpack[5]
+                        elif block_unpack[6].decode('utf-8').rstrip("\x00") == folder:
+                            
+                            return block_unpack[7]
+                        
+                cont += 1

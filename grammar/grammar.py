@@ -610,68 +610,7 @@ def p_error(t):
 
 import ply.yacc as yacc
 parser = yacc.yacc()
-
-input_text = '''#CREACION DE DISCOS
-mkdisk -size=20 -unit=m -path=/home/archivos/Discos/Disco1.dsk
-Mkdisk -unit=k -size=51200 -path=/home/archivos/DiscosDisco2.dsk -fit=BF
-mkdisk -size=10 -path=/home/archivos/Discos/Disco3.dsk
-mkdisk -size=51200 -path="/home/archivos/Discos/mis archivos/Disco4.dsk" -unit=K
-mkdisk -size=20 -path="/home/archivos/Discos/mis archivos/Disco5.dsk" -unit=M -fit=WF
-#Deberia dar error
-mkdisk -param=x -s=30 -path=/home/archivos/archivos/fase1/Disco.dsk
-
-#ELIMINACION DE DISCOS
-#El primero deberia dar error
-rmdisk -path=/home/archivos/Disco3.dsk
-rmdisk -path=/home/Discos/Disco3.dsk
-RMdisk -path="/home/archivos/Discos/mis archivos/Disco4.dsk"
-
-
-#CREACION DE PARTICION
-fdisk -type=P -unit=K -name=Part1 -size=7680 -path=/home/archivos/Discos/Disco1.dsk -fit=BF
-#MOUNT
-#Recuerden corroborar con los digitos de su carne
-mount -path=/home/archivos/Discos/Disco1.dsk -name=Part1 #191a
-#CREACION DE SISTEMA DE ARCHIVOS
-mkfs -type=full -id=221Disco1 -fs=2fs
-
-login -user=root -pass=123 -id=221Disco1
-#CREACION DE GRUPOS
-mkgrp -name=usuarios
-mkgrp -name=adm
-mkgrp -name=users
-mkgrp -name=estudiantes
-
-rmgrp -name=estudiantes
-#CREACION DE USUARIOS
-mkusr -user=noel -pass=123 -grp=usuarios
-mkusr -user=carlos -pass=123 -grp=adm
-mkusr -user=arturo -pass=dark -grp=users
-rmusr -user=arturo
-
-#CREACION DE CARPETAS
-mkdir -path=/bin
-mkdir -path=/boot
-mkdir -path=/cdrom
-mkdir -path=/dev
-mkdir -path=/etc
-mkfile -path=/home/archivos/user/docs/Tarea2.txt -size=100
-mkfile -path=/home/archivos/user/docs/Tarea1.txt -size=30
-
-mkusr -user=hany -pass=galletas -grp=users
-mkusr -user=osmar -pass=123 -grp=users
-mkusr -user=leonor -pass=123 -grp=users
-cat -file1 =/home/archivos/user/docs/Tarea2.txt -file2=/home/archivos/user/docs/Tarea1.txt -file3=/users.txt
-rename -path=/home/archivos/user/docs/Tarea2.txt -name=Tarea3.txt
-remove -path=/home/archivos/user/docs/Tarea1.txt
-mkdir -path=/home/archivos/user/docs/Prueba
-remove -path=/home/archivos
-
-mkfile -path=/home/archivos/user/docs/Tarea1.txt -size=30
-mkfile -path=/home/archivos/user/docs/Tarea2.txt -size=200
-
-rep -id=221Disco1 -path=/home/archivos/reports/reporte1_tree.png -name=tree
-
 '''
+input_text =""
               
-commands = parser.parse(input_text)
+commands = parser.parse(input_text)'''

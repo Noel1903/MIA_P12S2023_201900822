@@ -192,7 +192,7 @@ class rename:
         format_b_folder = "12s i 12s i 12s i 12s i"
         format_pointers = "16i"
         block_p = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
-        print("Folder",folder)
+        #print("Folder",folder)
         with open(self.path_mount,"rb+") as f:
             if index != 0:
                 index = index - 1 

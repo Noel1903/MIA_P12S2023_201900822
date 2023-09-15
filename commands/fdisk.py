@@ -916,7 +916,7 @@ class fdisk:
                                     print("La particion es muy grande")
                                     return
                                 f.seek(part_init)
-                                print(part_init)
+                                #print(part_init)
                                 ebr_pack = struct.pack(format_ebr,
                                                         ebr_unpack[0],
                                                         ebr_unpack[1],

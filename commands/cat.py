@@ -207,16 +207,16 @@ class cat:
                         block_unpack = struct.unpack(format_b_folder,f.read(struct.calcsize(format_b_folder)))
                         block_unpack = list(block_unpack)
                         if block_unpack[0].decode('utf-8').rstrip("\x00") == folder:
-                            print("Archivo "+folder+" se va imprimir:")
+                            
                             return block_unpack[1]
                         elif block_unpack[2].decode('utf-8').rstrip("\x00") == folder:
-                            print("Archivo "+folder+" se va imprimir:")
+                           
                             return block_unpack[3]
                         elif block_unpack[4].decode('utf-8').rstrip("\x00") == folder:
-                            print("Archivo "+folder+" se va imprimir:")
+                            
                             return block_unpack[5]
                         elif block_unpack[6].decode('utf-8').rstrip("\x00") == folder:
-                            print("Archivo "+folder+" se va imprimir:")
+                          
                             return block_unpack[7]
                         
                 cont += 1

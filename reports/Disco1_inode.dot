@@ -4,83 +4,119 @@ rankdir=LR
 inode0[label="
 i_uid = 1\ni_gid = 1
 i_size = 27
-i_atime = 1694437720
-i_ctime = 1694437720
-i_mtime = 1694437720
-i_block = [1,5,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,]
+i_atime = 1694736378
+i_ctime = 1694736378
+i_mtime = 1694736378
+i_block = [1,6,11,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,]
 i_type = b'0'
 i_perm = 777\n"]
 inode1[label="
 i_uid = 1\ni_gid = 1
 i_size = 27
-i_atime = 1694437720
-i_ctime = 1694437720
-i_mtime = 1694437720
-i_block = [2,3,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,]
+i_atime = 1694736378
+i_ctime = 1694736378
+i_mtime = 1694736378
+i_block = [2,3,4,19,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,]
 i_type = b'1'
 i_perm = 777\n"]
 inode2[label="
 i_uid = 1\ni_gid = 1
 i_size = 1
-i_atime = 1
-i_ctime = 1
-i_mtime = 1
-i_block = [4,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,]
+i_atime = 1694736379
+i_ctime = 1694736379
+i_mtime = 1694736379
+i_block = [5,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,]
 i_type = b'0'
 i_perm = 664\n"]
 inode3[label="
 i_uid = 1\ni_gid = 1
 i_size = 1
-i_atime = 1
-i_ctime = 1
-i_mtime = 1
-i_block = [6,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,]
+i_atime = 1694736379
+i_ctime = 1694736379
+i_mtime = 1694736379
+i_block = [7,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,]
 i_type = b'0'
 i_perm = 664\n"]
 inode4[label="
 i_uid = 1\ni_gid = 1
 i_size = 1
-i_atime = 1
-i_ctime = 1
-i_mtime = 1
-i_block = [7,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,]
+i_atime = 1694736379
+i_ctime = 1694736379
+i_mtime = 1694736379
+i_block = [8,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,]
 i_type = b'0'
 i_perm = 664\n"]
 inode5[label="
 i_uid = 1\ni_gid = 1
 i_size = 1
-i_atime = 1
-i_ctime = 1
-i_mtime = 1
-i_block = [8,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,]
+i_atime = 1694736379
+i_ctime = 1694736379
+i_mtime = 1694736379
+i_block = [9,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,]
 i_type = b'0'
 i_perm = 664\n"]
 inode6[label="
 i_uid = 1\ni_gid = 1
 i_size = 1
-i_atime = 1
-i_ctime = 1
-i_mtime = 1
-i_block = [9,10,11,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,]
-i_type = b'1'
+i_atime = 1694736379
+i_ctime = 1694736379
+i_mtime = 1694736379
+i_block = [10,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,]
+i_type = b'0'
 i_perm = 664\n"]
 inode7[label="
 i_uid = 1\ni_gid = 1
 i_size = 1
-i_atime = 1
-i_ctime = 1
-i_mtime = 1
-i_block = [12,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,]
+i_atime = 1694736379
+i_ctime = 1694736379
+i_mtime = 1694736379
+i_block = [12,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,]
 i_type = b'0'
 i_perm = 664\n"]
 inode8[label="
 i_uid = 1\ni_gid = 1
 i_size = 1
-i_atime = 1
-i_ctime = 1
-i_mtime = 1
-i_block = [13,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,]
+i_atime = 1694736379
+i_ctime = 1694736379
+i_mtime = 1694736379
+i_block = [13,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,]
+i_type = b'0'
+i_perm = 664\n"]
+inode9[label="
+i_uid = 1\ni_gid = 1
+i_size = 1
+i_atime = 1694736379
+i_ctime = 1694736379
+i_mtime = 1694736379
+i_block = [14,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,]
+i_type = b'0'
+i_perm = 664\n"]
+inode10[label="
+i_uid = 1\ni_gid = 1
+i_size = 1
+i_atime = 1694736379
+i_ctime = 1694736379
+i_mtime = 1694736379
+i_block = [15,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,]
+i_type = b'0'
+i_perm = 664\n"]
+inode11[label="
+i_uid = 1\ni_gid = 1
+i_size = 1
+i_atime = 1694736379
+i_ctime = 1694736379
+i_mtime = 1694736379
+i_block = [16,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,]
 i_type = b'1'
 i_perm = 664\n"]
-inode0->inode1->inode2->inode3->inode4->inode5->inode6->inode7->inode8->null
+inode12[label="
+i_uid = 1\ni_gid = 1
+i_size = 1
+i_atime = 1694736379
+i_ctime = 1694736379
+i_mtime = 1694736379
+i_block = [17,18,20,21,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,]
+i_type = b'1'
+i_perm = 664\n"]
+inode0->inode1->inode2->inode3->inode4->inode5->inode6->inode7->inode8->inode9->inode10->inode11->inode12->null
 }

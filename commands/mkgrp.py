@@ -25,7 +25,7 @@ class mkgrp:
         id = log.getId()[len(log.getId())-1]
         userlogued = log.getUserLogued()[len(log.getUserLogued())-1]
         user = log.getUser()[len(log.getUser())-1]
-        print(id,userlogued,user)
+        #print(id,userlogued,user)
         if userlogued and id!= "" and user =="root":
             print("Creando grupo")
             format_mbr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
@@ -88,7 +88,7 @@ class mkgrp:
                             
                             block_count = i
                         else:
-                            print("block_count",block_count)
+                            #print("block_count",block_count)
                             break
                     for j in users_txt01:
                         user = j.split(",")
@@ -181,10 +181,10 @@ class mkgrp:
                             users_txt01 = users_txt01[:-1]
                             user = ""
 
-                            print(users_txt01)
+                            #print(users_txt01)
                             block_count = i
                         else:
-                            print("block_count",block_count)
+                            #print("block_count",block_count)
                             break
                     for j in users_txt01:
                         user = j.split(",")
@@ -197,7 +197,7 @@ class mkgrp:
                     f.seek(block_start + ((block_count-1) * struct.calcsize(format_b)))       
                     users_txt = struct.unpack(format_b,f.read(struct.calcsize(format_b)))[0].decode('utf-8').rstrip("\x00")
                     sizeP = len(users_txt)
-                    print(users_txt)
+                    #print(users_txt)
                     addGroup = str(idG+1)+",G,"+self.name+"\n"
                     if sizeP + len(addGroup)<=64:
                         users_txt += addGroup
@@ -271,10 +271,10 @@ class mkgrp:
                             users_txt01 = users_txt01[:-1]
                             user = ""
 
-                            print(users_txt01)
+                            #print(users_txt01)
                             block_count = i
                         else:
-                            print("block_count",block_count)
+                            #print("block_count",block_count)
                             break
                     for j in users_txt01:
                         user = j.split(",")
@@ -287,7 +287,7 @@ class mkgrp:
                     f.seek(block_start + ((block_count-1) * struct.calcsize(format_b)))       
                     users_txt = struct.unpack(format_b,f.read(struct.calcsize(format_b)))[0].decode('utf-8').rstrip("\x00")
                     sizeP = len(users_txt)
-                    print(users_txt)
+                    #print(users_txt)
                     addGroup = str(idG+1)+",G,"+self.name+"\n"
                     if sizeP + len(addGroup)<=64:
                         users_txt += addGroup
@@ -361,10 +361,10 @@ class mkgrp:
                             users_txt01 = users_txt01[:-1]
                             user = ""
 
-                            print(users_txt01)
+                            #print(users_txt01)
                             block_count = i
                         else:
-                            print("block_count",block_count)
+                            #print("block_count",block_count)
                             break
                     for j in users_txt01:
                         user = j.split(",")
@@ -377,7 +377,7 @@ class mkgrp:
                     f.seek(block_start + ((block_count-1) * struct.calcsize(format_b)))       
                     users_txt = struct.unpack(format_b,f.read(struct.calcsize(format_b)))[0].decode('utf-8').rstrip("\x00")
                     sizeP = len(users_txt)
-                    print(users_txt)
+                    #print(users_txt)
                     addGroup = str(idG+1)+",G,"+self.name+"\n"
                     if sizeP + len(addGroup)<=64:
                         users_txt += addGroup

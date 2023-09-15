@@ -85,8 +85,10 @@ class PointerBlock:
         self.b_pointers = b_pointers
 
 class Journaling:
-    def __init__(self,journaling_type,journaling_operation,journaling_content,journaling_date):
-        self.journaling_type = journaling_type
+    def __init__(self,journaling_operation,journaling_path,journaling_content,journaling_date):
+        
         self.journaling_operation = journaling_operation
+        self.journaling_path = journaling_path
         self.journaling_content = journaling_content
         self.journaling_date = journaling_date
+

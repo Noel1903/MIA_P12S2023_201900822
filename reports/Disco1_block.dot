@@ -5,18 +5,18 @@ block1[label="block_folder1
 b_name = .		b_inode = 0
 b_name = ..		b_inode = 0
 b_name = users.txt		b_inode = 2
-b_name = home		b_inode = 3"]
-block5[label="block_folder5
-b_name = tmp		b_inode = 4
-b_name = bin		b_inode = 8
+b_name = bin		b_inode = 3"]
+block6[label="block_folder6
+b_name = boot		b_inode = 4
+b_name = cdrom		b_inode = 5
+b_name = dev		b_inode = 6
+b_name = etc		b_inode = 7"]
+block11[label="block_folder11
+b_name = home		b_inode = 8
+b_name = 		b_inode = -1
 b_name = 		b_inode = -1
 b_name = 		b_inode = -1"]
-block4[label="block_folder4
-b_name = .		b_inode = 0
-b_name = ..		b_inode = 0
-b_name = usuario		b_inode = 5
-b_name = 		b_inode = -1"]
-block6[label="block_folder6
+block5[label="block_folder5
 b_name = .		b_inode = 0
 b_name = ..		b_inode = 0
 b_name = 		b_inode = -1
@@ -24,35 +24,72 @@ b_name = 		b_inode = -1"]
 block7[label="block_folder7
 b_name = .		b_inode = 0
 b_name = ..		b_inode = 0
-b_name = Documentos		b_inode = 6
+b_name = 		b_inode = -1
 b_name = 		b_inode = -1"]
 block8[label="block_folder8
 b_name = .		b_inode = 0
 b_name = ..		b_inode = 0
-b_name = Archivo1.txt		b_inode = 7
-b_name = Archivo2.txt		b_inode = 9"]
-block12[label="block_folder12
+b_name = 		b_inode = -1
+b_name = 		b_inode = -1"]
+block9[label="block_folder9
 b_name = .		b_inode = 0
 b_name = ..		b_inode = 0
 b_name = 		b_inode = -1
 b_name = 		b_inode = -1"]
+block10[label="block_folder10
+b_name = .		b_inode = 0
+b_name = ..		b_inode = 0
+b_name = 		b_inode = -1
+b_name = 		b_inode = -1"]
+block12[label="block_folder12
+b_name = .		b_inode = 0
+b_name = ..		b_inode = 0
+b_name = archivos		b_inode = 9
+b_name = 		b_inode = -1"]
+block13[label="block_folder13
+b_name = .		b_inode = 0
+b_name = ..		b_inode = 0
+b_name = user		b_inode = 10
+b_name = 		b_inode = -1"]
+block14[label="block_folder14
+b_name = .		b_inode = 0
+b_name = ..		b_inode = 0
+b_name = docs		b_inode = 11
+b_name = 		b_inode = -1"]
+block15[label="block_folder15
+b_name = .		b_inode = 0
+b_name = ..		b_inode = 0
+b_name = Tarea1.txt		b_inode = 12
+b_name = Tarea2.txt		b_inode = 13"]
 block2[label="block_file2
 b_content = 1,G,root
 1,U,root,root,123
 2,G,usuarios
-3,G,usuarios2
-2,U,usuari"]
+3,G,adm
+4,G,users
+0,G,es"]
 block3[label="block_file3
-b_content = os,usuario1,123
-3,U,usuarios2,noel,contra123
+b_content = tudiantes
+2,U,usuarios,noel,123
+3,U,adm,carlos,123
+0,U,users,art"]
+block4[label="block_file4
+b_content = uro,dark
+1,U,users,hany,galletas
+2,U,users,osmar,123
+3,U,users,l"]
+block19[label="block_file19
+b_content = eonor,123
 "]
-block9[label="block_file9
+block16[label="block_file16
+b_content = 0123456789012345678901234567890"]
+block17[label="block_file17
 b_content = 0123456789012345678901234567890123456789012345678901234567890123"]
-block10[label="block_file10
+block18[label="block_file18
 b_content = 4567890123456789012345678901234567890123456789012345678901234567"]
-block11[label="block_file11
-b_content = 8"]
-block13[label="block_file13
-b_content = Hola como estas"]
-block1->block2->block3->block4->block5->block6->block7->block8->block9->block10->block11->block12->block13->null
+block20[label="block_file20
+b_content = 8901234567890123456789012345678901234567890123456789012345678901"]
+block21[label="block_file21
+b_content = 234567890"]
+block1->block2->block3->block4->block5->block6->block7->block8->block9->block10->block11->block12->block13->block14->block15->block16->block17->block18->block19->block20->block21->null
 }

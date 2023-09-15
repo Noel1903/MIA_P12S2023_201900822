@@ -18,7 +18,7 @@ class rmusr:
         id = log.getId()[len(log.getId())-1]
         userlogued = log.getUserLogued()[len(log.getUserLogued())-1]
         user = log.getUser()[len(log.getUser())-1]
-        print(id,userlogued,user)
+        #print(id,userlogued,user)
         if userlogued and id!= "" and user =="root":
             print("Eliminando usuario")
             format_mbr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"

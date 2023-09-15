@@ -144,7 +144,7 @@ class mkfs:
                     #Creacion de la carpeta raiz
                     f.seek(bm_block_start)
                     index_b = self.getIndexBock(f.read(blocks_count))
-                    print(index_b)
+                    #print(index_b)
                     f.seek(inode_start)
                     inode_root = f.read(inode_size)
                     inode_root_unpack = struct.unpack(format_i,inode_root)
@@ -273,7 +273,7 @@ class mkfs:
                     #Creacion de la carpeta raiz
                     f.seek(bm_block_start)
                     index_b = self.getIndexBock(f.read(blocks_count))
-                    print(index_b)
+                    #print(index_b)
                     f.seek(inode_start)
                     inode_root = f.read(inode_size)
                     inode_root_unpack = struct.unpack(format_i,inode_root)
@@ -402,7 +402,7 @@ class mkfs:
                     #Creacion de la carpeta raiz
                     f.seek(bm_block_start)
                     index_b = self.getIndexBock(f.read(blocks_count))
-                    print(index_b)
+                    #print(index_b)
                     f.seek(inode_start)
                     inode_root = f.read(inode_size)
                     inode_root_unpack = struct.unpack(format_i,inode_root)
@@ -531,7 +531,7 @@ class mkfs:
                     #Creacion de la carpeta raiz
                     f.seek(bm_block_start)
                     index_b = self.getIndexBock(f.read(blocks_count))
-                    print(index_b)
+                    #print(index_b)
                     f.seek(inode_start)
                     inode_root = f.read(inode_size)
                     inode_root_unpack = struct.unpack(format_i,inode_root)
@@ -702,7 +702,7 @@ class mkfs:
                     #Creacion de la carpeta raiz
                     f.seek(bm_block_start)
                     index_b = self.getIndexBock(f.read(blocks_count))
-                    print(index_b)
+                    #print(index_b)
                     f.seek(inode_start)
                     inode_root = f.read(inode_size)
                     inode_root_unpack = struct.unpack(format_i,inode_root)
@@ -834,7 +834,7 @@ class mkfs:
                     #Creacion de la carpeta raiz
                     f.seek(bm_block_start)
                     index_b = self.getIndexBock(f.read(blocks_count))
-                    print(index_b)
+                    #print(index_b)
                     f.seek(inode_start)
                     inode_root = f.read(inode_size)
                     inode_root_unpack = struct.unpack(format_i,inode_root)
@@ -969,7 +969,7 @@ class mkfs:
                     #Creacion de la carpeta raiz
                     f.seek(bm_block_start)
                     index_b = self.getIndexBock(f.read(blocks_count))
-                    print(index_b)
+                    #print(index_b)
                     f.seek(inode_start)
                     inode_root = f.read(inode_size)
                     inode_root_unpack = struct.unpack(format_i,inode_root)
@@ -1104,7 +1104,7 @@ class mkfs:
                     #Creacion de la carpeta raiz
                     f.seek(bm_block_start)
                     index_b = self.getIndexBock(f.read(blocks_count))
-                    print(index_b)
+                    #print(index_b)
                     f.seek(inode_start)
                     inode_root = f.read(inode_size)
                     inode_root_unpack = struct.unpack(format_i,inode_root)

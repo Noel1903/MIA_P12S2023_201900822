@@ -63,7 +63,79 @@ class remove:
                             continue
                         
                         if cont == len(path_file)-1:
-                            print(i)
+                            #print(i)
+                            self.removeFolderFile(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2],index_inode,i)
+                            break
+                        
+                        index_inode = self.searchInode(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2],index_inode,i)
+
+                       
+                        cont += 1
+                    return
+                elif partition2[5].decode('utf-8').rstrip("\x00") == part_m.name_partition:
+                    f.seek(partition2[3])
+                    data_sb = f.read(struct.calcsize(format_sb))
+                    sb_unpack = struct.unpack(format_sb,data_sb)
+                    index_inode = 0
+                    inode_file = 0
+                    path_file = self.path.split("/")
+
+                    cont = 0
+                    for i in path_file:
+                        if i == "":
+                            cont += 1
+                            continue
+                        
+                        if cont == len(path_file)-1:
+                            #print(i)
+                            self.removeFolderFile(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2],index_inode,i)
+                            break
+                        
+                        index_inode = self.searchInode(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2],index_inode,i)
+
+                       
+                        cont += 1
+                    return
+                elif partition3[5].decode('utf-8').rstrip("\x00") == part_m.name_partition:
+                    f.seek(partition3[3])
+                    data_sb = f.read(struct.calcsize(format_sb))
+                    sb_unpack = struct.unpack(format_sb,data_sb)
+                    index_inode = 0
+                    inode_file = 0
+                    path_file = self.path.split("/")
+
+                    cont = 0
+                    for i in path_file:
+                        if i == "":
+                            cont += 1
+                            continue
+                        
+                        if cont == len(path_file)-1:
+                            #print(i)
+                            self.removeFolderFile(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2],index_inode,i)
+                            break
+                        
+                        index_inode = self.searchInode(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2],index_inode,i)
+
+                       
+                        cont += 1
+                    return
+                elif partition4[5].decode('utf-8').rstrip("\x00") == part_m.name_partition:
+                    f.seek(partition4[3])
+                    data_sb = f.read(struct.calcsize(format_sb))
+                    sb_unpack = struct.unpack(format_sb,data_sb)
+                    index_inode = 0
+                    inode_file = 0
+                    path_file = self.path.split("/")
+
+                    cont = 0
+                    for i in path_file:
+                        if i == "":
+                            cont += 1
+                            continue
+                        
+                        if cont == len(path_file)-1:
+                            #print(i)
                             self.removeFolderFile(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2],index_inode,i)
                             break
                         
@@ -213,7 +285,7 @@ class remove:
                                 self.removeFolder(bm_inodes,bm_blocks,start_inodes,start_blocks,inode_size,block_size,index_block,folder)
                     
                         elif block_unpack[6].decode('utf-8').rstrip("\x00") == folder:
-                            print("ENTRO")
+                            #print("ENTRO")
                             f.seek(start_inodes+(struct.calcsize(format_i)*(block_unpack[7]-1)))
                             position = start_inodes+(struct.calcsize(format_i)*(block_unpack[7]-1))
                             inoderemove_unpack = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
@@ -306,7 +378,7 @@ class remove:
                                         self.removeFolder(bm_inodes,bm_blocks,start_inodes,start_blocks,inode_size,block_size,index_block,folder)
                             
                                 elif block_unpack2[6].decode('utf-8').rstrip("\x00") == folder:
-                                    print("ENTRO")
+                                    #print("ENTRO")
                                     f.seek(start_inodes+(struct.calcsize(format_i)*(block_unpack2[7]-1)))
                                     position = start_inodes+(struct.calcsize(format_i)*(block_unpack2[7]-1))
                                     inoderemove_unpack = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
@@ -485,7 +557,7 @@ class remove:
                                         self.removeFolder(bm_inodes,bm_blocks,start_inodes,start_blocks,inode_size,block_size,index_block,folder)
                             
                                 elif block_unpack2[6].decode('utf-8').rstrip("\x00") == folder:
-                                    print("ENTRO")
+                                    #print("ENTRO")
                                     f.seek(start_inodes+(struct.calcsize(format_i)*(block_unpack2[7]-1)))
                                     position = start_inodes+(struct.calcsize(format_i)*(block_unpack2[7]-1))
                                     inoderemove_unpack = struct.unpack(format_i,f.read(struct.calcsize(format_i)))

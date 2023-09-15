@@ -86,7 +86,7 @@ class login:
                 for i in users_txt:
                     user = i.split(",")
                     if len(user) == 5:
-                        print(user[3],self.user,user[4],self.password)
+                        #print(user[3],self.user,user[4],self.password)
                         if user[3].rstrip("\x00") == self.user and user[4].rstrip("\x00") == self.password:
                             print("Login de ",self.user,"exitoso")
                             self.userlogued[0] = True
@@ -120,7 +120,7 @@ class login:
                 for i in users_txt:
                     user = i.split(",")
                     if len(user) == 5:
-                        print(user[3],self.user,user[4],self.password)
+                        #print(user[3],self.user,user[4],self.password)
                         if user[3].rstrip("\x00") == self.user and user[4].rstrip("\x00") == self.password:
                             print("Login de ",self.user,"exitoso")
                             self.userlogued[0] = True
@@ -154,7 +154,7 @@ class login:
                 for i in users_txt:
                     user = i.split(",")
                     if len(user) == 5:
-                        print(user[3],self.user,user[4],self.password)
+                        #print(user[3],self.user,user[4],self.password)
                         if user[3].rstrip("\x00") == self.user and user[4].rstrip("\x00") == self.password:
                             print("Login de ",self.user,"exitoso")
                             self.userlogued = True
@@ -186,7 +186,7 @@ class login:
                 for i in users_txt:
                     user = i.split(",")
                     if len(user) == 5:
-                        print(user[3],self.user,user[4],self.password)
+                        #print(user[3],self.user,user[4],self.password)
                         if user[3].rstrip("\x00") == self.user and user[4].rstrip("\x00") == self.password:
                             print("Login de ",self.user,"exitoso")
                             self.userlogued = True

@@ -1,6 +1,6 @@
 from  commands.login import login
 from commands.mount import mount
-import struct
+import struct,datetime
 
 class mkdir:
     path_mount =""
@@ -36,7 +36,7 @@ class mkdir:
         id = log.getId()[len(log.getId())-1]
         userlogued = log.getUserLogued()[len(log.getUserLogued())-1]
         user = log.getUser()[len(log.getUser())-1]
-        print(id,userlogued,user)
+        #print(id,userlogued,user)
         if userlogued and id!= "":
             format_mbr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
             format_ebr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s"
@@ -76,8 +76,19 @@ class mkdir:
                         if i == "":
                             continue
                         index_inode = self.searchInode(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2],index_inode,i)
-                        print(index_inode,"este regresa")
+                        #print(index_inode,"este regresa")
+                    sb_unpack = list(sb_unpack)
                     #self.showBlocks(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2])
+                    f.seek(sb_unpack[14])
+                    sb_unpack[3] = sb_unpack[3] - self.getIndexBock(f.read(sb_unpack[2]))
+                    f.seek(sb_unpack[14])
+                    sb_unpack[12] = self.getIndexInode(f.read(sb_unpack[2]))
+                    f.seek(sb_unpack[13])
+                    sb_unpack[4] = sb_unpack[4] - self.getIndexInode(f.read(sb_unpack[1]))
+                    f.seek(sb_unpack[13])
+                    sb_unpack[11] = self.getIndexInode(f.read(sb_unpack[1]))
+                    f.seek(partition1[3])
+                    f.write(struct.pack(format_sb,sb_unpack[0],sb_unpack[1],sb_unpack[2],sb_unpack[3],sb_unpack[4],sb_unpack[5],sb_unpack[6],sb_unpack[7],sb_unpack[8],sb_unpack[9],sb_unpack[10],sb_unpack[11],sb_unpack[12],sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16]))
                     
                     print("Carpeta creada")
                 elif partition2[5].decode('utf-8').rstrip("\x00") == part_m.name_partition:
@@ -91,6 +102,18 @@ class mkdir:
                             continue
                         index_inode = self.searchInode(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2],index_inode,i)
                     self.showBlocks(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2])
+                    sb_unpack = list(sb_unpack)
+                    #self.showBlocks(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2])
+                    f.seek(sb_unpack[14])
+                    sb_unpack[3] = sb_unpack[3] - self.getIndexBock(f.read(sb_unpack[2]))
+                    f.seek(sb_unpack[14])
+                    sb_unpack[12] = self.getIndexInode(f.read(sb_unpack[2]))
+                    f.seek(sb_unpack[13])
+                    sb_unpack[4] = sb_unpack[4] - self.getIndexInode(f.read(sb_unpack[1]))
+                    f.seek(sb_unpack[13])
+                    sb_unpack[11] = self.getIndexInode(f.read(sb_unpack[1]))
+                    f.seek(partition2[3])
+                    f.write(struct.pack(format_sb,sb_unpack[0],sb_unpack[1],sb_unpack[2],sb_unpack[3],sb_unpack[4],sb_unpack[5],sb_unpack[6],sb_unpack[7],sb_unpack[8],sb_unpack[9],sb_unpack[10],sb_unpack[11],sb_unpack[12],sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16]))
                     
                     print("Carpeta creada")
 
@@ -104,7 +127,19 @@ class mkdir:
                         if i == "":
                             continue
                         index_inode = self.searchInode(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2],index_inode,i)
-
+                    sb_unpack = list(sb_unpack)
+                    #self.showBlocks(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2])
+                    f.seek(sb_unpack[14])
+                    sb_unpack[3] = sb_unpack[3] - self.getIndexBock(f.read(sb_unpack[2]))
+                    f.seek(sb_unpack[14])
+                    sb_unpack[12] = self.getIndexInode(f.read(sb_unpack[2]))
+                    f.seek(sb_unpack[13])
+                    sb_unpack[4] = sb_unpack[4] - self.getIndexInode(f.read(sb_unpack[1]))
+                    f.seek(sb_unpack[13])
+                    sb_unpack[11] = self.getIndexInode(f.read(sb_unpack[1]))
+                    f.seek(partition3[3])
+                    f.write(struct.pack(format_sb,sb_unpack[0],sb_unpack[1],sb_unpack[2],sb_unpack[3],sb_unpack[4],sb_unpack[5],sb_unpack[6],sb_unpack[7],sb_unpack[8],sb_unpack[9],sb_unpack[10],sb_unpack[11],sb_unpack[12],sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16]))
+                    
                     print("Carpeta creada")
                 elif partition4[5].decode('utf-8').rstrip("\x00") == part_m.name_partition:
                     f.seek(partition4[3])
@@ -117,6 +152,19 @@ class mkdir:
                             continue
                         index_inode = self.searchInode(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2],index_inode,i)
                     self.showBlocks(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2])
+                    sb_unpack = list(sb_unpack)
+                    #self.showBlocks(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2])
+                    f.seek(sb_unpack[14])
+                    sb_unpack[3] = sb_unpack[3] - self.getIndexBock(f.read(sb_unpack[2]))
+                    f.seek(sb_unpack[14])
+                    sb_unpack[12] = self.getIndexInode(f.read(sb_unpack[2]))
+                    f.seek(sb_unpack[13])
+                    sb_unpack[4] = sb_unpack[4] - self.getIndexInode(f.read(sb_unpack[1]))
+                    f.seek(sb_unpack[13])
+                    sb_unpack[11] = self.getIndexInode(f.read(sb_unpack[1]))
+                    f.seek(partition4[3])
+                    f.write(struct.pack(format_sb,sb_unpack[0],sb_unpack[1],sb_unpack[2],sb_unpack[3],sb_unpack[4],sb_unpack[5],sb_unpack[6],sb_unpack[7],sb_unpack[8],sb_unpack[9],sb_unpack[10],sb_unpack[11],sb_unpack[12],sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16]))
+                    
                     print("Carpeta creada")
 
 
@@ -171,7 +219,7 @@ class mkdir:
                             f.seek(bm_blocks+(block_pointer-1))
                             f.write(b'1')
                             f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
-                            f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                            f.write(struct.pack(format_i,1,1,1,int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
                             f.seek(bm_inodes)
                             inode_pointer = self.getIndexInode(f.read(inode_size))
                             return inode_pointer - 1
@@ -185,7 +233,7 @@ class mkdir:
                             f.seek(bm_inodes+(inode_pointer-1))
                             f.write(b'1')
                             f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
-                            f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                            f.write(struct.pack(format_i,1,1,1,int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
                             f.seek(bm_blocks)
                             block_pointer = self.getIndexBock(f.read(block_size))
                             f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_pointer-1)))
@@ -193,7 +241,7 @@ class mkdir:
                             f.seek(bm_blocks+(block_pointer-1))
                             f.write(b'1')
                             f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
-                            f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                            f.write(struct.pack(format_i,1,1,1,int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
                             f.seek(bm_inodes)
                             inode_pointer = self.getIndexInode(f.read(inode_size))
                             return inode_pointer - 1
@@ -207,7 +255,7 @@ class mkdir:
                             f.seek(bm_inodes+(inode_pointer-1))
                             f.write(b'1')
                             f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
-                            f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                            f.write(struct.pack(format_i,1,1,1,int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
                             f.seek(bm_blocks)
                             block_pointer = self.getIndexBock(f.read(block_size))
                             f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_pointer-1)))
@@ -215,12 +263,12 @@ class mkdir:
                             f.seek(bm_blocks+(block_pointer-1))
                             f.write(b'1')
                             f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
-                            f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                            f.write(struct.pack(format_i,1,1,1,int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
                             f.seek(bm_inodes)
                             inode_pointer = self.getIndexInode(f.read(inode_size))
                             return inode_pointer - 1
                         elif block_unpack[6].decode('utf-8').rstrip("\x00") == "":
-                            print("Aqui debe estr el home")
+                            #print("Aqui debe estr el home")
                             f.seek(bm_inodes)
                             inode_pointer = self.getIndexInode(f.read(inode_size))
                             block_unpack[6] = folder.encode('utf-8')
@@ -232,7 +280,7 @@ class mkdir:
                             f.write(b'1')
                             f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
                             #print(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
-                            f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                            f.write(struct.pack(format_i,1,1,1,int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
                             f.seek(bm_blocks)
                             block_pointer = self.getIndexBock(f.read(block_size))
                             f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_pointer-1)))
@@ -241,12 +289,12 @@ class mkdir:
                             f.seek(bm_blocks+(block_pointer-1))
                             f.write(b'1')
                             f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
-                            print(block_pointer)
-                            print(f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664)))
+                            #print(block_pointer)
+                            f.write(struct.pack(format_i,1,1,1,int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
                         
                             f.seek(bm_inodes)
                             inode_pointer = self.getIndexInode(f.read(inode_size))
-                            print(inode_pointer)
+                            #print(inode_pointer)
                             return inode_pointer - 1
                     elif cont >= 13:
                         f.seek(start_blocks+(struct.calcsize(format_b_folder)*i))
@@ -258,7 +306,7 @@ class mkdir:
                                 f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_unpack[j]-1)))
                                 block_unpack2 = struct.unpack(format_b_folder,f.read(struct.calcsize(format_b_folder)))
                                 block_unpack2 = list(block_unpack2)
-                                print(block_unpack2)
+                                #print(block_unpack2)
                                 if block_unpack2[0].decode('utf-8').rstrip("\x00") == folder:
                                     return block_unpack2[1]
                                 elif block_unpack2[2].decode('utf-8').rstrip("\x00") == folder:
@@ -276,7 +324,7 @@ class mkdir:
                                     f.write(struct.pack(format_b_folder,block_unpack2[0],block_unpack2[1],block_unpack2[2],block_unpack2[3],block_unpack2[4],block_unpack[5],block_unpack2[6],block_unpack2[7]))
                                     
                                     f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
-                                    f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                                    f.write(struct.pack(format_i,1,1,1,int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
                                     f.seek(bm_inodes+(inode_pointer-1))
                                     f.write(b'1')
                                     f.seek(bm_blocks)
@@ -286,7 +334,7 @@ class mkdir:
                                     f.seek(bm_blocks+(block_pointer-1))
                                     f.write(b'1')
                                     f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
-                                    f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                                    f.write(struct.pack(format_i,1,1,1,int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
                                     f.seek(bm_inodes)
                                     inode_pointer = self.getIndexInode(f.read(inode_size))
                                     return inode_pointer - 1
@@ -300,7 +348,7 @@ class mkdir:
                                     f.seek(bm_inodes+(inode_pointer-1))
                                     f.write(b'1')
                                     f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
-                                    f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                                    f.write(struct.pack(format_i,1,1,1,int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
                                     f.seek(bm_blocks)
                                     block_pointer = self.getIndexBock(f.read(block_size))
                                     f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_pointer-1)))
@@ -308,7 +356,7 @@ class mkdir:
                                     f.seek(bm_blocks+(block_pointer-1))
                                     f.write(b'1')
                                     f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
-                                    f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                                    f.write(struct.pack(format_i,1,1,1,int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
                                     f.seek(bm_inodes)
                                     inode_pointer = self.getIndexInode(f.read(inode_size))
                                     return inode_pointer - 1
@@ -322,7 +370,7 @@ class mkdir:
                                     f.seek(bm_inodes+(inode_pointer-1))
                                     f.write(b'1')
                                     f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
-                                    f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                                    f.write(struct.pack(format_i,1,1,1,int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
                                     f.seek(bm_blocks)
                                     block_pointer = self.getIndexBock(f.read(block_size))
                                     f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_pointer-1)))
@@ -330,12 +378,12 @@ class mkdir:
                                     f.seek(bm_blocks+(block_pointer-1))
                                     f.write(b'1')
                                     f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
-                                    f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                                    f.write(struct.pack(format_i,1,1,1,int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
                                     f.seek(bm_inodes)
                                     inode_pointer = self.getIndexInode(f.read(inode_size))
                                     return inode_pointer - 1
                                 elif block_unpack2[6].decode('utf-8').rstrip("\x00") == "":
-                                    print("Aqui debe estr el home")
+                                    #print("Aqui debe estr el home")
                                     f.seek(bm_inodes)
                                     inode_pointer = self.getIndexInode(f.read(inode_size))
                                     block_unpack2[6] = folder.encode('utf-8')
@@ -347,7 +395,7 @@ class mkdir:
                                     f.write(b'1')
                                     f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
                                     #print(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
-                                    f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                                    f.write(struct.pack(format_i,1,1,1,int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
                                     f.seek(bm_blocks)
                                     block_pointer = self.getIndexBock(f.read(block_size))
                                     f.seek(start_blocks+(struct.calcsize(format_b_folder)*(block_pointer-1)))
@@ -356,12 +404,12 @@ class mkdir:
                                     f.seek(bm_blocks+(block_pointer-1))
                                     f.write(b'1')
                                     f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
-                                    print(block_pointer)
-                                    print(f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664)))
+                                    #print(block_pointer)
+                                    f.write(struct.pack(format_i,1,1,1,int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
                                 
                                     f.seek(bm_inodes)
                                     inode_pointer = self.getIndexInode(f.read(inode_size))
-                                    print(inode_pointer)
+                                    #print(inode_pointer)
                                     return inode_pointer - 1
                             else:
                                 f.seek(bm_blocks)
@@ -382,7 +430,7 @@ class mkdir:
                                 block_pointer = self.getIndexBock(f.read(block_size))
                                 f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
                                 #se crea el nuevo inodo
-                                f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                                f.write(struct.pack(format_i,1,1,1,int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
                                 #se marca como ocupado el inodo
                                 f.seek(bm_inodes+(inode_pointer-1))
                                 f.write(b'1')
@@ -394,7 +442,7 @@ class mkdir:
                                 f.write(b'1')
                                 f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
                                 #se escribe el nuevo inodo
-                                f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                                f.write(struct.pack(format_i,1,1,1,int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
                                 f.seek(bm_inodes)
                                 inode_return = self.getIndexInode(f.read(inode_size))
                                 return inode_return - 1
@@ -415,7 +463,7 @@ class mkdir:
                         block_pointer = self.getIndexBock(f.read(block_size))
                         f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
                         #se crea el nuevo inodo
-                        f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                        f.write(struct.pack(format_i,1,1,1,int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
                         #se marca como ocupado el inodo
                         f.seek(bm_inodes+(inode_pointer-1))
                         f.write(b'1')
@@ -427,7 +475,7 @@ class mkdir:
                         f.write(b'1')
                         f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
                         #se escribe el nuevo inodo
-                        f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                        f.write(struct.pack(format_i,1,1,1,int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
                         inode_unpack[cont+6] = block_pointer - 1
                         f.seek(bm_inodes)
                         inode_return = self.getIndexInode(f.read(inode_size))
@@ -464,7 +512,7 @@ class mkdir:
                         block_pointer = self.getIndexBock(f.read(block_size))
                         f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
                         #se crea el nuevo inodo
-                        f.write(struct.pack(format_i,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                        f.write(struct.pack(format_i,1,1,1,int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
                         #se marca como ocupado el inodo
                         f.seek(bm_inodes+(inode_pointer-1))
                         f.write(b'1')
@@ -476,7 +524,7 @@ class mkdir:
                         f.write(b'1')
                         f.seek(start_inodes+(struct.calcsize(format_i)*(inode_pointer-1)))
                         #se escribe el nuevo inodo
-                        f.write(struct.pack(format_i,1,1,1,1,1,1,block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
+                        f.write(struct.pack(format_i,1,1,1,int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),int(datetime.datetime.now().timestamp()),block_pointer,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,b'0',664))
                         inode_unpack[cont+6] = block_pointer01
                         f.seek(bm_inodes)
                         inode_return = self.getIndexInode(f.read(inode_size))
@@ -486,6 +534,7 @@ class mkdir:
 
                 cont += 1
 
+
     def showBlocks(self,bm_inodes,bm_blocks,start_inodes,start_blocks,inode_size,block_size):
 
         format_i = "I I I I I I 16i c I"
@@ -493,14 +542,14 @@ class mkdir:
         with open(self.path_mount,"rb+") as f:
             f.seek(bm_inodes)
             bitmap_inodes = f.read(inode_size)
-            print(bitmap_inodes)
+            #print(bitmap_inodes)
             bitmap_inodes = bitmap_inodes.decode('utf-8')
             bitmap_inodes = list(bitmap_inodes)
             
             f.seek(bm_blocks)
             bitmap_blocks = f.read(block_size)
 
-            print(bitmap_blocks)
+            #print(bitmap_blocks)
             bitmap_blocks = bitmap_blocks.decode('utf-8')
             bitmap_blocks = list(bitmap_blocks)
 
@@ -508,7 +557,7 @@ class mkdir:
                 if bitmap_inodes[i] != '0':
                     f.seek(start_inodes+(struct.calcsize(format_i)*i))
                     inode_unpack = struct.unpack(format_i,f.read(struct.calcsize(format_i)))
-                    print("Inodo: ",i+1,inode_unpack)
+                    #print("Inodo: ",i+1,inode_unpack)
             
             for i in range(len(bitmap_blocks)):
                 if bitmap_blocks[i] != '0':
@@ -519,7 +568,7 @@ class mkdir:
                     block_unpack[2] = block_unpack[2].decode('utf-8').rstrip("\x00")
                     block_unpack[4] = block_unpack[4].decode('utf-8').rstrip("\x00")
                     block_unpack[6] = block_unpack[6].decode('utf-8').rstrip("\x00")
-                    print("Bloque: ",i+1,block_unpack)
+                    #print("Bloque: ",i+1,block_unpack)
 
 
 
