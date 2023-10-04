@@ -11,7 +11,9 @@ class fdisk:
         self.fit = "ff"
         self.delete = ""
         self.add = 0
+        self.console = ""
         self.execute()
+        
 
     def isLong(self,sizeP,start,end):
         if sizeP > (end-start):
@@ -47,29 +49,31 @@ class fdisk:
         elif self.unit == "m":
             self.size = self.size * 1024 * 1024
         else:
-            print("La unidad no esta definida")
-            return
+            #print("La unidad no esta definida")
+            self.console = "La unidad en fdisk no esta definida"+ "\n"
+            return self.console
         
         if self.delete != "" and self.add != 0:
-            print("No se puede eliminar y agregar particiones al mismo tiempo")
-            return
+            #print("No se puede eliminar y agregar particiones al mismo tiempo")
+            self.console = "No se puede eliminar y agregar particiones al mismo tiempo"+ "\n"
+            return self.console
         elif self.delete != "":
             if self.name !="" and self.path!="" and self.delete=="full":
-                self.deletePartition()
+                return self.deletePartition()
             #print("Eliminar particion")
         elif self.add != 0:
-            self.AddPartition()
+            return self.AddPartition()
             #print("Agregar particion")
         else:
             if self.type == "p":
-                self.createPartitionP()
+                return self.createPartitionP()
             elif self.type == "e":
-                self.createPartitionE()
+                return self.createPartitionE()
             elif self.type == "l":
-                self.createPartitionL()
+                return self.createPartitionL()
 
     def AddPartition(self):
-        print("Agregando o disminuyendo particion . . . ")
+        #print("Agregando o disminuyendo particion . . . ")
         route_path = self.path.replace(" ",r"\ ")
         with open(route_path,"rb+") as f:
             if self.unit == "b":
@@ -79,8 +83,9 @@ class fdisk:
             elif self.unit == "m":
                 self.add = self.add * 1024 * 1024
             else:
-                print("La unidad no esta definida")
-                return
+                #print("La unidad no esta definida")
+                self.console = "La unidad en fdisk no esta definida"+ "\n"
+                return self.console
             f.seek(0)
             format_mbr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
             data_bytes = f.read(struct.calcsize(format_mbr))
@@ -94,17 +99,19 @@ class fdisk:
             type_p = type_p.replace(" ",r"")
             add_part = 0
             if not self.nameExist(self.name,partition1[5],partition2[5],partition3[5],partition4[5]):
-                self.AddPartitionLogic(partition1,partition2,partition3,partition4,mbr_unpack)
+                return self.AddPartitionLogic(partition1,partition2,partition3,partition4,mbr_unpack)
             else:
                 if self.name == partition1[5].decode('utf-8').rstrip("\x00"):
                     if self.add > 0:
                         if partition1[3] + partition1[4] + self.add > partition2[3]:
-                            print("No hay espacio suficiente")
-                            return
+                            #print("No hay espacio suficiente")
+                            self.console = "No hay espacio suficiente en la particion "+self.name+ "\n"
+                            return self.console
                     else:
                         if partition1[4] + self.add < 0:
-                            print("No se puede reducir el espacio")
-                            return
+                            #print("No se puede reducir el espacio")
+                            self.console = "No se puede reducir el espacio en la particion "+self.name+ "\n"
+                            return self.console
                     f.seek(0)
                     mbr_bytes = struct.pack(format_mbr,mbr_unpack[0],mbr_unpack[1],mbr_unpack[2],type_p[0].encode('utf-8'),
                     partition1[0],partition1[1],partition1[2],partition1[3],partition1[4]+self.add,partition1[5],
@@ -115,12 +122,12 @@ class fdisk:
                 elif self.name == partition2[5].decode('utf-8').rstrip("\x00"):
                     if self.add > 0:
                         if partition2[3] + partition2[4] + self.add > partition3[3]:
-                            print("No hay espacio suficiente")
-                            return
+                            self.console = "No hay espacio suficiente en la particion "+self.name+ "\n"
+                            return self.console
                     else:
                         if partition2[4] + self.add < 0:
-                            print("No se puede reducir el espacio")
-                            return
+                            self.console = "No se puede reducir el espacio en la particion "+self.name+ "\n"
+                            return self.console
                     f.seek(0)
                     mbr_bytes = struct.pack(format_mbr,mbr_unpack[0],mbr_unpack[1],mbr_unpack[2],type_p[0].encode('utf-8'),
                     partition1[0],partition1[1],partition1[2],partition1[3],partition1[4],partition1[5],
@@ -131,12 +138,12 @@ class fdisk:
                 elif self.name == partition3[5].decode('utf-8').rstrip("\x00"):
                     if self.add > 0:
                         if partition3[3] + partition3[4] + self.add > partition3[3]:
-                            print("No hay espacio suficiente")
-                            return
+                            self.console = "No hay espacio suficiente en la particion "+self.name+ "\n"
+                            return self.console
                     else:
                         if partition3[4] + self.add < 0:
-                            print("No se puede reducir el espacio")
-                            return
+                            self.console = "No se puede reducir el espacio en la particion "+self.name+ "\n"
+                            return self.console
                     f.seek(0)
                     mbr_bytes = struct.pack(format_mbr,mbr_unpack[0],mbr_unpack[1],mbr_unpack[2],type_p[0].encode('utf-8'),
                     partition1[0],partition1[1],partition1[2],partition1[3],partition1[4],partition1[5],
@@ -147,12 +154,12 @@ class fdisk:
                 elif self.name == partition4[5].decode('utf-8').rstrip("\x00"):
                     if self.add > 0:
                         if partition4[3] + partition4[4] + self.add > mbr_unpack[0]:
-                            print("No hay espacio suficiente")
-                            return
+                            self.console = "No hay espacio suficiente en la particion "+self.name+ "\n"
+                            return self.console
                     else:
                         if partition4[4] + self.add < 0:
-                            print("No se puede reducir el espacio")
-                            return
+                            self.console = "No se puede reducir el espacio en la particion "+self.name+ "\n"
+                            return self.console
                     f.seek(0)
                     mbr_bytes = struct.pack(format_mbr,mbr_unpack[0],mbr_unpack[1],mbr_unpack[2],type_p[0].encode('utf-8'),
                     partition1[0],partition1[1],partition1[2],partition1[3],partition1[4],partition1[5],
@@ -161,9 +168,10 @@ class fdisk:
                     partition4[0],partition4[1],partition4[2],partition4[3],partition4[4]+self.add,partition4[5])
                     f.write(mbr_bytes)
                 
-            print("Particion modificada exitosamente")
+            #print("Particion modificada exitosamente")
+            self.console = "Particion"+self.name+"modificada exitosamente"+ "\n"
             f.close()
-            return
+            return self.console
         
     def AddPartitionLogic(self, partition1,partition2,partition3,partition4,mbr_unpack):
         format_ebr = "c c I I i 16s"
@@ -183,11 +191,13 @@ class fdisk:
                         nameExist = True
                         if self.add > 0:
                             if ebr_unpack[2] + ebr_unpack[3] + self.add + struct.calcsize(format_ebr) > ebr_unpack[4]:
-                                print("No hay espacio suficiente")
-                                return
+                                #print("No hay espacio suficiente")
+                                self.console = "No hay espacio suficiente en la particion "+self.name+ "\n"
+                                return self.console
                             if ebr_unpack[3] + self.add < 0:
-                                print("No se puede reducir el espacio")
-                                return
+                                #print("No se puede reducir el espacio")
+                                self.console = "No se puede reducir el espacio en la particion "+self.name+ "\n"
+                                return self.console
                         ebr_pack = struct.pack(format_ebr,
                                                ebr_unpack[0],
                                                ebr_unpack[1],
@@ -201,10 +211,12 @@ class fdisk:
                     next_part = ebr_unpack[4]
                 f.close()
             if nameExist:
-                print("Particion modificada exitosamente")
-                return
-            print("No existe una particion con ese nombre")
-            return
+                #print("Particion modificada exitosamente")
+                self.console = "Particion "+self.name+" modificada exitosamente"+ "\n"
+                return self.console
+            #print("No existe una particion con ese nombre")
+            self.console = "No existe una particion con ese nombre"+ "\n"
+            return self.console
         elif partition2[1].decode('utf-8').rstrip("\x00") == 'e':
             nameExist = False
             with open(self.path.replace(" ",r"\ "),"rb+") as f:
@@ -221,11 +233,13 @@ class fdisk:
                         nameExist = True
                         if self.add > 0:
                             if ebr_unpack[2] + ebr_unpack[3] + self.add + struct.calcsize(format_ebr) > ebr_unpack[4]:
-                                print("No hay espacio suficiente")
-                                return
+                                #print("No hay espacio suficiente")
+                                self.console = "No hay espacio suficiente en la particion "+self.name+ "\n"
+                                return self.console
                             if ebr_unpack[3] + self.add < 0:
-                                print("No se puede reducir el espacio")
-                                return
+                                #print("No se puede reducir el espacio")
+                                self.console = "No se puede reducir el espacio en la particion "+self.name+ "\n"
+                                return self.console
                         ebr_pack = struct.pack(format_ebr,
                                                ebr_unpack[0],
                                                ebr_unpack[1],
@@ -239,10 +253,12 @@ class fdisk:
                     next_part = ebr_unpack[4]
                 f.close()
             if nameExist:
-                print("Particion modificada exitosamente")
-                return
-            print("No existe una particion con ese nombre")
-            return
+                #print("Particion modificada exitosamente")
+                self.console = "Particion "+self.name+" modificada exitosamente"+ "\n"
+                return self.console
+            #print("No existe una particion con ese nombre")
+            self.console = "No existe una particion con ese nombre"+ "\n"
+            return self.console
         elif partition3[1].decode('utf-8').rstrip("\x00") == 'e':
             nameExist = False
             with open(self.path.replace(" ",r"\ "),"rb+") as f:
@@ -259,11 +275,13 @@ class fdisk:
                         nameExist = True
                         if self.add > 0:
                             if ebr_unpack[2] + ebr_unpack[3] + self.add + struct.calcsize(format_ebr) > ebr_unpack[4]:
-                                print("No hay espacio suficiente")
-                                return
+                                #print("No hay espacio suficiente")
+                                self.console = "No hay espacio suficiente en la particion "+self.name+ "\n"
+                                return self.console
                             if ebr_unpack[3] + self.add < 0:
-                                print("No se puede reducir el espacio")
-                                return
+                                #print("No se puede reducir el espacio")
+                                self.console = "No se puede reducir el espacio en la particion "+self.name+ "\n"
+                                return self.console
                         ebr_pack = struct.pack(format_ebr,
                                                ebr_unpack[0],
                                                ebr_unpack[1],
@@ -277,10 +295,13 @@ class fdisk:
                     next_part = ebr_unpack[4]
                 f.close()
             if nameExist:
-                print("Particion modificada exitosamente")
-                return
-            print("No existe una particion con ese nombre")
-            return
+                #print("Particion modificada exitosamente")
+                self.console = "Particion "+self.name+" modificada exitosamente"+ "\n"
+                return self.console
+            
+            #print("No existe una particion con ese nombre")
+            self.console = "No existe una particion con ese nombre"+ "\n"
+            return self.console
         elif partition4[1].decode('utf-8').rstrip("\x00") == 'e':
             nameExist = False
             with open(self.path.replace(" ",r"\ "),"rb+") as f:
@@ -297,11 +318,13 @@ class fdisk:
                         nameExist = True
                         if self.add > 0:
                             if ebr_unpack[2] + ebr_unpack[3] + self.add + struct.calcsize(format_ebr) > ebr_unpack[4]:
-                                print("No hay espacio suficiente")
-                                return
+                                #print("No hay espacio suficiente")
+                                self.console = "No hay espacio suficiente en la particion "+self.name+ "\n"
+                                return self.console
                             if ebr_unpack[3] + self.add < 0:
-                                print("No se puede reducir el espacio")
-                                return
+                                #print("No se puede reducir el espacio")
+                                self.console = "No se puede reducir el espacio en la particion "+self.name+ "\n"
+                                return  self.console
                         ebr_pack = struct.pack(format_ebr,
                                                ebr_unpack[0],
                                                ebr_unpack[1],
@@ -315,17 +338,20 @@ class fdisk:
                     next_part = ebr_unpack[4]
                 f.close()
             if nameExist:
-                print("Particion modificada exitosamente")
-                return
-            print("No existe una particion con ese nombre")
-            return
+                #print("Particion modificada exitosamente")
+                self.console = "Particion "+self.name+" modificada exitosamente"+ "\n"
+                return self.console
+            #print("No existe una particion con ese nombre")
+            self.console = "No existe una particion con ese nombre"+ "\n"
+            return self.console
         else:
-            print("No existe una particion extendida")
-            return
+            #print("No existe una particion extendida")
+            self.console = "No existe una particion extendida"+ "\n"
+            return self.console
 
 
     def deletePartition(self):
-        print("Eliminando particion . . . ")
+        #print("Eliminando particion . . . ")
         route_path = self.path.replace(" ",r"\ ")
         with open(route_path,"rb+") as f:
             f.seek(0)
@@ -341,7 +367,7 @@ class fdisk:
             type_p = type_p.replace(" ",r"")
             if not self.nameExist(self.name,partition1[5],partition2[5],partition3[5],partition4[5]):
                 
-                self.deletePartitionLogic(partition1,partition2,partition3,partition4,mbr_unpack)
+                return self.deletePartitionLogic(partition1,partition2,partition3,partition4,mbr_unpack)
             else:
                 if self.name == partition1[5].decode('utf-8').rstrip("\x00"):
                     
@@ -385,8 +411,10 @@ class fdisk:
                     partition3[0],partition3[1],partition3[2],partition3[3],partition3[4],partition3[5],
                     '0'.encode('utf-8'),'p'.encode('utf-8'),'f'.encode('utf-8'),mbr_unpack[25],0,"FREE            ".encode('utf-8'))
                     f.write(mbr_bytes)
-            print("Particion eliminada exitosamente")
+            #print("Particion eliminada exitosamente")
             f.close()
+            self.console = "Particion eliminada exitosamente"+ "\n"
+            return self.console
 
 
     def deletePartitionLogic(self,partition1,partition2,partition3,partition4,mbr_unpack):
@@ -418,10 +446,12 @@ class fdisk:
                     next_part = ebr_unpack[4]
                 f.close()
             if nameExist:
-                print("Particion eliminada exitosamente")
-                return
-            print("No existe una particion con ese nombre")
-            return
+                #print("Particion eliminada exitosamente")
+                self.console = "Particion eliminada exitosamente"+ "\n"
+                return self.console
+            #print("No existe una particion con ese nombre")
+            self.console = "No existe una particion con ese nombre"+ "\n"
+            return self.console
         elif partition2[1].decode('utf-8').rstrip("\x00") == 'e':
             nameExist = False
             with open(self.path.replace(" ",r"\ "),"rb+") as f:
@@ -451,10 +481,12 @@ class fdisk:
                     next_part = ebr_unpack[4]
                 f.close()
             if nameExist:
-                print("Particion eliminada exitosamente")
-                return
-            print("No existe una particion con ese nombre")
-            return
+                #print("Particion eliminada exitosamente")
+                self.console = "Particion eliminada exitosamente"+ "\n"
+                return self.console
+            #print("No existe una particion con ese nombre")
+            self.console = "No existe una particion con ese nombre"+ "\n"
+            return self.console
         elif partition3[1].decode('utf-8').rstrip("\x00") == 'e':
             nameExist = False
             with open(self.path.replace(" ",r"\ "),"rb+") as f:
@@ -482,10 +514,12 @@ class fdisk:
                     next_part = ebr_unpack[4]
                 f.close()
             if nameExist:
-                print("Particion eliminada exitosamente")
-                return
-            print("No existe una particion con ese nombre")
-            return
+                #print("Particion eliminada exitosamente")
+                self.console = "Particion eliminada exitosamente"+ "\n"
+                return self.console
+            #print("No existe una particion con ese nombre")
+            self.console = "No existe una particion con ese nombre"+ "\n"
+            return self.console
         elif partition4[1].decode('utf-8').rstrip("\x00") == 'e':
             nameExist = False
             with open(self.path.replace(" ",r"\ "),"rb+") as f:
@@ -513,13 +547,16 @@ class fdisk:
                     next_part = ebr_unpack[4]
                 f.close()
             if nameExist:
-                print("Particion eliminada exitosamente")
-                return
-            print("No existe una particion con ese nombre")
-            return
+                #print("Particion eliminada exitosamente")
+                self.console = "Particion eliminada exitosamente"+ "\n"
+                return self.console
+            #print("No existe una particion con ese nombre")
+            self.console = "No existe una particion con ese nombre"+ "\n"
+            return self.console
         else:
-            print("No existe una particion extendida")
-            return
+            #print("No existe una particion extendida")
+            self.console = "No existe una particion extendida"+ "\n"
+            return self.console
 
 
 
@@ -544,11 +581,11 @@ class fdisk:
             elif param[0] == "add":
                 self.add = int(param[1])
         
-        self.createPartition()
+        return self.createPartition()
         
         
     def createPartitionP(self):
-        print("Creando particion primaria . . . ")
+        #print("Creando particion primaria . . . ")
         route_path = self.path.replace(" ",r"\ ")
         with open(route_path,"rb+") as f:
             f.seek(0)
@@ -564,26 +601,31 @@ class fdisk:
             type_p = type_p.replace(" ",r"")
             
             if self.nameExist(self.name,partition1[5],partition2[5],partition3[5],partition4[5]):
-                print("Ya existe una particion con ese nombre")
-                return
-            self.setFirstFit(partition1,partition2,partition3,partition4,mbr_unpack)
+                #print("Ya existe una particion con ese nombre")
+                self.console = "Ya existe una particion con ese nombre"+ "\n"
+                return self.console
+            #f.close()
+            return self.setFirstFit(partition1,partition2,partition3,partition4,mbr_unpack)
         
-            f.close()
+            
 
     def setFirstFit(self,partition1,partition2,partition3,partition4,mbr_unpack):
         format_mbr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
         name_partition = partition1[5].decode('utf-8').replace(" ","")
         if name_partition == "FREE":
             if self.size > mbr_unpack[0]:
-                print("El tamaño de la particion es mayor al tamaño del disco")
-                return
+                #print("El tamaño de la particion es mayor al tamaño del disco")
+                self.console = "El tamaño de la particion es mayor al tamaño del disco"+ "\n"
+                return self.console
             if (struct.calcsize(format_mbr)+self.size) > mbr_unpack[0]:
-                print("La particion es muy grande")
-                return
+                #print("La particion es muy grande")
+                self.console = "La particion es muy grande"+ "\n"
+                return self.console
             if partition2[3]>0:
                 if self.isLong(self.size,struct.calcsize(format_mbr),partition2[3]):
-                    print("La particion es muy grande")
-                    return
+                    #print("La particion es muy grande")
+                    self.console = "La particion es muy grande"+ "\n"
+                    return self.console
             format_mbr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
             fit_disk = mbr_unpack[3].decode('utf-8')
             mbr_bytes = struct.pack(format_mbr,mbr_unpack[0],mbr_unpack[1],mbr_unpack[2],fit_disk[0].encode('utf-8'),
@@ -595,21 +637,25 @@ class fdisk:
                 f.seek(0)
                 f.write(mbr_bytes)
                 f.close()
-                print("Particion creada exitosamente")
-                return
+                #print("Particion creada exitosamente")
+                self.console = "Particion creada exitosamente"+ "\n"
+                return self.console
         else:
             name_partition = partition2[5].decode('utf-8').replace(" ","")
         if name_partition == "FREE":
             if self.size > mbr_unpack[0]:
-                print("El tamaño de la particion es mayor al tamaño del disco")
-                return
+                #print("El tamaño de la particion es mayor al tamaño del disco")
+                self.console = "El tamaño de la particion es mayor al tamaño del disco"+ "\n"
+                return self.console
             if (struct.calcsize(format_mbr)+self.size+partition1[4]) > mbr_unpack[0]:
-                print("La particion es muy grande")
-                return
+                #print("La particion es muy grande")
+                self.console = "La particion es muy grande"+ "\n"
+                return self.console
             if partition3[3]>0:
                 if self.isLong(self.size,struct.calcsize(format_mbr)+partition1[4],partition3[3]):
-                    print("La particion es muy grande")
-                    return
+                    #print("La particion es muy grande")
+                    self.console = "La particion es muy grande"+ "\n"
+                    return self.console
             format_mbr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
             fit_disk = mbr_unpack[3].decode('utf-8')
             mbr_bytes = struct.pack(format_mbr,mbr_unpack[0],mbr_unpack[1],mbr_unpack[2],fit_disk[0].encode('utf-8'),
@@ -621,21 +667,25 @@ class fdisk:
                 f.seek(0)
                 f.write(mbr_bytes)
                 f.close()
-                print("Particion creada exitosamente")
-                return
+                #print("Particion creada exitosamente")
+                self.console = "Particion creada exitosamente"+ "\n"
+                return self.console
         else:
             name_partition = partition3[5].decode('utf-8').replace(" ","")
         if name_partition == "FREE":
             if self.size > mbr_unpack[0]:
-                print("El tamaño de la particion es mayor al tamaño del disco")
-                return
+                #print("El tamaño de la particion es mayor al tamaño del disco")
+                self.console = "El tamaño de la particion es mayor al tamaño del disco"+ "\n"
+                return self.console
             if (struct.calcsize(format_mbr)+self.size+partition1[4]+partition2[4]) > mbr_unpack[0]:
-                print("La particion es muy grande")
-                return
+                #print("La particion es muy grande")
+                self.console = "La particion es muy grande"+ "\n"
+                return self.console
             if partition4[3]>0:
                 if self.isLong(self.size,struct.calcsize(format_mbr)+partition1[4]+partition2[4],partition4[3]):
-                    print("La particion es muy grande")
-                    return
+                    #print("La particion es muy grande")
+                    self.console = "La particion es muy grande"+ "\n"
+                    return self.console
             format_mbr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
             fit_disk = mbr_unpack[3].decode('utf-8')
             mbr_bytes = struct.pack(format_mbr,mbr_unpack[0],mbr_unpack[1],mbr_unpack[2],fit_disk[0].encode('utf-8'),
@@ -647,17 +697,20 @@ class fdisk:
                 f.seek(0)
                 f.write(mbr_bytes)
                 f.close()
-                print("Particion creada exitosamente")
-                return
+                #print("Particion creada exitosamente")
+                self.console = "Particion creada exitosamente"+ "\n"
+                return self.console
         else:
             name_partition = partition4[5].decode('utf-8').replace(" ","")
         if name_partition == "FREE":
             if self.size > mbr_unpack[0]:
-                print("El tamaño de la particion es mayor al tamaño del disco")
-                return
+                #print("El tamaño de la particion es mayor al tamaño del disco")
+                self.console = "El tamaño de la particion es mayor al tamaño del disco"+ "\n"
+                return self.console
             if self.isLong(self.size,struct.calcsize(format_mbr)+partition1[4]+partition2[4]+partition3[4],mbr_unpack[0]):
-                    print("La particion es muy grande")
-                    return
+                    #print("La particion es muy grande")
+                    self.console = "La particion es muy grande"+ "\n"
+                    return self.console
             format_mbr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
             fit_disk = mbr_unpack[3].decode('utf-8')
             mbr_bytes = struct.pack(format_mbr,mbr_unpack[0],mbr_unpack[1],mbr_unpack[2],fit_disk[0].encode('utf-8'),
@@ -669,14 +722,16 @@ class fdisk:
                 f.seek(0)
                 f.write(mbr_bytes)
                 f.close()
-                print("Particion creada exitosamente")
-                return
+                #print("Particion creada exitosamente")
+                self.console = "Particion creada exitosamente"+ "\n"
+                return self.console
         else:
-            print("No hay espacio para crear la particion")
-            return
+            #print("No hay espacio para crear la particion")
+            self.console = "No hay espacio para crear la particion"+ "\n"
+            return self.console
 
     def createPartitionE(self):
-        print("Creando particion extendida . . . ")
+        #print("Creando particion extendida . . . ")
         route_path = self.path.replace(" ",r"\ ")
         with open(route_path,"rb+") as f:
             f.seek(0)
@@ -692,14 +747,17 @@ class fdisk:
             type_p = type_p.replace(" ",r"")
             
             if self.nameExist(self.name,partition1[5],partition2[5],partition3[5],partition4[5]):
-                print("Ya existe una particion con ese nombre")
-                return
+                #print("Ya existe una particion con ese nombre")
+                self.console = "Ya existe una particion con ese nombre"+ "\n"
+                return self.console
             if self.existExtend(partition1[1],partition2[1],partition3[1],partition4[1]):
-                print("Ya existe una particion extendida")
-                return
-            self.setFirstFitExtend(partition1,partition2,partition3,partition4,mbr_unpack)
+                #print("Ya existe una particion extendida")
+                self.console = "Ya existe una particion extendida"+ "\n"
+                return self.console
             
-            f.close()
+            return self.setFirstFitExtend(partition1,partition2,partition3,partition4,mbr_unpack)
+            #f.close()
+            
 
     def setFirstFitExtend(self,partition1,partition2,partition3,partition4,mbr_unpack):
         format_mbr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
@@ -708,15 +766,18 @@ class fdisk:
         name_partition = partition1[5].decode('utf-8').replace(" ","")
         if name_partition == "FREE":
             if self.size > mbr_unpack[0]:
-                print("El tamaño de la particion es mayor al tamaño del disco")
-                return
+                #print("El tamaño de la particion es mayor al tamaño del disco")
+                self.console = "El tamaño de la particion es mayor al tamaño del disco"+ "\n"
+                return self.console
             if (struct.calcsize(format_mbr)+self.size) > mbr_unpack[0]:
-                print("La particion es muy grande")
-                return
+                #print("La particion es muy grande")
+                self.console = "La particion es muy grande"+ "\n"
+                return self.console
             if partition2[3]>0:
                 if self.isLong(self.size,struct.calcsize(format_mbr),partition2[3]):
-                    print("La particion es muy grande")
-                    return
+                    #print("La particion es muy grande")
+                    self.console = "La particion es muy grande"+ "\n"
+                    return self.console
             format_mbr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
             fit_disk = mbr_unpack[3].decode('utf-8')
             mbr_bytes = struct.pack(format_mbr,mbr_unpack[0],mbr_unpack[1],mbr_unpack[2],fit_disk[0].encode('utf-8'),
@@ -737,21 +798,26 @@ class fdisk:
                 f.seek(struct.calcsize(format_mbr))
                 f.write(ebr_bytes)
                 f.close()
-                print("Particion creada exitosamente")
-                return
+
+                #print("Particion creada exitosamente")
+                self.console = "Particion creada exitosamente"+ "\n"
+                return self.console
         else:
             name_partition = partition2[5].decode('utf-8').replace(" ","")
         if name_partition == "FREE":
             if self.size > mbr_unpack[0]:
-                print("El tamaño de la particion es mayor al tamaño del disco")
-                return
+                #print("El tamaño de la particion es mayor al tamaño del disco")
+                self.console = "El tamaño de la particion es mayor al tamaño del disco"+ "\n"
+                return self.console
             if (struct.calcsize(format_mbr)+self.size+partition1[4]) > mbr_unpack[0]:
-                print("La particion es muy grande")
-                return
+                #print("La particion es muy grande")
+                self.console = "La particion es muy grande"+ "\n"
+                return self.console
             if partition3[3]>0:
                 if self.isLong(self.size,struct.calcsize(format_mbr)+partition1[4],partition3[3]):
-                    print("La particion es muy grande")
-                    return
+                    #print("La particion es muy grande")
+                    self.console = "La particion es muy grande"+ "\n"
+                    return self.console
             format_mbr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
             fit_disk = mbr_unpack[3].decode('utf-8')
             mbr_bytes = struct.pack(format_mbr,mbr_unpack[0],mbr_unpack[1],mbr_unpack[2],fit_disk[0].encode('utf-8'),
@@ -773,21 +839,25 @@ class fdisk:
                 f.seek(len(mbr_bytes)+partition1[4])
                 f.write(ebr_bytes)
                 f.close()
-                print("Particion creada exitosamente")
-                return
+                #print("Particion creada exitosamente")
+                self.console = "Particion creada exitosamente"+ "\n"
+                return self.console
         else:
             name_partition = partition3[5].decode('utf-8').replace(" ","")
         if name_partition == "FREE":
             if self.size > mbr_unpack[0]:
-                print("El tamaño de la particion es mayor al tamaño del disco")
-                return
+                #print("El tamaño de la particion es mayor al tamaño del disco")
+                self.console = "El tamaño de la particion es mayor al tamaño del disco"+ "\n"
+                return self.console
             if (struct.calcsize(format_mbr)+self.size+partition1[4]+partition2[4]) > mbr_unpack[0]:
-                print("La particion es muy grande")
-                return
+                #print("La particion es muy grande")
+                self.console = "La particion es muy grande"+ "\n"
+                return self.console
             if partition4[3]>0:
                 if self.isLong(self.size,struct.calcsize(format_mbr)+partition1[4]+partition2[4],partition4[3]):
-                    print("La particion es muy grande")
-                    return
+                    #print("La particion es muy grande")
+                    self.console = "La particion es muy grande"+ "\n"
+                    return self.console
             format_mbr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
             fit_disk = mbr_unpack[3].decode('utf-8')
             mbr_bytes = struct.pack(format_mbr,mbr_unpack[0],mbr_unpack[1],mbr_unpack[2],fit_disk[0].encode('utf-8'),
@@ -808,17 +878,20 @@ class fdisk:
                 f.seek(len(mbr_bytes)+partition1[4]+partition2[4])
                 f.write(ebr_bytes)
                 f.close()
-                print("Particion creada exitosamente")
-                return
+                #print("Particion creada exitosamente")
+                self.console = "Particion creada exitosamente"+ "\n"
+                return self.console
         else:
             name_partition = partition4[5].decode('utf-8').replace(" ","")
         if name_partition == "FREE":
             if self.size > mbr_unpack[0]:
-                print("El tamaño de la particion es mayor al tamaño del disco")
-                return
+                #print("El tamaño de la particion es mayor al tamaño del disco")
+                self.console = "El tamaño de la particion es mayor al tamaño del disco"+ "\n"
+                return self.console
             if self.isLong(self.size,struct.calcsize(format_mbr)+partition1[4]+partition2[4]+partition3[4],mbr_unpack[0]):
-                    print("La particion es muy grande")
-                    return
+                    #print("La particion es muy grande")
+                    self.console = "La particion es muy grande"+ "\n"
+                    return self.console
             format_mbr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
             fit_disk = mbr_unpack[3].decode('utf-8')
             mbr_bytes = struct.pack(format_mbr,mbr_unpack[0],mbr_unpack[1],mbr_unpack[2],fit_disk[0].encode('utf-8'),
@@ -839,14 +912,16 @@ class fdisk:
                 f.seek(len(mbr_bytes)+partition1[4]+partition2[4]+partition3[4])
                 f.write(ebr_bytes)
                 f.close()
-                print("Particion creada exitosamente")
-                return
+                #print("Particion creada exitosamente")
+                self.console = "Particion creada exitosamente"+ "\n"
+                return self.console
         else:
-            print("No hay espacio para crear la particion")
-            return
+            #print("No hay espacio para crear la particion")
+            self.console = "No hay espacio para crear la particion"+ "\n"
+            return self.console
     
     def createPartitionL(self):
-        print("Creando particion logica . . . ")
+        #print("Creando particion logica . . . ")
         route_path = self.path.replace(" ",r"\ ")
         with open(route_path,"rb+") as f:
             f.seek(0)
@@ -862,21 +937,24 @@ class fdisk:
             type_p = type_p.replace(" ",r"")
             
             if self.nameExist(self.name,partition1[5],partition2[5],partition3[5],partition4[5]):
-                print("Ya existe una particion con ese nombre")
-                return
+                #print("Ya existe una particion con ese nombre")
+                self.console = "Ya existe una particion con ese nombre"+ "\n"
+                return self.console
             if self.existExtend(partition1[1],partition2[1],partition3[1],partition4[1])!=True:
-                print("No existe una particion extendida")
-                return
-            self.setFirstFitLogic(partition1,partition2,partition3,partition4,mbr_unpack)
+                #print("No existe una particion extendida")
+                self.console = "No existe una particion extendida"+ "\n"
+                return self.console
+            return self.setFirstFitLogic(partition1,partition2,partition3,partition4,mbr_unpack)
         
-            f.close()
+            
 
     def setFirstFitLogic(self,partition1,partition2,partition3,partition4,mbr_unpack):
         format_ebr = "c c I I i 16s"
         if partition1[1].decode('utf-8').rstrip("\x00") == 'e':
             if partition1[4]<self.size:
-                print("El tamaño de la particion es mayor al tamaño de la extendida")
-                return
+                #print("El tamaño de la particion es mayor al tamaño de la extendida")
+                self.console = "El tamaño de la particion es mayor al tamaño de la extendida"+ "\n"
+                return self.console
             ebr_size = struct.calcsize(format_ebr)
             route_path = self.path.replace(" ",r"\ ")
             with open(route_path,"rb+") as f:
@@ -887,8 +965,9 @@ class fdisk:
                 if ebr_unpack[5].decode('utf-8').rstrip("\x00") == "ebr_part_namebit":
                     if ebr_unpack[4] != -1:
                         if self.isLong(self.size,ebr_size,ebr_unpack[4]):
-                            print("La particion es muy grande")
-                            return
+                            #print("La particion es muy grande")
+                            self.console = "La particion es muy grande"+ "\n"
+                            return self.console
                     ebr_pack = struct.pack(format_ebr,
                                            '1'.encode('utf-8'),
                                            self.fit[0].encode('utf-8'),
@@ -898,9 +977,10 @@ class fdisk:
                                            self.name.encode('utf-8')[0:16])
                     f.seek(partition1[3])
                     f.write(ebr_pack)
-                    print("Particion logica creada exitosamente")
+                    #print("Particion logica creada exitosamente")
+                    self.console = "Particion logica creada exitosamente"+ "\n"
                     f.close()
-                    return
+                    return self.console
                 else:
                     f.seek(partition1[3])
                     ebr_bytes = f.read(ebr_size)
@@ -913,8 +993,9 @@ class fdisk:
                         if size_next == -1:
                             with open(route_path,"rb+") as f:
                                 if ((2*ebr_size)+size_part+self.size) > partition1[4]:
-                                    print("La particion es muy grande")
-                                    return
+                                    #print("La particion es muy grande")
+                                    self.console = "La particion es muy grande"+ "\n"
+                                    return self.console
                                 f.seek(part_init)
                                 #print(part_init)
                                 ebr_pack = struct.pack(format_ebr,
@@ -936,9 +1017,10 @@ class fdisk:
                                                         -1,
                                                         self.name.encode('utf-8')[0:16])
                                 f.write(ebr_pack)
-                                print("Particion logica creada exitosamente")
+                                #print("Particion logica creada exitosamente")
+                                self.console = "Particion logica creada exitosamente"+ "\n"
                                 f.close()
-                                return
+                                return self.console
                         else:
                             acumSize=acumSize+size_part
                             #print(acumSize,"Acumulado")
@@ -952,8 +1034,9 @@ class fdisk:
 
                             if ebr_unpack[5].decode('utf-8').rstrip("\x00") == 'ebr_part_namebit':
                                 if self.size > ebr_unpack[4]:
-                                    print("La particion es muy grande")
-                                    return
+                                    #print("La particion es muy grande")
+                                    self.console = "La particion es muy grande"+ "\n"
+                                    return self.console
                                 ebr_pack = struct.pack(format_ebr,
                                                         '1'.encode('utf-8'),
                                                         self.fit[0].encode('utf-8'),
@@ -964,12 +1047,14 @@ class fdisk:
                                 f.seek(part_init)
                                 f.write(ebr_pack)
                                 f.close()
-                                print("Particion logica creada exitosamente")
-                                return
+                                #print("Particion logica creada exitosamente")
+                                self.console = "Particion logica creada exitosamente"+ "\n"
+                                return self.console
         elif partition2[1].decode('utf-8').rstrip("\x00") == 'e':
             if partition2[4]<self.size:
-                print("El tamaño de la particion es mayor al tamaño de la extendida")
-                return
+                #print("El tamaño de la particion es mayor al tamaño de la extendida")
+                self.console = "El tamaño de la particion es mayor al tamaño de la extendida"+ "\n"
+                return self.console
             ebr_size = struct.calcsize(format_ebr)
             route_path = self.path.replace(" ",r"\ ")
             with open(route_path,"rb+") as f:
@@ -980,8 +1065,9 @@ class fdisk:
                 if ebr_unpack[5].decode('utf-8').rstrip("\x00") == "ebr_part_namebit":
                     if ebr_unpack[4] != -1:
                         if self.isLong(self.size,ebr_size,ebr_unpack[4]):
-                            print("La particion es muy grande")
-                            return
+                            #print("La particion es muy grande")
+                            self.console = "La particion es muy grande"+ "\n"
+                            return self.console
                     ebr_pack = struct.pack(format_ebr,
                                            '1'.encode('utf-8'),
                                            self.fit[0].encode('utf-8'),
@@ -991,9 +1077,10 @@ class fdisk:
                                            self.name.encode('utf-8')[0:16])
                     f.seek(partition2[3])
                     f.write(ebr_pack)
-                    print("Particion logica creada exitosamente")
+                    #print("Particion logica creada exitosamente")
+                    self.console = "Particion logica creada exitosamente"+ "\n"
                     f.close()
-                    return
+                    return self.console
                 else:
                     f.seek(partition2[3])
                     ebr_bytes = f.read(ebr_size)
@@ -1006,8 +1093,9 @@ class fdisk:
                         if size_next == -1: 
                             with open(route_path,"rb+") as f:
                                 if ((2*ebr_size)+size_part+self.size) > partition2[4]:
-                                    print("La particion es muy grande")
-                                    return
+                                    #print("La particion es muy grande")
+                                    self.console = "La particion es muy grande"+ "\n"
+                                    return self.console
                                 f.seek(part_init)
                                 #print(part_init)
                                 ebr_pack = struct.pack(format_ebr,
@@ -1028,9 +1116,10 @@ class fdisk:
                                                         -1,
                                                         self.name.encode('utf-8')[0:16])
                                 f.write(ebr_pack)
-                                print("Particion logica creada exitosamente")
+                                #print("Particion logica creada exitosamente")
+                                self.console = "Particion logica creada exitosamente"+ "\n"
                                 f.close()
-                                return
+                                return self.console
                         else:
                             acumSize=acumSize+size_part
                             #print(acumSize,"Acumulado")
@@ -1044,8 +1133,9 @@ class fdisk:
 
                             if ebr_unpack[5].decode('utf-8').rstrip("\x00") == 'ebr_part_namebit':
                                 if self.size > ebr_unpack[4]:
-                                    print("La particion es muy grande")
-                                    return
+                                    #print("La particion es muy grande")
+                                    self.console = "La particion es muy grande"+ "\n"
+                                    return self.console
                                 ebr_pack = struct.pack(format_ebr,
                                                         '1'.encode('utf-8'),
                                                         self.fit[0].encode('utf-8'),
@@ -1056,12 +1146,14 @@ class fdisk:
                                 f.seek(part_init)
                                 f.write(ebr_pack)
                                 f.close()
-                                print("Particion logica creada exitosamente")
-                                return
+                                #print("Particion logica creada exitosamente")
+                                self.console = "Particion logica creada exitosamente"+ "\n"
+                                return self.console
         elif partition3[1].decode('utf-8').rstrip("\x00") == 'e':
             if partition3[4]<self.size:
-                print("El tamaño de la particion es mayor al tamaño de la extendida")
-                return
+                #print("El tamaño de la particion es mayor al tamaño de la extendida")
+                self.console = "El tamaño de la particion es mayor al tamaño de la extendida"+ "\n"
+                return self.console
             ebr_size = struct.calcsize(format_ebr)
             route_path = self.path.replace(" ",r"\ ")
             with open(route_path,"rb+") as f:
@@ -1072,8 +1164,9 @@ class fdisk:
                 if ebr_unpack[5].decode('utf-8').rstrip("\x00") == "ebr_part_namebit":
                     if ebr_unpack[4] != -1:
                         if self.isLong(self.size,ebr_size,ebr_unpack[4]):
-                            print("La particion es muy grande :)")
-                            return
+                            #print("La particion es muy grande :)")
+                            self.console = "La particion es muy grande"+ "\n"
+                            return self.console
                     ebr_pack = struct.pack(format_ebr,
                                            '1'.encode('utf-8'),
                                            self.fit[0].encode('utf-8'),
@@ -1083,9 +1176,10 @@ class fdisk:
                                            self.name.encode('utf-8')[0:16])
                     f.seek(partition3[3])
                     f.write(ebr_pack)
-                    print("Particion logica creada exitosamente")
+                    #print("Particion logica creada exitosamente")
+                    self.console = "Particion logica creada exitosamente"+ "\n"
                     f.close()
-                    return
+                    return self.console
                 else:
                     f.seek(partition3[3])
                     ebr_bytes = f.read(ebr_size)
@@ -1100,8 +1194,9 @@ class fdisk:
                         if size_next == -1: 
                             with open(route_path,"rb+") as f:
                                 if (size_part+(ebr_size*2)+self.size) > partition3[4]:
-                                    print("La particion es muy grande :(")
-                                    return
+                                    #print("La particion es muy grande :(")
+                                    self.console = "La particion es muy grande"+ "\n"
+                                    return self.console
                                 f.seek(part_init)
                                 #print(part_init)
                                 ebr_pack = struct.pack(format_ebr,
@@ -1122,9 +1217,10 @@ class fdisk:
                                                         self.name.encode('utf-8')[0:16])
                                 f.write(ebr_pack)
                                 
-                                print("Particion logica creada exitosamente")
+                                #print("Particion logica creada exitosamente")
+                                self.console = "Particion logica creada exitosamente"+ "\n"
                                 f.close()
-                                return
+                                return self.console
                         else:
                             acumSize=acumSize+size_part
                             
@@ -1138,8 +1234,9 @@ class fdisk:
 
                             if ebr_unpack[5].decode('utf-8').rstrip("\x00") == 'ebr_part_namebit':
                                 if self.size > ebr_unpack[4]:
-                                    print("La particion es muy grande")
-                                    return
+                                    #print("La particion es muy grande")
+                                    self.console = "La particion es muy grande"+ "\n"
+                                    return self.console
                                 ebr_pack = struct.pack(format_ebr,
                                                         '1'.encode('utf-8'),
                                                         self.fit[0].encode('utf-8'),
@@ -1150,12 +1247,14 @@ class fdisk:
                                 f.seek(part_init)
                                 f.write(ebr_pack)
                                 f.close()
-                                print("Particion logica creada exitosamente")
-                                return     
+                                #print("Particion logica creada exitosamente")
+                                self.console = "Particion logica creada exitosamente"+ "\n"
+                                return self.console
         elif partition4[1].decode('utf-8').rstrip("\x00") == 'e':
             if partition4[4]<self.size:
-                print("El tamaño de la particion es mayor al tamaño de la extendida")
-                return
+                #print("El tamaño de la particion es mayor al tamaño de la extendida")
+                self.console = "El tamaño de la particion es mayor al tamaño de la extendida"+ "\n"
+                return self.console
             ebr_size = struct.calcsize(format_ebr)
             route_path = self.path.replace(" ",r"\ ")
             with open(route_path,"rb+") as f:
@@ -1166,8 +1265,9 @@ class fdisk:
                 if ebr_unpack[5].decode('utf-8').rstrip("\x00") == "ebr_part_namebit":
                     if ebr_unpack[4] != -1:
                         if self.isLong(self.size,ebr_size,ebr_unpack[4]):
-                            print("La particion es muy grande")
-                            return
+                            #print("La particion es muy grande")
+                            self.console = "La particion es muy grande"+ "\n"
+                            return self.console
                     ebr_pack = struct.pack(format_ebr,
                                            '1'.encode('utf-8'),
                                            self.fit[0].encode('utf-8'),
@@ -1177,9 +1277,10 @@ class fdisk:
                                            self.name.encode('utf-8')[0:16])
                     f.seek(partition4[3])
                     f.write(ebr_pack)
-                    print("Particion logica creada exitosamente")
+                    #print("Particion logica creada exitosamente")
+                    self.console = "Particion logica creada exitosamente"+ "\n"
                     f.close()
-                    return
+                    return self.console
                 else:
                     f.seek(partition4[3])
                     #print(partition4[3])
@@ -1195,8 +1296,9 @@ class fdisk:
                         if size_next == -1: 
                             with open(route_path,"rb+") as f:
                                 if ((2*ebr_size)+size_part+self.size) > partition4[4]:
-                                    print("La particion es muy grande")
-                                    return
+                                    #print("La particion es muy grande")
+                                    self.console = "La particion es muy grande"+ "\n"
+                                    return self.console
                                 f.seek(part_init)
                                 #print(part_init)
                                 ebr_pack = struct.pack(format_ebr,
@@ -1217,9 +1319,10 @@ class fdisk:
                                                         self.name.encode('utf-8')[0:16])
                                 f.write(ebr_pack)
                                 
-                                print("Particion logica creada exitosamente")
+                                #print("Particion logica creada exitosamente")
+                                self.console = "Particion logica creada exitosamente"+ "\n"
                                 f.close()
-                                return
+                                return self.console
                         else:
                             acumSize=acumSize+size_part
                             
@@ -1233,8 +1336,9 @@ class fdisk:
 
                             if ebr_unpack[5].decode('utf-8').rstrip("\x00") == 'ebr_part_namebit':
                                 if self.size > ebr_unpack[4]:
-                                    print("La particion es muy grande")
-                                    return
+                                    #print("La particion es muy grande")
+                                    self.console = "La particion es muy grande"+ "\n"
+                                    return self.console
                                 ebr_pack = struct.pack(format_ebr,
                                                         '1'.encode('utf-8'),
                                                         self.fit[0].encode('utf-8'),
@@ -1245,5 +1349,6 @@ class fdisk:
                                 f.seek(part_init)
                                 f.write(ebr_pack)
                                 f.close()
-                                print("Particion logica creada exitosamente")
-                                return
+                                #print("Particion logica creada exitosamente")
+                                self.console = "Particion logica creada exitosamente"+ "\n"
+                                return self.console

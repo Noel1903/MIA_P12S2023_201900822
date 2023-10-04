@@ -7,6 +7,7 @@ class mkdisk:
         self.size = 0
         self.unit = "m"
         self.fit = "ff"
+        self.console = ""
         self.execute()
 
     def execute(self):
@@ -22,18 +23,21 @@ class mkdisk:
             elif param[0] == "fit":
                 self.fit = param[1]
             else:
-                print("Parametro "+param[0]+" no reconocido")
-                return
+                #print("Parametro "+param[0]+" no reconocido")
+                self.console = "Parametro de mkdisk "+param[0]+" no reconocido"+ "\n"
+                return self.console
         self.fit = self.fit.lower()
         self.unit = self.unit.lower()
         
         if self.size > 0:
-            self.createDisk()
+            return self.createDisk()
         else:
-            print("Size must be greater than 0")
+            #print("Size must be greater than 0")
+            self.console = "El tamaño del disco debe ser mayor a 0"+ "\n"
+            return self.console
 
     def createDisk(self):
-        self.createDiskFF()
+        return self.createDiskFF()
 
     def createDiskFF(self):
         if self.unit == "k":
@@ -41,7 +45,9 @@ class mkdisk:
         elif self.unit == "m":
             self.size = self.size * 1024 * 1024
         else:
-            return print("Unit must be k or m")
+            self.console = "La unidad debe ser de k o m"+ "\n"
+            return self.console
+            #return print("Unit must be k or m")
         #mbr = MBR()
         route = self.path.replace(" ",r"\ ")
         file = os.path.basename(route)
@@ -69,6 +75,10 @@ class mkdisk:
             f.seek(0)
             f.write(mbr_bytes)
             f.close()
-        print("Disco "+file+" creado con exito en : "+self.path)
+        #print("Disco "+file+" creado con exito en : "+self.path)
+        self.console = "Disco "+file+" creado con exito en : "+self.path + "\n"
+
+        return self.console
+        
 
         

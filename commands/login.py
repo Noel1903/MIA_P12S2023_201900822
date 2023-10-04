@@ -88,16 +88,16 @@ class login:
                     if len(user) == 5:
                         #print(user[3],self.user,user[4],self.password)
                         if user[3].rstrip("\x00") == self.user and user[4].rstrip("\x00") == self.password:
-                            print("Login de ",self.user,"exitoso")
+                            #print("Login de ",self.user,"exitoso")
                             self.userlogued[0] = True
                             self.userlog.append(self.user)
                             self.id_disk.append(self.id)
                             f.close()
-                            return
+                            return {"status","true"}
                 if exist == False:
-                    print("Usuario o contraseña incorrectos")
+                    #print("Usuario o contraseña incorrectos")
                     f.close()
-                    return                    
+                    return {"status","false"}                   
                 f.close()
             elif partition2[5].decode('utf-8').rstrip("\x00") == part_m.name_partition:
                 f.seek(partition2[3])

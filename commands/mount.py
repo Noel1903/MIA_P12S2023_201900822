@@ -7,6 +7,7 @@ class mount:
         self.params = params
         self.path = ""
         self.name = ""
+        self.console = ""
         if params != None:
             self.execute()
 
@@ -36,14 +37,15 @@ class mount:
                 self.path = param[1]
             elif param[0] == "name":
                 self.name = param[1]
-        self.mount()
+        return self.mount()
 
         self.showPartitions()
 
     def showPartitions(self):
-        print("Lista de particiones montadas:")
+        #print("Lista de particiones montadas:")
+        self.console += "\tLista de particiones montadas:"+ "\n"
         for i in self.partitions_mounted:
-            print("Nombre: " + i.nameDisk + " ID: " + i.part_id)
+            self.console+= "\t\t↳Nombre: " + i.nameDisk + " ID: " + i.part_id+"\n"
         
 
     def mount(self):
@@ -65,26 +67,34 @@ class mount:
                         #cont = self.getCont(name_disk)
                         id_mount = self.id_carnet + str(1) + name_disk
                         self.partitions_mounted.append(Mount(name_disk,id_mount,cont,partition1[5].decode('utf-8').rstrip("\x00"),self.path.replace(" ",r"\ ")))
-                        print("Particion montada con exito")
-                        return        
+                        #print("Particion montada con exito")
+                        self.console = "Particion montada con exito"+ "\n"
+                        self.showPartitions()
+                        return self.console      
                     elif self.name == partition2[5].decode('utf-8').rstrip("\x00"):
                         #cont = self.getCont(name_disk)
                         id_mount = self.id_carnet + str(2) + name_disk
                         self.partitions_mounted.append(Mount(name_disk,id_mount,cont,partition2[5].decode('utf-8').rstrip("\x00"),self.path.replace(" ",r"\ "))) 
-                        print("Particion montada con exito")
-                        return
+                        #print("Particion montada con exito")
+                        self.console = "Particion montada con exito"+ "\n"
+                        self.showPartitions()
+                        return self.console
                     elif self.name == partition3[5].decode('utf-8').rstrip("\x00"):
                         cont = self.getCont(name_disk)
                         id_mount = self.id_carnet + str(3) + name_disk
                         self.partitions_mounted.append(Mount(name_disk,id_mount,cont,partition3[5].decode('utf-8').rstrip("\x00"),self.path.replace(" ",r"\ "))) 
-                        print("Particion montada con exito")
-                        return  
+                        #print("Particion montada con exito")
+                        self.console = "Particion montada con exito"+ "\n"
+                        self.showPartitions()
+                        return self.console
                     elif self.name == partition4[5].decode('utf-8').rstrip("\x00"):
                         cont = self.getCont(name_disk)
                         id_mount = self.id_carnet + str(4) + name_disk
                         self.partitions_mounted.append(Mount(name_disk,id_mount,cont,partition4[5].decode('utf-8').rstrip("\x00"),self.path.replace(" ",r"\ "))) 
-                        print("Particion montada con exito")
-                        return      
+                        #print("Particion montada con exito")
+                        self.console = "Particion montada con exito"+ "\n"
+                        self.showPartitions()
+                        return self.console
                 else:
                     format_ebr = "c c I I i 16s"
                     if partition1[1].decode('utf-8').rstrip("\x00") == 'e':
@@ -108,10 +118,12 @@ class mount:
                                 next_part = ebr_unpack[4]
                             f.close()
                         if nameExist:
-                            print("Particion montada exitosamente")
-                            return
-                        print("No existe una particion con ese nombre")
-                        return
+                            #print("Particion montada exitosamente")
+                            self.console = "Particion montada exitosamente"+ "\n"
+                            return self.console
+                        #print("No existe una particion con ese nombre")
+                        self.console = "No existe una particion con ese nombre"+ "\n"
+                        return self.console
                     elif partition2[1].decode('utf-8').rstrip("\x00") == 'e':
                         nameExist = False
                         with open(self.path.replace(" ",r"\ "),"rb+") as f:
@@ -134,10 +146,12 @@ class mount:
                                 next_part = ebr_unpack[4]
                             f.close()
                         if nameExist:
-                            print("Particion montada exitosamente")
-                            return
-                        print("No existe una particion con ese nombre")
-                        return
+                            #print("Particion montada exitosamente")
+                            self.console = "Particion montada exitosamente"+ "\n"
+                            return self.console
+                        #print("No existe una particion con ese nombre")
+                        self.console = "No existe una particion con ese nombre"+ "\n"
+                        return self.console
                     elif partition3[1].decode('utf-8').rstrip("\x00") == 'e':
                         nameExist = False
                         with open(self.path.replace(" ",r"\ "),"rb+") as f:
@@ -159,10 +173,12 @@ class mount:
                                 next_part = ebr_unpack[4]
                             f.close()
                         if nameExist:
-                            print("Particion montada exitosamente")
-                            return
-                        print("No existe una particion con ese nombre")
-                        return
+                            #print("Particion montada exitosamente")
+                            self.console = "Particion montada exitosamente"+ "\n"
+                            return self.console
+                        #print("No existe una particion con ese nombre")
+                        self.console = "No existe una particion con ese nombre"+ "\n"
+                        return self.console
                     elif partition4[1].decode('utf-8').rstrip("\x00") == 'e':
                         nameExist = False
                         with open(self.path.replace(" ",r"\ "),"rb+") as f:
@@ -184,14 +200,19 @@ class mount:
                                 next_part = ebr_unpack[4]
                             f.close()
                         if nameExist:
-                            print("Particion montada exitosamente")
-                            return
-                        print("No existe una particion con ese nombre")
-                        return
+                            #print("Particion montada exitosamente")
+                            self.console = "Particion montada exitosamente"+ "\n"
+                            return self.console
+                        #print("No existe una particion con ese nombre")
+                        self.console = "No existe una particion con ese nombre"+ "\n"
+                        return self.console
                     else:
-                        print("No existe una particion extendida")
-                        return
+                        #print("No existe una particion extendida")
+                        self.console = "No existe una particion extendida"+ "\n"
+                        return self.console
                 f.close()
+                self.showPartitions()
         except:
-            print("No existe el disco")
-            return
+            #print("No existe el disco")
+            self.console = "No existe el disco"+ "\n"
+            return self.console
