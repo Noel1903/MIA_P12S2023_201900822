@@ -1,5 +1,5 @@
 <template>
-    <MenuComponent/>
+    <MenuAdmin/>
     <div class="inputfile">
         <div class="mb-3">
             <input class="form-control" type="file" id="formFile" v-on:change="changeInput()">
@@ -18,15 +18,18 @@
             <textarea id="output" name="output" rows="18" cols="70" v-model="output"></textarea>
         </div>
     </div>
+    
 </template>
 
 <script>
-    import MenuComponent from './MenuComponent.vue';
+    import MenuAdmin from './MenuAdmin.vue';
     import axios from 'axios';
     var textFile = "";
     export default {
-        name: "ConsoleComponent",
-        components: { MenuComponent },
+        name: 'ConsoleAdmin',
+        components: {
+            MenuAdmin,
+        },
         methods:{
             sendResponse: function(){
                 textFile = document.getElementById("input").value;
@@ -37,7 +40,6 @@
                 axios
                     .post("http://localhost:5000/api/source",{content:textFile})
                     .then((response) => {
-                        console.log(response.data);
                         var consoleOut = document.getElementById("output");
                         var linesArr = response.data["data"].split("\n");
                         for (var i = 0; i < linesArr.length; i++) {
@@ -51,8 +53,6 @@
                             }
                             consoleOut.value += linesArr[i] + "\n";
                         }
-                        
-                        //consoleOut.value = response.data["data"];
                     })
             }, 
             changeInput(){
@@ -80,10 +80,6 @@
 
         }
     }
-
-    
-
-    
 </script>
 
 

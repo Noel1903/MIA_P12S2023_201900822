@@ -5,6 +5,7 @@ class mkusr:
     def __init__(self,params = None):
         self.params = params
         self.user = ""
+        self.console = ""
         self.passw = ""
         self.grp = ""
         if params != None:
@@ -29,9 +30,9 @@ class mkusr:
         id = log.getId()[len(log.getId())-1]
         userlogued = log.getUserLogued()[len(log.getUserLogued())-1]
         user = log.getUser()[len(log.getUser())-1]
-        print(id,userlogued,user)
+        #print(id,userlogued,user)
         if userlogued and id!= "" and user =="root":
-            print("Creando usuario")
+            #print("Creando usuario")
             format_mbr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
             format_ebr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s"
             format_sb = "I I I I I I I I I I I I I I I I I"
@@ -48,8 +49,10 @@ class mkusr:
                     exist = True
                     break
             if not exist:
-                print("No se encontro la particion")
-                return
+                #print("No se encontro la particion")
+                self.console = "No se encontro la particion\n"
+
+                return self.console
             
             path_mount = part_m.path
             with open(path_mount,"rb+") as f:
@@ -99,8 +102,9 @@ class mkusr:
                             #print(user)
                             idG = int(user[0])
                             if user[3].rstrip("\x00") == self.user:
-                                print("El usuario ya existe")
-                                return  
+                                #print("El usuario ya existe")
+                                self.console = "El usuario ya existe\n"
+                                return self.console
                     f.seek(block_start + ((block_count-1) * struct.calcsize(format_b)))       
                     users_txt = struct.unpack(format_b,f.read(struct.calcsize(format_b)))[0].decode('utf-8').rstrip("\x00")
                     sizeP = len(users_txt)
@@ -111,9 +115,10 @@ class mkusr:
                         #users_txt += b"\x00" * (64 - len(users_txt))
                         f.seek(block_start + ((block_count-1) * struct.calcsize(format_b)))
                         f.write(struct.pack(format_b,users_txt))
-                        print("Usuario creado")
+                        #print("Usuario creado")
+                        self.console = "Usuario creado\n"
                         f.close()
-                        return
+                        return self.console
                     else:
                         addGroupN = ""
                         for i in addGroup:
@@ -152,9 +157,10 @@ class mkusr:
                                 #print(inode_user_unpacked)
                                 f.seek(sb_unpack[14]+block_count-1)
                                 f.write(b'1')
-                                print("Usuario creado")
+                                #print("Usuario creado")
+                                self.console = "Usuario creado\n"
                                 f.close()
-                                return
+                                return self.console
                             count += 1
                         return     
                 elif partition2[5].decode('utf-8').rstrip("\x00") == part_m.name_partition:
@@ -195,8 +201,9 @@ class mkusr:
                             #print(user)
                             idG = int(user[0])
                             if user[3].rstrip("\x00") == self.user:
-                                print("El usuario ya existe")
-                                return  
+                                #print("El usuario ya existe")
+                                self.console = "El usuario ya existe\n"
+                                return self.console
                     f.seek(block_start + ((block_count-1) * struct.calcsize(format_b)))       
                     users_txt = struct.unpack(format_b,f.read(struct.calcsize(format_b)))[0].decode('utf-8').rstrip("\x00")
                     sizeP = len(users_txt)
@@ -207,9 +214,10 @@ class mkusr:
                         #users_txt += b"\x00" * (64 - len(users_txt))
                         f.seek(block_start + ((block_count-1) * struct.calcsize(format_b)))
                         f.write(struct.pack(format_b,users_txt))
-                        print("Usuario creado")
+                        #print("Usuario creado")
+                        self.console = "Usuario creado\n"
                         f.close()
-                        return
+                        return self.console
                     else:
                         addGroupN = ""
                         for i in addGroup:
@@ -248,9 +256,10 @@ class mkusr:
                                 #print(inode_user_unpacked)
                                 f.seek(sb_unpack[14]+block_count-1)
                                 f.write(b'1')
-                                print("Usuario creado")
+                                #print("Usuario creado")
+                                self.console = "Usuario creado\n"
                                 f.close()
-                                return
+                                return self.console
                             count += 1
                         return
                 elif partition3[5].decode('utf-8').rstrip("\x00") == part_m.name_partition:
@@ -291,8 +300,9 @@ class mkusr:
                             #print(user)
                             idG = int(user[0])
                             if user[3].rstrip("\x00") == self.user:
-                                print("El usuario ya existe")
-                                return  
+                                #print("El usuario ya existe")
+                                self.console = "El usuario ya existe\n"
+                                return self.console
                     f.seek(block_start + ((block_count-1) * struct.calcsize(format_b)))       
                     users_txt = struct.unpack(format_b,f.read(struct.calcsize(format_b)))[0].decode('utf-8').rstrip("\x00")
                     sizeP = len(users_txt)
@@ -303,9 +313,10 @@ class mkusr:
                         #users_txt += b"\x00" * (64 - len(users_txt))
                         f.seek(block_start + ((block_count-1) * struct.calcsize(format_b)))
                         f.write(struct.pack(format_b,users_txt))
-                        print("Usuario creado")
+                        #print("Usuario creado")
+                        self.console = "Usuario creado\n"
                         f.close()
-                        return
+                        return self.console
                     else:
                         addGroupN = ""
                         for i in addGroup:
@@ -344,9 +355,10 @@ class mkusr:
                                 #print(inode_user_unpacked)
                                 f.seek(sb_unpack[14]+block_count-1)
                                 f.write(b'1')
-                                print("Usuario creado")
+                                #print("Usuario creado")
+                                self.console = "Usuario creado\n"
                                 f.close()
-                                return
+                                return self.console
                             count += 1
                         return   
                 elif partition4[5].decode('utf-8').rstrip("\x00") == part_m.name_partition:
@@ -387,8 +399,9 @@ class mkusr:
                             #print(user)
                             idG = int(user[0])
                             if user[3].rstrip("\x00") == self.user:
-                                print("El usuario ya existe")
-                                return  
+                                #print("El usuario ya existe")
+                                self.console = "El usuario ya existe\n"
+                                return self.console
                     f.seek(block_start + ((block_count-1) * struct.calcsize(format_b)))       
                     users_txt = struct.unpack(format_b,f.read(struct.calcsize(format_b)))[0].decode('utf-8').rstrip("\x00")
                     sizeP = len(users_txt)
@@ -399,9 +412,10 @@ class mkusr:
                         #users_txt += b"\x00" * (64 - len(users_txt))
                         f.seek(block_start + ((block_count-1) * struct.calcsize(format_b)))
                         f.write(struct.pack(format_b,users_txt))
-                        print("Usuario creado")
+                        #print("Usuario creado")
+                        self.console = "Usuario creado\n"
                         f.close()
-                        return
+                        return self.console
                     else:
                         addGroupN = ""
                         for i in addGroup:
@@ -440,9 +454,10 @@ class mkusr:
                                 #print(inode_user_unpacked)
                                 f.seek(sb_unpack[14]+block_count-1)
                                 f.write(b'1')
-                                print("Usuario creado")
+                                #print("Usuario creado")
+                                self.console = "Usuario creado\n"
                                 f.close()
-                                return
+                                return self.console
                             count += 1
                         return       
                     

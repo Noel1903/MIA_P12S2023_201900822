@@ -7,6 +7,7 @@ class mkgrp:
     def __init__(self,params = None):
         self.params = params
         self.name = ""
+        self.console = ""
         if params != None:
             self.execute()
         
@@ -27,7 +28,7 @@ class mkgrp:
         user = log.getUser()[len(log.getUser())-1]
         #print(id,userlogued,user)
         if userlogued and id!= "" and user =="root":
-            print("Creando grupo")
+            #print("Creando grupo")
             format_mbr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
             format_ebr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s"
             format_sb = "I I I I I I I I I I I I I I I I I"
@@ -44,8 +45,9 @@ class mkgrp:
                     exist = True
                     break
             if not exist:
-                print("No se encontro la particion")
-                return
+                #print("No se encontro la particion")
+                self.console = "No se encontro la particion\n"
+                return self.console
             
             path_mount = part_m.path
             with open(path_mount,"rb+") as f:
@@ -96,8 +98,9 @@ class mkgrp:
                             #print(user)
                             idG = int(user[0])
                             if user[2].rstrip("\x00") == self.name:
-                                print("El grupo ya existe")
-                                return  
+                                #print("El grupo ya existe")
+                                self.console = "El grupo ya existe\n"
+                                return self.console
                     f.seek(block_start + ((block_count-1) * struct.calcsize(format_b)))       
                     users_txt = struct.unpack(format_b,f.read(struct.calcsize(format_b)))[0].decode('utf-8').rstrip("\x00")
                     sizeP = len(users_txt)
@@ -108,8 +111,9 @@ class mkgrp:
                         #users_txt += b"\x00" * (64 - len(users_txt))
                         f.seek(block_start + ((block_count-1) * struct.calcsize(format_b)))
                         f.write(struct.pack(format_b,users_txt))
-                        print("Grupo creado")
-                        return
+                        #print("Grupo creado")
+                        self.console = "Grupo creado\n"
+                        return self.console
                         
                     else:
                         addGroupN = ""
@@ -147,8 +151,9 @@ class mkgrp:
                                 #print(inode_user_unpacked)
                                 f.seek(sb_unpack[14]+block_count-1)
                                 f.write(b'1')
-                                print("Grupo creado")
-                                return
+                                #print("Grupo creado")
+                                self.console = "Grupo creado\n"
+                                return self.console
                                 
                             count += 1
                         
@@ -192,8 +197,9 @@ class mkgrp:
                             #print(user)
                             idG = int(user[0])
                             if user[2].rstrip("\x00") == self.name:
-                                print("El grupo ya existe")
-                                return  
+                                #print("El grupo ya existe")
+                                self.console = "El grupo ya existe\n"
+                                return  self.console
                     f.seek(block_start + ((block_count-1) * struct.calcsize(format_b)))       
                     users_txt = struct.unpack(format_b,f.read(struct.calcsize(format_b)))[0].decode('utf-8').rstrip("\x00")
                     sizeP = len(users_txt)
@@ -205,9 +211,10 @@ class mkgrp:
                         #users_txt += b"\x00" * (64 - len(users_txt))
                         f.seek(block_start + ((block_count-1) * struct.calcsize(format_b)))
                         f.write(struct.pack(format_b,users_txt))
-                        print("Grupo creado")
+                        #print("Grupo creado")
+                        self.console = "Grupo creado\n"
                         f.close()
-                        return
+                        return self.console
                     else:
                         addGroupN = ""
                         for i in addGroup:
@@ -240,9 +247,10 @@ class mkgrp:
                                 #print(inode_user_unpacked)
                                 f.seek(sb_unpack[14]+block_count-1)
                                 f.write(b'1')
-                                print("Grupo creado")
+                                #print("Grupo creado")
+                                self.console = "Grupo creado\n"
                                 f.close()
-                                return
+                                return self.console
                             count += 1
                         return     
                 elif partition3[5].decode('utf-8').rstrip("\x00") == part_m.name_partition:
@@ -282,8 +290,9 @@ class mkgrp:
                             #print(user)
                             idG = int(user[0])
                             if user[2].rstrip("\x00") == self.name:
-                                print("El grupo ya existe")
-                                return  
+                                #print("El grupo ya existe")
+                                self.console = "El grupo ya existe\n"
+                                return  self.console
                     f.seek(block_start + ((block_count-1) * struct.calcsize(format_b)))       
                     users_txt = struct.unpack(format_b,f.read(struct.calcsize(format_b)))[0].decode('utf-8').rstrip("\x00")
                     sizeP = len(users_txt)
@@ -295,9 +304,10 @@ class mkgrp:
                         #users_txt += b"\x00" * (64 - len(users_txt))
                         f.seek(block_start + ((block_count-1) * struct.calcsize(format_b)))
                         f.write(struct.pack(format_b,users_txt))
-                        print("Grupo creado")
+                        #print("Grupo creado")
+                        self.console = "Grupo creado\n"
                         f.close()
-                        return
+                        return self.console
                     else:
                         addGroupN = ""
                         for i in addGroup:
@@ -330,9 +340,10 @@ class mkgrp:
                                 #print(inode_user_unpacked)
                                 f.seek(sb_unpack[14]+block_count-1)
                                 f.write(b'1')
-                                print("Grupo creado")
+                                #print("Grupo creado")
+                                self.console = "Grupo creado\n"
                                 f.close()
-                                return
+                                return self.console
                             count += 1
                         return     
                 elif partition4[5].decode('utf-8').rstrip("\x00") == part_m.name_partition:
@@ -372,8 +383,9 @@ class mkgrp:
                             #print(user)
                             idG = int(user[0])
                             if user[2].rstrip("\x00") == self.name:
-                                print("El grupo ya existe")
-                                return  
+                                #print("El grupo ya existe")
+                                self.console = "El grupo ya existe\n"
+                                return   self.console
                     f.seek(block_start + ((block_count-1) * struct.calcsize(format_b)))       
                     users_txt = struct.unpack(format_b,f.read(struct.calcsize(format_b)))[0].decode('utf-8').rstrip("\x00")
                     sizeP = len(users_txt)
@@ -385,9 +397,10 @@ class mkgrp:
                         #users_txt += b"\x00" * (64 - len(users_txt))
                         f.seek(block_start + ((block_count-1) * struct.calcsize(format_b)))
                         f.write(struct.pack(format_b,users_txt))
-                        print("Grupo creado")
+                        #print("Grupo creado")
+                        self.console = "Grupo creado\n"
                         f.close()
-                        return
+                        return self.console
                     else:
                         addGroupN = ""
                         for i in addGroup:
@@ -420,9 +433,10 @@ class mkgrp:
                                 #print(inode_user_unpacked)
                                 f.seek(sb_unpack[14]+block_count-1)
                                 f.write(b'1')
-                                print("Grupo creado")
+                                #print("Grupo creado")
+                                self.console = "Grupo creado\n"
                                 f.close()
-                                return
+                                return self.console
                             count += 1
                         return                
                     

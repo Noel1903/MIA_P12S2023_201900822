@@ -7,6 +7,7 @@ class mkdir:
     def __init__(self,params = None):
         self.params = params
         if params != None:
+            self.console = ""
             self.execute()
             self.path = ""
             self.r = ""
@@ -54,8 +55,9 @@ class mkdir:
                     exist = True
                     break
             if not exist:
-                print("No se encontro la particion")
-                return
+                #print("No se encontro la particion")
+                self.console = "No se encontro la particion\n"
+                return self.console
             
             self.path_mount = part_m.path
             with open(self.path_mount,"rb+") as f:
@@ -90,7 +92,8 @@ class mkdir:
                     f.seek(partition1[3])
                     f.write(struct.pack(format_sb,sb_unpack[0],sb_unpack[1],sb_unpack[2],sb_unpack[3],sb_unpack[4],sb_unpack[5],sb_unpack[6],sb_unpack[7],sb_unpack[8],sb_unpack[9],sb_unpack[10],sb_unpack[11],sb_unpack[12],sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16]))
                     
-                    print("Carpeta creada")
+                    #print("Carpeta creada")
+                    self.console = "Carpeta creada correctamente\n"
                 elif partition2[5].decode('utf-8').rstrip("\x00") == part_m.name_partition:
                     f.seek(partition2[3])
                     data_sb = f.read(struct.calcsize(format_sb))
@@ -115,7 +118,8 @@ class mkdir:
                     f.seek(partition2[3])
                     f.write(struct.pack(format_sb,sb_unpack[0],sb_unpack[1],sb_unpack[2],sb_unpack[3],sb_unpack[4],sb_unpack[5],sb_unpack[6],sb_unpack[7],sb_unpack[8],sb_unpack[9],sb_unpack[10],sb_unpack[11],sb_unpack[12],sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16]))
                     
-                    print("Carpeta creada")
+                    #print("Carpeta creada")
+                    self.console = "Carpeta creada correctamente\n"
 
                 elif partition3[5].decode('utf-8').rstrip("\x00") == part_m.name_partition:
                     f.seek(partition3[3])
@@ -140,7 +144,8 @@ class mkdir:
                     f.seek(partition3[3])
                     f.write(struct.pack(format_sb,sb_unpack[0],sb_unpack[1],sb_unpack[2],sb_unpack[3],sb_unpack[4],sb_unpack[5],sb_unpack[6],sb_unpack[7],sb_unpack[8],sb_unpack[9],sb_unpack[10],sb_unpack[11],sb_unpack[12],sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16]))
                     
-                    print("Carpeta creada")
+                    #print("Carpeta creada")
+                    self.console = "Carpeta creada correctamente\n"
                 elif partition4[5].decode('utf-8').rstrip("\x00") == part_m.name_partition:
                     f.seek(partition4[3])
                     data_sb = f.read(struct.calcsize(format_sb))
@@ -164,8 +169,8 @@ class mkdir:
                     sb_unpack[11] = self.getIndexInode(f.read(sb_unpack[1]))
                     f.seek(partition4[3])
                     f.write(struct.pack(format_sb,sb_unpack[0],sb_unpack[1],sb_unpack[2],sb_unpack[3],sb_unpack[4],sb_unpack[5],sb_unpack[6],sb_unpack[7],sb_unpack[8],sb_unpack[9],sb_unpack[10],sb_unpack[11],sb_unpack[12],sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16]))
-                    
-                    print("Carpeta creada")
+                    self.console = "Carpeta creada correctamente\n"
+                    #print("Carpeta creada")
 
 
     def searchInode(self,bm_inodes,bm_blocks,start_inodes,start_blocks,inode_size,block_size,index,folder):

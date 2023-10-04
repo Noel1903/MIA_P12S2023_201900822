@@ -3,17 +3,20 @@ import struct
 class login:
 
     userlogued = [False]
+
     id_disk = []
     userlog = []
     def __init__(self,params = None):
         self.params = params
         if params != None:
-            self.execute()
-            self.userlogued = False
-            
+            #self.userlogued = False
+            self.status = False
             self.user = ""
             self.password = ""
             self.id = ""
+            
+            self.execute()
+            
 
     def setUserLogued(self):
         self.userlogued = [False]
@@ -93,11 +96,12 @@ class login:
                             self.userlog.append(self.user)
                             self.id_disk.append(self.id)
                             f.close()
-                            return {"status","true"}
+                            self.status = True
+                            return self.status
                 if exist == False:
                     #print("Usuario o contraseña incorrectos")
                     f.close()
-                    return {"status","false"}                   
+                    return self.status                  
                 f.close()
             elif partition2[5].decode('utf-8').rstrip("\x00") == part_m.name_partition:
                 f.seek(partition2[3])
@@ -127,11 +131,12 @@ class login:
                             self.userlog.append(self.user)
                             self.id_disk.append(self.id)
                             f.close()
-                            return
+                            self.status = True
+                            return self.status
                 if exist == False:
                     print("Usuario o contraseña incorrectos")
                     f.close()
-                    return                    
+                    return self.status                   
                 f.close()
             elif partition3[5].decode('utf-8').rstrip("\x00") == part_m.name_partition:
                 f.seek(partition3[3])
@@ -159,11 +164,12 @@ class login:
                             print("Login de ",self.user,"exitoso")
                             self.userlogued = True
                             f.close()
-                            return
+                            self.status = True
+                            return self.status
                 if exist == False:
                     print("Usuario o contraseña incorrectos")
                     f.close()
-                    return                    
+                    return self.status                    
                 f.close()
             elif partition4[5].decode('utf-8').rstrip("\x00") == part_m.name_partition:
                 f.seek(partition4[3])
@@ -191,13 +197,14 @@ class login:
                             print("Login de ",self.user,"exitoso")
                             self.userlogued = True
                             f.close()
-                            return
+                            self.status = True
+                            return self.status
                 if exist == False:
                     print("Usuario o contraseña incorrectos")
                     f.close()
-                    return                    
+                    return self.status                   
                 f.close()
-            return
+            return self.status
         
 
    

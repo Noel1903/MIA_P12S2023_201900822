@@ -7,7 +7,7 @@
     <div class="navigation">
       <RouterLink to="/"><a href="#"><i class="uil uil-home"></i>Home</a></RouterLink>
       <RouterLink to="/console"><a href="#"><i class="uil uil-caret-right"></i>Console</a></RouterLink>
-      <RouterLink to="/reports"><a href="#"><i class="uil uil-file-graph"></i>Reports</a></RouterLink>
+      <!--RouterLink to="/reports"><a href="#"><i class="uil uil-file-graph"></i>Reports</a></RouterLink-->
       <RouterLink to="/login"><a href="#"><i class="uil uil-signin"></i>Log in</a></RouterLink>
       </div>
   </div>    

@@ -6,13 +6,16 @@ class rmgrp:
     def __init__(self,params):
         self.params = params
         self.name = ""
+        self.console = ""
         self.execute()
 
     def execute(self):
         if self.params[0][0] == "name":
             self.name = self.params[0][1]
         else:
-            print("Parametros incorrectos para el comando rmgrp.")
+            #print("Parametros incorrectos para el comando rmgrp.")
+            self.console = "Parametros incorrectos para el comando rmgrp\n"
+            return self.console
 
         log = login(None)
         id = log.getId()[len(log.getId())-1]
@@ -20,7 +23,7 @@ class rmgrp:
         user = log.getUser()[len(log.getUser())-1]
         #print(id,userlogued,user)
         if userlogued and id!= "" and user =="root":
-            print("Eliminando grupo")
+            #print("Eliminando grupo")
             format_mbr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s c c c I I 16s"
             format_ebr = "I I I c c c c I I 16s c c c I I 16s c c c I I 16s"
             format_sb = "I I I I I I I I I I I I I I I I I"
@@ -37,7 +40,7 @@ class rmgrp:
                     exist = True
                     break
             if not exist:
-                print("No se encontro la particion")
+                self.console = "No se encontro la particion\n"
                 return
             
             path_mount = part_m.path
@@ -101,7 +104,9 @@ class rmgrp:
                             f.seek(block_start + (struct.calcsize(format_b_folder)*(i-1)))
                             f.write(struct.pack(format_b,new_users_txt.encode('utf-8')))
                             
-                    print("Grupo eliminado")
+                    #print("Grupo eliminado")
+                    self.console = "Grupo eliminado\n"
+                    return self.console
                 elif partition2[5].decode('utf-8').rstrip("\x00") == part_m.name_partition:
                     f.seek(partition2[3])
                     data_sb = f.read(struct.calcsize(format_sb))
@@ -153,7 +158,9 @@ class rmgrp:
                             f.seek(block_start + (struct.calcsize(format_b_folder)*(i-1)))
                             f.write(struct.pack(format_b,new_users_txt.encode('utf-8')))
                             
-                    print("Grupo eliminado")
+                    #print("Grupo eliminado")
+                    self.console = "Grupo eliminado\n"
+                    return self.console
                 elif partition3[5].decode('utf-8').rstrip("\x00") == part_m.name_partition:
                     f.seek(partition3[3])
                     data_sb = f.read(struct.calcsize(format_sb))
@@ -205,7 +212,9 @@ class rmgrp:
                             f.seek(block_start + (struct.calcsize(format_b_folder)*(i-1)))
                             f.write(struct.pack(format_b,new_users_txt.encode('utf-8')))
                             
-                    print("Grupo eliminado")
+                    #print("Grupo eliminado")
+                    self.console = "Grupo eliminado\n"
+                    return self.console
                 elif partition4[5].decode('utf-8').rstrip("\x00") == part_m.name_partition:
                     f.seek(partition4[3])
                     data_sb = f.read(struct.calcsize(format_sb))
@@ -257,6 +266,8 @@ class rmgrp:
                             f.seek(block_start + (struct.calcsize(format_b_folder)*(i-1)))
                             f.write(struct.pack(format_b,new_users_txt.encode('utf-8')))
                             
-                    print("Grupo eliminado")
+                    #print("Grupo eliminado")
+                    self.console = "Grupo eliminado\n"
+                    return self.console
                         
                         

@@ -7,6 +7,7 @@ class cat:
     def __init__(self,params):
         self.params = params
         self.paths = []
+        self.console = ""
         self.execute()
 
     def execute(self):
@@ -36,8 +37,9 @@ class cat:
                     exist = True
                     break
             if not exist:
-                print("No se encontro la particion")
-                return
+                #print("No se encontro la particion")
+                self.console = "No se encontro la particion"
+                return self.console
             
             self.path_mount = part_m.path
             with open(self.path_mount,"rb+") as f:
@@ -69,13 +71,15 @@ class cat:
                         #print(inode_unpack)
                         inode_file = inode_unpack[6:22]
                         inode_file = list(inode_file)
-                        print("Archivo "+path[len(path)-1]+" se va imprimir:")
+                        #print("Archivo "+path[len(path)-1]+" se va imprimir:")
+                        self.console += "Archivo "+path[len(path)-1]+" se va imprimir:\n"
                         for i in inode_file:
                             if i == -1:
                                 continue
                             f.seek(sb_unpack[16]+(struct.calcsize(format_b)*(i-1)))
                             block_unpack = struct.unpack(format_b,f.read(struct.calcsize(format_b)))
-                            print(block_unpack[0].decode('utf-8').rstrip("\x00"))
+                            #print(block_unpack[0].decode('utf-8').rstrip("\x00"))
+                            self.console += block_unpack[0].decode('utf-8').rstrip("\x00")+"\n"
                 elif partition2[5].decode('utf-8').rstrip("\x00") == part_m.name_partition:
                     for p in self.paths:
                         f.seek(partition2[3])
@@ -97,13 +101,15 @@ class cat:
                         #print(inode_unpack)
                         inode_file = inode_unpack[6:22]
                         inode_file = list(inode_file)
-                        print("Archivo "+path[len(path)-1]+" se va imprimir:")
+                        #print("Archivo "+path[len(path)-1]+" se va imprimir:")
+                        self.console += "Archivo "+path[len(path)-1]+" se va imprimir:\n"
                         for i in inode_file:
                             if i == -1:
                                 continue
                             f.seek(sb_unpack[16]+(struct.calcsize(format_b)*(i-1)))
                             block_unpack = struct.unpack(format_b,f.read(struct.calcsize(format_b)))
-                            print(block_unpack[0].decode('utf-8').rstrip("\x00"))
+                            #print(block_unpack[0].decode('utf-8').rstrip("\x00"))
+                            self.console += block_unpack[0].decode('utf-8').rstrip("\x00")+"\n"
                 elif partition3[5].decode('utf-8').rstrip("\x00") == part_m.name_partition:
                     for p in self.paths:
                         f.seek(partition3[3])
@@ -125,13 +131,15 @@ class cat:
                         #print(inode_unpack)
                         inode_file = inode_unpack[6:22]
                         inode_file = list(inode_file)
-                        print("Archivo "+path[len(path)-1]+" se va imprimir:")
+                        #print("Archivo "+path[len(path)-1]+" se va imprimir:")
+                        self.console += "Archivo "+path[len(path)-1]+" se va imprimir:\n"
                         for i in inode_file:
                             if i == -1:
                                 continue
                             f.seek(sb_unpack[16]+(struct.calcsize(format_b)*(i-1)))
                             block_unpack = struct.unpack(format_b,f.read(struct.calcsize(format_b)))
-                            print(block_unpack[0].decode('utf-8').rstrip("\x00"))
+                            #print(block_unpack[0].decode('utf-8').rstrip("\x00"))
+                            self.console += block_unpack[0].decode('utf-8').rstrip("\x00")+"\n"
                 elif partition4[5].decode('utf-8').rstrip("\x00") == part_m.name_partition:
                     for p in self.paths:
                         f.seek(partition4[3])
@@ -153,13 +161,15 @@ class cat:
                         #print(inode_unpack)
                         inode_file = inode_unpack[6:22]
                         inode_file = list(inode_file)
-                        print("Archivo "+path[len(path)-1]+" se va imprimir:")
+                        #print("Archivo "+path[len(path)-1]+" se va imprimir:")
+                        self.console += "Archivo "+path[len(path)-1]+" se va imprimir:\n"
                         for i in inode_file:
                             if i == -1:
                                 continue
                             f.seek(sb_unpack[16]+(struct.calcsize(format_b)*(i-1)))
                             block_unpack = struct.unpack(format_b,f.read(struct.calcsize(format_b)))
-                            print(block_unpack[0].decode('utf-8').rstrip("\x00"))
+                            #print(block_unpack[0].decode('utf-8').rstrip("\x00"))
+                            self.console += block_unpack[0].decode('utf-8').rstrip("\x00")+"\n"
                     
 
 

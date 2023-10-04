@@ -5,6 +5,7 @@ import 'bootstrap/dist/js/bootstrap.js'
 import HomeComponent from './components/HomeComponent.vue'
 import ConsoleComponent from './components/ConsoleComponent.vue'
 import LoginComponent from './components/LoginComponent.vue'
+import ConsoleAdmin from './components/ConsoleAdmin.vue'
 
 
 import { createRouter,createWebHistory } from 'vue-router'
@@ -15,6 +16,7 @@ const routes = [
     { path: '/home', component: HomeComponent },
     { path: '/console', component: ConsoleComponent },
     { path: '/login', component: LoginComponent },
+    { path: '/consoleAdmin', component: ConsoleAdmin},
 ]
 
 

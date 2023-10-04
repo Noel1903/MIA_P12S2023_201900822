@@ -256,6 +256,7 @@ def p_logout_block(t):
 
 def p_mkdisk_block(t):
     'mkdisk_block : MKDISK mkdisk_params'
+    
     t[0] = mkdisk(t[2])
     #t[0] = t[1]
 

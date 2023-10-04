@@ -11,6 +11,7 @@ class mkfile:
             self.r = ""
             self.size = 0
             self.cont = ""
+            self.console = ""
             self.execute()
             
 
@@ -62,8 +63,9 @@ class mkfile:
                     exist = True
                     break
             if not exist:
-                print("No se encontro la particion")
-                return
+                #print("No se encontro la particion")
+                self.console = "No se encontro la particion\n"
+                return self.console
             
             self.path_mount = part_m.path
             with open(self.path_mount,"rb+") as f:
@@ -109,7 +111,8 @@ class mkfile:
                     f.seek(partition1[3])
                     f.write(struct.pack(format_sb,sb_unpack[0],sb_unpack[1],sb_unpack[2],sb_unpack[3],sb_unpack[4],sb_unpack[5],sb_unpack[6],sb_unpack[7],sb_unpack[8],sb_unpack[9],sb_unpack[10],sb_unpack[11],sb_unpack[12],sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16]))
                     
-                    print("Archivo creado")
+                    #print("Archivo creado")
+                    self.console = "Archivo creado correctamente\n"
                 elif partition2[5].decode('utf-8').rstrip("\x00") == part_m.name_partition:
                     f.seek(partition2[3])
                     data_sb = f.read(struct.calcsize(format_sb))
@@ -145,7 +148,8 @@ class mkfile:
                     f.seek(partition2[3])
                     f.write(struct.pack(format_sb,sb_unpack[0],sb_unpack[1],sb_unpack[2],sb_unpack[3],sb_unpack[4],sb_unpack[5],sb_unpack[6],sb_unpack[7],sb_unpack[8],sb_unpack[9],sb_unpack[10],sb_unpack[11],sb_unpack[12],sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16]))
                     
-                    print("Archivo creado")
+                    #print("Archivo creado")
+                    self.console = "Archivo creado correctamente\n"
                 elif partition3[5].decode('utf-8').rstrip("\x00") == part_m.name_partition:
                     f.seek(partition3[3])
                     data_sb = f.read(struct.calcsize(format_sb))
@@ -181,7 +185,8 @@ class mkfile:
                     f.seek(partition3[3])
                     f.write(struct.pack(format_sb,sb_unpack[0],sb_unpack[1],sb_unpack[2],sb_unpack[3],sb_unpack[4],sb_unpack[5],sb_unpack[6],sb_unpack[7],sb_unpack[8],sb_unpack[9],sb_unpack[10],sb_unpack[11],sb_unpack[12],sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16]))
                     
-                    print("Archivo creado")
+                    #print("Archivo creado")
+                    self.console = "Archivo creado correctamente\n"
                 elif partition4[5].decode('utf-8').rstrip("\x00") == part_m.name_partition:
                     f.seek(partition4[3])
                     data_sb = f.read(struct.calcsize(format_sb))
@@ -217,8 +222,8 @@ class mkfile:
                     
                 #print("**********************************ARCHIVO**********************************")
                 #self.showBlocks(sb_unpack[13],sb_unpack[14],sb_unpack[15],sb_unpack[16],sb_unpack[1],sb_unpack[2])
-                print("Archivo creado")
-
+                #print("Archivo creado")
+                self.console = "Archivo creado correctamente\n"
 
     def searchInode(self,bm_inodes,bm_blocks,start_inodes,start_blocks,inode_size,block_size,index,folder):
         format_i = "I I I I I I 16i c I"
@@ -617,8 +622,9 @@ class mkfile:
                         text_file = file.read()
                         file.close()
                 except:
-                    print("No se encontro el archivo")
-                    return
+                    #print("No se encontro el archivo")
+                    self.console = "No se encontro el archivo\n"
+                    return self.console
                 
             i = i_block[0]
             i = i-1
@@ -629,7 +635,8 @@ class mkfile:
             if sizeP <= 64:
                 f.write(struct.pack(format_b,text_file.encode('utf-8')))
 
-                print("Archivo creado")
+                #print("Archivo creado")
+                self.console = "Archivo creado\n"
                 
            
             else:
@@ -645,7 +652,8 @@ class mkfile:
                     f.write(struct.pack(format_b,text_file[0:64].encode('utf-8')))
                     f.seek(bm_blocks+(i-1))
                     f.write(b'1')
-                    print("Archivo creado")
+                    #print("Archivo creado")
+                    self.console = "Archivo creado\n"
                     inode_unpack[cont+6] = i
                     cont += 1
                     text_file = text_file[64:]
@@ -659,7 +667,8 @@ class mkfile:
                         f.write(b'1')
                         inode_unpack[cont+6] = i
                         cont += 1
-                        print("Archivo creado")
+                        #print("Archivo creado")
+                        self.console = "Archivo creado\n"
 
                     count += 1
             f.seek(pos_init)

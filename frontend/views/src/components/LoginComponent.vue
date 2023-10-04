@@ -46,12 +46,12 @@
                     .then((response) => {
                         console.log(response.data);
                         var status = response.data["status"];
-                        if (status == "false"){
+                        if (status == false){
                             alert("Error en el login");
                             return;
                         }
                         alert("Login exitoso");
-                        this.$router.push({name: 'Home'});
+                        this.$router.push('/ConsoleAdmin');
                         console.log(response.data)
                     })
             }

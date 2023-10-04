@@ -27,8 +27,11 @@ def login():
     data = request.json['content']
     
     response = parser.parse(data)
-    print(response[0])
-    return jsonify(response)
+    #print(response[0].status)
+    sendData = {
+        "status": response[0].status
+    }
+    return jsonify(sendData)
 
 
 if __name__ == "__main__":
