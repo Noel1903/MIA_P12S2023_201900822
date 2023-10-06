@@ -42,7 +42,7 @@
                 }
                 console.log(content);
                 axios
-                    .post("http://localhost:5000/api/login",content)
+                    .post("http://54.159.14.220:3000/api/login",content)
                     .then((response) => {
                         console.log(response.data);
                         var status = response.data["status"];

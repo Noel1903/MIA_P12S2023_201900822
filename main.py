@@ -8,6 +8,11 @@ CORS(app)
 def initial():
     return "Welcome to the server"
 
+
+@app.route("/carnet")
+def carnet():
+    return jsonify({"carnet": "201900822","nombre":"Osmar Noel Chacón Lemus"})
+
 @app.route("/api/source", methods=['POST'])
 def source():
     data = request.json['content']
@@ -35,7 +40,7 @@ def login():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0",port=4000)
+    app.run(debug=True, host="0.0.0.0",port=3000)
 '''print("Ingrese el comando path para leer el archivo")
 line = input()
 #execute -path=/home/usuario/example.txt
