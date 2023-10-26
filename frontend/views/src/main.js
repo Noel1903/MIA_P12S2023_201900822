@@ -7,6 +7,7 @@ import ConsoleComponent from './components/ConsoleComponent.vue'
 import LoginComponent from './components/LoginComponent.vue'
 import ConsoleAdmin from './components/ConsoleAdmin.vue'
 import ReportsComponent from './components/ReportsComponent.vue'
+import LinkReports from './components/LinkReports.vue'
 
 
 import { createRouter,createWebHistory } from 'vue-router'
@@ -19,6 +20,7 @@ const routes = [
     { path: '/login', component: LoginComponent },
     { path: '/consoleAdmin', component: ConsoleAdmin},
     { path: '/reports', component: ReportsComponent},
+    { path: '/linkReports', component: LinkReports},
 ]
 
 

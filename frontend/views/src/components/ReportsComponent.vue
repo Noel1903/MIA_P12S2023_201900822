@@ -25,34 +25,63 @@
 
         </select>
     </div>
-    
     <div>
-        <button class="btn btn-outline-primary btn-lg"><i class="uil uil-download-alt"></i> Generate Report</button>
+        <button class="btn btn-outline-primary btn-lg" @click="getImage()"><i class="uil uil-download-alt"></i> Generate Report</button>
+    </div>
+    <div v-if="imagenURL">
+        <img :src="imagenURL" alt="Reporte Generado">
     </div>
 </template>
 
 <script>
 import axios from 'axios';
 import MenuAdmin from './MenuAdmin.vue';
+const apiurl = process.env.VUE_APP_API_URL;
+
 export default{
     name: "ReportsComponent",
     components: { MenuAdmin },
     methods : {
         getMounted : function(){
             axios
-                .get("http://54.159.14.220:3000/api/mounts")
+                .get(apiurl + "/mounts")
                 .then((response) => {
                     this.mounted = response.data["data"];
                 })
                 .catch((error) => {
                     console.log(error);
                 })
+        },
+        getImage : function(){
+            var mounted = document.getElementById("mounted");
+            var reportType = document.getElementById("reportType");
+            var content = {
+                "mount": mounted.value,
+                "type": reportType.value
+            }
+            console.log(content);
+            axios
+            .post(apiurl+"/reports",content)
+            .then((response) => {
+                console.log(response.data);
+                if (reportType.value =="bm_inode" || reportType.value =="bm_block" || reportType.value =="file"){
+                    window.open(response.data["data"],'_blank');
+                    return;
+                }
+                this.imagenURL = response.data["data"];
+                return
+            })
+            .catch((error) => {
+                console.log(error);
+            })
         }
     },
+    
     data(){
         return {
             mountSelected: '',
-            mounted: []
+            mounted: [],
+            imagenURL: null
         }
     }
     

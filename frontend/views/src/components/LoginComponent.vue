@@ -30,6 +30,7 @@
 
 <script>
     import axios from 'axios';
+    const apiurl = process.env.VUE_APP_API_URL;
     export  default {
         name: "LoginComponent",
         methods:{
@@ -42,7 +43,7 @@
                 }
                 console.log(content);
                 axios
-                    .post("http://54.159.14.220:3000/api/login",content)
+                    .post(apiurl+"/login",content)
                     .then((response) => {
                         console.log(response.data);
                         var status = response.data["status"];

@@ -8,6 +8,7 @@
       <RouterLink to="/"><a href="#"><i class="uil uil-home"></i>Home</a></RouterLink>
       <RouterLink to="/consoleAdmin"><a href="#"><i class="uil uil-caret-right"></i>Console</a></RouterLink>
       <RouterLink to="/reports"><a href="#"><i class="uil uil-file-graph"></i>Reports</a></RouterLink>
+      <RouterLink to="/linkReports"><a href="#"><i class="uil uil-link"></i>Link Reports</a></RouterLink>
       <button @click="showDialog()" class="logoutB"><i class="uil uil-signout" ></i>Log out</button>
       <DialogComponent v-if="show" :message="dialogMessage" @confirmed="handleConfirmation"></DialogComponent>
     </div>
@@ -17,6 +18,7 @@
 <script>
     import axios from 'axios';
     import DialogComponent from './DialogComponent.vue';
+    const apiurl = process.env.VUE_APP_API_URL;
     export default {
         name: 'MenuAdmin',
         components: {
@@ -35,14 +37,14 @@
             handleConfirmation(response) {
                 this.show = false;
                 console.log(response);
-                axios.defaults.baseURL = 'http://localhost:5000/api';
+                axios.defaults.baseURL = apiurl;
                 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';  // Configura el origen permitido
                 axios.defaults.headers.common['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE';  // Configura los métodos permitidos
                 axios.defaults.headers.common['Access-Control-Allow-Headers'] = 'Origin, Accept, Content-Type, Authorization';
                 
                 if (response){
                     axios
-                    .post("http://localhost:5000/api/source",{content:"logout"})
+                    .post(apiurl+"/source",{content:"logout"})
                     .then((res) => {
                         console.log(res.data);                      
                     })

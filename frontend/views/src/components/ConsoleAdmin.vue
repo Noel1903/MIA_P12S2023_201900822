@@ -25,6 +25,7 @@
     import MenuAdmin from './MenuAdmin.vue';
     import axios from 'axios';
     var textFile = "";
+    const apiurl = process.env.VUE_APP_API_URL;
     export default {
         name: 'ConsoleAdmin',
         components: {
@@ -33,12 +34,12 @@
         methods:{
             sendResponse: function(){
                 textFile = document.getElementById("input").value;
-                axios.defaults.baseURL = 'http://54.159.14.220:3000/api';
+                axios.defaults.baseURL = apiurl;
                 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';  // Configura el origen permitido
                 axios.defaults.headers.common['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE';  // Configura los métodos permitidos
                 axios.defaults.headers.common['Access-Control-Allow-Headers'] = 'Origin, Accept, Content-Type, Authorization';
                 axios
-                    .post("http://54.159.14.220:3000/api/source",{content:textFile})
+                    .post(apiurl+"/source",{content:textFile})
                     .then((response) => {
                         var consoleOut = document.getElementById("output");
                         var linesArr = response.data["data"].split("\n");
